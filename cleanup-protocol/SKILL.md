@@ -1,11 +1,13 @@
 ---
 name: cleanup-protocol
-version: 1.1.0
+version: 2.0.0
 description: Remove dead code, stale artifacts, and temporary debris after validation using risk-tiered, auditable procedures.
 ---
 
 ## Revision history
 
+- 2.0.0 (2026-08-30): Added the required deprecation review date to the
+  record schema.
 - 1.1.0 (2026-08-30): Added deprecation records, surface-specific dead-code
   evidence, removal gates, and separated inventory from execution.
 
@@ -63,6 +65,7 @@ reviewer: ""
 replacement: ""
 affected_consumers: []
 announced_at: ""
+review_date: ""
 sunset_target: ""
 removal_criteria: []
 migration_steps: []

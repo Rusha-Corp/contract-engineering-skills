@@ -1,11 +1,13 @@
 ---
 name: phased-engineering-execution
-version: 1.1.0
+version: 2.0.0
 description: Break engineering work into owned packets and execute it through evidence-based phases, gates, validation, and handoffs.
 ---
 
 ## Revision history
 
+- 2.0.0 (2026-08-30): Added the `open_questions` packet field required for
+  spec-to-packet traceability.
 - 1.1.0 (2026-08-30): Added deprecation/removal lifecycle, sunset criteria,
   exceptions, and explicit scope handling for enabling work.
 
@@ -49,6 +51,7 @@ phase: P0_FOUNDATIONS
 domain: coding|browser|design|data|documentation
 title: "Short measurable title"
 objective: "Verifiable outcome"
+open_questions: []
 scope:
   in: []
   out: []

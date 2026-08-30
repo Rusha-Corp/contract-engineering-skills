@@ -1,11 +1,13 @@
 ---
 name: project-lifecycle
-version: 1.1.0
+version: 2.0.0
 description: Orchestrate phased engineering execution, cleanup, skill evolution, user verification, and closure across project iterations.
 ---
 
 ## Revision history
 
+- 2.0.0 (2026-08-30): Added an explicit deprecation-review lifecycle state
+  between validation and cleanup.
 - 1.1.0 (2026-08-30): Added deprecation review, exception expiry checks,
   tracker reconciliation, and practice experiments to iteration closure.
 
@@ -83,8 +85,10 @@ stateDiagram-v2
     [*] --> Planning
     Planning --> InProgress: packets claimed
     InProgress --> Validation: implementation complete
-    Validation --> Cleanup: validation passes
     Validation --> InProgress: rework required
+    Validation --> DeprecationReview: validation passes
+    DeprecationReview --> Cleanup: review passes
+    DeprecationReview --> InProgress: rework required
     Cleanup --> Retrospective: cleanup verified
     Retrospective --> UserReview: gaps decided
     UserReview --> Closure: user confirms goal

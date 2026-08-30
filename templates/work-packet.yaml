@@ -4,6 +4,7 @@ phase: P1_IMPLEMENTATION
 domain: coding
 title: ""
 objective: ""
+open_questions: []
 state: Planned
 scope:
   in: []

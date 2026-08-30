@@ -27,13 +27,19 @@ other Droid Skills. Instead:
 
 ```bash
 git clone https://github.com/Rusha-Corp/contract-engineering-skills.git \
-  ~/contract-engineering-skills
+  ~/contract-engineering-skills || {
+  echo "Failed to clone contract-engineering-skills" >&2
+  exit 1
+}
 for skill in phased-engineering-execution cleanup-protocol project-lifecycle skill-evolution coding-principles; do
   test ! -e "$HOME/.factory/skills/$skill" || {
     echo "Refusing to overwrite existing $skill" >&2
     exit 1
   }
-  cp -R "$HOME/contract-engineering-skills/$skill" "$HOME/.factory/skills/"
+  cp -R "$HOME/contract-engineering-skills/$skill" "$HOME/.factory/skills/" || {
+    echo "Failed to install $skill" >&2
+    exit 1
+  }
 done
 ```
 

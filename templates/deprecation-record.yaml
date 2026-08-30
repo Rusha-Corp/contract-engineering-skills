@@ -7,6 +7,7 @@ reviewer: ""
 replacement: ""
 affected_consumers: []
 announced_at: ""
+review_date: ""
 sunset_target: ""
 removal_criteria: []
 migration_steps: []

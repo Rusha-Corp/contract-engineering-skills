@@ -12,6 +12,9 @@ Skills. The host-specific integration is:
 
 - Shared Skill files are discovered from `~/.factory/skills/<name>/SKILL.md`.
 - Factory spec approval is the front gate for writes.
+- Declare semantic scope in each new packet. For semantic-bearing work,
+  link an approved semantic contract, preserve open questions and maturity,
+  and validate meaning separately from structural schema.
 - Read `docs/protocol-configuration.md` for the shared preflight and update
   contract. This adapter only supplies the Factory global skill path and
   approval behavior.

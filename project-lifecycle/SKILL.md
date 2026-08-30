@@ -1,11 +1,13 @@
 ---
 name: project-lifecycle
-version: 2.2.0
+version: 2.3.0
 description: Orchestrate phased engineering execution, cleanup, skill evolution, user verification, and closure across project iterations.
 ---
 
 ## Revision history
 
+- 2.3.0 (2026-08-30): Added semantic-contract maturity, drift, compatibility,
+  and progressive-clarification lifecycle guidance.
 - 2.2.0 (2026-08-30): Added agent observability and incident-response
   lifecycle requirements.
 - 2.1.0 (2026-08-30): Added project protocol-lock and cross-harness
@@ -27,6 +29,10 @@ iteration. All tracker, packet, evidence, handoff, archive, closure, and
 feedback paths in this skill are relative to `project.protocol_root`, which
 defaults to `.contract-engineering`. A legacy project may explicitly use
 `.factory` during migration.
+
+Semantic contracts live in `<protocol_root>/semantic-contracts/` and evolve
+with the same review, evidence, compatibility, and retention rules as other
+project records.
 
 ## Iteration loop
 
@@ -64,12 +70,16 @@ An iteration may contain one feature, a focused refactor, or a bounded group of 
 - `<protocol_root>/execution-tracker.md` exists and has no untransferred
   active locks.
 - The objective, scope, owner, and expected closure conditions are recorded.
+- Each new packet declares semantic scope; semantic-bearing work has a current
+  reviewed contract or an explicit Design Blocked status.
 - Applicable Skill versions are pinned.
 
 ### Exit criteria
 
 - Every packet is `Complete` or has a documented user-approved disposition.
 - Required validation and evidence are complete.
+- Semantic maturity, unresolved questions, compatibility impact, and drift
+  have been reviewed for semantic-bearing work.
 - Deprecations, sunset candidates, and exceptions have been reviewed.
 - No expired exception or overdue removal is silently carried forward.
 - Cleanup has run and high-risk actions have user approval.
@@ -185,6 +195,8 @@ Do not silently expand a closed or active iteration.
 
 - Never start a new iteration while the prior iteration has unclosed packets or active locks.
 - Never skip a gate, validation, cleanup, skill review, or user confirmation.
+- Never force false precision into an early semantic model; record uncertainty,
+  ownership, and the next clarification action instead.
 - Never archive active work or delete evidence before retention rules permit it.
 - Never accept a handoff without receiver status and reasons.
 - Never leave unresolved high-severity skill gaps hidden in chat.

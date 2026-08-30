@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+### Semantic engineering
+
+- Added a versioned semantic-contract format covering vocabulary, concepts,
+  invariants, boundaries, states, failure and temporal behavior, examples,
+  compatibility, profiles, open questions, and change history.
+- Added semantic applicability and reference validation to work packets.
+- Added progressive maturity guidance so projects can move from fuzzy
+  understanding to structured and stable contracts without hiding uncertainty.
+- Added semantic design, validation, handoff, migration, and adapter guidance.
+
 ### Protocol hardening
 
 - Added agent identity, capabilities, risk tiers, approval policies, and

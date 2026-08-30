@@ -1,0 +1,286 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Rusha-Corp/contract-engineering-skills/schemas/semantic-contract.schema.json",
+  "title": "Contract Engineering Semantic Contract",
+  "type": "object",
+  "required": [
+    "contract_id",
+    "contract_version",
+    "status",
+    "maturity",
+    "title",
+    "purpose",
+    "scope",
+    "vocabulary",
+    "concepts",
+    "invariants",
+    "boundaries",
+    "failure_semantics",
+    "temporal_semantics",
+    "examples",
+    "counterexamples",
+    "compatibility",
+    "profiles",
+    "open_questions",
+    "change_log",
+    "owners",
+    "review",
+    "evidence_refs",
+    "rollback"
+  ],
+  "properties": {
+    "contract_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9-]+-SC[0-9]{3}$"
+    },
+    "contract_version": {"type": "string", "minLength": 1},
+    "status": {
+      "enum": ["draft", "proposed", "approved", "superseded", "deprecated"]
+    },
+    "maturity": {
+      "enum": ["fuzzy", "emerging", "structured", "stable", "deprecated"]
+    },
+    "title": {"type": "string", "minLength": 1},
+    "purpose": {"type": "string", "minLength": 1},
+    "scope": {
+      "type": "object",
+      "required": ["in", "out"],
+      "properties": {
+        "in": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "out": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "vocabulary": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["term", "meaning"],
+        "properties": {
+          "term": {"type": "string", "minLength": 1},
+          "meaning": {"type": "string", "minLength": 1},
+          "synonyms": {"type": "array", "items": {"type": "string"}},
+          "prohibited_interpretations": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "concepts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "meaning"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "meaning": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": true
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "statement"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "statement": {"type": "string", "minLength": 1},
+          "rationale": {"type": "string"},
+          "verification_refs": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": true
+      }
+    },
+    "states": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "meaning"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "meaning": {"type": "string", "minLength": 1},
+          "entry_criteria": {"type": "array", "items": {"type": "string"}},
+          "exit_criteria": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": true
+      }
+    },
+    "transitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "trigger"],
+        "properties": {
+          "from": {"type": "string", "minLength": 1},
+          "to": {"type": "string", "minLength": 1},
+          "trigger": {"type": "string", "minLength": 1},
+          "preconditions": {"type": "array", "items": {"type": "string"}},
+          "postconditions": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": true
+      }
+    },
+    "boundaries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "meaning", "inputs", "outputs", "failure_semantics"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "meaning": {"type": "string", "minLength": 1},
+          "inputs": {"type": "array", "items": {"type": "string"}},
+          "outputs": {"type": "array", "items": {"type": "string"}},
+          "preconditions": {"type": "array", "items": {"type": "string"}},
+          "postconditions": {"type": "array", "items": {"type": "string"}},
+          "failure_semantics": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": true
+      }
+    },
+    "failure_semantics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "condition", "behavior", "recovery"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "condition": {"type": "string", "minLength": 1},
+          "behavior": {"type": "string", "minLength": 1},
+          "recovery": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": true
+      }
+    },
+    "temporal_semantics": {
+      "type": "object",
+      "required": ["ordering", "consistency", "idempotency", "freshness"],
+      "properties": {
+        "ordering": {"type": "string"},
+        "consistency": {"type": "string"},
+        "idempotency": {"type": "string"},
+        "freshness": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "examples": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "scenario", "expected", "prohibited"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "scenario": {"type": "string", "minLength": 1},
+          "expected": {"type": "string", "minLength": 1},
+          "prohibited": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": true
+      }
+    },
+    "counterexamples": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "scenario", "lesson"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "scenario": {"type": "string", "minLength": 1},
+          "lesson": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": true
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "required": ["versioning", "backward_compatibility", "migration", "deprecation"],
+      "properties": {
+        "versioning": {"type": "string", "minLength": 1},
+        "backward_compatibility": {"type": "string", "minLength": 1},
+        "migration": {"type": "string", "minLength": 1},
+        "deprecation": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": true
+    },
+    "profiles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["architecture", "api", "event", "data", "workflow", "ui", "agent"]
+      }
+    },
+    "profile_data": {
+      "type": "object",
+      "properties": {
+        "architecture": {"type": "object"},
+        "api": {"type": "object"},
+        "event": {"type": "object"},
+        "data": {"type": "object"},
+        "workflow": {"type": "object"},
+        "ui": {"type": "object"},
+        "agent": {"type": "object"}
+      },
+      "additionalProperties": true
+    },
+    "open_questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "question", "owner", "status"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "question": {"type": "string", "minLength": 1},
+          "impact": {"type": "string"},
+          "owner": {"type": "string", "minLength": 1},
+          "status": {"enum": ["open", "answered", "deferred", "rejected"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "change_log": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["version", "date", "change", "reason", "approved_by"],
+        "properties": {
+          "version": {"type": "string", "minLength": 1},
+          "date": {"type": "string", "minLength": 1},
+          "change": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1},
+          "approved_by": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": true
+      }
+    },
+    "owners": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "review": {
+      "type": "object",
+      "required": ["status", "approved_by", "approved_at"],
+      "properties": {
+        "status": {"enum": ["pending", "approved", "rejected"]},
+        "approved_by": {"type": "string"},
+        "approved_at": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "rollback": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}

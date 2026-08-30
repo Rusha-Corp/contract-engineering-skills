@@ -1,0 +1,193 @@
+contract_id: CENG-T007-P001-SC001
+contract_version: '0.1'
+status: approved
+maturity: emerging
+title: Semantics as an evolutionary protocol concern
+purpose: Preserve and progressively clarify the meaning, assumptions, and observable behavior of systems and engineering work without pretending that early understanding is complete.
+scope:
+  in:
+    - semantic meaning of domain concepts, system boundaries, interfaces, workflows, data, and observable behavior
+    - evolution from fuzzy understanding to reviewed and testable contracts
+  out:
+    - prescribing one modeling method or architecture style
+    - requiring semantic artifacts for work with no meaningful semantic impact
+vocabulary:
+  - term: semantics
+    meaning: Agreed meaning, rules, assumptions, and observable behavior of a system element or boundary.
+    synonyms:
+      - meaning
+    prohibited_interpretations:
+      - syntax alone
+      - a promise that all requirements are complete before discovery
+  - term: semantic contract
+    meaning: A versioned record of the meanings, invariants, assumptions, examples, open questions, and evidence used to guide and verify a system.
+    synonyms: []
+    prohibited_interpretations:
+      - an immutable specification that cannot evolve
+  - term: semantic maturity
+    meaning: The current clarity and evidence level of a semantic contract, from fuzzy to stable.
+    synonyms: []
+    prohibited_interpretations:
+      - a quality score that replaces engineering judgment
+concepts:
+  - id: evolutionary-clarity
+    meaning: Projects may begin with uncertainty but should make uncertainty visible and reduce it through decisions, examples, tests, and observed behavior.
+  - id: bounded-meaning
+    meaning: A term may have different valid meanings in different bounded contexts; boundaries and translations must be explicit.
+invariants:
+  - id: SEM-INV-001
+    statement: A semantic-bearing change must identify the meaning it preserves, changes, or introduces.
+    rationale: Unnamed meaning changes are a primary source of accidental incompatibility and architectural drift.
+    verification_refs:
+      - docs/semantics.md
+      - scripts/validate-contract-records.py
+  - id: SEM-INV-002
+    statement: Uncertainty and unresolved semantic questions are recorded rather than silently converted into assumptions.
+    rationale: Visible uncertainty supports safe iteration without freezing early guesses.
+    verification_refs:
+      - docs/semantics.md
+      - templates/semantic-contract.yaml
+  - id: SEM-INV-003
+    statement: A semantic contract evolves through versioned changes, evidence, review, and compatibility decisions.
+    rationale: Evolution preserves clarity and prevents both rigidity and unmanaged drift.
+    verification_refs:
+      - docs/semantics.md
+      - CHANGELOG.md
+states:
+  - id: fuzzy
+    meaning: Important meanings are known to be incomplete or contested.
+    entry_criteria:
+      - The affected area and known uncertainty are identified.
+    exit_criteria:
+      - Open questions have owners and next evidence or decision actions.
+  - id: emerging
+    meaning: Core terms and boundaries are documented while material questions remain.
+    entry_criteria:
+      - A first vocabulary, scope, and boundary interpretation exists.
+    exit_criteria:
+      - Invariants and representative examples are reviewed.
+  - id: structured
+    meaning: Terms, invariants, boundaries, failure behavior, and examples are coherent enough to guide implementation.
+    entry_criteria:
+      - The semantic contract has reviewer approval for the current change.
+    exit_criteria:
+      - Evidence demonstrates the intended observable behavior.
+  - id: stable
+    meaning: The contract is well understood, compatibility expectations are explicit, and fitness checks protect important properties.
+    entry_criteria:
+      - Relevant validation and compatibility evidence exists.
+    exit_criteria:
+      - A superseding or deprecation decision is approved.
+transitions:
+  - from: fuzzy
+    to: emerging
+    trigger: Terms, scope, and uncertainty are recorded.
+    preconditions:
+      - An owner is assigned.
+    postconditions:
+      - Open questions are explicit.
+  - from: emerging
+    to: structured
+    trigger: Invariants, examples, and boundary behavior are reviewed.
+    preconditions:
+      - The semantic-bearing packet has an approved contract.
+    postconditions:
+      - Implementation and validation can trace to the contract.
+  - from: structured
+    to: stable
+    trigger: Evidence and compatibility checks meet the contract criteria.
+    preconditions:
+      - Relevant consumers and failure behavior were evaluated.
+    postconditions:
+      - Fitness checks or review triggers are identified.
+boundaries:
+  - name: packet-to-semantic-contract
+    meaning: A packet declares whether its work affects meaning and links the contract that guides the work when it does.
+    inputs:
+      - semantic_scope
+      - semantic_contract_ref
+    outputs:
+      - approved semantic basis for implementation
+    preconditions:
+      - The packet scope identifies the affected boundary.
+    postconditions:
+      - The contract status and maturity are suitable for the packet gate.
+    failure_semantics: Missing or invalid semantic linkage blocks semantic-bearing implementation.
+  - name: semantic-contract-to-evidence
+    meaning: Contract assertions are checked through examples, tests, observations, or explicit review evidence.
+    inputs:
+      - invariants
+      - transitions
+      - boundaries
+      - examples
+    outputs:
+      - evidence references and unresolved deviations
+    preconditions:
+      - Assertions are stated in observable or reviewable terms.
+    postconditions:
+      - Deviations become revisions, exceptions, or rework decisions.
+    failure_semantics: Unverified or contradicted meaning cannot be presented as complete.
+failure_semantics:
+  - id: semantic-ambiguity
+    condition: Stakeholders or bounded contexts use a term or behavior differently.
+    behavior: Record the competing interpretations and affected consumers.
+    recovery: Resolve through a decision, explicit translation, or retained open question.
+  - id: semantic-drift
+    condition: Implementation, evidence, or consumer behavior no longer matches the contract.
+    behavior: Block completion of the affected change and identify the drift source.
+    recovery: Update the contract with review, change implementation, or document a bounded exception and migration.
+temporal_semantics:
+  ordering: Record ordering guarantees, causality, and whether observations may be stale.
+  consistency: Record the consistency model and acceptable convergence or visibility delay.
+  idempotency: Record whether repeated commands, events, or retries are safe and under which identity.
+  freshness: Record data or decision freshness expectations when they affect meaning.
+examples:
+  - name: closed-status
+    scenario: An API returns status closed.
+    expected: The contract states whether closed is terminal, reversible, or awaiting a downstream action.
+    prohibited: Consumers infer terminal deletion semantics from the label alone.
+counterexamples:
+  - name: syntactically-valid-wrong-meaning
+    scenario: A payload validates against JSON schema but maps user_id to an external billing identity instead of the internal account owner.
+    lesson: Structural validity does not prove semantic compatibility.
+compatibility:
+  versioning: Version semantic changes when consumers, invariants, meanings, or compatibility assumptions change.
+  backward_compatibility: Evaluate existing consumers and preserve or explicitly migrate their interpretations.
+  migration: Prefer parallel introduction, consumer migration, evidence, deprecation, and later removal.
+  deprecation: Record replacement, affected consumers, sunset criteria, retention, and rollback.
+profiles:
+  - architecture
+  - api
+  - event
+  - data
+  - workflow
+  - ui
+  - agent
+profile_notes:
+  architecture: Define component responsibilities, boundary meanings, ownership, dependency direction, and architectural invariants.
+  api: Define request and response meanings, preconditions, error semantics, ordering, idempotency, and compatibility.
+  event: Define event fact versus command meaning, producers, consumers, delivery, replay, ordering, and schema evolution.
+  data: Define business meaning, ownership, units, nullability, freshness, lineage, permissions, and migration semantics.
+  workflow: Define states, transitions, triggers, guards, terminality, retries, compensation, and failure recovery.
+  ui: Define user-visible meaning, interaction states, accessibility intent, validation, and empty/error/loading behavior.
+  agent: Define authority, interpretation boundaries, tool meaning, approval, uncertainty, and prohibited outcomes.
+open_questions:
+  - id: SEM-Q-001
+    question: Which semantic fitness functions should become standard across consumer projects?
+    impact: Too many mandatory checks would create rigidity; too few would permit drift.
+    owner: protocol maintainers
+    status: open
+change_log:
+  - version: '0.1'
+    date: '2026-08-30'
+    change: Initial protocol semantic contract based on domain language, bounded contexts, ADRs, contract testing, and evolutionary architecture.
+    reason: Make meaning explicit while preserving progressive clarification.
+    approved_by: user
+owners:
+  - protocol maintainers
+review:
+  status: approved
+  approved_by: user
+  approved_at: '2026-08-30'
+evidence_refs: []
+rollback: Revert the semantic gate guidance, packet fields, validator integration, and this contract; retain historical records and do not delete consumer semantic artifacts.

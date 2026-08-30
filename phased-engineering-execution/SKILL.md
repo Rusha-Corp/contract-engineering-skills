@@ -1,11 +1,13 @@
 ---
 name: phased-engineering-execution
-version: 2.2.0
+version: 2.3.0
 description: Break engineering work into owned packets and execute it through evidence-based phases, gates, validation, and handoffs.
 ---
 
 ## Revision history
 
+- 2.3.0 (2026-08-30): Added semantic scope, linked semantic contracts,
+  progressive maturity, and semantic validation guidance.
 - 2.2.0 (2026-08-30): Added agent identity, trust-boundary, runtime-budget,
   durable-execution, evaluation, and reproducibility gates.
 - 2.1.0 (2026-08-30): Added project protocol-lock and cross-harness
@@ -47,6 +49,8 @@ Never reuse an identifier after supersession or cancellation.
   configured project protocol root.
 - `work-packets/<PACKET-ID>.yaml` is the packet source of truth, relative to
   the configured project protocol root.
+- `semantic-contracts/<CONTRACT-ID>.yaml` records versioned meaning and
+  assumptions for semantic-bearing work.
 - Evidence, decisions, handoffs, cleanup records, and skill gaps are linked
   by ID relative to that same root.
 - Chat is not the sole record of ownership, scope, approval, blocker, or completion.
@@ -86,6 +90,8 @@ claim_timestamp: ""
 baseline_refs: []
 design_decision_ref: null
 data_gate_ref: null
+semantic_scope: none|affected|defined
+semantic_contract_ref: null
 acceptance_criteria: []
 validation_plan: []
 cleanup_scope:
@@ -143,7 +149,10 @@ Complete exactly these six steps before implementation:
 3. Inventory likely dead code, stale artifacts, temporary files, orphaned tests, and unused dependencies.
 4. Capture current behavior, tests, screenshots, accessibility snapshots, fixtures, and data samples as immutable evidence.
 5. Separate observed facts, assumptions, known limitations, and unavailable fixtures.
-6. Register packets, owners, locks, acceptance criteria, and required Design and Data gates in the tracker.
+6. For semantic-bearing work, inventory terms, boundaries, invariants, states,
+   temporal assumptions, consumers, and open questions in a semantic contract.
+7. Register packets, owners, locks, acceptance criteria, and required Design,
+   Data, and semantic gates in the tracker.
 
 ## Ownership and locks
 
@@ -160,6 +169,28 @@ ownership or protect external resources.
 ### Design Gate
 
 Required for layout, behavior, workflow, architecture, schema, or user-facing interaction changes. Link an existing approved design or record a `Decision` with proposal, alternatives considered, acceptance criteria, and approver. Missing approval enters `DesignBlocked`.
+
+### Semantic Gate
+
+Required when work changes, introduces, or depends on system meaning, including
+domain vocabulary, bounded-context interpretation, interface or event meaning,
+data meaning, workflow states, user-visible behavior, or agent authority.
+Declare `semantic_scope` as `none`, `affected`, or `defined` in the packet.
+For `affected` or `defined`, link a semantic contract from the configured
+project root's `semantic-contracts/` directory.
+
+The semantic contract may be `fuzzy` or `emerging`; early uncertainty is
+allowed when it is explicit, owned, and bounded. Before `Ready` or
+implementation, the current interpretation must be reviewed and marked
+approved. The gate checks that terms, invariants, boundary preconditions and
+postconditions, failure behavior, temporal assumptions, examples, and
+compatibility expectations are addressed when applicable. It does not claim
+that the contract is permanently complete.
+
+If implementation, evidence, or consumer behavior contradicts the contract,
+enter `Rework` or record an approved migration decision. Never silently
+reinterpret a shared term. Evolve the contract with a versioned change log,
+evidence, consumer analysis, and deprecation or rollback planning when needed.
 
 ### Data Correctness Gate
 
@@ -257,13 +288,14 @@ stateDiagram-v2
 
 ## Phased execution
 
-1. **Baseline:** capture six-step baseline and register packets.
+1. **Baseline:** capture six-step baseline, semantic uncertainty, and register packets.
 2. **P0 Foundations:** resolve shared primitives, contracts, routing, navigation, and blockers.
 3. **Data Gate:** validate sources, schemas, permissions, fixtures, mappings, and failure states.
 4. **P1 Implementation:** implement only approved, claimed packet scope.
 5. **P2 Design Gaps:** resolve missing states or designs, obtain approval, then implement.
 6. **P3 Cleanup:** after validation, execute the approved cleanup and removal scope through `cleanup-protocol`.
-7. **Final Integration Audit:** rerun cross-packet, regression, accessibility, responsive, data, and documentation checks.
+7. **Final Integration Audit:** rerun cross-packet, regression, accessibility,
+   responsive, data, semantic, and documentation checks.
 8. **Task Closure:** complete user verification, skill review, closure record, and archive decisions.
 
 Each phase has entry criteria, exit criteria, evidence, and coordinator review.
@@ -277,7 +309,7 @@ The core protocol does not require a particular coding assistant, CLI, IDE, or
 workflow engine.
 
 1. **During spec planning** — requirements gathered via AskUser, scope-in/out, and acceptance criteria are exactly the packet's `open_questions`, `scope`, and `acceptance_criteria`. Write them once, in the spec.
-2. **On spec approval (first write)** — if the work is multi-step, touches shared resources, or needs a handoff, the agent's FIRST action after approval is to create the packet YAML with the approved spec's file path in `baseline_refs` (and `design_decision_ref` when the spec decided a design), set `claim_timestamp` and locks, and register it in the tracker at state `Claimed` (transitioning to `Implementing` once coding starts). The approved spec counts as the Design Gate artifact; a separate Decision record is only needed if the design changes during implementation.
+2. **On spec approval (first write)** — if the work is multi-step, touches shared resources, or needs a handoff, the agent's FIRST action after approval is to create the packet YAML with the approved spec's file path in `baseline_refs` (and `design_decision_ref` when the spec decided a design), set `semantic_scope` and `semantic_contract_ref` when applicable, set `claim_timestamp` and locks, and register it in the tracker at state `Claimed` (transitioning to `Implementing` once coding starts). The approved spec counts as the Design Gate artifact; a separate Decision record is only needed if the design changes during implementation.
 3. **Small single-file specs** — no packet. Instead add one line to the tracker's session log noting the spec path and resulting commit. Keeps the ledger cheap enough to actually maintain.
 4. **Before ending any task or session** — update packet state and tracker row. A task may never be called complete with a stale tracker. Merged code with a tracker row still saying Implementing/Validation is a process failure, not a formality.
 
@@ -298,7 +330,7 @@ workflow engine.
 1. Modify only packet-scoped resources.
 2. Use project sources of truth and existing architecture.
 3. Update tests and evidence as behavior changes.
-4. Record decisions, blockers, scope changes, cleanup refs, and skill gaps immediately.
+4. Record semantic drift, decisions, blockers, scope changes, cleanup refs, and skill gaps immediately.
 5. Create a new packet for discovered work instead of silently expanding scope.
 6. If safe delivery requires migration, compatibility, security, observability,
    or cleanup work outside the packet, record a scoped decision or child packet.
@@ -338,6 +370,9 @@ A handoff is complete only after the receiver records acceptance or rejection wi
 - **Design:** approved desktop/mobile artifacts, design tokens, interaction states, responsive behavior, and accessibility intent.
 - **Data:** source, schema, filters, permissions, mapping, values, samples or row counts, and loading/empty/error/permission/stale/retry behavior, and reproducible results.
 - **Documentation:** source links, terminology, examples, version references, and cross-reference checks.
+- **Semantics:** terminology, invariants, boundary meanings, state transitions,
+  temporal assumptions, failure behavior, compatibility, examples, and
+  unresolved questions are checked against reproducible evidence.
 
 ### Pre-push validation rule (mandatory)
 

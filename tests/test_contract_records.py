@@ -74,6 +74,5 @@ class SecuritySemanticTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validator.validate_evidence_policy(policy, "synthetic-policy")
 
-
 if __name__ == "__main__":
     unittest.main()

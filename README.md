@@ -13,7 +13,8 @@ depend on a particular vendor, editor, CLI, or model.
 - Root protocol directories contain the five governed `SKILL.md` files.
 - `docs/` contains deprecation, removal, and process guidance.
 - `templates/` contains portable work-packet, deprecation, feedback,
-  validation, and consumer repository-instruction templates.
+  validation, semantic-contract, and consumer repository-instruction
+  templates.
 - `adapters/` explains host-specific installation and execution integration.
 
 ## Protocol configuration
@@ -53,6 +54,15 @@ Baseline
 The protocols separate hard safety, authorization, data-correctness, and
 traceability invariants from procedures. Procedures may be tested and revised
 through bounded practice experiments.
+
+They also treat semantics as a first-class concern. Work packets declare
+whether system meaning is unaffected, affected, or being defined. Semantic
+work links a versioned contract covering vocabulary, invariants, boundaries,
+failure behavior, compatibility, examples, and open questions. Contracts may
+begin fuzzy and become more structured through evidence and review; the
+protocol records that evolution instead of forcing false precision.
+
+Read [Semantic Engineering](docs/semantics.md) for the workflow and profiles.
 
 ## Droid installation
 

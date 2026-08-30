@@ -1,0 +1,22 @@
+decision_id: CENG-T007-P001-DEC001
+packet_id: CENG-T007-P001
+title: Preserve historical packet compatibility during semantic-contract adoption
+status: approved
+reason: The semantic contract is a new protocol capability. Requiring completed historical packets to invent retrospective meaning would add noise and reduce trust in the record rather than improve clarity.
+change:
+  added_scope:
+    - New active packets must declare semantic_scope and use semantic_contract_ref when semantics are affected or defined.
+    - Existing completed or cancelled packets may omit the new fields during migration.
+    - docs/protocol-configuration.md documents the new semantic-contracts project record directory and migration behavior.
+  removed_scope: []
+  migration_rule:
+    - The packet template requires semantic_scope for all new packets.
+    - The validator requires semantic_scope on packets in active states.
+    - Completed historical packets without semantic_scope remain valid and are documented as legacy records.
+    - Historical packets are not reclassified unless a later change touches their semantic meaning.
+  alternatives_considered:
+    - Backfill every historical packet with semantic_scope none, which would misrepresent several protocol-hardening tasks.
+    - Require a semantic contract for every packet, which would add unnecessary overhead to operational work.
+impact: New semantic-bearing work gains an explicit gate without rewriting historical evidence or forcing uncertain retroactive classifications.
+rollback: Remove the semantic applicability enforcement and retain the legacy compatibility rule; do not delete semantic contracts created by consumers.
+approved_by: user

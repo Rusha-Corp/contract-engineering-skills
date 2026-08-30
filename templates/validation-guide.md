@@ -10,6 +10,8 @@ references; they never delete a candidate automatically.
   references.
 - Register the packet owner, reviewer, locks, dependencies, and gates.
 - Record a deprecation entry for any public or shared surface being replaced.
+- Declare `semantic_scope`; for semantic-bearing work, create or revise a
+  semantic contract and record its open questions, maturity, and approval.
 
 ## Before removal
 
@@ -20,6 +22,8 @@ references; they never delete a candidate automatically.
 - Confirm the deprecation window or an unexpired approved exception.
 - Record rollback, evidence retention, and approval.
 - Run targeted validation, then full validation before closure.
+- Verify semantic terms, invariants, boundary behavior, failure meaning,
+  compatibility assumptions, and unresolved questions against evidence.
 
 ## At closure
 
@@ -28,3 +32,5 @@ references; they never delete a candidate automatically.
 - Record cleanup decisions and retained candidates.
 - Record Skill gaps and practice-experiment outcomes.
 - Obtain user verification before archiving evidence.
+- Include semantic maturity, verified meanings, remaining ambiguity, semantic
+  drift, and the next clarification action in the handoff.

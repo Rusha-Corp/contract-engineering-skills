@@ -9,6 +9,9 @@
 4. Add a migration note for changed guidance.
 5. Provide a validation plan and evidence.
 6. Keep changes small, reviewable, and reversible.
+7. For semantic-bearing changes, update the semantic contract, examples,
+   compatibility assessment, open questions, and change history. Do not
+   convert uncertainty into an unrecorded assumption.
 
 ## Release integrity
 
@@ -57,5 +60,7 @@ only on static repository search.
 - Are consumer and migration impacts documented?
 - Are validation and rollback steps reproducible?
 - Are stale references and compatibility shims addressed?
+- Are semantic meanings, boundaries, open questions, and evolution paths
+  recorded and validated?
 - Are the Skill version and revision history updated?
 - Does the change improve code health without adding speculative machinery?

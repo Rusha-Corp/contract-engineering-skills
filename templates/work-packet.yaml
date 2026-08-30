@@ -27,6 +27,8 @@ claim_timestamp: ""
 baseline_refs: []
 design_decision_ref: null
 data_gate_ref: null
+semantic_scope: none
+semantic_contract_ref: null
 stability: stable
 deprecation_refs: []
 migration_dependencies: []

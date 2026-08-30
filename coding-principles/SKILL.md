@@ -1,11 +1,13 @@
 ---
 name: coding-principles
-version: 1.2.0
+version: 1.3.0
 description: Enforce DRY, SOLID, KISS, YAGNI, composition, defensive coding, and cross-packet architecture alignment during coding implementation and validation.
 ---
 
 ## Revision history
 
+- 1.3.0 (2026-08-30): Added semantic integrity, terminology, boundary, and
+  contract-evolution checks.
 - 1.2.0 (2026-08-30): Added project protocol-lock and cross-harness
   synchronization guidance.
 - 1.1.0 (2026-08-30): Added compatibility, evolutionary architecture, and
@@ -32,6 +34,10 @@ Use the skill version selected by `protocol.lock.yaml`, and keep coding
 packets, evidence, and handoffs relative to its `project.protocol_root`,
 which defaults to `.contract-engineering`. A legacy `.factory` root must be
 explicitly recorded in the lock.
+
+For semantic-bearing coding work, use the linked semantic contract as the
+source of truth for domain meaning, boundary behavior, and compatibility
+assumptions. A passing structural test does not prove semantic compatibility.
 
 ## Principle checks
 
@@ -101,6 +107,15 @@ Avoid global state mutations, monkey-patching, implicit coercion, hidden
 side effects, and magic conventions. Make dependencies, transformations,
 permissions, organization scope, and lifecycle transitions explicit.
 
+### Semantic integrity
+
+Make domain terms, identities, units, state meanings, boundary contracts,
+failure behavior, temporal assumptions, and compatibility expectations
+explicit. Keep competing interpretations and unresolved questions visible.
+Prefer small examples, counterexamples, contract tests, and fitness functions
+over prose-only claims. When a semantic contract changes, assess consumers and
+record the versioned migration or deprecation path.
+
 ## Evolutionary architecture and compatibility
 
 For important architecture boundaries, prefer small measurable fitness
@@ -157,6 +172,7 @@ validation_plan:
     checks:
       - "Existing abstractions and completed same-domain handoffs were read"
       - "DRY, SOLID, KISS, YAGNI, composition, and explicit-boundary checks passed"
+      - "Semantic contract, terminology, boundary, compatibility, and drift checks passed where applicable"
       - "Deprecation, compatibility, fitness-function, and dependency-freshness checks passed where applicable"
       - "Import graph and layer violation checks passed or are documented unavailable"
     expected: "no unresolved principle violations"

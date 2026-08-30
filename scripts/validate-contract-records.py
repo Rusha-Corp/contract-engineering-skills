@@ -39,7 +39,12 @@ STATES = {
     "Cancelled",
 }
 DOMAINS = {"coding", "browser", "design", "data", "documentation"}
+SEMANTIC_SCOPES = {"none", "affected", "defined"}
+SEMANTIC_STATUSES = {"draft", "proposed", "approved", "superseded", "deprecated"}
+SEMANTIC_MATURITIES = {"fuzzy", "emerging", "structured", "stable", "deprecated"}
+SEMANTIC_PROFILES = {"architecture", "api", "event", "data", "workflow", "ui", "agent"}
 PACKET_ID = re.compile(r"^[A-Z0-9-]+-T\d{3}-P\d{3}$")
+SEMANTIC_CONTRACT_ID = re.compile(r"^[A-Z0-9-]+-SC\d{3}$")
 BASE_REVISION = re.compile(r"^[0-9a-f]{40}$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 MAX_YAML_BYTES = 1 * 1024 * 1024
@@ -200,13 +205,146 @@ def validate_security_semantics(packet: dict[str, Any]) -> None:
         validate_evidence_policy(policy, packet["packet_id"])
 
 
+def validate_semantic_contract(path: Path, contract: dict[str, Any]) -> None:
+    """Validate the portable shape of a semantic contract without judging domain meaning."""
+    required = {
+        "contract_id",
+        "contract_version",
+        "status",
+        "maturity",
+        "title",
+        "purpose",
+        "scope",
+        "vocabulary",
+        "concepts",
+        "invariants",
+        "boundaries",
+        "failure_semantics",
+        "temporal_semantics",
+        "examples",
+        "counterexamples",
+        "compatibility",
+        "profiles",
+        "open_questions",
+        "change_log",
+        "owners",
+        "review",
+        "evidence_refs",
+        "rollback",
+    }
+    missing = required - contract.keys()
+    if missing:
+        fail(f"{path}: missing semantic contract fields: {sorted(missing)}")
+    contract_id = contract["contract_id"]
+    if path.stem != contract_id or not SEMANTIC_CONTRACT_ID.fullmatch(str(contract_id)):
+        fail(f"{path}: semantic contract ID does not match filename or identifier contract")
+    if not isinstance(contract["status"], str) or contract["status"] not in SEMANTIC_STATUSES:
+        fail(f"{path}: invalid semantic contract status")
+    if not isinstance(contract["maturity"], str) or contract["maturity"] not in SEMANTIC_MATURITIES:
+        fail(f"{path}: invalid semantic contract maturity")
+    if (
+        not isinstance(contract["scope"], dict)
+        or not isinstance(contract["scope"].get("in"), list)
+        or not contract["scope"]["in"]
+        or not isinstance(contract["scope"].get("out"), list)
+    ):
+        fail(f"{path}: semantic contract scope.in and scope.out are required")
+    for name in ("vocabulary", "invariants", "boundaries", "failure_semantics", "examples", "counterexamples", "change_log", "owners"):
+        value = contract[name]
+        if not isinstance(value, list) or not value:
+            fail(f"{path}: semantic contract {name} must be a non-empty list")
+    item_requirements = {
+        "vocabulary": ("term", "meaning"),
+        "invariants": ("id", "statement"),
+        "boundaries": ("name", "meaning", "inputs", "outputs", "failure_semantics"),
+        "failure_semantics": ("id", "condition", "behavior", "recovery"),
+        "examples": ("name", "scenario", "expected", "prohibited"),
+        "counterexamples": ("name", "scenario", "lesson"),
+        "change_log": ("version", "date", "change", "reason", "approved_by"),
+    }
+    for name, fields in item_requirements.items():
+        for item in contract[name]:
+            if not isinstance(item, dict) or not all(
+                isinstance(item.get(field), str) and item[field]
+                if field not in {"inputs", "outputs"}
+                else isinstance(item.get(field), list)
+                for field in fields
+            ):
+                fail(f"{path}: semantic contract {name} contains an incomplete item")
+    if not all(isinstance(owner, str) and owner for owner in contract["owners"]):
+        fail(f"{path}: semantic contract owners must be non-empty strings")
+    temporal = contract["temporal_semantics"]
+    if not isinstance(temporal, dict) or not all(
+        isinstance(temporal.get(name), str) for name in ("ordering", "consistency", "idempotency", "freshness")
+    ):
+        fail(f"{path}: semantic contract temporal_semantics is incomplete")
+    compatibility = contract["compatibility"]
+    if not isinstance(compatibility, dict) or not all(
+        isinstance(compatibility.get(name), str) and compatibility[name]
+        for name in ("versioning", "backward_compatibility", "migration", "deprecation")
+    ):
+        fail(f"{path}: semantic contract compatibility is incomplete")
+    profiles = contract["profiles"]
+    if (
+        not isinstance(profiles, list)
+        or not profiles
+        or not all(isinstance(profile, str) and profile in SEMANTIC_PROFILES for profile in profiles)
+    ):
+        fail(f"{path}: semantic contract profiles are invalid")
+    questions = contract["open_questions"]
+    if not isinstance(questions, list):
+        fail(f"{path}: semantic contract open_questions must be a list")
+    for question in questions:
+        if not isinstance(question, dict) or not all(
+            isinstance(question.get(field), str) and question[field]
+            for field in ("id", "question", "owner")
+        ) or not isinstance(question.get("status"), str) or question["status"] not in {
+            "open",
+            "answered",
+            "deferred",
+            "rejected",
+        }:
+            fail(f"{path}: semantic contract open_questions contains an incomplete item")
+    review = contract["review"]
+    if (
+        not isinstance(review, dict)
+        or not isinstance(review.get("status"), str)
+        or review["status"] not in {"pending", "approved", "rejected"}
+    ):
+        fail(f"{path}: semantic contract review is invalid")
+    if contract["status"] == "approved" and review.get("status") != "approved":
+        fail(f"{path}: approved semantic contract requires approved review")
+
+
+def load_semantic_contracts(root: Path) -> dict[str, dict[str, Any]]:
+    contracts: dict[str, dict[str, Any]] = {}
+    directory = root / "semantic-contracts"
+    if not directory.is_dir():
+        return contracts
+    for path in sorted(directory.glob("*.yaml")):
+        contract = load_yaml(path)
+        if not isinstance(contract, dict) or "contract_id" not in contract:
+            fail(f"{path}: semantic contract must be a YAML mapping with contract_id")
+        contract_id = contract["contract_id"]
+        if contract_id in contracts:
+            fail(f"duplicate semantic contract ID {contract_id}")
+        validate_semantic_contract(path, contract)
+        contracts[contract_id] = contract
+    return contracts
+
+
 def path_matches(candidate: str, rule: str) -> bool:
     candidate = candidate.rstrip("/")
     rule = rule.rstrip("/")
     return candidate == rule or candidate.startswith(rule + "/")
 
 
-def validate_packet(path: Path, packet: dict[str, Any], packets: dict[str, dict[str, Any]]) -> None:
+def validate_packet(
+    path: Path,
+    packet: dict[str, Any],
+    packets: dict[str, dict[str, Any]],
+    semantic_contracts: dict[str, dict[str, Any]] | None = None,
+) -> None:
     required = {
         "packet_id",
         "task_id",
@@ -257,6 +395,27 @@ def validate_packet(path: Path, packet: dict[str, Any], packets: dict[str, dict[
             fail(f"{path}: missing dependency {dependency}")
     if len(packet["locks"]) != len(set(packet["locks"])):
         fail(f"{path}: duplicate lock")
+    semantic_scope = packet.get("semantic_scope")
+    if packet["state"] not in {"Complete", "Cancelled"} and semantic_scope is None:
+        fail(f"{path}: active packet must declare semantic_scope")
+    if semantic_scope is not None:
+        if not isinstance(semantic_scope, str) or semantic_scope not in SEMANTIC_SCOPES:
+            fail(f"{path}: invalid semantic_scope")
+        semantic_ref = packet.get("semantic_contract_ref")
+        if semantic_scope == "none":
+            if semantic_ref not in {None, ""}:
+                fail(f"{path}: semantic_scope none cannot reference a semantic contract")
+        elif not semantic_ref:
+            fail(f"{path}: semantic-bearing packet must reference a semantic contract")
+        elif semantic_contracts is not None and semantic_ref not in semantic_contracts:
+            fail(f"{path}: missing semantic contract {semantic_ref}")
+        elif (
+            semantic_contracts is not None
+            and packet["state"] in {"Ready", "Implementing", "Validation", "Rework", "Handoff"}
+        ):
+            contract = semantic_contracts[semantic_ref]
+            if contract["status"] != "approved" or contract["review"]["status"] != "approved":
+                fail(f"{path}: semantic-bearing implementation requires an approved semantic contract")
     validate_security_semantics(packet)
 
 
@@ -393,6 +552,7 @@ def main() -> int:
     configure_resource_limits()
     root = args.root
     packet_paths = sorted((root / "work-packets").glob("*.yaml"))
+    semantic_contracts = load_semantic_contracts(root)
     packets: dict[str, dict[str, Any]] = {}
     for path in packet_paths:
         packet = load_yaml(path)
@@ -403,7 +563,7 @@ def main() -> int:
             fail(f"duplicate packet ID {packet_id}")
         packets[packet_id] = packet
     for path in packet_paths:
-        validate_packet(path, packets[path.stem], packets)
+        validate_packet(path, packets[path.stem], packets, semantic_contracts)
     validate_project_lock(root)
     validate_tracker(root, packets)
     validate_dependency_graph(packets)

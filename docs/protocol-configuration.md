@@ -25,6 +25,7 @@ Create these files in every consuming project:
 .contract-engineering/
   protocol.lock.yaml
   execution-tracker.md
+  semantic-contracts/
   work-packets/
   evidence/
   handoffs/
@@ -170,6 +171,12 @@ evaluation, run, observability, and incident references. The validator enforces
 these fields for active `CENG-T005` packets. Completed packets created before
 this enforcement may be migrated under a separately scoped packet; they are
 not a precedent for new work.
+
+Packets that affect or define system meaning use the same project root's
+`semantic-contracts/` directory. A packet declares `semantic_scope: none`,
+`affected`, or `defined`; the latter two values link an approved semantic
+contract before implementation. Existing completed packets may omit these
+fields until their semantic meaning is next changed.
 
 ## Updating protocols
 

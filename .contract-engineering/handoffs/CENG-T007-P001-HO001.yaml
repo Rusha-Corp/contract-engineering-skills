@@ -1,0 +1,45 @@
+handoff_id: CENG-T007-P001-HO001
+packet_id: CENG-T007-P001
+sender: agent
+receiver: user
+base_revision: cefd662d05e4e4c0b363cd6c23ba32eb6a805717
+head_revision: worktree
+summary: Added an evolutionary semantic-contract practice and integrated semantic scope, review, validation, compatibility, drift, and handoff guidance across the protocol.
+changed_resources:
+  - docs/semantics.md
+  - templates/semantic-contract.yaml
+  - schemas/semantic-contract.schema.json
+  - templates/work-packet.yaml
+  - schemas/work-packet.schema.json
+  - phased-engineering-execution/SKILL.md
+  - project-lifecycle/SKILL.md
+  - coding-principles/SKILL.md
+  - templates/AGENTS.md
+  - docs/repository-development.md
+  - docs/protocol-configuration.md
+  - templates/validation-guide.md
+  - adapters/generic/README.md
+  - adapters/factory-droid/README.md
+  - README.md
+  - CONTRIBUTING.md
+  - CHANGELOG.md
+  - scripts/validate-contract-records.py
+  - tests/test_contract_records.py
+  - tests/test_semantic_contract.py
+  - .contract-engineering/semantic-contracts/CENG-T007-P001-SC001.yaml
+  - .contract-engineering/decisions/CENG-T007-P001-DEC001.yaml
+  - .contract-engineering/work-packets/CENG-T007-P001.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/evidence/CENG-T007-P001-EV001.md
+  - .contract-engineering/handoffs/CENG-T007-P001-HO001.yaml
+validation_results:
+  - CENG-T007-P001-EV001
+evidence_refs:
+  - CENG-T007-P001-EV001
+skill_gaps: []
+unresolved_items:
+  - Standardize semantic fitness functions only after bounded consumer trials and measured review.
+rollback_notes: Revert the scoped semantic guidance, templates, schema, validator, tests, and project records. Keep any consumer semantic contracts and migration decisions; do not mutate the stable project lock to point at this unpublished worktree.
+requested_next_action: Review and accept this handoff. After acceptance, publish the reviewed immutable protocol release, update the project lock and synchronized host installations together, and run preflight again.
+receiver_status: pending
+receiver_notes: ""

@@ -1,0 +1,94 @@
+contract_id: PROJECT-T001-P001-SC001
+contract_version: '0.1'
+status: draft
+maturity: fuzzy
+title: ""
+purpose: ""
+scope:
+  in: []
+  out: []
+vocabulary:
+  - term: ""
+    meaning: ""
+    synonyms: []
+    prohibited_interpretations: []
+concepts:
+  - id: ""
+    meaning: ""
+invariants:
+  - id: SEM-INV-001
+    statement: ""
+    rationale: ""
+    verification_refs: []
+states:
+  - id: ""
+    meaning: ""
+    entry_criteria: []
+    exit_criteria: []
+transitions:
+  - from: ""
+    to: ""
+    trigger: ""
+    preconditions: []
+    postconditions: []
+boundaries:
+  - name: ""
+    meaning: ""
+    inputs: []
+    outputs: []
+    preconditions: []
+    postconditions: []
+    failure_semantics: ""
+failure_semantics:
+  - id: ""
+    condition: ""
+    behavior: ""
+    recovery: ""
+temporal_semantics:
+  ordering: ""
+  consistency: ""
+  idempotency: ""
+  freshness: ""
+examples:
+  - name: ""
+    scenario: ""
+    expected: ""
+    prohibited: ""
+counterexamples:
+  - name: ""
+    scenario: ""
+    lesson: ""
+compatibility:
+  versioning: ""
+  backward_compatibility: ""
+  migration: ""
+  deprecation: ""
+profiles:
+  - architecture
+profile_data:
+  architecture: {}
+  api: {}
+  event: {}
+  data: {}
+  workflow: {}
+  ui: {}
+  agent: {}
+open_questions:
+  - id: SEM-Q-001
+    question: ""
+    impact: ""
+    owner: ""
+    status: open
+change_log:
+  - version: '0.1'
+    date: ""
+    change: ""
+    reason: ""
+    approved_by: ""
+owners: []
+review:
+  status: pending
+  approved_by: ""
+  approved_at: ""
+evidence_refs: []
+rollback: ""

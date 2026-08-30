@@ -1,0 +1,120 @@
+packet_id: CENG-T007-P001
+task_id: CENG-T007
+phase: P0_FOUNDATIONS
+domain: documentation
+title: Make semantics a first-class protocol concern
+objective: Define an evolutionary semantic-contract practice and integrate it with packet design, validation, delivery, and handoff.
+open_questions:
+  - How should consumers map semantic profiles to their existing architecture and domain records?
+  - Which semantic fitness functions should be standardized after initial consumer trials?
+scope:
+  in:
+    - docs/semantics.md
+    - templates/semantic-contract.yaml
+    - schemas/semantic-contract.schema.json
+    - templates/work-packet.yaml
+    - schemas/work-packet.schema.json
+    - phased-engineering-execution/SKILL.md
+    - project-lifecycle/SKILL.md
+    - coding-principles/SKILL.md
+    - templates/AGENTS.md
+    - docs/protocol-configuration.md
+    - docs/repository-development.md
+    - templates/validation-guide.md
+    - adapters/generic/README.md
+    - adapters/factory-droid/README.md
+    - README.md
+    - CONTRIBUTING.md
+    - CHANGELOG.md
+    - scripts/validate-contract-records.py
+    - tests/test_contract_records.py
+    - tests/test_semantic_contract.py
+    - .contract-engineering/semantic-contracts/CENG-T007-P001-SC001.yaml
+    - .contract-engineering/decisions/CENG-T007-P001-DEC001.yaml
+    - .contract-engineering/work-packets/CENG-T007-P001.yaml
+    - .contract-engineering/execution-tracker.md
+    - .contract-engineering/evidence/CENG-T007-P001-EV001.md
+    - .contract-engineering/handoffs/CENG-T007-P001-HO001.yaml
+  out:
+    - global installed skills
+    - existing .factory session records
+    - consumer application runtime changes
+    - remote systems
+actor:
+  agent_id: agent
+  harness: factory-droid
+  model: GPT-5.6 Luna
+  session_id: CENG-T007-P001
+capabilities:
+  - read:repository
+  - write:packet-scope
+  - execute:local-validation
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: []
+locks:
+  []
+claim_timestamp: '2026-08-30T00:00:00Z'
+baseline_refs:
+  - .contract-engineering/protocol.lock.yaml
+  - cefd662d05e4e4c0b363cd6c23ba32eb6a805717
+  - '.factory/specs/2026-08-30-make-semantics-a-first-class-protocol-concern.md'
+  - 'research: Martin Fowler Ubiquitous Language, Bounded Context, Architecture Decision Record, and Evolutionary Architecture'
+  - 'research: Microsoft Azure domain modeling for microservices'
+  - 'research: Pact consumer-driven contract testing'
+  - 'research: AWS Well-Architected backward-compatible schema evolution'
+design_decision_ref: CENG-T007-P001-DEC001
+data_gate_ref: null
+semantic_scope: defined
+semantic_contract_ref: CENG-T007-P001-SC001
+acceptance_criteria:
+  - Semantics is a named, discoverable protocol concern rather than an implicit part of the generic design gate.
+  - New semantic-bearing architecture and delivery packets link an approved semantic contract before implementation.
+  - Non-semantic packets can explicitly declare that semantics are not in scope without unnecessary contract overhead.
+  - The semantic contract supports fuzzy, emerging, structured, stable, and deprecated maturity without requiring all meaning to be known upfront.
+  - Universal semantic-contract fields and domain profiles have examples, cross-references, and validation coverage.
+  - Semantic invariants, terms, states, transitions, boundary contracts, failure behavior, compatibility assumptions, open questions, and change history are traceable to evidence and handoff review.
+  - Historical completed records remain valid through a documented conservative migration rule.
+  - All local record, schema, documentation, and test validation passes, with limitations recorded.
+validation_plan:
+  - id: CENG-T007-P001-VAL001
+    kind: preflight
+    command: SKILLS_DIR="$HOME/.factory/skills" python3 - ".contract-engineering/protocol.lock.yaml" <<'PY' ... PY
+    expected: protocol preflight passes against the locked installation
+  - id: CENG-T007-P001-VAL002
+    kind: tests
+    command: python3 -m unittest discover -s tests -p 'test_*.py'
+    expected: all focused and regression tests pass
+  - id: CENG-T007-P001-VAL003
+    kind: contract-records
+    command: python3 scripts/validate-contract-records.py
+    expected: all packets, semantic contracts, references, and tracker rows validate
+  - id: CENG-T007-P001-VAL004
+    kind: documentation
+    checks:
+      - Markdown links, headings, fences, terminology, and examples are consistent.
+      - Semantic guidance distinguishes invariants, default procedures, experiments, and open questions.
+      - Consumer adapters and repository instructions expose the same semantic workflow.
+    expected: documentation checks pass
+  - id: CENG-T007-P001-VAL005
+    kind: principles
+    skill: coding-principles
+    checks:
+      - Existing abstractions and completed same-domain handoffs were reviewed.
+      - DRY, SOLID, KISS, YAGNI, composition, and explicit-boundary checks passed.
+      - Compatibility, evolution, and fitness-function checks are documented.
+      - Import graph and layer checks were reviewed or documented unavailable.
+    expected: no unresolved principle violations
+evidence_refs:
+  - CENG-T007-P001-EV001
+handoff_ref: CENG-T007-P001-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+state: Handoff

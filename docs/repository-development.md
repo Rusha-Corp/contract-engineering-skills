@@ -13,6 +13,7 @@ The tracked project control plane is:
 .contract-engineering/
   protocol.lock.yaml
   execution-tracker.md
+  semantic-contracts/
   work-packets/
   evidence/
   handoffs/
@@ -40,11 +41,17 @@ From the repository root:
    register it in `.contract-engineering/execution-tracker.md`.
 5. Complete the six-step baseline before editing.
 
+For semantic-bearing work, the baseline also identifies affected terms,
+boundaries, invariants, states, assumptions, consumers, and open questions.
+Use `docs/semantics.md` and link the semantic contract from the packet.
+
 The packet's `baseline_refs` must include:
 
 - the project's `.contract-engineering/protocol.lock.yaml`;
 - the source revision used as the worktree base;
 - any approved design or requirements record.
+- the semantic contract or decision record when the packet affects or defines
+  system meaning.
 
 ## Parallel work
 
@@ -79,6 +86,8 @@ Before handoff:
    in tracked records.
 7. Link any safety, authorization, data, release, or agent-operation incident
    using `templates/agent-incident.yaml` before resuming affected work.
+8. For semantic-bearing packets, state verified meanings, remaining ambiguity,
+   semantic maturity, compatibility impact, and the next clarification action.
 
 Scope expansion creates a new packet or an explicit decision. It is not
 silently added to the current packet.

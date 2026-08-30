@@ -20,6 +20,9 @@ protocol skills and linked project documents; do not duplicate them here.
 ## Scope and ownership
 
 - Treat the packet's `scope.in` and `scope.out` as authoritative.
+- Declare `semantic_scope` on new packets. If work affects or defines meaning,
+  link an approved semantic contract and keep its uncertainty and evolution
+  visible.
 - Do not take over an active packet lock without a recorded recovery note.
 - Use one branch and worktree per coding packet; do not edit global installed
   skills or another packet's worktree.

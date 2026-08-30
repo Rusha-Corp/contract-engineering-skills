@@ -71,7 +71,7 @@ Choose a checkout directory outside the host's skill directory:
 git clone https://github.com/Rusha-Corp/contract-engineering-skills.git \
   "$HOME/contract-engineering-skills"
 git -C "$HOME/contract-engineering-skills" checkout --detach \
-  bcc2adb73475af10c5aa92bd27471a5e31e0f514
+  575f473a9349c5dfb61df7758b52a5592b2e2915
 ```
 
 Use the `protocol.ref` from the project's lock file instead of the example

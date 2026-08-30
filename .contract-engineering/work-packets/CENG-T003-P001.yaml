@@ -1,0 +1,84 @@
+packet_id: CENG-T003-P001
+task_id: CENG-T003
+phase: P1_IMPLEMENTATION
+domain: documentation
+title: Self-host the engineering protocol
+objective: Develop this protocol repository through its own tracked lock, records,
+  bootstrap, and validation workflow.
+open_questions: []
+scope:
+  in:
+  - .contract-engineering/protocol.lock.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/skill-feedback.md
+  - .contract-engineering/work-packets/CENG-T003-P001.yaml
+  - AGENTS.md
+  - docs/repository-development.md
+  - README.md
+  - CONTRIBUTING.md
+  - CHANGELOG.md
+  - templates/protocol-lock.yaml
+  - docs/protocol-configuration.md
+  - adapters/factory-droid/README.md
+  - adapters/generic/README.md
+  - phased-engineering-execution/SKILL.md
+  - project-lifecycle/SKILL.md
+  - cleanup-protocol/SKILL.md
+  - skill-evolution/SKILL.md
+  - coding-principles/SKILL.md
+  - host global installation of the five governed skills
+  out:
+  - existing .factory session records
+  - unrelated installed skills
+  - remote systems
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: []
+locks:
+- .contract-engineering/
+- AGENTS.md
+- docs/repository-development.md
+- README.md
+- CONTRIBUTING.md
+- CHANGELOG.md
+- templates/protocol-lock.yaml
+- docs/protocol-configuration.md
+- adapters/
+- phased-engineering-execution/SKILL.md
+- project-lifecycle/SKILL.md
+- cleanup-protocol/SKILL.md
+- skill-evolution/SKILL.md
+- coding-principles/SKILL.md
+claim_timestamp: '2026-08-30T00:00:00Z'
+baseline_refs:
+- 'approved spec: 2026-08-30-self-host-the-engineering-protocol'
+- .contract-engineering/protocol.lock.yaml
+- 575f473a9349c5dfb61df7758b52a5592b2e2915
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- The repository has a tracked protocol lock pinned to one immutable published ref.
+- Repository development records are tracked under .contract-engineering.
+- AGENTS.md and repository-development.md define bootstrap, scope, worktree, handoff,
+  recovery, and completion rules.
+- All setup examples use the same current published ref and skill hashes.
+- The local Factory installation passes the project lock preflight.
+validation_plan:
+- id: CENG-T003-P001-VAL001
+  kind: documentation
+  checks:
+  - All YAML records and templates parse successfully.
+  - Lock ref, skill versions, hashes, and protocol root are validated.
+  - Markdown links, fences, terminology, and shell syntax pass.
+  - Factory installation preflight passes and rejects tampered hashes.
+  expected: all checks pass
+evidence_refs:
+- CENG-T003-P001-EV001
+handoff_ref: CENG-T003-P001-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+state: Complete

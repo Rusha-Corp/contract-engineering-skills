@@ -27,13 +27,13 @@ git clone https://github.com/Rusha-Corp/contract-engineering-skills.git \
   exit 1
 }
 git -C ~/.factory/skills checkout --detach \
-  bcc2adb73475af10c5aa92bd27471a5e31e0f514 || {
+  575f473a9349c5dfb61df7758b52a5592b2e2915 || {
   echo "Failed to select the locked protocol revision" >&2
   exit 1
 }
 ```
 
-The commit above is the published v2.0.0 example. Replace it with the
+The commit above is the published v2.1.0 example. Replace it with the
 immutable `protocol.ref` selected in the consuming project's lock file.
 
 ## Existing installation
@@ -48,7 +48,7 @@ git clone https://github.com/Rusha-Corp/contract-engineering-skills.git \
   exit 1
 }
 git -C "$HOME/contract-engineering-skills" checkout --detach \
-  bcc2adb73475af10c5aa92bd27471a5e31e0f514 || {
+  575f473a9349c5dfb61df7758b52a5592b2e2915 || {
   echo "Failed to select the locked protocol revision" >&2
   exit 1
 }

@@ -1,0 +1,27 @@
+handoff_id: CENG-T003-P001-HO001
+packet_id: CENG-T003-P001
+sender: "agent"
+receiver: "user"
+summary: "Adopted the Contract-Driven Engineering protocol for this repository itself."
+changed_resources:
+  - .contract-engineering/protocol.lock.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/skill-feedback.md
+  - .contract-engineering/work-packets/CENG-T003-P001.yaml
+  - .contract-engineering/evidence/CENG-T003-P001-EV001.md
+  - AGENTS.md
+  - docs/repository-development.md
+  - README.md
+  - templates/protocol-lock.yaml
+  - docs/protocol-configuration.md
+  - adapters/factory-droid/README.md
+validation_results:
+  - CENG-T003-P001-EV001
+evidence_refs:
+  - CENG-T003-P001-EV001
+skill_gaps: []
+unresolved_items: []
+rollback_notes: "Revert the adoption changes; existing ignored .factory records and unrelated installed skills were preserved."
+requested_next_action: "Use the tracked lock, packet, evidence, and handoff workflow for future protocol changes."
+receiver_status: accepted
+receiver_notes: "User explicitly authorized staging, committing, and pushing the self-hosting adoption."

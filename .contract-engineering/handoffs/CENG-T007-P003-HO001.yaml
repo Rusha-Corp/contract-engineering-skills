@@ -27,5 +27,5 @@ unresolved_items:
 - PR 6 should be closed as superseded by the combined CodeQL change.
 rollback_notes: Revert commit af48c90 or remove the replacement branch; no global skills were changed.
 requested_next_action: Use this branch to update PR 1 and consolidate PRs 5 and 6, merge PRs 2, 3, and 4, then close superseded PRs.
-receiver_status: pending
-receiver_notes: ''
+receiver_status: accepted
+receiver_notes: User confirmed the consolidated branch was merged.

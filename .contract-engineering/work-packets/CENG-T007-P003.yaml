@@ -63,4 +63,4 @@ cleanup_scope:
   dead_refs: []
   stale_refs: []
   temp_refs: []
-state: Handoff
+state: Complete

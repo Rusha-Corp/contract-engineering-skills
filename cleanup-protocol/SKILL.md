@@ -139,11 +139,11 @@ list.
 
 | Tracker state                                 | Location                         | Action                                    |
 | --------------------------------------------- | -------------------------------- | ----------------------------------------- |
-| Active (`Planned`, `Claimed`, `Implementing`) | `.factory/work-packets/`         | Keep active                               |
-| Complete, pending closure                     | `.factory/work-packets/`         | Retain until user verification            |
-| Complete and user-confirmed                   | `.factory/archive/work-packets/` | Archive                                   |
-| Cancelled or superseded                       | `.factory/archive/work-packets/` | Archive with reason                       |
-| Closure record                                | `.factory/closure/`              | Retain per evidence policy                |
+| Active (`Planned`, `Claimed`, `Implementing`) | `work-packets/`         | Keep active                               |
+| Complete, pending closure                     | `work-packets/`         | Retain until user verification            |
+| Complete and user-confirmed                   | `archive/work-packets/` | Archive                                   |
+| Cancelled or superseded                       | `archive/work-packets/` | Archive with reason                       |
+| Closure record                                | `closure/`              | Retain per evidence policy                |
 | Archived and beyond retention                 | Archive storage                  | Delete only under the applicable approval |
 
 ## Evidence retention
@@ -229,6 +229,6 @@ verification:
 
 ## Cross-skill references
 
-- Packet inventory: `~/.factory/skills/phased-engineering-execution/SKILL.md`
-- Closure orchestration: `~/.factory/skills/project-lifecycle/SKILL.md`
-- Coding principles: `~/.factory/skills/coding-principles/SKILL.md`
+- Packet inventory: `phased-engineering-execution/SKILL.md`
+- Closure orchestration: `project-lifecycle/SKILL.md`
+- Coding principles: `coding-principles/SKILL.md`

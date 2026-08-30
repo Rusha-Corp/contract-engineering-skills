@@ -46,7 +46,7 @@ An iteration may contain one feature, a focused refactor, or a bounded group of 
 ### Entry criteria
 
 - The prior iteration is closed or explicitly paused.
-- `.factory/execution-tracker.md` exists and has no untransferred active locks.
+- `execution-tracker.md` exists and has no untransferred active locks.
 - The objective, scope, owner, and expected closure conditions are recorded.
 - Applicable Skill versions are pinned.
 
@@ -172,6 +172,6 @@ Do not silently expand a closed or active iteration.
 
 ## Cross-skill references
 
-- `~/.factory/skills/phased-engineering-execution/SKILL.md`
-- `~/.factory/skills/cleanup-protocol/SKILL.md`
-- `~/.factory/skills/skill-evolution/SKILL.md`
+- `phased-engineering-execution/SKILL.md`
+- `cleanup-protocol/SKILL.md`
+- `skill-evolution/SKILL.md`

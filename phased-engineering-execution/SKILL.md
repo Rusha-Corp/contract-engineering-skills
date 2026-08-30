@@ -35,8 +35,8 @@ Never reuse an identifier after supersession or cancellation.
 
 ## Required records
 
-- `.factory/execution-tracker.md` is the task status source of truth.
-- `.factory/work-packets/<PACKET-ID>.yaml` is the packet source of truth.
+- `execution-tracker.md` is the task status source of truth.
+- `work-packets/<PACKET-ID>.yaml` is the packet source of truth.
 - Evidence, decisions, handoffs, cleanup records, and skill gaps are linked by ID.
 - Chat is not the sole record of ownership, scope, approval, blocker, or completion.
 
@@ -179,9 +179,13 @@ stateDiagram-v2
 
 Each phase has entry criteria, exit criteria, evidence, and coordinator review.
 
-## Spec mode integration
+## Host integration
 
-Droid sessions default to spec mode: every write is gated behind an approved spec (ExitSpecMode). Spec mode is the front gate; this skill is the ledger behind it. The mapping is mandatory whenever a session runs in spec mode:
+Host-specific approval and execution mechanisms are adapters around this
+protocol. The host adapter must map its planning or approval mechanism to the
+packet baseline, design decision, acceptance criteria, and evidence fields.
+The core protocol does not require a particular coding assistant, CLI, IDE, or
+workflow engine.
 
 1. **During spec planning** — requirements gathered via AskUser, scope-in/out, and acceptance criteria are exactly the packet's `open_questions`, `scope`, and `acceptance_criteria`. Write them once, in the spec.
 2. **On spec approval (first write)** — if the work is multi-step, touches shared resources, or needs a handoff, the agent's FIRST action after approval is to create the packet YAML with the approved spec's file path in `baseline_refs` (and `design_decision_ref` when the spec decided a design), set `claim_timestamp` and locks, and register it in the tracker at state `Claimed` (transitioning to `Implementing` once coding starts). The approved spec counts as the Design Gate artifact; a separate Decision record is only needed if the design changes during implementation.
@@ -293,7 +297,7 @@ validation_plan:
 
 ## Cross-skill references
 
-- Cleanup mechanics: `~/.factory/skills/cleanup-protocol/SKILL.md`
-- Skill gap review: `~/.factory/skills/skill-evolution/SKILL.md`
-- Iteration orchestration: `~/.factory/skills/project-lifecycle/SKILL.md`
-- Coding principles: `~/.factory/skills/coding-principles/SKILL.md`
+- Cleanup mechanics: `cleanup-protocol/SKILL.md`
+- Skill gap review: `skill-evolution/SKILL.md`
+- Iteration orchestration: `project-lifecycle/SKILL.md`
+- Coding principles: `coding-principles/SKILL.md`

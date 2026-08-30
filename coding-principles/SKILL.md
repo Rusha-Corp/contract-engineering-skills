@@ -185,10 +185,10 @@ user approval.
 ## Cross-skill references
 
 - Packet states, schema, gates, and handoffs:
-  `~/.factory/skills/phased-engineering-execution/SKILL.md`
+  `phased-engineering-execution/SKILL.md`
 - Cleanup risk tiers and execution:
-  `~/.factory/skills/cleanup-protocol/SKILL.md`
+  `cleanup-protocol/SKILL.md`
 - Skill gaps and versioned updates:
-  `~/.factory/skills/skill-evolution/SKILL.md`
+  `skill-evolution/SKILL.md`
 - Iteration sequencing and closure:
-  `~/.factory/skills/project-lifecycle/SKILL.md`
+  `project-lifecycle/SKILL.md`

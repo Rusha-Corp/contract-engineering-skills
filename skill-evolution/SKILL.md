@@ -90,7 +90,8 @@ decision_ref: null
 ## Feedback procedure
 
 1. **Discover:** Detect the mismatch during baseline, design, implementation, validation, cleanup, handoff, or closure.
-2. **Record:** Add a complete `SkillGap` to the active packet and `.factory/skill-feedback.md`.
+2. **Record:** Add a complete `SkillGap` to the active packet and the
+   project's `skill-feedback.md`.
 3. **Handoff:** Include the gap ID, impact, and workaround status in the packet handoff.
 4. **Review:** Aggregate gaps at closure and review recurring patterns monthly or sooner for high severity.
 5. **Action:** Present each gap to the user for `action`, `defer`, or `reject`; update skills only after approval.
@@ -148,7 +149,7 @@ verification:
   outcome_metric_met: false
 ```
 
-## Accumulator: `.factory/skill-feedback.md`
+## Accumulator: `skill-feedback.md`
 
 ```markdown
 # Skill Feedback Log
@@ -183,5 +184,5 @@ verification:
 
 ## Cross-skill references
 
-- Gap inventory field: `~/.factory/skills/phased-engineering-execution/SKILL.md`
-- Closure orchestration: `~/.factory/skills/project-lifecycle/SKILL.md`
+- Gap inventory field: `phased-engineering-execution/SKILL.md`
+- Closure orchestration: `project-lifecycle/SKILL.md`

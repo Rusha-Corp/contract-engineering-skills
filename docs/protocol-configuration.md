@@ -36,6 +36,23 @@ If an existing project already stores records under `.factory`, set
 `project.protocol_root: .factory` in its lock file while migrating. Do not
 move or delete existing records automatically.
 
+### Repository-level agent instructions
+
+The project lock and records are the source of truth; a repository-level
+instruction file is only the host integration entry point. If the harness
+loads `AGENTS.md`, copy [`templates/AGENTS.md`](../templates/AGENTS.md) to the
+consumer repository root and adapt only host-specific paths or commands. If
+the harness uses another project-instruction mechanism, adapt the same
+template to that mechanism, such as `CLAUDE.md` or `.cursorrules`.
+
+The adapted file SHOULD require agents to read the lock, run preflight with
+the harness's actual global skill directory, read the tracker and applicable
+skills, claim a packet before editing, honor packet scope and locks, and
+complete validation and handoff. Keep the file concise and link to this
+guide and the configured `project.protocol_root`; do not copy the full
+protocol skills into the repository instruction file. The file belongs in
+the consuming repository, not in the global skill directory.
+
 Create the lock from the repository template:
 
 ```bash

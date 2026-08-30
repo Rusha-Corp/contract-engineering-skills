@@ -6,6 +6,9 @@ Skills. The host-specific integration is:
   `.contract-engineering/protocol.lock.yaml`.
 - Project trackers, packets, evidence, handoffs, and feedback are relative
   to the lock's `project.protocol_root`, not the global skill directory.
+- Copy or adapt `templates/AGENTS.md` as the consuming repository's
+  `AGENTS.md`; this repository-level file is the Factory project-instruction
+  bootstrap and is separate from the global skills.
 
 - Shared Skill files are discovered from `~/.factory/skills/<name>/SKILL.md`.
 - Factory spec approval is the front gate for writes.

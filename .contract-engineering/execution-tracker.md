@@ -24,3 +24,4 @@
 | CENG-T005 | CENG-T005-P004 | Complete | agent | user | Enforce security semantics in records |
 | CENG-T005 | CENG-T005-P005 | Complete | agent | user | Harden YAML parser resource limits |
 | CENG-T005 | CENG-T005-P006 | Complete | agent | user | Add repository code-security automation |
+| CENG-T006 | CENG-T006-P001 | Complete | agent | user | Add consumer repository instruction template |

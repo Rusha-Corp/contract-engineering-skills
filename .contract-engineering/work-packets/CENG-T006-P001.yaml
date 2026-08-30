@@ -1,0 +1,57 @@
+packet_id: CENG-T006-P001
+task_id: CENG-T006
+phase: P1_IMPLEMENTATION
+domain: documentation
+title: Add consumer repository instruction template
+objective: Provide a concise, harness-neutral repository instruction template and document how consumers install or adapt it.
+open_questions: []
+scope:
+  in:
+  - templates/AGENTS.md
+  - docs/protocol-configuration.md
+  - README.md
+  - adapters/generic/README.md
+  - adapters/factory-droid/README.md
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/work-packets/CENG-T006-P001.yaml
+  - .contract-engineering/evidence/CENG-T006-P001-EV001.md
+  - .contract-engineering/handoffs/CENG-T006-P001-HO001.yaml
+  out:
+  - global installed skills
+  - existing .factory session records
+  - consumer application runtime changes
+  - remote systems
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: []
+locks: []
+claim_timestamp: '2026-08-30T00:00:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 45bfc75a2457eed0028a75ff8951207178285394
+- 'user request: add consumer-facing repository instruction guidance'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- A reusable AGENTS.md template tells consumers how to bootstrap and operate the protocol without duplicating the full skills.
+- The configuration guide explains when and how to copy or adapt the template for AGENTS.md or an equivalent host instruction file.
+- README and both host adapters point to the repository instruction template.
+- Documentation examples use the project lock and configured protocol root as sources of truth.
+validation_plan:
+- id: CENG-T006-P001-VAL001
+  kind: documentation
+  checks:
+  - Markdown links, headings, fences, terminology, and shell syntax pass.
+  - The template is concise, harness-neutral, and consistent with the protocol configuration guide.
+  - README and adapter cross-references resolve to the template.
+  expected: all checks pass
+evidence_refs:
+- CENG-T006-P001-EV001
+handoff_ref: CENG-T006-P001-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+state: Complete

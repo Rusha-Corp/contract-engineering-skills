@@ -1,0 +1,27 @@
+handoff_id: CENG-T006-P001-HO001
+packet_id: CENG-T006-P001
+sender: agent
+receiver: user
+base_revision: 45bfc75a2457eed0028a75ff8951207178285394
+head_revision: worktree
+summary: Added a reusable consumer repository-instruction template and documented how to adapt it for AGENTS.md or equivalent harness project instructions.
+changed_resources:
+- templates/AGENTS.md
+- docs/protocol-configuration.md
+- README.md
+- adapters/generic/README.md
+- adapters/factory-droid/README.md
+- .contract-engineering/execution-tracker.md
+- .contract-engineering/work-packets/CENG-T006-P001.yaml
+- .contract-engineering/evidence/CENG-T006-P001-EV001.md
+- .contract-engineering/handoffs/CENG-T006-P001-HO001.yaml
+validation_results:
+- CENG-T006-P001-EV001
+evidence_refs:
+- CENG-T006-P001-EV001
+skill_gaps: []
+unresolved_items: []
+rollback_notes: Revert the scoped documentation and project-record changes; no global skills or remote systems were changed.
+requested_next_action: Review and accept this handoff, then mark the packet and tracker Complete.
+receiver_status: accepted
+receiver_notes: User accepted the handoff.

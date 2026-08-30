@@ -7,7 +7,8 @@ runtime.
 ## Integration
 
 1. Make the five root protocol directories available to the host's project
-   instructions.
+   instructions, and copy or adapt `templates/AGENTS.md` as the consuming
+   repository's `AGENTS.md` or equivalent project-instruction file.
 2. Create `.contract-engineering/protocol.lock.yaml` from
    `templates/protocol-lock.yaml`, selecting one immutable protocol ref and
    recording all five skill versions and SHA-256 hashes.

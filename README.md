@@ -12,8 +12,8 @@ depend on a particular vendor, editor, CLI, or model.
 
 - Root protocol directories contain the five governed `SKILL.md` files.
 - `docs/` contains deprecation, removal, and process guidance.
-- `templates/` contains portable work-packet, deprecation, feedback, and
-  validation records.
+- `templates/` contains portable work-packet, deprecation, feedback,
+  validation, and consumer repository-instruction templates.
 - `adapters/` explains host-specific installation and execution integration.
 
 ## Protocol configuration
@@ -32,6 +32,9 @@ skill's version and SHA-256 hash. Project trackers, packets, evidence,
 handoffs, and feedback are stored relative to the configured protocol root.
 Read [the protocol configuration guide](docs/protocol-configuration.md) for
 setup, preflight, updates, rollback, and multi-harness coordination.
+For the repository-level bootstrap that connects those records to an agent
+harness, copy or adapt [`templates/AGENTS.md`](templates/AGENTS.md) as the
+consumer's `AGENTS.md` or equivalent project-instruction file.
 
 ## Core loop
 

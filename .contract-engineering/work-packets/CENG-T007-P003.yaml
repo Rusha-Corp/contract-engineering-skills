@@ -1,0 +1,66 @@
+packet_id: CENG-T007-P003
+task_id: CENG-T007
+phase: P1_IMPLEMENTATION
+domain: coding
+title: Correct CI dependency upgrade workflows
+objective: Prepare a validated branch that fixes PR 1's negative workflow tests and consolidates the compatible CodeQL upgrades from PRs 5 and 6.
+open_questions: []
+scope:
+  in:
+  - .github/workflows/protocol-validation.yml
+  - .github/workflows/security.yml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/work-packets/CENG-T007-P003.yaml
+  - .contract-engineering/evidence/CENG-T007-P003-EV001.md
+  - .contract-engineering/handoffs/CENG-T007-P003-HO001.yaml
+  out:
+  - PRs 2, 3, and 4 source changes
+  - global installed skills
+  - existing completed packet records
+  - remote PR merge or closure actions
+cleanup_owner: agent
+owner: agent
+reviewer: user
+dependencies: []
+locks: []
+claim_timestamp: '2026-08-30T00:00:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- cefd662d05e4e4c0b363cd6c23ba32eb6a805717
+- 0141b878e5561c57966c273f605571df0ecc6f13
+- efcd388cbaaf5cdea63550afb80d872fd35f2e75
+- 0dbfb6c34bedb8d3a5d535e2d9541a9c883dcb76
+- 'user request: act on reviewed CI pull requests'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- The checkout upgrade is pinned to the reviewed v7.0.1 commit and both negative workflow tests mutate that current pin.
+- CodeQL init and analyze use the same reviewed v4.37.9 commit.
+- Workflow YAML, action pinning, negative security checks, and repository validation pass.
+- The resulting branch is suitable for updating PR 1 and consolidating PRs 5 and 6.
+validation_plan:
+- id: CENG-T007-P003-VAL001
+  kind: workflow
+  command: 'python3 workflow and security-invariant checks'
+  expected: all workflow checks pass
+- id: CENG-T007-P003-VAL002
+  kind: repository
+  command: 'python3 scripts/validate-contract-records.py'
+  expected: exit 0
+- id: CENG-T007-P003-VAL003
+  kind: principles
+  skill: coding-principles
+  checks:
+  - Existing workflow security patterns and reviewed dependency changes were inspected.
+  - DRY, KISS, YAGNI, explicit-boundary, and dependency-alignment checks passed.
+  - Import graph and layer checks are not applicable to workflow-only changes.
+  expected: no unresolved principle violations
+evidence_refs:
+- CENG-T007-P003-EV001
+handoff_ref: null
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+state: Validation

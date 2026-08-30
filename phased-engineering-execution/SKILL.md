@@ -1,11 +1,13 @@
 ---
 name: phased-engineering-execution
-version: 2.2.0
+version: 2.3.0
 description: Break engineering work into owned packets and execute it through evidence-based phases, gates, validation, and handoffs.
 ---
 
 ## Revision history
 
+- 2.3.0 (2026-08-30): Added explicit batch acceptance and task-closure
+  guidance while preserving per-packet evidence, handoffs, and release gates.
 - 2.2.0 (2026-08-30): Added agent identity, trust-boundary, runtime-budget,
   durable-execution, evaluation, and reproducibility gates.
 - 2.1.0 (2026-08-30): Added project protocol-lock and cross-harness
@@ -281,6 +283,28 @@ workflow engine.
 3. **Small single-file specs** — no packet. Instead add one line to the tracker's session log noting the spec path and resulting commit. Keeps the ledger cheap enough to actually maintain.
 4. **Before ending any task or session** — update packet state and tracker row. A task may never be called complete with a stale tracker. Merged code with a tracker row still saying Implementing/Validation is a process failure, not a formality.
 
+### Batch acceptance and task closure
+
+A reviewer may accept a coherent batch of packets in one interaction when the
+packets are named explicitly and their scopes, evidence, and dependencies have
+already been reviewed. Batch acceptance is a coordination convenience, not a
+new packet state or a replacement for individual records.
+
+For every packet in an accepted batch, the coordinator SHALL:
+
+1. verify that the packet has its own evidence references and handoff;
+2. record the receiver's accepted status and packet-specific notes in that
+   handoff;
+3. preserve documented limitations, skipped checks, and unresolved items;
+4. move only packets whose acceptance criteria, evidence, and required gates
+   are satisfied to `Complete`;
+5. release that packet's locks and reconcile its tracker row atomically.
+
+One packet's acceptance must not close another packet that lacks evidence,
+handoff, required validation, or a recorded receiver decision. A task may
+therefore contain a mix of completed, blocked, ready, and in-progress packets
+after a batch acceptance.
+
 ## Agent procedure
 
 ### Start
@@ -361,6 +385,21 @@ not bad luck.
 Complete a packet only when acceptance criteria pass, evidence is linked, the
 reviewer accepts the handoff, deprecation/removal criteria are satisfied or
 explicitly dispositioned, and locks are released.
+
+### Shared protocol release boundary
+
+Changes to this repository's skills, templates, adapters, or guidance may be
+committed as an unreleased development revision after their packet validation
+passes. A consuming project's lock SHALL continue to reference the last
+published immutable release until the replacement release is reviewed and
+published. Do not update a consumer lock to an uncommitted or merely pushed
+development revision.
+
+Before publishing a replacement release, record the changed skill versions,
+per-file hashes, migration notes, consumer impact, validation evidence,
+independent release review, attestation, provenance, and rollback reference.
+After publication, synchronize every harness installation from the same
+immutable ref and rerun preflight before resuming work under the new lock.
 
 For coding-domain packets, include a principles validation step in the
 packet's `validation_plan`:

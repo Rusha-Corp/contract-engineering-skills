@@ -89,6 +89,15 @@ A handoff transfers work, not completion. The receiver checks the base
 revision, current diff, validation evidence, scope, and unresolved items.
 The receiver records `accepted` or `rejected` status.
 
+### Batch acceptance
+
+A user may accept several explicitly named packets in one interaction when
+their handoffs and evidence are available for review. The coordinator must
+still record an independent accepted handoff for each packet, preserve each
+packet's limitations and unresolved items, release each packet's locks, and
+reconcile each tracker row. Batch acceptance must not close a packet whose
+evidence, validation, required gate, or handoff is missing.
+
 If an agent stops unexpectedly:
 
 1. Leave the packet in `Interrupted` or `Handoff` rather than `Complete`.
@@ -116,6 +125,12 @@ Protocol changes are a two-stage operation:
 Do not make a lock point to an uncommitted worktree state. During a protocol
 change, the lock describes the last stable release until the replacement is
 published.
+
+An accepted batch of protocol packets may be committed together as one
+unreleased development revision. This does not publish a new protocol
+release. The release packet must subsequently record the independent review,
+attestation, provenance, artifact hashes, consumer migration notes, and
+rollback plan before any consumer lock moves to the new immutable ref.
 
 ## Completion
 

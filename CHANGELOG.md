@@ -4,6 +4,10 @@
 
 ### Protocol hardening
 
+- Added batch-acceptance guidance that preserves per-packet evidence,
+  handoffs, limitations, lock release, and tracker reconciliation.
+- Clarified that pushed development revisions do not become consumer lock
+  targets until an independently reviewed immutable release is published.
 - Added agent identity, capabilities, risk tiers, approval policies, and
   external-effect records.
 - Added trust-boundary and prompt-injection handling for repository, tool,

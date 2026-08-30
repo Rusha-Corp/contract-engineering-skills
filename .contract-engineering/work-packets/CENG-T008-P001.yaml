@@ -1,0 +1,100 @@
+packet_id: CENG-T008-P001
+task_id: CENG-T008
+phase: P1_IMPLEMENTATION
+domain: documentation
+title: "Clarify batch acceptance and protocol release guidance"
+objective: "Make multi-packet user acceptance explicit while preserving per-packet evidence, handoffs, validation, and release integrity."
+open_questions: []
+state: Complete
+scope:
+  in:
+    - "phased-engineering-execution/SKILL.md"
+    - "docs/repository-development.md"
+    - "CHANGELOG.md"
+    - ".contract-engineering/execution-tracker.md"
+    - ".contract-engineering/work-packets/CENG-T008-P001.yaml"
+    - ".contract-engineering/evidence/CENG-T008-P001-EV001.md"
+    - ".contract-engineering/handoffs/CENG-T008-P001-HO001.yaml"
+  out:
+    - "Changing protocol lock schema or governed skill hashes"
+    - "Changing existing lifecycle states"
+    - "Editing installed global skills"
+    - "Changing consumer repository records"
+    - "Publishing a stable release tag"
+actor:
+  agent_id: "droid"
+  harness: "Factory Droid"
+  model: ""
+  session_id: ""
+capabilities:
+  - "repository-read"
+  - "repository-write"
+  - "documentation"
+  - "protocol-maintenance"
+owner: "agent"
+reviewer: "user"
+cleanup_owner: "agent"
+risk_tier: high
+approval_policy: user
+external_effects:
+  - "Push the reviewed protocol change to the shared GitHub repository after explicit user authorization."
+dependencies: []
+locks: []
+claim_timestamp: "2026-08-30T19:08:29Z"
+baseline_refs:
+  - ".contract-engineering/protocol.lock.yaml"
+  - "phased-engineering-execution/SKILL.md"
+  - "docs/repository-development.md"
+  - "CONTRIBUTING.md"
+  - "CHANGELOG.md"
+  - "44c9c9517e59c3aaffb4391eeec54095bc976428"
+design_decision_ref: null
+data_gate_ref: null
+stability: beta
+deprecation_refs: []
+migration_dependencies:
+  - "Consumers must adopt the updated guidance without changing their pinned lock until a published release is available."
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+acceptance_criteria:
+  - "The protocol explicitly permits a user to accept a coherent batch of packets in one interaction."
+  - "Batch acceptance still requires a distinct accepted handoff and evidence reference for every packet."
+  - "Known validation limitations remain visible and cannot be silently converted into passing results."
+  - "The release workflow distinguishes an unreleased shared-repository commit from a stable lock update."
+  - "Migration, rollback, and validation guidance is documented."
+validation_plan:
+  - id: CENG-T008-P001-VAL001
+    kind: documentation
+    command: "Review the changed guidance for consistency with packet states, handoffs, evidence, locks, and release instructions"
+    expected: "no contradictory completion or release instructions"
+  - id: CENG-T008-P001-VAL002
+    kind: static
+    command: "Run the repository contract-record validator and link/reference checks"
+    expected: "all records and references pass"
+  - id: CENG-T008-P001-VAL003
+    kind: security
+    command: "Inspect the diff for secrets, unsafe instructions, and unapproved external effects"
+    expected: "no credentials, privilege escalation, or unapproved effects"
+  - id: CENG-T008-P001-VAL004
+    kind: principles
+    checks:
+      - "The change adds only the missing coordination guidance."
+      - "Per-packet traceability and reviewer independence remain intact."
+      - "Stable release and consumer synchronization boundaries remain explicit."
+    expected: "no unresolved protocol-principle violations"
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+evidence_refs:
+  - "CENG-T008-P001-EV001"
+handoff_ref: CENG-T008-P001-HO001

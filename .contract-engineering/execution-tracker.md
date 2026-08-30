@@ -2,6 +2,7 @@
 
 | Task | Packet | State | Owner | Reviewer | Locks |
 | --- | --- | --- | --- | --- | --- |
+| CENG-T008 | CENG-T008-P001 | Complete | agent | user | released |
 | CENG-T003 | CENG-T003-P001 | Complete | agent | user | repository self-hosting configuration |
 | CENG-T004 | CENG-T004-P001 | Complete | agent | user | Define agent identity and capabilities |
 | CENG-T004 | CENG-T004-P002 | Complete | agent | user | Define agent trust boundaries |

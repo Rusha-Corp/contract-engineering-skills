@@ -26,3 +26,4 @@
 | CENG-T005 | CENG-T005-P006 | Complete | agent | user | Add repository code-security automation |
 | CENG-T006 | CENG-T006-P001 | Complete | agent | user | Add consumer repository instruction template |
 | CENG-T007 | CENG-T007-P001 | Complete | agent | user | Make semantics a first-class protocol concern |
+| CENG-T007 | CENG-T007-P002 | Complete | agent | user | Pin project lock to semantic protocol pre-release |

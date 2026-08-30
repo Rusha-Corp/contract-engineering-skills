@@ -1,0 +1,25 @@
+handoff_id: CENG-T007-P002-HO001
+packet_id: CENG-T007-P002
+sender: agent
+receiver: user
+base_revision: b087fb58b14d6c3471c8a5a19c9ab929a5209e67
+head_revision: worktree
+summary: Updated the project protocol lock to the pushed immutable semantic-engineering pre-release and recorded the required manual global-skill synchronization.
+changed_resources:
+  - .contract-engineering/protocol.lock.yaml
+  - .contract-engineering/decisions/CENG-T007-P002-DEC001.yaml
+  - .contract-engineering/work-packets/CENG-T007-P002.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/evidence/CENG-T007-P002-EV001.md
+  - .contract-engineering/handoffs/CENG-T007-P002-HO001.yaml
+validation_results:
+  - CENG-T007-P002-EV001
+evidence_refs:
+  - CENG-T007-P002-EV001
+skill_gaps: []
+unresolved_items:
+  - The live global Factory skill installation remains on published 2.1.0 until manually synchronized from the immutable pre-release commit.
+rollback_notes: Restore `.contract-engineering/protocol.lock.yaml` to ref 575f473a9349c5dfb61df7758b52a5592b2e2915 and the prior published 2.1.0 pins; retain the semantic implementation and records unless the feature itself is rejected.
+requested_next_action: Manually synchronize `$HOME/.factory/skills` from b087fb58b14d6c3471c8a5a19c9ab929a5209e67, rerun protocol preflight with the updated lock, and merge or promote the pre-release after independent review.
+receiver_status: accepted
+receiver_notes: User selected the pre-release lock pin and authorized protocol update. Live global skill synchronization remains a documented manual prerequisite.

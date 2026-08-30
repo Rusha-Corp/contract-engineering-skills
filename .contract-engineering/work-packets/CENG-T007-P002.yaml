@@ -1,0 +1,80 @@
+packet_id: CENG-T007-P002
+task_id: CENG-T007
+phase: P0_FOUNDATIONS
+domain: documentation
+title: Pin project lock to semantic protocol pre-release
+objective: Update the project protocol lock to the pushed immutable semantic-engineering commit and document installation synchronization prerequisites.
+open_questions:
+  - When should the pre-release become the stable published protocol?
+scope:
+  in:
+    - .contract-engineering/protocol.lock.yaml
+    - .contract-engineering/decisions/CENG-T007-P002-DEC001.yaml
+    - .contract-engineering/work-packets/CENG-T007-P002.yaml
+    - .contract-engineering/execution-tracker.md
+    - .contract-engineering/evidence/CENG-T007-P002-EV001.md
+    - .contract-engineering/handoffs/CENG-T007-P002-HO001.yaml
+  out:
+    - global installed skills
+    - consumer application runtime changes
+    - remote systems other than this task branch
+actor:
+  agent_id: agent
+  harness: factory-droid
+  model: GPT-5.6 Luna
+  session_id: CENG-T007-P002
+capabilities:
+  - read:repository
+  - write:packet-scope
+  - execute:local-validation
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies:
+  - CENG-T007-P001
+locks:
+  []
+claim_timestamp: '2026-08-30T00:00:00Z'
+baseline_refs:
+  - .contract-engineering/protocol.lock.yaml
+  - b087fb58b14d6c3471c8a5a19c9ab929a5209e67
+  - CENG-T007-P001-HO001
+design_decision_ref: CENG-T007-P002-DEC001
+data_gate_ref: null
+semantic_scope: affected
+semantic_contract_ref: CENG-T007-P001-SC001
+acceptance_criteria:
+  - The project lock points to the pushed immutable commit b087fb58b14d6c3471c8a5a19c9ab929a5209e67.
+  - All five skill pins match the source files at that commit.
+  - The lock remains structurally valid and the project records validate.
+  - The live global installation is not silently changed; its synchronization requirement and exact source commit are recorded.
+  - Rollback to the published 2.1.0 lock is explicit and reproducible.
+validation_plan:
+  - id: CENG-T007-P002-VAL001
+    kind: contract-records
+    command: python3 scripts/validate-contract-records.py
+    expected: all records validate against the pre-release lock
+  - id: CENG-T007-P002-VAL002
+    kind: preflight
+    command: SKILLS_DIR=/tmp/contract-engineering-skills-pre-release python3 - ".contract-engineering/protocol.lock.yaml" <<'PY' ... PY
+    expected: preflight passes against a temporary installation copied from the pushed immutable commit
+  - id: CENG-T007-P002-VAL003
+    kind: tests
+    command: python3 -m unittest discover -s tests -p 'test_*.py'
+    expected: all tests pass
+  - id: CENG-T007-P002-VAL004
+    kind: scope
+    command: packet changed-path scope check
+    expected: only lock and packet records in scope changed
+evidence_refs:
+  - CENG-T007-P002-EV001
+handoff_ref: CENG-T007-P002-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+state: Complete

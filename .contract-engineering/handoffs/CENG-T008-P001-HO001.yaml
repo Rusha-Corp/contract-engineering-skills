@@ -14,7 +14,7 @@ receiver:
   authentication_ref: "User instruction in active session"
   signature_ref: ""
 base_revision: "44c9c9517e59c3aaffb4391eeec54095bc976428"
-head_revision: "fe28c6e9ea393e37a4e4bbaacb072a60be4fb4f7"
+head_revision: "3f1a57f085f1e4cd900cd669e3c32daa3fb449c4"
 scope_digest: ""
 changed_resources:
   - path: "phased-engineering-execution/SKILL.md"

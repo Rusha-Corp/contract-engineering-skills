@@ -57,10 +57,10 @@ validation_plan:
   expected: no unresolved principle violations
 evidence_refs:
 - CENG-T007-P003-EV001
-handoff_ref: null
+handoff_ref: CENG-T007-P003-HO001
 skill_gaps: []
 cleanup_scope:
   dead_refs: []
   stale_refs: []
   temp_refs: []
-state: Validation
+state: Handoff

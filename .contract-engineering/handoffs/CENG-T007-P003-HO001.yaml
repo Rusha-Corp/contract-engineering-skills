@@ -1,0 +1,31 @@
+handoff_id: CENG-T007-P003-HO001
+packet_id: CENG-T007-P003
+sender: agent
+receiver: user
+base_revision: cefd662d05e4e4c0b363cd6c23ba32eb6a805717
+head_revision: af48c90
+summary: Corrected PR 1's stale negative workflow fixtures and consolidated the compatible CodeQL v4.37.9 init and analyze upgrades from PRs 5 and 6.
+changed_resources:
+- .github/workflows/protocol-validation.yml
+- .github/workflows/security.yml
+- .contract-engineering/execution-tracker.md
+- .contract-engineering/work-packets/CENG-T007-P003.yaml
+- .contract-engineering/evidence/CENG-T007-P003-EV001.md
+- .contract-engineering/handoffs/CENG-T007-P003-HO001.yaml
+validation_results:
+- CENG-T007-P003-EV001
+- python3 scripts/validate-contract-records.py
+- workflow YAML, action pin, negative invariant, and CodeQL alignment checks
+- git diff --check
+evidence_refs:
+- CENG-T007-P003-EV001
+skill_gaps: []
+unresolved_items:
+- PRs 2, 3, and 4 still require GitHub-side merge.
+- PR 1 should be replaced or updated with this branch's checkout fixture correction.
+- PR 5 should be replaced or updated with this branch's combined CodeQL changes.
+- PR 6 should be closed as superseded by the combined CodeQL change.
+rollback_notes: Revert commit af48c90 or remove the replacement branch; no global skills were changed.
+requested_next_action: Use this branch to update PR 1 and consolidate PRs 5 and 6, merge PRs 2, 3, and 4, then close superseded PRs.
+receiver_status: pending
+receiver_notes: ''

@@ -1,0 +1,23 @@
+handoff_id: CENG-T004-P008-HO001
+packet_id: CENG-T004-P008
+sender: agent
+receiver: user
+base_revision: 295cc42862cc1545827918443b85bb3301a46c53
+head_revision: worktree
+summary: Defined enforceable packet leases, heartbeats, fencing tokens, takeover, stale-lock, and split-brain handling.
+changed_resources:
+  - phased-engineering-execution/SKILL.md
+  - templates/packet-lease.yaml
+  - docs/coordination.md
+  - adapters/factory-droid/README.md
+  - adapters/generic/README.md
+validation_results:
+  - CENG-T004-P008-EV001
+evidence_refs:
+  - CENG-T004-P008-EV001
+skill_gaps: []
+unresolved_items: []
+rollback_notes: Restore prior ownership guidance and remove the lease template and coordination guide.
+requested_next_action: Proceed to behavioral evaluation and reproducibility packets.
+receiver_status: accepted
+receiver_notes: User authorized implementation of the full CENG-T004 backlog; this bounded packet passed validation.

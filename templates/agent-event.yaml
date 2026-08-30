@@ -1,0 +1,29 @@
+event_schema_version: 1
+event_id: ""
+event_type: agent_started|model_call|tool_call|approval_requested|file_change|validation|retry|failure|external_effect|agent_stopped|handoff
+occurred_at: ""
+packet_id: ""
+run_id: ""
+operation_id: ""
+actor_ref: ""
+parent_event_id: null
+source:
+  harness: ""
+  component: ""
+  version: ""
+outcome: started|approved|denied|success|failure|unknown|cancelled
+resource:
+  type: ""
+  identifier: ""
+  digest: ""
+usage:
+  duration_ms: 0
+  tool_calls: 0
+  tokens: 0
+  cost_usd: 0
+data:
+  classification: public|internal|confidential|restricted
+  redacted: true
+  content_ref: null
+approval_ref: null
+evidence_refs: []

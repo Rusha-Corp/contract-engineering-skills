@@ -1,0 +1,10 @@
+# Security-sensitive protocol and automation paths require independent
+# organization-owner review. Replace the owner with the repository's dedicated
+# security team when one is established.
+/.github/ @Rusha-Corp
+/.contract-engineering/ @Rusha-Corp
+/scripts/ @Rusha-Corp
+/schemas/ @Rusha-Corp
+/templates/ @Rusha-Corp
+/.gitleaks.toml @Rusha-Corp
+SECURITY.md @Rusha-Corp

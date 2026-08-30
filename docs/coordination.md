@@ -1,0 +1,62 @@
+# Packet Leases and Distributed Coordination
+
+Worktrees isolate files. They do not by themselves prevent two agents from
+claiming the same logical packet, using the same external resource, or
+continuing after a stale claim. Use `templates/packet-lease.yaml` when packet
+coordination is concurrent or side-effecting.
+
+## Lease contract
+
+A lease identifies one holder, session, issue time, expiry, heartbeat, renewal
+count, and fencing token. The coordination store must make claim, renewal,
+release, and takeover atomic. A timestamp written by two agents without an
+atomic compare-and-set is not a lease.
+
+The holder renews before expiry. A missed heartbeat does not immediately prove
+failure; use the configured grace period and coordination-store clock. The
+old holder must stop when its lease expires or its fencing token is rejected.
+
+## Fencing and shared resources
+
+Every write to a protected shared resource carries the current fencing token.
+The resource rejects tokens older than the latest accepted token. This
+prevents a paused or partitioned agent from writing after another agent takes
+over.
+
+Packet locks, worktrees, external APIs, credentials, and generated artifacts
+may each need separate ownership. Do not infer that a worktree lock protects
+an external resource.
+
+## Takeover
+
+Takeover requires:
+
+1. Verify the lease is expired, revoked, or explicitly released.
+2. Record the prior holder, reason, last heartbeat, current revision, and
+   recovery plan.
+3. Issue a new fencing token and lease to the new holder.
+4. Revalidate packet scope, approvals, budget, checkpoint, and external
+   effects before resuming.
+5. Preserve the prior session and evidence; do not silently overwrite it.
+
+If the old holder may still be active and fencing cannot be enforced, block
+the takeover and escalate to the reviewer or user.
+
+## Failure states
+
+- `expired`: lease passed its expiry without a verified renewal;
+- `revoked`: reviewer or incident response stopped the holder;
+- `takeover`: a new holder is being established;
+- `split_brain`: multiple holders may have acted; block writes and open an
+  incident;
+- `released`: holder completed or intentionally surrendered the packet.
+
+The tracker and packet state must agree with the lease record. A completed
+packet has no active lease. A stale lock is not cleanup authorization.
+
+## File-only fallback
+
+Projects without a coordination service may use an atomic repository commit
+or host-provided exclusive lock for low-risk file-only work. This fallback
+must state its limitations, use short-lived claims, and block high-risk
+external effects. It must not be described as split-brain-safe.

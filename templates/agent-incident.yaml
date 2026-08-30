@@ -1,0 +1,34 @@
+incident_id: ""
+detected_at: ""
+detected_by: ""
+severity: low|medium|high|critical
+state: Detected|Contained|Investigating|Remediated|Verified|Closed
+category: drift|prompt_injection|tool_misuse|secret_exposure|runaway_agent|destructive_error|release_compromise|data_error|other
+summary: ""
+affected:
+  projects: []
+  packets: []
+  actors: []
+  tools: []
+  releases: []
+  data_classes: []
+containment:
+  actions: []
+  completed_at: ""
+  approval_ref: ""
+evidence_refs: []
+notifications:
+  user: false
+  security: false
+  consumers: false
+remediation:
+  actions: []
+  owner: ""
+  due_at: ""
+verification:
+  verifier: ""
+  result: pass|fail|pending
+  verified_at: ""
+postmortem_ref: null
+rollback_ref: ""
+closed_at: ""

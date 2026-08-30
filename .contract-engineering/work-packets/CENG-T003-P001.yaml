@@ -35,21 +35,7 @@ owner: agent
 reviewer: user
 cleanup_owner: agent
 dependencies: []
-locks:
-- .contract-engineering/
-- AGENTS.md
-- docs/repository-development.md
-- README.md
-- CONTRIBUTING.md
-- CHANGELOG.md
-- templates/protocol-lock.yaml
-- docs/protocol-configuration.md
-- adapters/
-- phased-engineering-execution/SKILL.md
-- project-lifecycle/SKILL.md
-- cleanup-protocol/SKILL.md
-- skill-evolution/SKILL.md
-- coding-principles/SKILL.md
+locks: []
 claim_timestamp: '2026-08-30T00:00:00Z'
 baseline_refs:
 - 'approved spec: 2026-08-30-self-host-the-engineering-protocol'

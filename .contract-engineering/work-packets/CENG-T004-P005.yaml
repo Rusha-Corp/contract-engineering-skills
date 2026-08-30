@@ -1,0 +1,67 @@
+packet_id: CENG-T004-P005
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: documentation
+title: Protect evidence and sensitive data
+objective: Define data classification, redaction, secret detection, access control,
+  encryption, retention, and sensitive telemetry rules for project records.
+research_gap_refs:
+- CENG-GAP-004
+open_questions:
+- Which classification levels and retention durations are required by consuming projects?
+- Which secret scanners and encrypted storage mechanisms are supported?
+scope:
+  in:
+  - cleanup-protocol/SKILL.md
+  - templates/evidence-policy.yaml
+  - docs/evidence-security.md
+  - docs/repository-development.md
+  out:
+  - existing .factory session records
+  - unrelated installed skills
+  - consumer application runtime changes outside this packet
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: &id001
+- CENG-T004-P002
+- CENG-T004-P003
+locks: []
+claim_timestamp: '2026-08-30T09:11:59Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 295cc42862cc1545827918443b85bb3301a46c53
+- 'approved spec: 2026-08-30-create-protocol-hardening-work-packets'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Evidence records specify classification, redaction status, access policy, retention
+  class, and encryption requirements.
+- The protocol forbids secrets and unnecessary sensitive content in packets, logs,
+  screenshots, and telemetry.
+- Secret detection, redaction review, access control, and retention checks are validation
+  requirements.
+- Incident handling preserves evidence without exposing protected data.
+validation_plan:
+- id: CENG-T004-P005-VAL001
+  kind: documentation
+  checks:
+  - YAML/schema records parse and satisfy required fields and enums.
+  - Cross-references, examples, terminology, and links are valid.
+  - Acceptance criteria and migration/rollback behavior are covered by evidence.
+  expected: all documentation and record checks pass
+evidence_refs:
+- CENG-T004-P005-EV001
+handoff_ref: CENG-T004-P005-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: *id001
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

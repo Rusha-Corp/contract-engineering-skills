@@ -9,6 +9,15 @@ state: Planned
 scope:
   in: []
   out: []
+actor:
+  agent_id: ""
+  harness: ""
+  model: ""
+  session_id: ""
+capabilities: []
+risk_tier: low|medium|high|critical
+approval_policy: automatic|reviewer|user|two_person
+external_effects: []
 owner: ""
 reviewer: ""
 cleanup_owner: ""
@@ -26,6 +35,13 @@ exception_refs: []
 sunset_target: ""
 acceptance_criteria: []
 validation_plan: []
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
 evidence_refs: []
 handoff_ref: null
 skill_gaps: []

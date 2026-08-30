@@ -1,0 +1,78 @@
+packet_id: CENG-T004-P012
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: coding
+title: Standardize agent observability
+objective: Define privacy-aware events and traces for agent lifecycle, model calls,
+  tools, approvals, file mutations, validation, retries, failures, and side effects.
+research_gap_refs:
+- CENG-GAP-014
+open_questions:
+- Which event fields map to OpenTelemetry GenAI conventions?
+- Which content is prohibited from traces and which metadata must be retained for
+  audit?
+scope:
+  in:
+  - project-lifecycle/SKILL.md
+  - templates/agent-event.yaml
+  - docs/agent-observability.md
+  - adapters/
+  out:
+  - existing .factory session records
+  - unrelated installed skills
+  - consumer application runtime changes outside this packet
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: &id001
+- CENG-T004-P005
+- CENG-T004-P006
+- CENG-T004-P007
+- CENG-T004-P009
+- CENG-T004-P011
+locks: []
+claim_timestamp: '2026-08-30T09:15:03Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 295cc42862cc1545827918443b85bb3301a46c53
+- 'approved spec: 2026-08-30-create-protocol-hardening-work-packets'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- The protocol defines stable event names, IDs, timestamps, actor references, packet
+  references, outcomes, and correlation fields.
+- Tool calls, approvals, file changes, validation, retries, failures, and external
+  effects are observable without requiring raw sensitive content.
+- Telemetry can correlate a packet, agent run, operation, and evidence record.
+- Sampling, redaction, retention, and export failures are explicit and auditable.
+validation_plan:
+- id: CENG-T004-P012-VAL001
+  kind: documentation
+  checks:
+  - YAML/schema records parse and satisfy required fields and enums.
+  - Cross-references, examples, terminology, and links are valid.
+  - Acceptance criteria and migration/rollback behavior are covered by evidence.
+  expected: all documentation and record checks pass
+- id: CENG-T004-P012-VAL002
+  kind: principles
+  skill: coding-principles
+  checks:
+  - Existing abstractions and completed same-domain handoffs were reviewed.
+  - DRY, SOLID, KISS, YAGNI, composition, and explicit-boundary checks passed.
+  - Targeted tests, static checks, or documented unavailable checks passed.
+  expected: no unresolved principle violations
+evidence_refs:
+- CENG-T004-P012-EV001
+handoff_ref: CENG-T004-P012-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: *id001
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

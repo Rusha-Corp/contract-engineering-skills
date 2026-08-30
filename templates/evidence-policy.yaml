@@ -1,0 +1,29 @@
+# Instantiate this template for every evidence item. Do not put raw secrets or
+# unrestricted sensitive payloads in repository evidence.
+evidence_policy_version: 1
+packet_id: ""
+classification: public|internal|confidential|restricted
+contains_sensitive_data: false
+data_categories: []
+redaction:
+  required: true
+  performed: false
+  reviewer: ""
+  method: ""
+secret_scan:
+  required: true
+  tool: ""
+  result: pass|fail|not_run
+access:
+  allowed_roles: []
+  storage: repository|encrypted_archive|restricted_store
+  encryption_at_rest: false
+  encryption_in_transit: false
+retention:
+  class: standard|extended|archive
+  retain_until: ""
+  disposal_approval: ""
+telemetry:
+  raw_content_allowed: false
+  content_capture_approval: null
+incident_ref: null

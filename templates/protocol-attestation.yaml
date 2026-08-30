@@ -1,0 +1,40 @@
+attestation_version: 1
+attestation_id: ""
+issued_at: ""
+expires_at: ""
+subject:
+  repository: ""
+  commit: ""
+  release: ""
+  artifacts:
+    - path: ""
+      sha256: ""
+publisher:
+  identity: ""
+  identity_type: human|service
+  authentication_ref: ""
+  workflow: ""
+  signing_system: sigstore|gpg|other
+  signature_ref: ""
+provenance:
+  builder: ""
+  builder_digest: ""
+  source_repository: ""
+  source_commit: ""
+  dependencies: []
+  reproducible: false
+review:
+  author: ""
+  independent_approver: ""
+  approval_ref: ""
+  approved_at: ""
+verification:
+  verified_at: ""
+  verifier: ""
+  result: pass|fail|revoked
+  transparency_ref: ""
+  revocation_checked_at: ""
+revocation:
+  status: active|revoked
+  revocation_ref: null
+  rollback_ref: ""

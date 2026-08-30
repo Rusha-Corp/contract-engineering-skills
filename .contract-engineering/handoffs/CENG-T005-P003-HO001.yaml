@@ -1,0 +1,24 @@
+handoff_id: CENG-T005-P003-HO001
+packet_id: CENG-T005-P003
+sender: agent
+receiver: user
+base_revision: 295cc42862cc1545827918443b85bb3301a46c53
+head_revision: worktree
+summary: Defined authenticated approval, handoff, and protocol-attestation contracts with revision, scope, time, identity, signature, verification, and revocation binding.
+changed_resources:
+  - templates/handoff.yaml
+  - templates/approval.yaml
+  - templates/protocol-attestation.yaml
+  - docs/release-integrity.md
+  - docs/approval-integrity.md
+validation_results:
+  - CENG-T005-P003-EV001
+evidence_refs:
+  - CENG-T005-P003-EV001
+skill_gaps: []
+unresolved_items:
+  - Cryptographic verification adapters and executable semantic enforcement are addressed by later repository packets.
+rollback_notes: Restore the prior handoff, approval, attestation, and release documentation if this packet is rejected. Do not accept unsigned or mismatched approvals during rollback.
+requested_next_action: Review the evidence and continue with the dependency-ordered CENG-T005 security remediation backlog.
+receiver_status: accepted
+receiver_notes: User authorized implementation of the full CENG-T005 security-remediation backlog; P003 template and documentation criteria passed. Executable enforcement remains a later packet as recorded.

@@ -1,0 +1,23 @@
+handoff_id: CENG-T004-P002-HO001
+packet_id: CENG-T004-P002
+sender: agent
+receiver: user
+base_revision: 295cc42862cc1545827918443b85bb3301a46c53
+head_revision: worktree
+summary: Defined trusted and untrusted content classes, prompt-injection handling, tool validation, and delegated-agent boundaries.
+changed_resources:
+  - phased-engineering-execution/SKILL.md
+  - templates/trust-boundary.yaml
+  - docs/agent-trust-boundaries.md
+  - adapters/factory-droid/README.md
+  - adapters/generic/README.md
+validation_results:
+  - CENG-T004-P002-EV001
+evidence_refs:
+  - CENG-T004-P002-EV001
+skill_gaps: []
+unresolved_items: []
+rollback_notes: Restore the prior skill and adapter guidance and remove the trust-boundary template and documentation.
+requested_next_action: Proceed to provenance, privacy, and runtime-control packets.
+receiver_status: accepted
+receiver_notes: User authorized implementation of the full CENG-T004 backlog; this bounded packet passed validation.

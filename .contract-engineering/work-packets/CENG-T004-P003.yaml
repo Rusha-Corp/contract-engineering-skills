@@ -1,0 +1,76 @@
+packet_id: CENG-T004-P003
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: coding
+title: Automate record and scope enforcement
+objective: Add machine validation for protocol records, identifiers, references, scope
+  boundaries, locks, state transitions, and tracker reconciliation.
+research_gap_refs:
+- CENG-GAP-010
+- CENG-GAP-015
+open_questions:
+- Which schema language and runtime dependencies can all supported harnesses execute?
+- Should scope enforcement run as pre-commit, CI, or both?
+scope:
+  in:
+  - schemas/
+  - scripts/validate-contract-records.py
+  - .github/workflows/protocol-validation.yml
+  - templates/
+  - docs/protocol-configuration.md
+  - .contract-engineering/work-packets/CENG-T003-P001.yaml
+  out:
+  - existing .factory session records
+  - unrelated installed skills
+  - consumer application runtime changes outside this packet
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: &id001
+- CENG-T004-P001
+locks: []
+claim_timestamp: '2026-08-30T09:08:44Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 295cc42862cc1545827918443b85bb3301a46c53
+- 'approved spec: 2026-08-30-create-protocol-hardening-work-packets'
+design_decision_ref: CENG-T004-P003-DEC001
+data_gate_ref: null
+acceptance_criteria:
+- Malformed or semantically invalid packets, handoffs, locks, and tracker rows fail
+  validation.
+- Duplicate IDs, invalid references, invalid state transitions, missing baselines,
+  and stale tracker states are rejected.
+- A changed-path check rejects edits outside packet scope and changes to scope.out.
+- Validation runs locally and in CI without mutating project records.
+validation_plan:
+- id: CENG-T004-P003-VAL001
+  kind: documentation
+  checks:
+  - YAML/schema records parse and satisfy required fields and enums.
+  - Cross-references, examples, terminology, and links are valid.
+  - Acceptance criteria and migration/rollback behavior are covered by evidence.
+  expected: all documentation and record checks pass
+- id: CENG-T004-P003-VAL002
+  kind: principles
+  skill: coding-principles
+  checks:
+  - Existing abstractions and completed same-domain handoffs were reviewed.
+  - DRY, SOLID, KISS, YAGNI, composition, and explicit-boundary checks passed.
+  - Targeted tests, static checks, or documented unavailable checks passed.
+  expected: no unresolved principle violations
+evidence_refs:
+- CENG-T004-P003-EV001
+handoff_ref: CENG-T004-P003-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: *id001
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

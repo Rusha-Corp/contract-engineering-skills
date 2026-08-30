@@ -1,0 +1,23 @@
+handoff_id: CENG-T004-P004-HO001
+packet_id: CENG-T004-P004
+sender: agent
+receiver: user
+base_revision: 295cc42862cc1545827918443b85bb3301a46c53
+head_revision: worktree
+summary: Defined signed release, publisher provenance, independent review, verification, revocation, and rollback controls.
+changed_resources:
+  - CONTRIBUTING.md
+  - docs/release-integrity.md
+  - templates/protocol-attestation.yaml
+  - adapters/factory-droid/README.md
+  - adapters/generic/README.md
+validation_results:
+  - CENG-T004-P004-EV001
+evidence_refs:
+  - CENG-T004-P004-EV001
+skill_gaps: []
+unresolved_items: []
+rollback_notes: Restore prior contribution and adapter guidance and remove the attestation template and release-integrity guide.
+requested_next_action: Proceed to evidence privacy and runtime-control packets.
+receiver_status: accepted
+receiver_notes: User authorized implementation of the full CENG-T004 backlog; this bounded packet passed validation.

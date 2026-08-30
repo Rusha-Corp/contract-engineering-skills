@@ -1,0 +1,22 @@
+handoff_id: CENG-T005-P005-HO001
+packet_id: CENG-T005-P005
+sender: agent
+receiver: user
+base_revision: 295cc42862cc1545827918443b85bb3301a46c53
+head_revision: worktree
+summary: Added safe YAML parsing resource limits, bounded process execution, sanitized errors, and focused negative tests.
+changed_resources:
+  - scripts/validate-contract-records.py
+  - tests/test_parser_limits.py
+  - docs/ci-security.md
+validation_results:
+  - CENG-T005-P005-EV001
+evidence_refs:
+  - CENG-T005-P005-EV001
+skill_gaps: []
+unresolved_items:
+  - macOS cannot lower RLIMIT_AS after interpreter startup; CI Linux runners apply the full configured process bound.
+rollback_notes: Restore the previous validator and parser documentation if this packet is rejected. Keep the CI timeout and safe loader in place during rollback.
+requested_next_action: Review the evidence and continue with the dependency-ordered CENG-T005 security remediation backlog.
+receiver_status: accepted
+receiver_notes: User authorized implementation of the full CENG-T005 security-remediation backlog; P005 acceptance criteria passed with the documented macOS resource-limit limitation.

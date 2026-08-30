@@ -1,0 +1,27 @@
+handoff_id: CENG-T004-P015-HO001
+packet_id: CENG-T004-P015
+sender: agent
+receiver: user
+base_revision: 295cc42862cc1545827918443b85bb3301a46c53
+head_revision: worktree
+summary: Reconciled the hardened schema and templates, governed skill versions, changelog, stable lock boundary, and release-readiness evidence.
+changed_resources:
+  - templates/work-packet.yaml
+  - schemas/work-packet.schema.json
+  - phased-engineering-execution/SKILL.md
+  - cleanup-protocol/SKILL.md
+  - project-lifecycle/SKILL.md
+  - CHANGELOG.md
+  - .contract-engineering/work-packets/CENG-T003-P001.yaml
+  - .contract-engineering/decisions/CENG-T004-P003-DEC001.yaml
+validation_results:
+  - CENG-T004-P015-EV001
+evidence_refs:
+  - CENG-T004-P015-EV001
+skill_gaps: []
+unresolved_items:
+  - Hardened source skills are unreleased and the global installation remains on stable 2.1.0 until publication.
+rollback_notes: Restore stable skill versions, prior template/schema, changelog, and the released-lock correction if the hardened release is rejected.
+requested_next_action: Review the hardened release, publish an immutable commit, update project locks, synchronize harnesses, and rerun preflight.
+receiver_status: accepted
+receiver_notes: User authorized implementation of the full CENG-T004 backlog; release preparation passed validation. Publication remains a separate approval-gated action.

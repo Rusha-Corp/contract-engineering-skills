@@ -1,0 +1,15 @@
+decision_id: CENG-T004-P003-DEC001
+packet_id: CENG-T004-P003
+title: Correct stale completed-packet locks for validator adoption
+status: approved
+reason: The new lifecycle validator requires completed packets to release locks; CENG-T003-P001 retained stale locks and could not pass the new contract gate.
+change:
+  added_scope:
+    - .contract-engineering/work-packets/CENG-T003-P001.yaml
+  removed_scope: []
+  added_lock:
+    - .contract-engineering/work-packets/CENG-T003-P001.yaml
+impact: Record-only correction to release locks from an already completed packet; no implementation behavior changes.
+rollback: Restore the prior locks only if the validator contract is reverted; otherwise the completed packet must remain lock-free.
+approved_by: user
+evidence_ref: CENG-T004-P003-EV001

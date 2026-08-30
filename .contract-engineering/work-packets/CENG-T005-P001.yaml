@@ -1,0 +1,92 @@
+packet_id: CENG-T005-P001
+task_id: CENG-T005
+phase: P0_FOUNDATIONS
+domain: coding
+title: Harden CI workflow and credentials
+objective: Harden the protocol-validation workflow against untrusted pull requests,
+  mutable action references, persisted credentials, unbounded runtime, and dependency
+  tampering.
+research_gap_refs:
+- CENG-SEC-001
+research_refs:
+- https://docs.github.com/en/actions/reference/security/secure-use
+- https://docs.github.com/en/actions/concepts/security/script-injections
+- https://github.com/actions/checkout
+- https://scorecard.dev/
+open_questions:
+- Do workflows run untrusted pull-request code or privileged code in separate jobs?
+- Which approved action SHAs and dependency hash policy should be used?
+scope:
+  in:
+  - .github/workflows/protocol-validation.yml
+  - .github/dependabot.yml
+  - requirements-ci.txt
+  - docs/ci-security.md
+  out:
+  - global installed skills
+  - consumer application runtime changes outside packet scope
+  - remote release publication
+actor:
+  agent_id: ''
+  harness: ''
+  model: ''
+  session_id: ''
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: high
+approval_policy: user
+external_effects: []
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: &id001 []
+locks:
+  []
+claim_timestamp: '2026-08-30T09:29:02Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 295cc42862cc1545827918443b85bb3301a46c53
+- 'approved spec: 2026-08-30-create-security-remediation-work-packets'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- The workflow pins every third-party action to a full commit SHA.
+- Checkout credentials are not persisted into the worktree.
+- CI dependencies are hash-pinned or installed from an approved trusted source.
+- Workflow timeout, concurrency, token permissions, and untrusted-PR behavior are
+  explicit.
+- Negative tests or static checks reject mutable action tags and unsafe workflow settings.
+validation_plan:
+- id: CENG-T005-P001-VAL001
+  kind: security
+  checks:
+  - Positive and negative tests cover the stated security controls.
+  - Security failures do not disclose secrets or bypass required approvals.
+  - Research references, migration, rollback, and exception handling are recorded.
+  expected: security acceptance criteria pass
+- id: CENG-T005-P001-VAL002
+  kind: principles
+  skill: coding-principles
+  checks:
+  - Existing security abstractions and completed handoffs were reviewed.
+  - Least privilege, explicit boundaries, fail-fast behavior, and reversible changes
+    were checked.
+  - Static/security tests and dependency checks pass or are documented unavailable.
+  expected: no unresolved security or principles violations
+evidence_refs:
+- CENG-T005-P001-EV001
+handoff_ref: CENG-T005-P001-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: *id001
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

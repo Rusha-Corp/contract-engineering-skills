@@ -1,0 +1,100 @@
+packet_id: CENG-T004-P015
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: documentation
+title: Prepare hardened protocol release
+objective: Reconcile governed skill versions, migration notes, changelog, templates,
+  and release-readiness evidence after the CENG-T004 hardening packets.
+research_gap_refs: []
+open_questions:
+- Which immutable published commit and release number will be assigned after this
+  worktree is reviewed and published?
+- Which consumer projects require migration before adopting the hardened release?
+scope:
+  in:
+  - phased-engineering-execution/SKILL.md
+  - cleanup-protocol/SKILL.md
+  - project-lifecycle/SKILL.md
+  - templates/work-packet.yaml
+  - schemas/work-packet.schema.json
+  - CHANGELOG.md
+  - docs/release-integrity.md
+  - templates/protocol-lock.yaml
+  - .contract-engineering/
+  out:
+  - global installed skills
+  - consumer application runtime changes
+  - remote release publication until explicit user approval
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies:
+- CENG-T004-P001
+- CENG-T004-P002
+- CENG-T004-P003
+- CENG-T004-P004
+- CENG-T004-P005
+- CENG-T004-P006
+- CENG-T004-P007
+- CENG-T004-P008
+- CENG-T004-P009
+- CENG-T004-P010
+- CENG-T004-P011
+- CENG-T004-P012
+- CENG-T004-P013
+- CENG-T004-P014
+locks: []
+claim_timestamp: '2026-08-30T09:18:39Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 295cc42862cc1545827918443b85bb3301a46c53
+- 'approved scope: full CENG-T004 backlog'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Modified governed skills have accurate semantic versions and dated revision-history
+  entries.
+- CHANGELOG.md documents the hardening release contents, migration order, compatibility
+  impact, and rollback.
+- The work-packet template, JSON Schema, lock guidance, and release-integrity guidance
+  agree on the new control references.
+- The stable lock remains unchanged until a reviewed immutable release is published.
+- All project records, references, and release-readiness checks pass.
+validation_plan:
+- id: CENG-T004-P015-VAL001
+  kind: documentation
+  checks:
+  - Skill versions and revision entries agree with the changelog and migration guidance.
+  - Templates, JSON Schema, lock guidance, and release-integrity records are internally
+    consistent.
+  - All YAML/JSON/Markdown/shell and contract-record checks pass.
+  expected: all release-readiness checks pass
+evidence_refs:
+- CENG-T004-P015-EV001
+handoff_ref: CENG-T004-P015-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies:
+- CENG-T004-P001
+- CENG-T004-P002
+- CENG-T004-P003
+- CENG-T004-P004
+- CENG-T004-P005
+- CENG-T004-P006
+- CENG-T004-P007
+- CENG-T004-P008
+- CENG-T004-P009
+- CENG-T004-P010
+- CENG-T004-P011
+- CENG-T004-P012
+- CENG-T004-P013
+- CENG-T004-P014
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

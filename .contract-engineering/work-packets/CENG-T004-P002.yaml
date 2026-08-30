@@ -1,0 +1,63 @@
+packet_id: CENG-T004-P002
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: documentation
+title: Define agent trust boundaries
+objective: Define trusted instructions, untrusted content, prompt-injection handling,
+  tool-output validation, and agent-to-agent message boundaries.
+research_gap_refs:
+- CENG-GAP-002
+open_questions:
+- Which repository, ticket, web, and tool content classes are untrusted by default?
+- Which tool calls require content provenance or independent confirmation?
+scope:
+  in:
+  - phased-engineering-execution/SKILL.md
+  - templates/trust-boundary.yaml
+  - docs/agent-security.md
+  - adapters/
+  out:
+  - existing .factory session records
+  - unrelated installed skills
+  - consumer application runtime changes outside this packet
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: &id001
+- CENG-T004-P001
+locks: []
+claim_timestamp: '2026-08-30T09:08:44Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 295cc42862cc1545827918443b85bb3301a46c53
+- 'approved spec: 2026-08-30-create-protocol-hardening-work-packets'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- The protocol labels instruction, data, tool output, and agent-message trust classes.
+- Prompt injection and tool poisoning handling has a required stop, verify, and record
+  procedure.
+- Untrusted content cannot grant privileges, broaden scope, or override approval policy.
+validation_plan:
+- id: CENG-T004-P002-VAL001
+  kind: documentation
+  checks:
+  - YAML/schema records parse and satisfy required fields and enums.
+  - Cross-references, examples, terminology, and links are valid.
+  - Acceptance criteria and migration/rollback behavior are covered by evidence.
+  expected: all documentation and record checks pass
+evidence_refs:
+- CENG-T004-P002-EV001
+handoff_ref: CENG-T004-P002-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: *id001
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

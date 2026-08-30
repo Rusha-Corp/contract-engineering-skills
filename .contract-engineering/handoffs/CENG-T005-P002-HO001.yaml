@@ -1,0 +1,25 @@
+handoff_id: CENG-T005-P002-HO001
+packet_id: CENG-T005-P002
+sender: agent
+receiver: user
+base_revision: 295cc42862cc1545827918443b85bb3301a46c53
+head_revision: worktree
+summary: Added local and CI secret scanning, evidence-policy enforcement, credential filename blocking, and redacted containment guidance.
+changed_resources:
+  - .gitignore
+  - templates/evidence-policy.yaml
+  - docs/evidence-security.md
+  - .github/workflows/secret-scanning.yml
+  - .gitleaks.toml
+  - docs/secret-management.md
+validation_results:
+  - CENG-T005-P002-EV001
+evidence_refs:
+  - CENG-T005-P002-EV001
+skill_gaps: []
+unresolved_items:
+  - Provider-side GitHub secret scanning and push protection require repository-owner enablement and remain part of the repository security automation packet.
+rollback_notes: Restore the prior ignore and evidence-policy documentation, and remove the scanner configuration and workflow if this packet is rejected. Do not disable credential rotation or leave detected secrets in place.
+requested_next_action: Review the evidence and continue with the dependency-ordered CENG-T005 security remediation backlog.
+receiver_status: accepted
+receiver_notes: User authorized implementation of the full CENG-T005 security-remediation backlog; P002 acceptance criteria and validation evidence passed. Provider-side controls and later packets remain separate.

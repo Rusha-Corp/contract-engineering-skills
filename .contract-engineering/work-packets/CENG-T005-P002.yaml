@@ -1,0 +1,95 @@
+packet_id: CENG-T005-P002
+task_id: CENG-T005
+phase: P0_FOUNDATIONS
+domain: coding
+title: Add secret scanning and evidence protection
+objective: Prevent secrets and sensitive evidence from entering the repository or
+  CI artifacts, and enforce the evidence privacy contract.
+research_gap_refs:
+- CENG-SEC-002
+research_refs:
+- https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html
+- https://cheatsheetseries.owasp.org/cheatsheets/CI_CD_Security_Cheat_Sheet.html
+- https://docs.github.com/en/code-security/concepts/secret-security/push-protection
+open_questions:
+- Which scanner and push-protection provider is approved?
+- Which repository evidence classes require encrypted external storage?
+scope:
+  in:
+  - .gitignore
+  - templates/evidence-policy.yaml
+  - docs/evidence-security.md
+  - .github/workflows/secret-scanning.yml
+  - .gitleaks.toml
+  - docs/secret-management.md
+  out:
+  - global installed skills
+  - consumer application runtime changes outside packet scope
+  - remote release publication
+actor:
+  agent_id: ''
+  harness: ''
+  model: ''
+  session_id: ''
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: high
+approval_policy: user
+external_effects: []
+owner: agent
+reviewer: user
+cleanup_owner: unassigned
+dependencies: &id001
+- CENG-T005-P001
+locks:
+  []
+claim_timestamp: '2026-08-30T09:32:07Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 295cc42862cc1545827918443b85bb3301a46c53
+- 'approved spec: 2026-08-30-create-security-remediation-work-packets'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Secret scanning runs locally and in CI over working tree, history, and generated
+  artifacts.
+- Evidence policy fields are validated, including redaction, classification, access,
+  retention, and scan result.
+- Common secret files and credential formats are excluded or blocked appropriately.
+- Detected secrets produce containment, rotation, and incident-response instructions.
+- Negative fixtures containing test credentials are rejected without exposing secret
+  values.
+validation_plan:
+- id: CENG-T005-P002-VAL001
+  kind: security
+  checks:
+  - Positive and negative tests cover the stated security controls.
+  - Security failures do not disclose secrets or bypass required approvals.
+  - Research references, migration, rollback, and exception handling are recorded.
+  expected: security acceptance criteria pass
+- id: CENG-T005-P002-VAL002
+  kind: principles
+  skill: coding-principles
+  checks:
+  - Existing security abstractions and completed handoffs were reviewed.
+  - Least privilege, explicit boundaries, fail-fast behavior, and reversible changes
+    were checked.
+  - Static/security tests and dependency checks pass or are documented unavailable.
+  expected: no unresolved security or principles violations
+evidence_refs:
+- CENG-T005-P002-EV001
+handoff_ref: CENG-T005-P002-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: *id001
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

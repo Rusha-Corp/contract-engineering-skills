@@ -1,11 +1,13 @@
 ---
 name: project-lifecycle
-version: 2.1.0
+version: 2.2.0
 description: Orchestrate phased engineering execution, cleanup, skill evolution, user verification, and closure across project iterations.
 ---
 
 ## Revision history
 
+- 2.2.0 (2026-08-30): Added agent observability and incident-response
+  lifecycle requirements.
 - 2.1.0 (2026-08-30): Added project protocol-lock and cross-harness
   synchronization guidance.
 - 2.0.0 (2026-08-30): Added an explicit deprecation-review lifecycle state
@@ -148,6 +150,13 @@ user_confirmation:
   confirmed_by: ""
   confirmed_at: ""
 next_actions: []
+observability:
+  event_schema_version: 1
+  event_refs: []
+  dropped_events: []
+  export_failures: []
+  retention_class: standard|extended|archive
+incident_refs: []
 deprecation_review:
   overdue: []
   expired_exceptions: []
@@ -184,6 +193,11 @@ Do not silently expand a closed or active iteration.
   decision.
 - At every phase boundary, reconcile tracker states, locks, handoffs, and
   closure records.
+- At every phase boundary, reconcile required agent events, dropped telemetry,
+  approval records, and evidence references for agent-assisted work.
+- Any security, authorization, data, release, or agent-safety incident uses
+  `templates/agent-incident.yaml`; affected work remains blocked until
+  containment, remediation, and independent verification are recorded.
 - Never let active packet, evidence, or feedback directories accumulate duplicates.
 
 ## Cross-skill references

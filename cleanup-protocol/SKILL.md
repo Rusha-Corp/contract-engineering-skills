@@ -1,11 +1,13 @@
 ---
 name: cleanup-protocol
-version: 2.1.0
+version: 2.2.0
 description: Remove dead code, stale artifacts, and temporary debris after validation using risk-tiered, auditable procedures.
 ---
 
 ## Revision history
 
+- 2.2.0 (2026-08-30): Added evidence classification, redaction, secret,
+  access, encryption, telemetry, and incident-linkage controls.
 - 2.1.0 (2026-08-30): Added project protocol-root and cross-harness
   synchronization guidance.
 - 2.0.0 (2026-08-30): Added the required deprecation review date to the
@@ -166,6 +168,14 @@ list.
 - `extended`: retain 90 days for complex refactors, compliance, production incidents, or regulated data.
 - `archive`: move to long-term storage immediately after closure.
 - Mark superseded evidence stale immediately, but retain it until the retention rule permits removal.
+
+Evidence also SHALL declare its classification, redaction status, secret-scan
+result, access policy, storage/encryption status, retention class, and any
+incident reference. Secrets, session material, and unnecessary raw customer
+or model content must never be committed. Restricted evidence belongs in an
+approved encrypted store; the repository keeps only a sanitized summary or
+verified reference when appropriate. See `templates/evidence-policy.yaml` and
+`docs/evidence-security.md`.
 
 ## Baseline refresh
 

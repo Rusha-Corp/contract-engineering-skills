@@ -1,0 +1,23 @@
+handoff_id: CENG-T005-P001-HO001
+packet_id: CENG-T005-P001
+sender: agent
+receiver: user
+base_revision: 295cc42862cc1545827918443b85bb3301a46c53
+head_revision: worktree
+summary: Hardened the protocol-validation workflow and CI dependency path against mutable action references, persisted credentials, unbounded execution, and privileged pull-request behavior.
+changed_resources:
+  - .github/workflows/protocol-validation.yml
+  - .github/dependabot.yml
+  - requirements-ci.txt
+  - docs/ci-security.md
+validation_results:
+  - CENG-T005-P001-EV001
+evidence_refs:
+  - CENG-T005-P001-EV001
+skill_gaps: []
+unresolved_items:
+  - Branch protection, secret scanning, authenticated provenance, parser resource limits, semantic record enforcement, and repository-wide security automation remain in the dependent or later CENG-T005 packets.
+rollback_notes: Restore the prior protocol-validation workflow and remove the CI dependency and Dependabot policy files if this packet is rejected. Do not restore persisted checkout credentials or mutable action references.
+requested_next_action: Review the evidence and continue with the dependency-ordered CENG-T005 security remediation backlog.
+receiver_status: accepted
+receiver_notes: User authorized implementation of the full CENG-T005 security-remediation backlog; P001 acceptance criteria and validation evidence passed. Remaining packets are not implicitly accepted by this handoff.

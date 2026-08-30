@@ -1,0 +1,83 @@
+packet_id: CENG-T005-P003
+task_id: CENG-T005
+phase: P0_FOUNDATIONS
+domain: documentation
+title: Authenticate approvals and provenance
+objective: Make handoff acceptance and protocol release provenance independently verifiable
+  and bound to identity, revision, scope, and time.
+research_gap_refs:
+- CENG-SEC-003
+research_refs:
+- https://slsa.dev/spec/v1.0/verifying-artifacts
+- https://in-toto.io/docs/getting-started/
+- https://nvlpubs.nist.gov/nistpubs/specialpublications/nist.sp.800-218.pdf
+open_questions:
+- Which signing system and identity provider will verify approvals?
+- Which attestations are mandatory for release and consumer lock updates?
+scope:
+  in:
+  - templates/handoff.yaml
+  - templates/approval.yaml
+  - templates/protocol-attestation.yaml
+  - docs/release-integrity.md
+  - docs/approval-integrity.md
+  out:
+  - global installed skills
+  - consumer application runtime changes outside packet scope
+  - remote release publication
+actor:
+  agent_id: ''
+  harness: ''
+  model: ''
+  session_id: ''
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: high
+approval_policy: user
+external_effects: []
+owner: agent
+reviewer: user
+cleanup_owner: unassigned
+dependencies: &id001 []
+locks:
+  []
+claim_timestamp: '2026-08-30T09:36:22Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 295cc42862cc1545827918443b85bb3301a46c53
+- 'approved spec: 2026-08-30-create-security-remediation-work-packets'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Accepted handoffs include authenticated receiver identity, timestamp, revision/scope
+  binding, and approval evidence.
+- High-risk approvals require independent reviewers and cannot be self-approved.
+- Release attestations verify publisher, source commit, artifacts, review, and revocation
+  status.
+- Unsigned, expired, mismatched, or revoked approvals and releases fail validation.
+- Rollback and key compromise procedures are tested and documented.
+validation_plan:
+- id: CENG-T005-P003-VAL001
+  kind: security
+  checks:
+  - Positive and negative tests cover the stated security controls.
+  - Security failures do not disclose secrets or bypass required approvals.
+  - Research references, migration, rollback, and exception handling are recorded.
+  expected: security acceptance criteria pass
+evidence_refs:
+- CENG-T005-P003-EV001
+handoff_ref: CENG-T005-P003-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: *id001
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

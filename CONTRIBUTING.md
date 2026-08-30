@@ -10,6 +10,20 @@
 5. Provide a validation plan and evidence.
 6. Keep changes small, reviewable, and reversible.
 
+## Release integrity
+
+Protocol releases require an independent release review, complete local
+validation, an attestation from `templates/protocol-attestation.yaml`, and
+publisher signature/provenance verification. The release author may not be
+the sole approver. Record the immutable source commit, artifact hashes,
+builder, dependencies, approval, verification, revocation, and rollback
+references in the release evidence.
+
+Adapters, tools, MCP servers, plugins, and external dependencies require an
+inventory from `templates/adapter-inventory.yaml`, explicit capabilities and
+endpoint allowlists, provenance, vulnerability/license checks, compatibility
+validation, and a tested rollback or revocation procedure.
+
 ## Skill changes
 
 Use semantic versioning:

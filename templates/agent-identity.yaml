@@ -1,0 +1,13 @@
+agent_id: ""
+harness: ""
+model: ""
+session_id: ""
+actor_type: agent|human|ci
+capabilities: []
+risk_tier: low|medium|high|critical
+approval_policy: automatic|reviewer|user|two_person
+external_effects: []
+authorized_by: []
+issued_at: ""
+expires_at: ""
+notes: ""

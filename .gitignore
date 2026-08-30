@@ -1,2 +1,13 @@
 .factory/
 .DS_Store
+
+# Local credentials and private key material must never enter the repository.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+service-account*.json

@@ -1,0 +1,25 @@
+checkpoint_version: 1
+packet_id: ""
+run_id: ""
+operation_id: ""
+sequence: 0
+state: planned|started|awaiting_approval|completed|failed|cancelled|compensated
+base_revision: ""
+scope_digest: ""
+completed_steps: []
+pending_steps: []
+side_effects:
+  - effect_id: ""
+    status: planned|applied|unknown|compensated
+    idempotency_key: ""
+    compensation_ref: null
+retry:
+  attempt: 0
+  max_attempts: 0
+  replay_of: null
+failure:
+  class: ""
+  message_ref: ""
+  recovery_action: stop|retry|resume|compensate|manual
+recorded_at: ""
+recorded_by: ""

@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased
+
+### Protocol hardening
+
+- Added agent identity, capabilities, risk tiers, approval policies, and
+  external-effect records.
+- Added trust-boundary and prompt-injection handling for repository, tool,
+  web, and agent content.
+- Added machine validation for packet records, dependencies, lifecycle
+  invariants, tracker reconciliation, and changed-path scope.
+- Added release provenance, evidence privacy, runtime budgets, durable
+  checkpoints, packet leases, evaluation plans, reproducibility records,
+  observability events, incident response, fleet compatibility, and adapter
+  security templates.
+- Added protocol release-preparation guidance; the stable lock remains pinned
+  to the last published release until this hardening work is reviewed and
+  published as an immutable release.
+
 ## 2.1.0 - 2026-08-30
 
 - Added a portable `protocol.lock.yaml` template for pinning one immutable

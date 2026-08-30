@@ -1,0 +1,68 @@
+packet_id: CENG-T004-P011
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: documentation
+title: Record reproducible agent context
+objective: Define reproducibility metadata for model, provider, prompts, policies,
+  tools, configuration, dependencies, and external data snapshots.
+research_gap_refs:
+- CENG-GAP-011
+open_questions:
+- Which model/provider settings are safe to record without exposing sensitive prompts
+  or data?
+- What external data and tool snapshots can each harness identify reproducibly?
+scope:
+  in:
+  - phased-engineering-execution/SKILL.md
+  - templates/agent-run.yaml
+  - docs/reproducibility.md
+  - adapters/
+  out:
+  - existing .factory session records
+  - unrelated installed skills
+  - consumer application runtime changes outside this packet
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: &id001
+- CENG-T004-P003
+- CENG-T004-P004
+- CENG-T004-P006
+locks: []
+claim_timestamp: '2026-08-30T09:14:33Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 295cc42862cc1545827918443b85bb3301a46c53
+- 'approved spec: 2026-08-30-create-protocol-hardening-work-packets'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Baseline and evidence records can identify model/provider, policy or prompt hash,
+  tool versions, configuration, dependencies, and data snapshot.
+- Sensitive prompt and response content is referenced or redacted rather than copied
+  by default.
+- A reviewer can reproduce or explain a run from the recorded metadata and limitations.
+- Cross-harness records use stable field names and versioned schemas.
+validation_plan:
+- id: CENG-T004-P011-VAL001
+  kind: documentation
+  checks:
+  - YAML/schema records parse and satisfy required fields and enums.
+  - Cross-references, examples, terminology, and links are valid.
+  - Acceptance criteria and migration/rollback behavior are covered by evidence.
+  expected: all documentation and record checks pass
+evidence_refs:
+- CENG-T004-P011-EV001
+handoff_ref: CENG-T004-P011-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: *id001
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

@@ -1,0 +1,31 @@
+handoff_version: 1
+handoff_id: ""
+packet_id: ""
+sender:
+  identity: ""
+  identity_type: human|agent|service
+  authenticated: false
+  authentication_ref: ""
+  signature_ref: ""
+receiver:
+  identity: ""
+  identity_type: human|agent|service
+  authenticated: false
+  authentication_ref: ""
+base_revision: ""
+head_revision: ""
+scope_digest: ""
+changed_resources:
+  - path: ""
+    sha256: ""
+created_at: ""
+expires_at: ""
+approval_ref: ""
+verification:
+  verified_at: ""
+  verifier: ""
+  result: pass|fail|revoked
+  revocation_checked_at: ""
+  verification_ref: ""
+receiver_status: pending|accepted|rejected
+receiver_notes: ""

@@ -1,0 +1,64 @@
+packet_id: CENG-T004-P001
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: documentation
+title: Define agent identity and capabilities
+objective: Define how agent identity, harness, model, session, capabilities, risk
+  tiers, approvals, and separation of duties are recorded and enforced.
+research_gap_refs:
+- CENG-GAP-001
+open_questions:
+- Which actor identities are authoritative across Factory, IDE, CLI, CI, and human
+  reviewers?
+- Which action classes require reviewer, user, or two-person approval?
+scope:
+  in:
+  - phased-engineering-execution/SKILL.md
+  - templates/agent-identity.yaml
+  - docs/agent-security.md
+  - adapters/
+  out:
+  - existing .factory session records
+  - unrelated installed skills
+  - consumer application runtime changes outside this packet
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: &id001 []
+locks: []
+claim_timestamp: '2026-08-30T09:07:17Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 295cc42862cc1545827918443b85bb3301a46c53
+- 'approved spec: 2026-08-30-create-protocol-hardening-work-packets'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Every packet can record actor identity, harness, model, session, capabilities, risk
+  tier, approval policy, and external effects.
+- The protocol defines least privilege and separation-of-duties rules without requiring
+  one host.
+- High-risk and external-effect actions have explicit approval and audit requirements.
+validation_plan:
+- id: CENG-T004-P001-VAL001
+  kind: documentation
+  checks:
+  - YAML/schema records parse and satisfy required fields and enums.
+  - Cross-references, examples, terminology, and links are valid.
+  - Acceptance criteria and migration/rollback behavior are covered by evidence.
+  expected: all documentation and record checks pass
+evidence_refs:
+- CENG-T004-P001-EV001
+handoff_ref: CENG-T004-P001-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: *id001
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

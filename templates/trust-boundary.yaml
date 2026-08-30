@@ -1,0 +1,19 @@
+trust_boundary_id: ""
+packet_id: ""
+content_classes:
+  - class: instruction|project_data|user_data|tool_output|external_content|agent_message
+    trust: trusted|untrusted|mixed
+    source: ""
+    allowed_uses: []
+    prohibited_effects: []
+tool_validation:
+  schema_checked: false
+  provenance_checked: false
+  authorization_checked: false
+injection_response:
+  detected: false
+  action: stop|isolate|request_confirmation|continue
+  evidence_ref: null
+  user_notified: false
+reviewed_by: ""
+reviewed_at: ""

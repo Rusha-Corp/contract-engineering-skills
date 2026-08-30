@@ -1,0 +1,10 @@
+title = "Contract Engineering secret scanning"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "private-key-material"
+description = "Private key material is never valid repository content"
+regex = '''-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----'''
+keywords = ["PRIVATE KEY"]

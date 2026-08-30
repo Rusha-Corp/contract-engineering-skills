@@ -74,6 +74,11 @@ Before handoff:
 4. Record commands, results, limitations, and evidence references.
 5. Write the handoff with base revision, head revision, changed resources,
    failures, unresolved items, rollback notes, and next action.
+6. Classify and redact evidence using `templates/evidence-policy.yaml`; never
+   place credentials, session material, or unnecessary raw sensitive content
+   in tracked records.
+7. Link any safety, authorization, data, release, or agent-operation incident
+   using `templates/agent-incident.yaml` before resuming affected work.
 
 Scope expansion creates a new packet or an explicit decision. It is not
 silently added to the current packet.

@@ -1,0 +1,68 @@
+packet_id: CENG-T004-P014
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: documentation
+title: Secure adapters and dependencies
+objective: Define inventories, endpoint allowlists, vulnerability scanning, provenance,
+  and compatibility checks for adapters, tools, MCP servers, and dependencies.
+research_gap_refs:
+- CENG-GAP-016
+open_questions:
+- Which adapter and tool ecosystems are in the initial support boundary?
+- Which vulnerability, license, and provenance thresholds block adapter adoption?
+scope:
+  in:
+  - CONTRIBUTING.md
+  - templates/adapter-inventory.yaml
+  - docs/adapter-security.md
+  - adapters/
+  out:
+  - existing .factory session records
+  - unrelated installed skills
+  - consumer application runtime changes outside this packet
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: &id001
+- CENG-T004-P003
+- CENG-T004-P004
+- CENG-T004-P012
+locks: []
+claim_timestamp: '2026-08-30T09:17:21Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 295cc42862cc1545827918443b85bb3301a46c53
+- 'approved spec: 2026-08-30-create-protocol-hardening-work-packets'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Adapters and external tools declare versions, permissions, endpoints, dependencies,
+  provenance, and compatibility.
+- Network targets and capabilities are allowlisted and reviewed by risk tier.
+- Dependency, vulnerability, license, and artifact-integrity checks are defined for
+  supported adapter types.
+- A compromised or incompatible adapter can be disabled, revoked, and rolled back
+  without deleting project evidence.
+validation_plan:
+- id: CENG-T004-P014-VAL001
+  kind: documentation
+  checks:
+  - YAML/schema records parse and satisfy required fields and enums.
+  - Cross-references, examples, terminology, and links are valid.
+  - Acceptance criteria and migration/rollback behavior are covered by evidence.
+  expected: all documentation and record checks pass
+evidence_refs:
+- CENG-T004-P014-EV001
+handoff_ref: CENG-T004-P014-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: *id001
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

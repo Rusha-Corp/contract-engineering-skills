@@ -1,0 +1,23 @@
+handoff_id: CENG-T004-P012-HO001
+packet_id: CENG-T004-P012
+sender: agent
+receiver: user
+base_revision: 295cc42862cc1545827918443b85bb3301a46c53
+head_revision: worktree
+summary: Defined privacy-aware agent events, trace correlation, lifecycle observability, metrics, retention, and telemetry failure handling.
+changed_resources:
+  - project-lifecycle/SKILL.md
+  - templates/agent-event.yaml
+  - docs/agent-observability.md
+  - adapters/factory-droid/README.md
+  - adapters/generic/README.md
+validation_results:
+  - CENG-T004-P012-EV001
+evidence_refs:
+  - CENG-T004-P012-EV001
+skill_gaps: []
+unresolved_items: []
+rollback_notes: Restore prior lifecycle and adapter guidance and remove the event template and observability guide.
+requested_next_action: Proceed to incident response, fleet compatibility, and adapter security packets.
+receiver_status: accepted
+receiver_notes: User authorized implementation of the full CENG-T004 backlog; this bounded packet passed validation.

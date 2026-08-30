@@ -1,0 +1,66 @@
+packet_id: CENG-T004-P013
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: documentation
+title: Manage protocol fleet compatibility
+objective: Define project and harness inventory, compatibility, migration impact,
+  stale-lock detection, ownership, and rollout tracking.
+research_gap_refs:
+- CENG-GAP-012
+open_questions:
+- Where should the consumer inventory live and who owns its accuracy?
+- What compatibility window is supported for lock schema and governed skill versions?
+scope:
+  in:
+  - docs/protocol-configuration.md
+  - templates/protocol-consumer.yaml
+  - docs/protocol-fleet.md
+  - adapters/
+  out:
+  - existing .factory session records
+  - unrelated installed skills
+  - consumer application runtime changes outside this packet
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: &id001
+- CENG-T004-P003
+- CENG-T004-P004
+- CENG-T004-P011
+locks: []
+claim_timestamp: '2026-08-30T09:15:31Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 295cc42862cc1545827918443b85bb3301a46c53
+- 'approved spec: 2026-08-30-create-protocol-hardening-work-packets'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Projects and harnesses can declare protocol release, lock schema, adapter, owner,
+  and migration status.
+- Breaking changes produce an impact list and migration requirements before release.
+- Stale locks, unsupported harnesses, and unsynchronized installations are detectable.
+- Rollout, rollback, and end-of-support decisions are recorded and auditable.
+validation_plan:
+- id: CENG-T004-P013-VAL001
+  kind: documentation
+  checks:
+  - YAML/schema records parse and satisfy required fields and enums.
+  - Cross-references, examples, terminology, and links are valid.
+  - Acceptance criteria and migration/rollback behavior are covered by evidence.
+  expected: all documentation and record checks pass
+evidence_refs:
+- CENG-T004-P013-EV001
+handoff_ref: CENG-T004-P013-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: *id001
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

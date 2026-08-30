@@ -1,0 +1,21 @@
+lease_version: 1
+packet_id: ""
+holder:
+  agent_id: ""
+  harness: ""
+  session_id: ""
+issued_at: ""
+expires_at: ""
+heartbeat_at: ""
+renewal_count: 0
+fencing_token: ""
+takeover:
+  status: none|requested|approved|completed
+  prior_holder: ""
+  reason: ""
+  recovery_plan: ""
+  takeover_ref: null
+release:
+  status: active|released|expired|revoked
+  released_at: ""
+  release_ref: null

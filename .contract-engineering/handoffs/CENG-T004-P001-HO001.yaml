@@ -1,0 +1,23 @@
+handoff_id: CENG-T004-P001-HO001
+packet_id: CENG-T004-P001
+sender: agent
+receiver: user
+base_revision: 295cc42862cc1545827918443b85bb3301a46c53
+head_revision: worktree
+summary: Defined actor identity, capabilities, risk tiers, approvals, separation of duties, and external effects.
+changed_resources:
+  - phased-engineering-execution/SKILL.md
+  - templates/agent-identity.yaml
+  - docs/agent-security.md
+  - adapters/factory-droid/README.md
+  - adapters/generic/README.md
+validation_results:
+  - CENG-T004-P001-EV001
+evidence_refs:
+  - CENG-T004-P001-EV001
+skill_gaps: []
+unresolved_items: []
+rollback_notes: Restore the prior published skill and remove the new identity template and guidance.
+requested_next_action: Proceed to dependent trust-boundary and enforcement packets.
+receiver_status: accepted
+receiver_notes: User authorized implementation of the full CENG-T004 backlog; this bounded packet passed validation.

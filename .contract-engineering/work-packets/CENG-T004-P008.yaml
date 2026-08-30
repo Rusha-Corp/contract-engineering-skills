@@ -1,0 +1,74 @@
+packet_id: CENG-T004-P008
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: coding
+title: Harden packet leases and coordination
+objective: Define enforceable ownership leases with expiry, heartbeat, renewal, fencing,
+  takeover, stale-lock, and split-brain handling.
+research_gap_refs:
+- CENG-GAP-007
+open_questions:
+- Which coordination store, if any, is available to supported harnesses?
+- Can file-only projects support leases safely, or must advanced coordination be optional?
+scope:
+  in:
+  - phased-engineering-execution/SKILL.md
+  - templates/packet-lease.yaml
+  - docs/coordination.md
+  - adapters/
+  out:
+  - existing .factory session records
+  - unrelated installed skills
+  - consumer application runtime changes outside this packet
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: &id001
+- CENG-T004-P006
+- CENG-T004-P007
+locks: []
+claim_timestamp: '2026-08-30T09:13:39Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 295cc42862cc1545827918443b85bb3301a46c53
+- 'approved spec: 2026-08-30-create-protocol-hardening-work-packets'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Active packet ownership records holder, issue time, expiry, heartbeat, renewal,
+  and fencing information.
+- Takeover requires an auditable recovery note and prevents the previous holder from
+  continuing writes.
+- Stale leases and split-brain conditions enter a blocked state until reconciled.
+- The protocol clearly distinguishes worktree isolation from logical packet ownership.
+validation_plan:
+- id: CENG-T004-P008-VAL001
+  kind: documentation
+  checks:
+  - YAML/schema records parse and satisfy required fields and enums.
+  - Cross-references, examples, terminology, and links are valid.
+  - Acceptance criteria and migration/rollback behavior are covered by evidence.
+  expected: all documentation and record checks pass
+- id: CENG-T004-P008-VAL002
+  kind: principles
+  skill: coding-principles
+  checks:
+  - Existing abstractions and completed same-domain handoffs were reviewed.
+  - DRY, SOLID, KISS, YAGNI, composition, and explicit-boundary checks passed.
+  - Targeted tests, static checks, or documented unavailable checks passed.
+  expected: no unresolved principle violations
+evidence_refs:
+- CENG-T004-P008-EV001
+handoff_ref: CENG-T004-P008-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: *id001
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

@@ -1,0 +1,23 @@
+handoff_id: CENG-T005-P004-HO001
+packet_id: CENG-T005-P004
+sender: agent
+receiver: user
+base_revision: 295cc42862cc1545827918443b85bb3301a46c53
+head_revision: worktree
+summary: Enforced security semantics in packet schema and validator, including risk, capability, approval, effect, evidence, and execution-control requirements.
+changed_resources:
+  - schemas/work-packet.schema.json
+  - scripts/validate-contract-records.py
+  - tests/test_contract_records.py
+  - docs/protocol-configuration.md
+validation_results:
+  - CENG-T005-P004-EV001
+evidence_refs:
+  - CENG-T005-P004-EV001
+skill_gaps: []
+unresolved_items:
+  - Existing completed pre-enforcement packets require a future migration packet if strict actor/control-field coverage is required for historical records.
+rollback_notes: Restore the prior schema, validator, tests, and configuration guidance if this packet is rejected. Preserve safe parsing, read-only validation, and the last verified protocol lock.
+requested_next_action: Review the evidence and run final cross-packet security validation before any release or remote publication.
+receiver_status: accepted
+receiver_notes: User authorized implementation of the full CENG-T005 security-remediation backlog; P004 schema, validator, and negative-test criteria passed. Historical migration remains explicitly recorded.

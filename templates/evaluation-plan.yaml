@@ -1,0 +1,30 @@
+evaluation_version: 1
+packet_id: ""
+suite_id: ""
+agent_context_ref: ""
+cases:
+  - case_id: ""
+    class: golden|regression|adversarial|safety
+    input_ref: ""
+    expected_outcome: ""
+    prohibited_outcomes: []
+    tools_allowed: []
+    risk_tier: low|medium|high|critical
+metrics:
+  - name: task_success|scope_adherence|tool_correctness|safety|quality|cost|latency
+    value: 0
+    unit: ""
+    threshold: ""
+    result: pass|fail|unknown
+threshold_failures: []
+evaluator:
+  type: human|rule|model|hybrid
+  identity: ""
+  version: ""
+reproducibility:
+  run_id: ""
+  seed: null
+  evidence_refs: []
+decision: pass|fail|exception
+exception_ref: null
+reviewed_at: ""

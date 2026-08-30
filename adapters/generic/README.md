@@ -16,8 +16,35 @@ runtime.
 4. Record deprecations using `templates/deprecation-record.yaml`.
 5. Map the host's approval step to the Design Gate and map its test output to
    evidence references.
-6. Run the preflight from `docs/protocol-configuration.md` before work and
+6. Map the host actor/session identity and capability controls to the packet's
+   `actor`, `capabilities`, `risk_tier`, `approval_policy`, and
+   `external_effects` fields.
+7. Classify repository, ticket, web, tool, and agent-message content with
+   `templates/trust-boundary.yaml` when it can influence execution.
+8. Run the preflight from `docs/protocol-configuration.md` before work and
    the non-destructive checks in `templates/validation-guide.md`.
+9. Verify the selected release's attestation and publisher provenance before
+   updating the project lock or global skill installation.
+10. Map host timeout, cancellation, process, network, and spend controls to
+    `templates/execution-budget.yaml`; block packets when required controls
+    are unavailable.
+11. Persist checkpoints and operation IDs for long-running or side-effecting
+    work, and verify idempotency before retrying.
+12. Use an atomic packet lease with heartbeat and fencing for concurrent or
+    side-effecting work; otherwise record the coordination limitation.
+13. Run the packet's golden, regression, and relevant adversarial evaluation
+    cases before handoff.
+14. Record model, policy, prompt, tool, environment, dependency, and data
+    snapshot metadata for agent runs using `templates/agent-run.yaml`.
+15. Emit privacy-aware lifecycle, tool, approval, mutation, validation,
+    failure, and handoff events using `templates/agent-event.yaml`.
+16. Register the harness, adapter version, lock release/ref, compatibility
+    window, and migration status in `templates/protocol-consumer.yaml` when
+    managing multiple consuming projects.
+17. Quarantine affected sessions and create an agent incident record when a
+    security, authorization, data, release, or safety failure occurs.
+18. Inventory every adapter, tool, MCP server, plugin, and external dependency
+    with `templates/adapter-inventory.yaml` before enabling it.
 
 The global skill directory is host-specific. It may be a user-level
 directory, a container mount, or a CI-provided instruction path. It must
@@ -47,3 +74,4 @@ An adapter conforms when it demonstrates:
 - Evidence-backed cleanup
 - Handoff acceptance
 - Practice review and closure
+- Actor identity, capability, risk-tier, and external-effect authorization

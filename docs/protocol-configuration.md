@@ -91,6 +91,12 @@ Every harness should perform this preflight before claiming a packet:
 5. Compare each installed front-matter `version` with the lock.
 6. Stop and synchronize if any check fails.
 
+Projects SHOULD also run `scripts/validate-contract-records.py` when this
+repository is available as a checkout. That validator checks packet schemas,
+identifiers, dependencies, references, tracker reconciliation, active-lock
+collisions, and optional changed-path scope. A packet with invalid records or
+an out-of-scope change must not advance to validation or handoff.
+
 The following check uses Python and PyYAML. A harness may implement the same
 checks with its native YAML parser:
 
@@ -141,6 +147,13 @@ For another harness, change only `SKILLS_DIR`. Do not change the lock to
 match a stale installation. Update the installation from the locked source,
 then rerun preflight.
 
+New security packets must include actor identity, capabilities, risk and
+approval policy, declared effects, and applicable trust, budget, checkpoint,
+evaluation, run, observability, and incident references. The validator enforces
+these fields for active `CENG-T005` packets. Completed packets created before
+this enforcement may be migrated under a separately scoped packet; they are
+not a precedent for new work.
+
 ## Updating protocols
 
 Protocol updates are coordinated, not discovered independently by each tool:
@@ -155,6 +168,11 @@ Protocol updates are coordinated, not discovered independently by each tool:
 
 Do not update one harness to a newer protocol while another continues work
 against an older contract under the same project lock.
+
+For organizations with multiple consuming projects, maintain a consumer
+record from `templates/protocol-consumer.yaml` and follow
+`docs/protocol-fleet.md`. Breaking lock-schema, state-machine, or safeguard
+changes require an impact assessment and migration packet before rollout.
 
 ## Rollback and drift recovery
 

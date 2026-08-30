@@ -1,0 +1,24 @@
+handoff_id: CENG-T005-P006-HO001
+packet_id: CENG-T005-P006
+sender: agent
+receiver: user
+base_revision: 295cc42862cc1545827918443b85bb3301a46c53
+head_revision: worktree
+summary: Added repository-wide security automation, CODEOWNERS coverage, severity/SLA policy, and protected-review documentation.
+changed_resources:
+  - .github/workflows/security.yml
+  - .github/CODEOWNERS
+  - SECURITY.md
+  - docs/code-security.md
+  - docs/release-integrity.md
+validation_results:
+  - CENG-T005-P006-EV001
+evidence_refs:
+  - CENG-T005-P006-EV001
+skill_gaps: []
+unresolved_items:
+  - Repository-admin branch protection, required checks, and protected release tags must be enabled and verified by an owner outside this local packet.
+rollback_notes: Restore the prior security policy and remove the security workflow and CODEOWNERS if this packet is rejected. Do not remove independent review or secret-rotation requirements as part of rollback.
+requested_next_action: Review the evidence and continue with the dependency-ordered CENG-T005 security remediation backlog.
+receiver_status: accepted
+receiver_notes: User authorized implementation of the full CENG-T005 security-remediation backlog; P006 acceptance criteria passed locally. Remote repository-admin controls remain explicitly unresolved.

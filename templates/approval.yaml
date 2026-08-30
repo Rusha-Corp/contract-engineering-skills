@@ -1,0 +1,28 @@
+approval_version: 1
+approval_id: ""
+packet_id: ""
+decision: approve|reject|revoke
+policy: automatic|reviewer|user|two_person
+subject:
+  revision: ""
+  scope_digest: ""
+  changed_resources: []
+requester:
+  identity: ""
+  identity_type: human|agent|service
+  authentication_ref: ""
+approver:
+  identity: ""
+  identity_type: human|agent|service
+  authentication_ref: ""
+  independent: false
+  signature_ref: ""
+approved_at: ""
+expires_at: ""
+constraints: []
+verification:
+  verified_at: ""
+  verifier: ""
+  result: pass|fail|revoked
+  revocation_checked_at: ""
+  verification_ref: ""

@@ -1,0 +1,29 @@
+consumer_record_version: 1
+consumer_id: ""
+repository: ""
+owner: ""
+environment: ""
+harnesses:
+  - name: ""
+    adapter: ""
+    version: ""
+    skills_directory: ""
+    status: synchronized|drifted|unsupported|unknown
+protocol:
+  lock_path: .contract-engineering/protocol.lock.yaml
+  release: ""
+  ref: ""
+  lock_version: 1
+compatibility:
+  minimum_release: ""
+  maximum_release: ""
+  supported_schema_versions: []
+migration:
+  status: current|planned|in_progress|blocked|complete|rollback
+  impact_ref: null
+  target_release: ""
+  owner: ""
+  due_at: ""
+  rollback_ref: ""
+last_verified_at: ""
+evidence_refs: []

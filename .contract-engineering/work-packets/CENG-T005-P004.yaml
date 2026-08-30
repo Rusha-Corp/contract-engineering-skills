@@ -1,0 +1,103 @@
+packet_id: CENG-T005-P004
+task_id: CENG-T005
+phase: P0_FOUNDATIONS
+domain: coding
+title: Enforce security semantics in records
+objective: Make risk, capability, approval, external-effect, evidence, trust, budget,
+  and incident fields executable validation requirements.
+research_gap_refs:
+- CENG-SEC-004
+research_refs:
+- https://owasp.org/www-community/attacks/MCP_Tool_Poisoning
+- https://owasp.org/www-project-agentic-skills-top-10/
+- https://github.com/ossf/scorecard/blob/main/docs/checks.md
+open_questions:
+- Which fields are mandatory for each risk tier and operation type?
+- Which approval and evidence records are authoritative for automated validation?
+scope:
+  in:
+  - schemas/work-packet.schema.json
+  - scripts/validate-contract-records.py
+  - tests/test_contract_records.py
+  - docs/protocol-configuration.md
+  out:
+  - global installed skills
+  - consumer application runtime changes outside packet scope
+  - remote release publication
+actor:
+  agent_id: agent
+  harness: factory-droid
+  model: droid
+  session_id: current-session
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: high
+approval_policy: user
+external_effects: []
+trust_boundary_ref: docs/agent-trust-boundaries.md
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+- templates/agent-event.yaml
+incident_refs:
+- templates/agent-incident.yaml
+owner: agent
+reviewer: user
+cleanup_owner: unassigned
+dependencies: &id001
+- CENG-T005-P003
+- CENG-T005-P005
+locks:
+  []
+claim_timestamp: '2026-08-30T09:41:45Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 295cc42862cc1545827918443b85bb3301a46c53
+- 'approved spec: 2026-08-30-create-security-remediation-work-packets'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Validator enforces actor, risk tier, capabilities, approval policy, and external-effect
+  requirements.
+- Validator enforces trust-boundary, budget, checkpoint, evaluation, run, observability,
+  and incident references when applicable.
+- Evidence policy and approval results are checked rather than merely parsed.
+- Negative tests reject missing approvals, excessive capabilities, unredacted restricted
+  evidence, and unlisted effects.
+- Schema, validator, tracker, handoff, and packet state rules remain consistent.
+validation_plan:
+- id: CENG-T005-P004-VAL001
+  kind: security
+  checks:
+  - Positive and negative tests cover the stated security controls.
+  - Security failures do not disclose secrets or bypass required approvals.
+  - Research references, migration, rollback, and exception handling are recorded.
+  expected: security acceptance criteria pass
+- id: CENG-T005-P004-VAL002
+  kind: principles
+  skill: coding-principles
+  checks:
+  - Existing security abstractions and completed handoffs were reviewed.
+  - Least privilege, explicit boundaries, fail-fast behavior, and reversible changes
+    were checked.
+  - Static/security tests and dependency checks pass or are documented unavailable.
+  expected: no unresolved security or principles violations
+evidence_refs:
+- CENG-T005-P004-EV001
+handoff_ref: CENG-T005-P004-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: *id001
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

@@ -1,0 +1,33 @@
+run_record_version: 1
+run_id: ""
+packet_id: ""
+actor_ref: ""
+started_at: ""
+ended_at: ""
+model:
+  provider: ""
+  name: ""
+  version: ""
+  endpoint: ""
+  settings_hash: ""
+prompt_policy:
+  system_policy_ref: ""
+  prompt_template_ref: ""
+  policy_hash: ""
+tools:
+  - name: ""
+    provider: ""
+    version: ""
+    schema_hash: ""
+    capabilities: []
+dependencies: []
+data_snapshots: []
+environment:
+  os: ""
+  runtime: ""
+  repository_revision: ""
+  configuration_hash: ""
+result:
+  outcome: success|failure|partial|unknown
+  evidence_refs: []
+  limitations: []

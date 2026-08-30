@@ -1,0 +1,17 @@
+skill_gap_id: PROJECT-SG001
+task_id: PROJECT-T001
+packet_id: PROJECT-T001-P001
+discovered_at: ""
+skill_file: ""
+gap_type: missing|unclear|outdated|redundant|mismatch
+severity: low|medium|high
+description: ""
+impact: ""
+proposed_change: ""
+evidence_refs: []
+outcome_metric: ""
+review_date: ""
+user_notified: false
+user_decision: pending|action|defer|reject
+action_owner: ""
+decision_ref: null

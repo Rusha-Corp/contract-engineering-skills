@@ -1,0 +1,34 @@
+packet_id: PROJECT-T001-P001
+task_id: PROJECT-T001
+phase: P1_IMPLEMENTATION
+domain: coding
+title: ""
+objective: ""
+state: Planned
+scope:
+  in: []
+  out: []
+owner: ""
+reviewer: ""
+cleanup_owner: ""
+dependencies: []
+locks: []
+claim_timestamp: ""
+baseline_refs: []
+design_decision_ref: null
+data_gate_ref: null
+stability: stable
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+acceptance_criteria: []
+validation_plan: []
+evidence_refs: []
+handoff_ref: null
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []

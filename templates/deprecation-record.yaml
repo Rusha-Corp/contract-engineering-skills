@@ -1,0 +1,15 @@
+deprecation_id: PROJECT-DEP001
+target: ""
+target_type: api|route|config|env|k8s|contract|dependency|feature_flag|code
+status: Active|Deprecated|Migration|SunsetEligible|RemovalReview|Removed|Verified|RetainedByException
+owner: ""
+reviewer: ""
+replacement: ""
+affected_consumers: []
+announced_at: ""
+sunset_target: ""
+removal_criteria: []
+migration_steps: []
+evidence_refs: []
+rollback_plan: ""
+exception_ref: null

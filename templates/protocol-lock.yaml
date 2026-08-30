@@ -1,0 +1,26 @@
+# Example lock for the currently published v2.0.0 release. Replace the
+# protocol ref, release, versions, and hashes together when selecting another
+# release.
+lock_version: 1
+protocol:
+  repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
+  ref: bcc2adb73475af10c5aa92bd27471a5e31e0f514
+  release: 2.0.0
+skills:
+  phased-engineering-execution:
+    version: 2.0.0
+    sha256: 75caeffe89029c52ad8732127589b84b5d2a7769a127a8b5fedeb24f885787a4
+  cleanup-protocol:
+    version: 2.0.0
+    sha256: 5f1f86dd45a9665a27184a6e5595f9ec297cd5ffc29a1cdf59351072c5551b46
+  project-lifecycle:
+    version: 2.0.0
+    sha256: 7c814a04bd7a111e73d2a51b10cec8cd071f69ad39428099b151e250cbcecc65
+  skill-evolution:
+    version: 1.1.0
+    sha256: 28073f8bc3f040d2853a5df7979689a8c310968c6f6ead01a10149a6365dc236
+  coding-principles:
+    version: 1.1.0
+    sha256: c3af6bc25e0594e79d849dd0837ec3c4fa19a3483b536b6907337251c69c0af2
+project:
+  protocol_root: .contract-engineering

@@ -1,11 +1,13 @@
 ---
 name: coding-principles
-version: 1.1.0
+version: 1.2.0
 description: Enforce DRY, SOLID, KISS, YAGNI, composition, defensive coding, and cross-packet architecture alignment during coding implementation and validation.
 ---
 
 ## Revision history
 
+- 1.2.0 (2026-08-30): Added project protocol-lock and cross-harness
+  synchronization guidance.
 - 1.1.0 (2026-08-30): Added compatibility, evolutionary architecture, and
   fitness-function guidance while refining YAGNI for necessary enabling work.
 
@@ -24,6 +26,12 @@ complete.**
 Principles are review and validation gates. Record violations in
 `cleanup_scope`, `skill_gaps`, or the packet decision log instead of silently
 accepting them.
+
+Before coding work, pass the consuming project's protocol-lock preflight.
+Use the skill version selected by `protocol.lock.yaml`, and keep coding
+packets, evidence, and handoffs relative to its `project.protocol_root`,
+which defaults to `.contract-engineering`. A legacy `.factory` root must be
+explicitly recorded in the lock.
 
 ## Principle checks
 

@@ -1,11 +1,13 @@
 ---
 name: project-lifecycle
-version: 2.0.0
+version: 2.1.0
 description: Orchestrate phased engineering execution, cleanup, skill evolution, user verification, and closure across project iterations.
 ---
 
 ## Revision history
 
+- 2.1.0 (2026-08-30): Added project protocol-lock and cross-harness
+  synchronization guidance.
 - 2.0.0 (2026-08-30): Added an explicit deprecation-review lifecycle state
   between validation and cleanup.
 - 1.1.0 (2026-08-30): Added deprecation review, exception expiry checks,
@@ -13,7 +15,16 @@ description: Orchestrate phased engineering execution, cleanup, skill evolution,
 
 # Project Lifecycle
 
-This skill coordinates the other three skills. It does not implement packets.
+This skill coordinates the other governed skills. It does not implement
+packets.
+
+## Project record root
+
+Read `protocol.lock.yaml` from the consuming project before starting an
+iteration. All tracker, packet, evidence, handoff, archive, closure, and
+feedback paths in this skill are relative to `project.protocol_root`, which
+defaults to `.contract-engineering`. A legacy project may explicitly use
+`.factory` during migration.
 
 ## Iteration loop
 
@@ -48,7 +59,8 @@ An iteration may contain one feature, a focused refactor, or a bounded group of 
 ### Entry criteria
 
 - The prior iteration is closed or explicitly paused.
-- `execution-tracker.md` exists and has no untransferred active locks.
+- `<protocol_root>/execution-tracker.md` exists and has no untransferred
+  active locks.
 - The objective, scope, owner, and expected closure conditions are recorded.
 - Applicable Skill versions are pinned.
 

@@ -1,11 +1,13 @@
 ---
 name: skill-evolution
-version: 1.1.0
+version: 1.2.0
 description: Keep skills and project guidance current by recording gaps, reviewing patterns, and applying user-approved updates.
 ---
 
 ## Revision history
 
+- 1.2.0 (2026-08-30): Added project protocol-root and cross-harness
+  synchronization guidance.
 - 1.1.0 (2026-08-30): Distinguished invariants, procedures, and experiments,
   and added measured practice evolution.
 
@@ -33,6 +35,11 @@ Skills are living documents. Never silently work around a deficiency. Record the
 - When a skill mismatches the work or causes a blocker.
 - During monthly pattern reviews.
 - During quarterly audits and version refreshes.
+
+Project packets, trackers, evidence, handoffs, and `skill-feedback.md` are
+relative to `project.protocol_root` in the consuming project's
+`protocol.lock.yaml`, defaulting to `.contract-engineering`. A legacy
+`.factory` root must be explicitly recorded there.
 
 ## Skill gap triggers
 

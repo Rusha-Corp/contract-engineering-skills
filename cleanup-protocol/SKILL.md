@@ -1,11 +1,13 @@
 ---
 name: cleanup-protocol
-version: 2.0.0
+version: 2.1.0
 description: Remove dead code, stale artifacts, and temporary debris after validation using risk-tiered, auditable procedures.
 ---
 
 ## Revision history
 
+- 2.1.0 (2026-08-30): Added project protocol-root and cross-harness
+  synchronization guidance.
 - 2.0.0 (2026-08-30): Added the required deprecation review date to the
   record schema.
 - 1.1.0 (2026-08-30): Added deprecation records, surface-specific dead-code
@@ -14,6 +16,15 @@ description: Remove dead code, stale artifacts, and temporary debris after valid
 # Cleanup Protocol
 
 Use this skill only after implementation validation, during P3 Cleanup, or at iteration end.
+
+## Project record root
+
+Read `protocol.lock.yaml` before cleanup. Unless the lock sets another
+`project.protocol_root`, project trackers, work packets, evidence, handoffs,
+cleanup records, archives, and feedback are relative to
+`.contract-engineering`. A legacy `.factory` root is valid only when it is
+explicitly recorded in the lock. Never clean a global skill directory as if
+it were project records.
 
 ## When to use
 

@@ -1,11 +1,13 @@
 ---
 name: phased-engineering-execution
-version: 2.0.0
+version: 2.1.0
 description: Break engineering work into owned packets and execute it through evidence-based phases, gates, validation, and handoffs.
 ---
 
 ## Revision history
 
+- 2.1.0 (2026-08-30): Added project protocol-lock and cross-harness
+  preflight guidance.
 - 2.0.0 (2026-08-30): Added the `open_questions` packet field required for
   spec-to-packet traceability.
 - 1.1.0 (2026-08-30): Added deprecation/removal lifecycle, sunset criteria,
@@ -37,10 +39,19 @@ Never reuse an identifier after supersession or cancellation.
 
 ## Required records
 
-- `execution-tracker.md` is the task status source of truth.
-- `work-packets/<PACKET-ID>.yaml` is the packet source of truth.
-- Evidence, decisions, handoffs, cleanup records, and skill gaps are linked by ID.
+- `protocol.lock.yaml` selects the immutable protocol source and skill
+  versions for the consuming project.
+- `execution-tracker.md` is the task status source of truth, relative to the
+  configured project protocol root.
+- `work-packets/<PACKET-ID>.yaml` is the packet source of truth, relative to
+  the configured project protocol root.
+- Evidence, decisions, handoffs, cleanup records, and skill gaps are linked
+  by ID relative to that same root.
 - Chat is not the sole record of ownership, scope, approval, blocker, or completion.
+
+The default project protocol root is `.contract-engineering`. Resolve it from
+`project.protocol_root` in `protocol.lock.yaml`; a legacy project may
+explicitly set it to `.factory` while migrating.
 
 ## Packet schema
 
@@ -115,7 +126,8 @@ exception has expired.
 
 Complete exactly these six steps before implementation:
 
-1. Record source revision, environment, toolchain, configuration, and dependency versions.
+1. Record the protocol lock ref, skill versions and hashes, source revision,
+   environment, toolchain, configuration, and dependency versions.
 2. Inventory affected files, routes, services, data sources, permissions, and navigation targets.
 3. Inventory likely dead code, stale artifacts, temporary files, orphaned tests, and unused dependencies.
 4. Capture current behavior, tests, screenshots, accessibility snapshots, fixtures, and data samples as immutable evidence.
@@ -199,9 +211,11 @@ workflow engine.
 
 ### Start
 
-1. Read the tracker, requirements, applicable skills, and assigned packet.
+1. Read and pass the project's protocol-lock preflight, then read the
+   tracker, requirements, applicable skills, and assigned packet.
 2. Confirm owner, reviewer, cleanup owner, dependencies, locks, gates, and scope.
-3. Claim the packet and complete the baseline before editing.
+3. Claim the packet and complete the baseline before editing. Include the
+   protocol lock path in `baseline_refs`.
 4. Confirm all applicable Skill versions are pinned in the tracker or packet.
 
 ### Work

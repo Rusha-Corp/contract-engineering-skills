@@ -22,6 +22,14 @@ Classify each rule as an invariant, default procedure, or experiment. New
 procedures should be trialled on bounded work with an owner, hypothesis,
 success metric, expiry, and rollback plan before becoming defaults.
 
+## Protocol configuration changes
+
+Changes to the lock template or cross-harness setup guidance must document
+the source commit, release, five skill versions, SHA-256 values, project
+protocol-root behavior, adapter impact, migration steps, rollback, and
+preflight validation. Do not introduce host-specific paths into the portable
+lock contract.
+
 ## Deprecation changes
 
 Every deprecated public or shared surface needs a replacement, affected

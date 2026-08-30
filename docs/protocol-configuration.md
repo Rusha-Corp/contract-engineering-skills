@@ -1,0 +1,187 @@
+# Protocol Configuration
+
+This guide keeps the Contract-Driven Engineering protocols consistent across
+Factory Droid, IDE agents, CLI agents, CI, and other AI-assisted development
+environments.
+
+## Three layers
+
+Use three separate layers:
+
+1. **Canonical source:** this repository, selected by an immutable commit.
+2. **Global skill installation:** the host's skill directory, such as
+   `~/.factory/skills` for Factory Droid.
+3. **Project configuration and records:** the consuming repository's committed
+   `.contract-engineering/` directory.
+
+Global installations provide instructions. They do not own project decisions,
+packet state, evidence, or version selection.
+
+## Project files
+
+Create these files in every consuming project:
+
+```text
+.contract-engineering/
+  protocol.lock.yaml
+  execution-tracker.md
+  work-packets/
+  evidence/
+  handoffs/
+  skill-feedback.md
+```
+
+The protocol root is project-relative and defaults to `.contract-engineering`.
+If an existing project already stores records under `.factory`, set
+`project.protocol_root: .factory` in its lock file while migrating. Do not
+move or delete existing records automatically.
+
+Create the lock from the repository template:
+
+```bash
+mkdir -p .contract-engineering
+cp templates/protocol-lock.yaml \
+  .contract-engineering/protocol.lock.yaml
+```
+
+Review every value before committing it. The lock file is the project's
+authority for protocol selection.
+
+## Lock file contract
+
+`protocol.lock.yaml` contains:
+
+- `lock_version`: lock schema version;
+- `protocol.repository`: canonical repository URL;
+- `protocol.ref`: immutable commit SHA, not a floating branch;
+- `protocol.release`: human-readable release associated with the commit;
+- `skills.<name>.version`: front-matter version for each governed skill;
+- `skills.<name>.sha256`: hash of the installed `SKILL.md`;
+- `project.protocol_root`: project-relative directory for shared records.
+
+The lock must list all five governed skills. The release field is descriptive;
+the immutable `ref` and per-file hashes are the integrity controls. When
+using a tag, resolve it to a commit and record that commit in `ref`.
+
+## Initial installation
+
+Choose a checkout directory outside the host's skill directory:
+
+```bash
+git clone https://github.com/Rusha-Corp/contract-engineering-skills.git \
+  "$HOME/contract-engineering-skills"
+git -C "$HOME/contract-engineering-skills" checkout --detach \
+  bcc2adb73475af10c5aa92bd27471a5e31e0f514
+```
+
+Use the `protocol.ref` from the project's lock file instead of the example
+commit above. Then follow the host adapter's instructions to copy the five
+`SKILL.md` files into its global skill directory. Never overwrite an existing
+skill until its local differences have been reviewed or backed up.
+
+## Preflight before work
+
+Every harness should perform this preflight before claiming a packet:
+
+1. Read the project's lock file.
+2. Confirm the local protocol checkout is at `protocol.ref`, when a checkout
+   is used.
+3. Confirm each installed governed skill exists.
+4. Compare each installed file's SHA-256 hash with the lock.
+5. Compare each installed front-matter `version` with the lock.
+6. Stop and synchronize if any check fails.
+
+The following check uses Python and PyYAML. A harness may implement the same
+checks with its native YAML parser:
+
+```bash
+SKILLS_DIR="$HOME/.factory/skills" \
+  python3 - ".contract-engineering/protocol.lock.yaml" <<'PY'
+import hashlib
+import os
+import re
+import sys
+from pathlib import Path
+
+try:
+    import yaml
+except ImportError:
+    raise SystemExit("PyYAML is required for this preflight")
+
+lock_path = Path(sys.argv[1])
+lock = yaml.safe_load(lock_path.read_text())
+skills_dir = Path(os.environ["SKILLS_DIR"]).expanduser()
+skills = lock["skills"]
+required = {
+    "phased-engineering-execution",
+    "cleanup-protocol",
+    "project-lifecycle",
+    "skill-evolution",
+    "coding-principles",
+}
+if set(skills) != required:
+    raise SystemExit(f"lock must contain exactly five governed skills: {sorted(skills)}")
+
+for name, pin in skills.items():
+    skill_file = skills_dir / name / "SKILL.md"
+    if not skill_file.is_file():
+        raise SystemExit(f"missing installed skill: {skill_file}")
+    actual_hash = hashlib.sha256(skill_file.read_bytes()).hexdigest()
+    if actual_hash != pin["sha256"]:
+        raise SystemExit(f"hash mismatch: {name}")
+    match = re.search(r"^version:\s*(\S+)\s*$", skill_file.read_text(), re.MULTILINE)
+    if not match or match.group(1) != str(pin["version"]):
+        raise SystemExit(f"version mismatch: {name}")
+
+print("protocol preflight passed")
+PY
+```
+
+For another harness, change only `SKILLS_DIR`. Do not change the lock to
+match a stale installation. Update the installation from the locked source,
+then rerun preflight.
+
+## Updating protocols
+
+Protocol updates are coordinated, not discovered independently by each tool:
+
+1. Review the protocol repository release notes.
+2. Update the project's `protocol.lock.yaml` to the new immutable ref,
+   release, skill versions, and SHA-256 values.
+3. Review migration notes and any changed schemas or lifecycle states.
+4. Update each harness's global skill installation from that same ref.
+5. Run preflight in every harness.
+6. Record the lock path and ref in each packet's `baseline_refs`.
+
+Do not update one harness to a newer protocol while another continues work
+against an older contract under the same project lock.
+
+## Rollback and drift recovery
+
+To roll back, restore the previous lock file and reinstall the exact previous
+ref into each harness. Keep the previous skill installation or a verified
+backup until the new installation passes preflight.
+
+If a hash, version, or source ref differs:
+
+1. Stop new packet work in that environment.
+2. Preserve the current installation for comparison.
+3. Reinstall from the lock's immutable ref, or restore the verified backup.
+4. Rerun preflight.
+5. Record the drift and recovery in the project evidence or handoff.
+
+Never solve drift by editing an installed `SKILL.md` manually.
+
+## Multi-harness coordination
+
+All harnesses use the same project-local:
+
+- `protocol.lock.yaml`;
+- execution tracker;
+- work packets and ownership locks;
+- evidence and handoffs;
+- skill feedback log.
+
+The host adapter supplies only the global skill path and approval mechanics.
+It must not create a second project lock or private tracker. Chat history and
+private AI sessions are not sources of truth.

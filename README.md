@@ -16,6 +16,23 @@ depend on a particular vendor, editor, CLI, or model.
   validation records.
 - `adapters/` explains host-specific installation and execution integration.
 
+## Protocol configuration
+
+Global skill installations are host-specific. For example, Factory Droid
+discovers shared skills from `~/.factory/skills`, while another harness may
+use a different user-level directory. Project configuration is portable and
+belongs in the consuming repository:
+
+```text
+.contract-engineering/protocol.lock.yaml
+```
+
+The lock selects one immutable protocol release and records every governed
+skill's version and SHA-256 hash. Project trackers, packets, evidence,
+handoffs, and feedback are stored relative to the configured protocol root.
+Read [the protocol configuration guide](docs/protocol-configuration.md) for
+setup, preflight, updates, rollback, and multi-harness coordination.
+
 ## Core loop
 
 ```text
@@ -36,16 +53,27 @@ through bounded practice experiments.
 
 ## Droid installation
 
-For a new or empty Droid Skill directory:
+For a new or empty Droid Skill directory, first create a project lock using
+the [protocol configuration guide](docs/protocol-configuration.md), then use
+its immutable `protocol.ref`:
 
 ```bash
 mkdir -p ~/.factory
 git clone https://github.com/Rusha-Corp/contract-engineering-skills.git \
-  ~/.factory/skills
+  ~/.factory/skills || {
+  echo "Failed to clone contract-engineering-skills" >&2
+  exit 1
+}
+git -C ~/.factory/skills checkout --detach \
+  bcc2adb73475af10c5aa92bd27471a5e31e0f514 || {
+  echo "Failed to select the locked protocol revision" >&2
+  exit 1
+}
 ```
 
-This works because each protocol directory is at the repository root and
-contains its own `SKILL.md`.
+Replace the example commit with the value from the consuming project's
+`protocol.lock.yaml`. This works because each protocol directory is at the
+repository root and contains its own `SKILL.md`.
 
 If `~/.factory/skills` already contains other Droid Skills, do not clone over
 it. Clone separately, review the release, back up the target directory, and
@@ -55,6 +83,11 @@ copy only the five protocol directories:
 git clone https://github.com/Rusha-Corp/contract-engineering-skills.git \
   ~/contract-engineering-skills || {
   echo "Failed to clone contract-engineering-skills" >&2
+  exit 1
+}
+git -C "$HOME/contract-engineering-skills" checkout --detach \
+  bcc2adb73475af10c5aa92bd27471a5e31e0f514 || {
+  echo "Failed to select the locked protocol revision" >&2
   exit 1
 }
 for skill in phased-engineering-execution cleanup-protocol project-lifecycle skill-evolution coding-principles; do
@@ -95,6 +128,6 @@ version from the backup or checked-out tag.
 
 ## Validation
 
-Use `templates/validation-guide.md` for non-destructive checks. This
-repository intentionally does not ship an automatic deletion or mutation
-tool.
+Use `templates/validation-guide.md` for non-destructive checks and
+`docs/protocol-configuration.md` for cross-harness preflight. This repository
+intentionally does not ship an automatic deletion or mutation tool.

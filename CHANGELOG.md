@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.1.0 - 2026-08-30
+
+- Added a portable `protocol.lock.yaml` template for pinning one immutable
+  protocol source and all five governed skill files.
+- Added cross-harness setup, preflight, update, rollback, and drift guidance.
+- Documented the default `.contract-engineering` project record root and
+  explicit legacy `.factory` migration behavior.
+- Added adapter-specific global skill installation guidance without making
+  host paths part of the project lock.
+- Added protocol-lock preflight guidance to all governed skills.
+
 ## 2.0.0 - 2026-08-30
 
 - Added `open_questions` to packet records for spec-to-packet traceability.

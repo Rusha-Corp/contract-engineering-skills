@@ -11,11 +11,12 @@ receiver:
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ''
-  acceptance_ref: ''
+  accepted_at: '2026-08-31T20:13:06Z'
+  acceptance_ref: USER-ACCEPT-20260831-ALL-REWORK
   signature_ref: ''
 base_revision: 21539bd876eb7af9bd71f394e494314bb6762573
 head_revision: f942d064dd4d4b2e196c8c0f8db767735c6b7e2b
+scope_digest: 60dee6fa6f9ce02c214cc26b7fdc4e82cb434542aab638b6b11621b346e33c71
 summary: Corrected PR 1's stale negative workflow fixtures and consolidated the compatible
   CodeQL v4.37.9 init and analyze upgrades from PRs 5 and 6.
 changed_resources:
@@ -38,10 +39,10 @@ rollback_notes: Revert commit af48c90 or remove the replacement branch; no globa
   skills were changed.
 requested_next_action: Use this branch to update PR 1 and consolidate PRs 5 and 6,
   merge PRs 2, 3, and 4, then close superseded PRs.
-receiver_status: pending
-receiver_notes: Rework validation is recorded against f942d064dd4d4b2e196c8c0f8db767735c6b7e2b. GitHub PR merge and closure remain outside packet scope and require connected approval.
-handoff_version: 2
-scope_digest: 60dee6fa6f9ce02c214cc26b7fdc4e82cb434542aab638b6b11621b346e33c71
-accepted_revision: ''
-accepted_scope_digest: ''
-accepted_evidence_refs: []
+receiver_status: accepted
+receiver_notes: User accepted this packet after review; GitHub PR merge and closure remain outside packet scope.
+accepted_revision: f942d064dd4d4b2e196c8c0f8db767735c6b7e2b
+accepted_scope_digest: 60dee6fa6f9ce02c214cc26b7fdc4e82cb434542aab638b6b11621b346e33c71
+accepted_evidence_refs:
+- CENG-T007-P003-EV001
+- CENG-T007-P003-EV002

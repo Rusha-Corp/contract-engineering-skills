@@ -30,8 +30,7 @@ cleanup_owner: agent
 owner: agent
 reviewer: user
 dependencies: []
-locks:
-- CENG-T009-P001
+locks: []
 claim_timestamp: '2026-08-31T20:05:00Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
@@ -66,7 +65,7 @@ evidence_refs:
 - CENG-T009-P001-EV001
 - CENG-T009-P001-EV002
 handoff_ref: CENG-T009-P001-HO002
-state: Handoff
+state: Complete
 cleanup_scope:
   dead_refs: []
   stale_refs: []

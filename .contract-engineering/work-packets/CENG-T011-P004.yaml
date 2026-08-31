@@ -42,8 +42,7 @@ reviewer: user
 cleanup_owner: agent
 dependencies:
 - CENG-T011-P001
-locks:
-- CENG-T011-P004
+locks: []
 claim_timestamp: '2026-08-31T19:53:08Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
@@ -69,7 +68,7 @@ validation_plan:
   kind: schema-conformance
   command: Native schema validator with malformed, incomplete, and over-broad records
   expected: records outside the normative contracts are rejected
-state: Handoff
+state: Complete
 cleanup_scope:
   dead_refs: []
   stale_refs: []

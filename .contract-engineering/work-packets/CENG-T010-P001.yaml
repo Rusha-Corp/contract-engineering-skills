@@ -47,8 +47,7 @@ owner: agent
 reviewer: user
 cleanup_owner: agent
 dependencies: []
-locks:
-- CENG-T010-P001
+locks: []
 claim_timestamp: '2026-08-31T19:53:08Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
@@ -87,5 +86,5 @@ evidence_refs:
 - CENG-T010-P001-EV001
 - CENG-T010-P001-EV002
 handoff_ref: CENG-T010-P001-HO001
-state: Handoff
+state: Complete
 stability: stable

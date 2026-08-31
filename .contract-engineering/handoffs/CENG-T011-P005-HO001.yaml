@@ -12,8 +12,8 @@ receiver:
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ''
-  acceptance_ref: ''
+  accepted_at: '2026-08-31T20:13:06Z'
+  acceptance_ref: USER-ACCEPT-20260831-ALL-REWORK
   signature_ref: ''
 base_revision: 21539bd876eb7af9bd71f394e494314bb6762573
 head_revision: f942d064dd4d4b2e196c8c0f8db767735c6b7e2b
@@ -34,8 +34,10 @@ verification:
   result: pass
   revocation_checked_at: ''
   verification_ref: CENG-T011-P005-EV002
-receiver_status: pending
-receiver_notes: Rework implementation and validation are recorded against f942d064dd4d4b2e196c8c0f8db767735c6b7e2b. Independent release review and receiver acceptance remain required.
-accepted_revision: ''
-accepted_scope_digest: ''
-accepted_evidence_refs: []
+receiver_status: accepted
+receiver_notes: User accepted this packet after review; independent release attestations remain required for a future stable release.
+accepted_revision: f942d064dd4d4b2e196c8c0f8db767735c6b7e2b
+accepted_scope_digest: 0b8ee5d22501038f209eb1fdbabf091389df6356171fa6a64d94dd671d7fdef0
+accepted_evidence_refs:
+- CENG-T011-P005-EV001
+- CENG-T011-P005-EV002

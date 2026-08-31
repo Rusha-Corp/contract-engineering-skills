@@ -12,8 +12,8 @@ receiver:
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ''
-  acceptance_ref: ''
+  accepted_at: '2026-08-31T20:13:06Z'
+  acceptance_ref: USER-ACCEPT-20260831-ALL-REWORK
   signature_ref: ''
 base_revision: 55e9405dacde337441262df108bec20ce9cc2e8e
 head_revision: 5dcc63fe5d275bf4e9574abd7105776ba39fcae8
@@ -32,8 +32,10 @@ verification:
   result: pass
   revocation_checked_at: ''
   verification_ref: CENG-T009-P001-EV002
-receiver_status: pending
-receiver_notes: T009 rework is validated and bound to 5dcc63fe5d275bf4e9574abd7105776ba39fcae8. Docker and Dev Container CLI verification remain unavailable and require receiver disposition.
-accepted_revision: ''
-accepted_scope_digest: ''
-accepted_evidence_refs: []
+receiver_status: accepted
+receiver_notes: User accepted this packet after review; Docker and Dev Container CLI verification remain deferred as documented.
+accepted_revision: 5dcc63fe5d275bf4e9574abd7105776ba39fcae8
+accepted_scope_digest: f3553538d81f55261df3ca2f5a629905f0ab1e0711eb13d9f3f82279dfda3fa9
+accepted_evidence_refs:
+- CENG-T009-P001-EV001
+- CENG-T009-P001-EV002

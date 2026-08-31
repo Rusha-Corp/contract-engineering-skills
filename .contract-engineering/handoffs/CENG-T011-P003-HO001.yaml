@@ -12,8 +12,8 @@ receiver:
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ''
-  acceptance_ref: ''
+  accepted_at: '2026-08-31T20:13:06Z'
+  acceptance_ref: USER-ACCEPT-20260831-ALL-REWORK
   signature_ref: ''
 base_revision: 21539bd876eb7af9bd71f394e494314bb6762573
 head_revision: f942d064dd4d4b2e196c8c0f8db767735c6b7e2b
@@ -36,8 +36,10 @@ verification:
   result: pass
   revocation_checked_at: ''
   verification_ref: CENG-T011-P003-EV002
-receiver_status: pending
-receiver_notes: Rework implementation and validation are recorded against f942d064dd4d4b2e196c8c0f8db767735c6b7e2b. Native lifecycle execution remains a host-side gate and requires independent receiver acceptance.
-accepted_revision: ''
-accepted_scope_digest: ''
-accepted_evidence_refs: []
+receiver_status: accepted
+receiver_notes: User accepted this packet after review; native lifecycle execution remains a documented host-side limitation.
+accepted_revision: f942d064dd4d4b2e196c8c0f8db767735c6b7e2b
+accepted_scope_digest: bb07298ee3062792267e51407e8aaa6c9034e590ec632300ff3fc2ba40c66da3
+accepted_evidence_refs:
+- CENG-T011-P003-EV001
+- CENG-T011-P003-EV002

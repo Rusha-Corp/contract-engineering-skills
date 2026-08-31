@@ -53,8 +53,7 @@ dependencies:
 - CENG-T011-P002
 - CENG-T011-P003
 - CENG-T011-P004
-locks:
-- CENG-T011-P005
+locks: []
 claim_timestamp: '2026-08-31T19:53:08Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
@@ -80,7 +79,7 @@ validation_plan:
   kind: drift
   command: Native CI lock/source verification at the selected immutable ref
   expected: skill versions and hashes match the immutable source, or CI fails
-state: Handoff
+state: Complete
 cleanup_scope:
   dead_refs: []
   stale_refs: []

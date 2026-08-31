@@ -93,6 +93,7 @@ validation_plan:
 validation_limitations:
 - Local gitleaks, CodeQL, dependency review, and OpenSSF Scorecard execution is unavailable; hosted gates are mandatory before publication completion.
 - Remote publication and signature verification cannot be claimed until the remote operation returns a verifiable result.
+- The configured GPG public key is present but its private signing key is unavailable; signed-tag creation failed closed and requires release-owner remediation.
 evidence_refs:
 - CENG-T004-P017-EV001
 handoff_ref: null
@@ -109,4 +110,4 @@ migration_dependencies:
 removal_criteria: []
 exception_refs: []
 sunset_target: ''
-state: Validation
+state: Rework

@@ -19,12 +19,12 @@ scope:
   - adapters/generic/README.md
   - scripts/validate-contract-records.py
   - tests/test_contract_records.py
+  - /home/vscode/.factory/skills/security-assurance/SKILL.md
   out:
   - general lifecycle transitions
   - evidence retention policy
   - CI workflow implementation
   - tracker archive migration
-  - global installed skills
   - remote systems
 actor:
   agent_id: factory-droid
@@ -58,7 +58,7 @@ baseline_refs:
 - .contract-engineering/protocol.lock.yaml
 - 87453d48063fc7c8d1c0e9618384b50697fa758c
 - "audit findings: security enforcement is scoped to CENG-T005"
-design_decision_ref: "CENG-T011-P002 scope expansion: generalized security validation and adversarial tests are required to enforce the contract."
+design_decision_ref: CENG-T011-P002-DEC001
 data_gate_ref: null
 acceptance_criteria:
 - Security enforcement is triggered by security domain, external effects, and security-sensitive scope patterns.
@@ -82,19 +82,7 @@ cleanup_scope:
   dead_refs: []
   stale_refs: []
   temp_refs: []
-skill_gaps:
-- skill_gap_id: CENG-SG001
-  task_id: CENG-T011
-  packet_id: CENG-T011-P002
-  discovered_at: '2026-08-31T17:30:00Z'
-  skill_file: security-assurance/SKILL.md
-  gap_type: missing
-  severity: medium
-  description: The active Factory runtime could not load the repository security-assurance skill through the Skill tool.
-  impact: Native skill activation could not be independently verified in this session.
-  proposed_change: Synchronize the installed skill directory from the locked protocol source before receiver acceptance.
-  evidence_refs:
-  - CENG-T011-P002-EV001
+skill_gaps: []
 stability: stable
 evidence_refs:
 - CENG-T011-P002-EV001

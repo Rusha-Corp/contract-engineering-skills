@@ -10,6 +10,10 @@ decisions:
   date: '2026-08-31'
   rationale: The host has no ~/gh directory and no gh CLI installed; the read-write gh bind mount made container creation fail with "bind source path does not exist". Per user request, the mount is removed rather than creating the host directory.
   change: Removed the source=${localEnv:HOME}/gh,target=/home/vscode/gh,type=bind mount from .devcontainer/devcontainer.json. Only the read-only ~/.factory mount remains.
+- id: CENG-T009-P001-DEC002
+  date: '2026-08-31'
+  rationale: User directed that the Dev Container CLI issue be deferred because Docker and the CLI are unavailable in the current environment.
+  change: Deferred container creation and build verification; retained the limitation in evidence and the handoff.
 scope:
   in:
   - .devcontainer/devcontainer.json
@@ -33,7 +37,7 @@ baseline_refs:
 - 8de326fe67e2aeb1c9918bf52b6549d97df062d8
 - /Users/emmanueldavidson/.factory/specs/2026-08-30-add-python-3-12-development-container.md
 - 'user request: create .devcontainer with Python 3.12 and host mounts'
-design_decision_ref: null
+design_decision_ref: CENG-T009-P001-DEC002
 data_gate_ref: null
 acceptance_criteria:
 - The devcontainer uses a Python 3.12 Bookworm image and Linux amd64 platform.

@@ -12,8 +12,8 @@ receiver:
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ''
-  acceptance_ref: ''
+  accepted_at: '2026-08-31T18:22:55Z'
+  acceptance_ref: user-accepted-CENG-T011-P001
   signature_ref: ''
 base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
 head_revision: ac09c06e71e38937f46889c14c79320d8326687f
@@ -40,10 +40,9 @@ verification:
   result: pass
   revocation_checked_at: ''
   verification_ref: CENG-T011-P001-EV001
-receiver_status: pending
-receiver_notes: Rework bindings refreshed against implementation revision ac09c06e71e38937f46889c14c79320d8326687f.
-  Independent handoff acceptance remains pending; environment and dependency limitations
-  remain recorded in packet evidence.
-accepted_revision: ''
-accepted_scope_digest: ''
-accepted_evidence_refs: []
+receiver_status: accepted
+receiver_notes: User accepted CENG-T011-P001 after review of its acceptance criteria and evidence.
+accepted_revision: ac09c06e71e38937f46889c14c79320d8326687f
+accepted_scope_digest: 29675445eb1b0cb7673be6cf5e9fcb8556518a1499708666475ccc42d68f458b
+accepted_evidence_refs:
+- CENG-T011-P001-EV001

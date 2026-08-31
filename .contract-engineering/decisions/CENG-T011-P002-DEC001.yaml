@@ -1,0 +1,16 @@
+decision_id: CENG-T011-P002-DEC001
+packet_id: CENG-T011-P002
+title: Install the missing locked security-assurance skill
+status: approved
+reason: The Factory runtime could not load security-assurance because the locked skill was absent from the installed skill directory.
+change:
+  added_scope:
+    - /home/vscode/.factory/skills/security-assurance/SKILL.md
+  removed_scope:
+    - global installed skills
+  added_lock:
+    - /home/vscode/.factory/skills/security-assurance/SKILL.md
+impact: Installs one immutable repository skill into the missing Factory skill directory; no existing skill is overwritten.
+rollback: Remove the newly created security-assurance directory if installation verification fails.
+approved_by: user
+evidence_ref: CENG-T011-P002-EV001

@@ -1,24 +1,24 @@
 lock_version: 1
 protocol:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  ref: 575f473a9349c5dfb61df7758b52a5592b2e2915
-  release: 2.1.0
+  ref: f9396263ad858c8d79fc09d5f16f1b1cd286901e
+  release: 2.2.0-dev
 skills:
   phased-engineering-execution:
-    version: 2.1.0
-    sha256: abe87357a863e93ef10658bc2dfc93a2d2d32381b635b440782d57fb70899d8b
+    version: 2.3.0
+    sha256: 886d59203d6681a04d1efd499f50cc1dcb9e2d3c1e7501cb0d8431915a555c90
   cleanup-protocol:
-    version: 2.1.0
-    sha256: 04fd7431acc08f63362f59b5f1559b4bb26178e4f76b16172591920231ca7493
+    version: 2.2.0
+    sha256: 80fde51e6f6fa02929d2654a244311e52176afbeec1d3255f42f697b762b64bc
   project-lifecycle:
-    version: 2.1.0
-    sha256: 25a3bce52bbc792c87f93c1c6874a96c8955867e033281915808758701fddc44
+    version: 2.2.0
+    sha256: f56cbce29f835c4dabe1a9b04c3e713bbccd33ab223e039be48469761d33419d
   skill-evolution:
     version: 1.2.0
-    sha256: 06cb1220a1f488dadef4cc4a2805958006f5fca1511601e11a05234177e3ec15
+    sha256: 149be48373c05e58e1127efd4dc329f3f0af516a836d31b99cb62b64e0a2cafd
   coding-principles:
     version: 1.2.0
-    sha256: 5d2df882f6691c42d5b80f23059d7010e53ed1bb7288442773131dec4d74b36e
+    sha256: 7b4fb4e71e18e6e256776ff0918c8693815f060088485b5a72c2d886ee0c3770
   security-assurance:
     version: 1.0.0
     sha256: c0e4226a0c8630d25b234a52097fad7dd08fe817eb3a22e1f5045fb1faffc847
@@ -26,7 +26,7 @@ project:
   protocol_root: .contract-engineering
 development:
   status: unreleased
-  ref: ac09c06e71e38937f46889c14c79320d8326687f
+  ref: f9396263ad858c8d79fc09d5f16f1b1cd286901e
   based_on_release: 2.1.0
   reason: Repository hardening changes are pushed for review but are not a stable consumer release.
   consumer_action: Keep using the stable protocol.ref and synchronize only after independent review and release verification.

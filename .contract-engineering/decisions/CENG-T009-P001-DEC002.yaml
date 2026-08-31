@@ -1,0 +1,13 @@
+decision_id: CENG-T009-P001-DEC002
+packet_id: CENG-T009-P001
+title: Defer Dev Container CLI verification
+status: approved
+reason: The host Docker daemon and Dev Container CLI are unavailable in the current environment.
+change:
+  added_scope: []
+  removed_scope: []
+  added_lock: []
+impact: Container creation remains unverified; JSON configuration and repository checks remain validated locally, and target-environment verification is deferred.
+rollback: Reopen CENG-T009-P001 when Docker and the Dev Container CLI are available, then run the declared configuration and build checks.
+approved_by: user
+evidence_ref: CENG-T009-P001-EV001

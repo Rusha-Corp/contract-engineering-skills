@@ -1,0 +1,16 @@
+decision_id: CENG-T011-P005-DEC001
+packet_id: CENG-T011-P005
+title: Synchronize the project lock to the current development protocol
+status: approved
+reason: User authorized resolving repository, Factory installation, and lock drift.
+change:
+  added_scope:
+    - .contract-engineering/protocol.lock.yaml
+    - /home/vscode/.factory/skills/
+  removed_scope: []
+  added_lock:
+    - /home/vscode/.factory/skills/
+impact: The self-hosting project lock and Factory installation will use the current immutable development protocol revision and verified skill hashes; the release remains explicitly unreleased.
+rollback: Restore the prior protocol.lock.yaml and the backed-up Factory skill directories, then rerun preflight.
+approved_by: user
+evidence_ref: CENG-T011-P005-EV001

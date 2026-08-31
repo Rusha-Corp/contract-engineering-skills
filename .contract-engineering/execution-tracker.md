@@ -2,7 +2,7 @@
 
 | Task | Packet | State | Owner | Reviewer | Locks |
 | --- | --- | --- | --- | --- | --- |
-| CENG-T011 | CENG-T011-P001 | Handoff | agent | user | rule ownership and packet boundaries |
+| CENG-T011 | CENG-T011-P001 | Complete | agent | user | released |
 | CENG-T011 | CENG-T011-P002 | Rework | agent | user | security trigger and native capability enforcement |
 | CENG-T011 | CENG-T011-P003 | Rework | agent | user | lifecycle, approval, and handoff integrity |
 | CENG-T011 | CENG-T011-P004 | Rework | agent | user | packet schema and evidence contracts |

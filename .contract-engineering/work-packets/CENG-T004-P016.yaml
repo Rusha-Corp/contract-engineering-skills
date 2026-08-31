@@ -1,0 +1,122 @@
+packet_id: CENG-T004-P016
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: security
+packet_class: cross-cutting
+title: Independently review and publish stable 2.2.0 protocol release
+objective: Validate the hardened protocol revision, obtain independent acceptance, publish an attested immutable v2.2.0 release, and verify the release boundary without moving the consumer lock before publication is verified.
+open_questions:
+- Which configured signing identity and verification reference are available for this release?
+- Which supported consumers require migration after the stable release is published?
+scope:
+  in:
+  - .contract-engineering/work-packets/CENG-T004-P016.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/evidence/CENG-T004-P016-EV001.md
+  - .contract-engineering/handoffs/CENG-T004-P016-HO001.yaml
+  - .contract-engineering/release-attestation.yaml
+  - CHANGELOG.md
+  out:
+  - global installed skills
+  - consumer lock update before release verification
+  - consumer application runtime changes
+  - unapproved remote repository changes
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: CENG-T004-P016-release-retry
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+- external:git-publish
+- external:release-tag
+risk_tier: high
+approval_policy: two_person
+external_effects:
+- effect_id: CENG-T004-P016-EXT001
+  target: origin GitHub repository
+  operation: publish the reviewed release commit, immutable v2.2.0 tag, and release metadata
+  data_classification: public
+  declared: true
+  approval_ref: USER-APPROVAL-CENG-T004-P016-20260831
+  reversible: true
+  rollback: revoke the release and restore consumers to the verified 2.1.0 ref
+trust_boundary_ref: docs/agent-trust-boundaries.md
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+- templates/agent-event.yaml
+incident_refs:
+- templates/agent-incident.yaml
+owner: agent
+reviewer: contract-driven-handoff-acceptance-reviewer
+cleanup_owner: agent
+dependencies:
+- CENG-T004-P015
+- CENG-T011-P005
+- CENG-T011-P006
+locks: []
+lock_state: released
+claim_timestamp: '2026-08-31T20:49:40Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- b31526bcd2d8701af616bd0086623f34ea5c03d1
+- docs/release-integrity.md
+- approved spec: /home/vscode/.factory/specs/2026-08-31-independent-review-and-stable-2-2-0-release.md
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- The independent handoff reviewer accepts this named packet without self-approval.
+- Complete locally available protocol, schema, record, compatibility, and security validation passes, with unavailable hosted checks explicitly recorded as release blockers until they pass.
+- The reviewer verifies the exact source revision, release contents, migration boundary, consumer impact, and rollback plan with no unresolved high or critical finding.
+- The packet author is authorized to generate the attestation and perform publication only after independent acceptance, with the stable release gate remaining fail-closed until all required metadata and hosted checks pass.
+- Release evidence, packet, tracker, and handoff are internally consistent and within scope before publication.
+validation_plan:
+- id: CENG-T004-P016-VAL001
+  kind: release
+  skill: phased-engineering-execution
+  checks:
+  - Run the complete repository validation suite, including tests, schemas, contract records, cross-references, adapters, compatibility, and shell checks.
+  - Verify the current revision and all six governed skill pins against the project lock.
+  - Confirm the consumer lock remains on the prior verified release until publication is complete.
+  expected: all local protocol release checks pass
+- id: CENG-T004-P016-VAL002
+  kind: security
+  skill: security-assurance
+  checks:
+  - Secret scan and dependency/security checks pass or have documented non-blocking results.
+  - Independent reviewer, approval policy, trust boundary, external effect, and rollback controls are verified.
+  - No unresolved critical or high security findings remain.
+  expected: security verification gate passes
+- id: CENG-T004-P016-VAL003
+  kind: provenance
+  skill: security-assurance
+  checks:
+  - Attestation subject, artifact hashes, publisher, builder, source commit, review, signature, verification, revocation, and rollback fields are complete.
+  - Positive and negative release-integrity checks are recorded.
+  expected: release provenance is complete and fail-closed
+validation_limitations:
+- The configured contract-driven handoff reviewer failed twice before producing a report; no release records were changed by those attempts.
+- gitleaks is not installed in this environment; the repository's pinned CI workflow remains the first execution point for the secret scan.
+- CodeQL, dependency review, and OpenSSF Scorecard are hosted workflow checks and cannot be reproduced locally without their runner integrations.
+evidence_refs:
+- CENG-T004-P016-EV001
+handoff_ref: CENG-T004-P016-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+deprecation_refs: []
+migration_dependencies:
+- CENG-T004-P013
+- CENG-T004-P015
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

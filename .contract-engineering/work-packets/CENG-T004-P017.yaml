@@ -1,0 +1,111 @@
+packet_id: CENG-T004-P017
+task_id: CENG-T004
+phase: P1_IMPLEMENTATION
+domain: security
+packet_class: cross-cutting
+title: Attest and publish stable 2.2.0 protocol release
+objective: Produce the release attestation for the independently reviewed hardened source, verify publisher provenance and release gates, publish immutable v2.2.0 metadata, and preserve the prior verified release for rollback.
+open_questions:
+- Which release commit should be the attestation subject after the release records are committed?
+- Which hosted security workflow run and publisher verification reference will confirm the stable tag?
+scope:
+  in:
+  - .contract-engineering/work-packets/CENG-T004-P017.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/evidence/CENG-T004-P017-EV001.md
+  - .contract-engineering/handoffs/CENG-T004-P017-HO001.yaml
+  - .contract-engineering/release-attestation.yaml
+  - CHANGELOG.md
+  out:
+  - global installed skills
+  - consumer lock update before release verification
+  - consumer application runtime changes
+  - unapproved remote repository changes
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: CENG-T004-P017-release-publication
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+- external:git-publish
+- external:release-tag
+risk_tier: high
+approval_policy: two_person
+external_effects:
+- effect_id: CENG-T004-P017-EXT001
+  target: origin GitHub repository
+  operation: publish the attested release commit, immutable v2.2.0 tag, and release metadata
+  data_classification: public
+  declared: true
+  approval_ref: USER-APPROVAL-CENG-T004-P016-20260831
+  reversible: true
+  rollback: revoke v2.2.0 and restore consumers to the verified 2.1.0 ref
+trust_boundary_ref: docs/agent-trust-boundaries.md
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+- templates/agent-event.yaml
+incident_refs:
+- templates/agent-incident.yaml
+owner: agent
+reviewer: contract-driven-handoff-acceptance-reviewer
+cleanup_owner: agent
+dependencies:
+- CENG-T004-P016
+locks:
+- release-path:v2.2.0
+- release-attestation
+claim_timestamp: '2026-08-31T21:17:48Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- b31526bcd2d8701af616bd0086623f34ea5c03d1
+- .contract-engineering/handoffs/CENG-T004-P016-HO001.yaml
+- docs/release-integrity.md
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- The release attestation is complete, redacted, and bound to the exact release source revision, artifacts, publisher, provenance, independent approval, verification, active revocation state, and rollback reference.
+- Local release validation passes and hosted security/release gates pass before publication is treated as complete.
+- Publisher signature and provenance verification are recorded without storing private signing material or credentials.
+- Stable v2.2.0 tag and remote publication are verified against the intended immutable release revision.
+- The consumer lock remains on the prior verified release until publication and attestation verification succeed.
+validation_plan:
+- id: CENG-T004-P017-VAL001
+  kind: release
+  skill: phased-engineering-execution
+  checks:
+  - Validate all repository records, schemas, tests, workflow invariants, YAML, Markdown links, lock/source alignment, and changed-path scope.
+  - Verify release commit, tag target, remote ref, and stable release metadata.
+  expected: local and remote release validation passes
+- id: CENG-T004-P017-VAL002
+  kind: security
+  skill: security-assurance
+  checks:
+  - Verify publisher identity, signature/provenance, independent approval, attestation subject, artifact hashes, revocation status, and rollback reference.
+  - Verify hosted gitleaks, CodeQL, dependency review, and OpenSSF Scorecard gates or record a blocking failure.
+  - Verify positive and negative release-integrity cases for altered subject, artifact, approval, expiry, and revocation.
+  expected: security release gate passes with no unresolved high or critical findings
+validation_limitations:
+- Local gitleaks, CodeQL, dependency review, and OpenSSF Scorecard execution is unavailable; hosted gates are mandatory before publication completion.
+- Remote publication and signature verification cannot be claimed until the remote operation returns a verifiable result.
+evidence_refs: []
+handoff_ref: null
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+deprecation_refs: []
+migration_dependencies:
+- CENG-T004-P013
+- CENG-T004-P016
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Implementing

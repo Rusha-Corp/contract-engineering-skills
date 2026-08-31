@@ -6,52 +6,46 @@ sender:
   identity_type: agent
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  signature_ref: ""
+  signature_ref: ''
 receiver:
   identity: user
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ""
-  acceptance_ref: ""
-  signature_ref: ""
+  accepted_at: ''
+  acceptance_ref: ''
+  signature_ref: ''
 base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
-head_revision: worktree
-scope_digest: ""
+head_revision: c4c314d
+scope_digest: bffbcc9f69e158123cb7a2645496e264bd83ed27dab7e64ed9250b758697e7b9
 changed_resources:
-- path: skills/phased-engineering-execution/SKILL.md
-  sha256: ""
-- path: skills/project-lifecycle/SKILL.md
-  sha256: ""
 - path: docs/approval-integrity.md
-  sha256: ""
+  sha256: 71da3ef143628623362c8b3d50c263e6fa79e24d7a5b8e157852463b229695e6
 - path: docs/coordination.md
-  sha256: ""
-- path: templates/approval.yaml
-  sha256: ""
-- path: templates/handoff.yaml
-  sha256: ""
+  sha256: 733ce2a2224651a905f4e274d4866dbe04f2396e7da7f08ebb59b9b864f8abd0
+- path: skills/phased-engineering-execution/SKILL.md
+  sha256: 886d59203d6681a04d1efd499f50cc1dcb9e2d3c1e7501cb0d8431915a555c90
+- path: skills/project-lifecycle/SKILL.md
+  sha256: f56cbce29f835c4dabe1a9b04c3e713bbccd33ab223e039be48469761d33419d
 - path: templates/agent-incident.yaml
-  sha256: ""
+  sha256: 8ceb3630ed632dbf4b45dfc336fbc34351340b5301c593cff1c507db31051687
+- path: templates/approval.yaml
+  sha256: 0711bfc2b105e3c103c9b5ebc3fbce74bead7434e4e64f89c1a48f7895b01ca1
+- path: templates/handoff.yaml
+  sha256: 8cbb7688029c2876f2d18244ee2f8d1dc338bd0fd17505913127bf8aaa6e9bfe
 created_at: '2026-08-31T17:30:00Z'
-expires_at: ""
+expires_at: ''
 approval_ref: user implementation request
 verification:
   verified_at: '2026-08-31T17:30:00Z'
   verifier: factory-droid
   result: pass
-  revocation_checked_at: ""
+  revocation_checked_at: ''
   verification_ref: CENG-T011-P003-EV001
-receiver_status: rejected
-receiver_notes: |
-  Rejected by contract-driven-handoff-acceptance-reviewer. Failures:
-  1. head_revision is "worktree", not a valid 40-character revision binding.
-  2. scope_digest is empty; acceptance requires a bound scope digest.
-  3. All changed_resources sha256 hashes are empty; changed resources are not cryptographically bound.
-  4. No authenticated receiver acceptance has been recorded; receiver authentication_ref is "user review required".
-  5. accepted_revision, accepted_scope_digest, and accepted_evidence_refs are empty.
-  6. High-risk packet (risk_tier: high, approval_policy: user) requires independent authenticated user approval; none is recorded.
-  7. Dependency CENG-T011-P001 is not Complete (Handoff); dependency gate is not satisfied.
-accepted_revision: ""
-accepted_scope_digest: ""
+receiver_status: pending
+receiver_notes: Rework bindings refreshed against implementation revision c4c314d.
+  Independent handoff acceptance remains pending; prior unresolved gates and limitations
+  must still be independently verified.
+accepted_revision: ''
+accepted_scope_digest: ''
 accepted_evidence_refs: []

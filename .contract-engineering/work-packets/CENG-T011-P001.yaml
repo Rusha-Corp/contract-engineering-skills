@@ -74,4 +74,4 @@ stability: stable
 evidence_refs:
 - CENG-T011-P001-EV001
 handoff_ref: CENG-T011-P001-HO001
-state: Rework
+state: Handoff

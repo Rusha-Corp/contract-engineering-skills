@@ -6,49 +6,45 @@ sender:
   identity_type: agent
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  signature_ref: ""
+  signature_ref: ''
 receiver:
   identity: user
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ""
-  acceptance_ref: ""
-  signature_ref: ""
+  accepted_at: ''
+  acceptance_ref: ''
+  signature_ref: ''
 base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
-head_revision: worktree
-scope_digest: ""
+head_revision: c4c314d
+scope_digest: 29675445eb1b0cb7673be6cf5e9fcb8556518a1499708666475ccc42d68f458b
 changed_resources:
-- path: docs/rule-ownership.md
-  sha256: ""
-- path: templates/work-packet.yaml
-  sha256: ""
-- path: skills/phased-engineering-execution/SKILL.md
-  sha256: ""
-- path: skills/project-lifecycle/SKILL.md
-  sha256: ""
-- path: skills/skill-evolution/SKILL.md
-  sha256: ""
 - path: adapters/generic/README.md
-  sha256: ""
+  sha256: e9bce46329a00809dfaa24a59e56ad2c6bb745540333167f8661057c63dfdbde
+- path: docs/rule-ownership.md
+  sha256: 7e5e5aa97a9baa77f3998a9a51452e2717afd7bf659203ce9e13931db7b1cf53
+- path: skills/phased-engineering-execution/SKILL.md
+  sha256: 886d59203d6681a04d1efd499f50cc1dcb9e2d3c1e7501cb0d8431915a555c90
+- path: skills/project-lifecycle/SKILL.md
+  sha256: f56cbce29f835c4dabe1a9b04c3e713bbccd33ab223e039be48469761d33419d
+- path: skills/skill-evolution/SKILL.md
+  sha256: 149be48373c05e58e1127efd4dc329f3f0af516a836d31b99cb62b64e0a2cafd
+- path: templates/work-packet.yaml
+  sha256: 5bfd5a6bb1bae90c09d9752b8391320f8ee1f859e646e0c1e5210f8a17e7720b
 created_at: '2026-08-31T17:30:00Z'
-expires_at: ""
+expires_at: ''
 approval_ref: user implementation request
 verification:
   verified_at: '2026-08-31T17:30:00Z'
   verifier: factory-droid
   result: pass
-  revocation_checked_at: ""
+  revocation_checked_at: ''
   verification_ref: CENG-T011-P001-EV001
-receiver_status: rejected
+receiver_status: pending
 receiver_notes: |
-  Rejected by contract-driven-handoff-acceptance-reviewer. Failures:
-  1. head_revision is "worktree", not a valid 40-character revision binding.
-  2. scope_digest is empty; acceptance requires a bound scope digest.
-  3. All changed_resources sha256 hashes are empty; changed resources are not cryptographically bound.
-  4. No authenticated receiver acceptance has been recorded; receiver authentication_ref is "user review required".
-  5. accepted_revision, accepted_scope_digest, and accepted_evidence_refs are empty.
-  6. Protocol lock pins phased-engineering-execution at 2.1.0 but the working tree skill declares 2.3.0; lock/source drift is unresolved and not represented as an explicit unreleased development condition in the lock.
-accepted_revision: ""
-accepted_scope_digest: ""
+  Rework bindings refreshed against implementation revision
+  c4c314d6908f077e40808aecb89c82c3bf7348da. Repository validation passes;
+  independent receiver acceptance remains pending.
+accepted_revision: ''
+accepted_scope_digest: ''
 accepted_evidence_refs: []

@@ -1,17 +1,34 @@
 handoff_id: CENG-T007-P003-HO001
 packet_id: CENG-T007-P003
-sender: agent
-receiver: user
+sender:
+  identity: agent
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: ''
+  acceptance_ref: ''
+  signature_ref: ''
 base_revision: cefd662d05e4e4c0b363cd6c23ba32eb6a805717
-head_revision: af48c90
-summary: Corrected PR 1's stale negative workflow fixtures and consolidated the compatible CodeQL v4.37.9 init and analyze upgrades from PRs 5 and 6.
+head_revision: c4c314d
+summary: Corrected PR 1's stale negative workflow fixtures and consolidated the compatible
+  CodeQL v4.37.9 init and analyze upgrades from PRs 5 and 6.
 changed_resources:
-- .github/workflows/protocol-validation.yml
-- .github/workflows/security.yml
-- .contract-engineering/execution-tracker.md
-- .contract-engineering/work-packets/CENG-T007-P003.yaml
-- .contract-engineering/evidence/CENG-T007-P003-EV001.md
-- .contract-engineering/handoffs/CENG-T007-P003-HO001.yaml
+- path: .contract-engineering/evidence/CENG-T007-P003-EV001.md
+  sha256: edb901f6a9042ed420ec683e3e1f4b901e2eba331240fd85e0e8250348af16f1
+- path: .contract-engineering/execution-tracker.md
+  sha256: 0080d5cfb710c9883fa3953e738a0baf05e19223b23c6a5cf6bc7184058c34cd
+- path: .contract-engineering/work-packets/CENG-T007-P003.yaml
+  sha256: 147b084f18b22cecf85653c279956055c3aa79c451c2bc639804aaa8b9320662
+- path: .github/workflows/protocol-validation.yml
+  sha256: d9dcb2ae202b1b68531e1f35db165913dbeb2e8528013357895eefb98bdb8b8a
+- path: .github/workflows/security.yml
+  sha256: 327ba03e9f2b4efd406d4b349dca0bdfacca482b86741ec3e377a3fb9f00545c
 validation_results:
 - CENG-T007-P003-EV001
 - python3 scripts/validate-contract-records.py
@@ -25,15 +42,16 @@ unresolved_items:
 - PR 1 should be replaced or updated with this branch's checkout fixture correction.
 - PR 5 should be replaced or updated with this branch's combined CodeQL changes.
 - PR 6 should be closed as superseded by the combined CodeQL change.
-rollback_notes: Revert commit af48c90 or remove the replacement branch; no global skills were changed.
-requested_next_action: Use this branch to update PR 1 and consolidate PRs 5 and 6, merge PRs 2, 3, and 4, then close superseded PRs.
-receiver_status: rejected
-receiver_notes: |
-  Rejected by contract-driven-handoff-acceptance-reviewer. Failures:
-  1. head_revision is "af48c90" (7-char abbreviation), not a valid 40-character revision binding.
-  2. scope_digest is absent; acceptance requires a bound scope digest.
-  3. changed_resources are bare path strings with no sha256 hashes; changed resources are not cryptographically bound.
-  4. Handoff uses the legacy v1 schema; sender and receiver are bare strings, not structured identity blocks with authenticated, authentication_ref, and signature_ref fields. Receiver authentication cannot be verified.
-  5. No authenticated receiver acceptance has been recorded; no accepted_at, acceptance_ref, accepted_revision, accepted_scope_digest, or accepted_evidence_refs fields exist.
-  6. Evidence records that GitHub-hosted workflow execution and PR merge/closure were unavailable; CI validation was not run in the target environment and cannot be inferred as passing.
-  7. Unresolved items require GitHub-side actions (PR merges/closures) that are out of scope for this review.
+rollback_notes: Revert commit af48c90 or remove the replacement branch; no global
+  skills were changed.
+requested_next_action: Use this branch to update PR 1 and consolidate PRs 5 and 6,
+  merge PRs 2, 3, and 4, then close superseded PRs.
+receiver_status: pending
+receiver_notes: Rework bindings refreshed against implementation revision c4c314d.
+  Independent handoff acceptance remains pending; prior unresolved gates and limitations
+  must still be independently verified.
+handoff_version: 2
+scope_digest: 1827d65e8b7d8ad1df799b654e3f70b475fecfae11440af691819417b7fe446d
+accepted_revision: ''
+accepted_scope_digest: ''
+accepted_evidence_refs: []

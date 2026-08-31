@@ -1,4 +1,4 @@
-handoff_version: 1
+handoff_version: 2
 handoff_id: CENG-T010-P001-HO001
 packet_id: CENG-T010-P001
 sender:
@@ -6,57 +6,52 @@ sender:
   identity_type: agent
   authenticated: true
   authentication_ref: Factory Droid session
-  signature_ref: ""
+  signature_ref: ''
 receiver:
   identity: user
   identity_type: human
   authenticated: true
   authentication_ref: User-approved implementation plan
-  signature_ref: ""
+  signature_ref: ''
 base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
-head_revision: worktree
-scope_digest: ""
+head_revision: c4c314d
+scope_digest: 03252f2b22232ebf73804ae659e5c02539cdbec86b02384a8f42656003a99a02
 changed_resources:
-- path: .contract-engineering/execution-tracker.md
-  sha256: ""
-- path: .contract-engineering/work-packets/CENG-T010-P001.yaml
-  sha256: ""
 - path: .contract-engineering/evidence/CENG-T010-P001-EV001.md
-  sha256: ""
-- path: .contract-engineering/handoffs/CENG-T010-P001-HO001.yaml
-  sha256: ""
-- path: scripts/validate-contract-records.py
-  sha256: ""
-- path: tests/test_contract_records.py
-  sha256: ""
-- path: skills/cleanup-protocol/SKILL.md
-  sha256: ""
-- path: skills/project-lifecycle/SKILL.md
-  sha256: ""
-- path: skills/phased-engineering-execution/SKILL.md
-  sha256: ""
+  sha256: 533a2a2e8989c8e8e79bf981ced5370fcb0a1ed11f3d23c19c5ef96a74d18a4e
+- path: .contract-engineering/execution-tracker.md
+  sha256: 0080d5cfb710c9883fa3953e738a0baf05e19223b23c6a5cf6bc7184058c34cd
+- path: .contract-engineering/work-packets/CENG-T010-P001.yaml
+  sha256: 4d1a8fd5bdcd0b4ef7cdb426d7c3e0f8e3c62d2c7e043d2f13c49d280de8c7ff
 - path: docs/protocol-configuration.md
-  sha256: ""
+  sha256: 02ac0cbdd80fceeb354f28851c6ab62b3214173cbd4def488f8c36a77044d29b
 - path: docs/repository-development.md
-  sha256: ""
+  sha256: 25948322e9750d4c4cb2cbda316acc573fbba01559a3e1f132b30e98b0a1ef9b
+- path: scripts/validate-contract-records.py
+  sha256: 558eef4c1f7382f5030eeba1f295e8a1f1b748a185f737bb59ea2922a37244f7
+- path: skills/cleanup-protocol/SKILL.md
+  sha256: 80fde51e6f6fa02929d2654a244311e52176afbeec1d3255f42f697b762b64bc
+- path: skills/phased-engineering-execution/SKILL.md
+  sha256: 886d59203d6681a04d1efd499f50cc1dcb9e2d3c1e7501cb0d8431915a555c90
+- path: skills/project-lifecycle/SKILL.md
+  sha256: f56cbce29f835c4dabe1a9b04c3e713bbccd33ab223e039be48469761d33419d
 - path: templates/AGENTS.md
-  sha256: ""
-created_at: "2026-08-31T00:00:00Z"
-expires_at: ""
+  sha256: 81df933d7cc997209149a47f94a879b6776e4c62c734226e02e5b26fe706512f
+- path: tests/test_contract_records.py
+  sha256: 95bdf1bcccaf2f1f8aeb10bd0b36987785baff1415a681ad01a1e7e9c14d3681
+created_at: '2026-08-31T00:00:00Z'
+expires_at: ''
 approval_ref: User-approved native-tooling-first archive plan
 verification:
-  verified_at: "2026-08-31T00:00:00Z"
+  verified_at: '2026-08-31T00:00:00Z'
   verifier: factory-droid
   result: fail
-  revocation_checked_at: ""
+  revocation_checked_at: ''
   verification_ref: CENG-T010-P001-EV001
-receiver_status: rejected
-receiver_notes: |
-  Rejected by contract-driven-handoff-acceptance-reviewer. Failures:
-  1. head_revision is "worktree", not a valid 40-character revision binding.
-  2. scope_digest is empty; acceptance requires a bound scope digest.
-  3. All changed_resources sha256 hashes are empty; changed resources are not cryptographically bound.
-  4. No authenticated receiver acceptance has been recorded; receiver authentication_ref is "User-approved implementation plan" but no accepted_at or acceptance_ref is recorded.
-  5. accepted_revision, accepted_scope_digest, and accepted_evidence_refs are absent from the handoff.
-  6. verification.result is "fail"; the packet's own verification declared failure (protocol preflight hash mismatch for phased-engineering-execution). A failed verification gate is a hard blocker for acceptance.
-  7. Evidence CENG-T010-P001-EV001 records a protocol preflight failure due to hash mismatch; installed global skills were not synchronized, which remains unresolved.
+receiver_status: pending
+receiver_notes: Rework bindings refreshed against implementation revision c4c314d.
+  Independent handoff acceptance remains pending; prior unresolved gates and limitations
+  must still be independently verified.
+accepted_revision: ''
+accepted_scope_digest: ''
+accepted_evidence_refs: []

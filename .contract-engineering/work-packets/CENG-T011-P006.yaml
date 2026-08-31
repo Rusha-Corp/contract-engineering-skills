@@ -72,4 +72,4 @@ evidence_refs:
 - CENG-T011-P006-EV001
 - CENG-T011-P006-EV002
 handoff_ref: CENG-T011-P006-HO001
-state: Validation
+state: Handoff

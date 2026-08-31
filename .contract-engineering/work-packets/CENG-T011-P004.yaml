@@ -69,7 +69,7 @@ validation_plan:
   kind: schema-conformance
   command: Native schema validator with malformed, incomplete, and over-broad records
   expected: records outside the normative contracts are rejected
-state: Validation
+state: Handoff
 cleanup_scope:
   dead_refs: []
   stale_refs: []

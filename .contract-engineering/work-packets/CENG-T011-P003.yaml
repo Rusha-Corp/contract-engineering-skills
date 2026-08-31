@@ -81,7 +81,7 @@ validation_plan:
   kind: native-conformance
   command: Native lifecycle and handoff cases from docs/coordination.md
   expected: invalid transitions and unaccepted completion are blocked
-state: Validation
+state: Handoff
 cleanup_scope:
   dead_refs: []
   stale_refs: []

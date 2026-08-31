@@ -80,7 +80,7 @@ validation_plan:
   kind: drift
   command: Native CI lock/source verification at the selected immutable ref
   expected: skill versions and hashes match the immutable source, or CI fails
-state: Validation
+state: Handoff
 cleanup_scope:
   dead_refs: []
   stale_refs: []

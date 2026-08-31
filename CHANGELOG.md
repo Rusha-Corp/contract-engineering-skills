@@ -24,6 +24,8 @@
 - Added protocol release-preparation guidance; the stable lock remains pinned
   to the last published release until this hardening work is reviewed and
   published as an immutable release.
+- Added immutable lock/source verification and a fail-closed stable-tag
+  attestation gate; development tags remain explicitly non-stable.
 
 ## 2.1.0 - 2026-08-30
 

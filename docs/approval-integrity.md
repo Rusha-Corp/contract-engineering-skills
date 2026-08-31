@@ -15,6 +15,7 @@ The verifier must canonicalize and compare all of these fields:
   sorted changed resource paths and hashes;
 - approval decision, policy, constraints, and expiration;
 - RFC 3339 UTC creation, approval, verification, and revocation-check times.
+- the requested lifecycle transition and its source and destination states.
 
 An approval is valid only when its signature verifies to the recorded
 approver identity through the configured `sigstore`, `gpg`, or other approved

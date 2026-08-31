@@ -30,6 +30,17 @@ repository checks are reference conformance checks; the native harness remains
 the authority for runtime identity, capability, approval, lifecycle, and
 side-effect enforcement.
 
+The workflow also verifies every locked skill version and SHA-256 against the
+lock's immutable source commit. The source history is fetched for that
+verification; a mismatch fails CI rather than being normalized by the
+workflow.
+
+Stable version tags run a separate fail-closed release gate. The gate requires
+`.contract-engineering/release-attestation.yaml` with authenticated publisher,
+immutable source and artifact subjects, provenance, independent approval,
+verification, active revocation status, and rollback metadata. Development
+tags containing a hyphen are not treated as stable releases.
+
 The record validator also applies reviewed parser limits before constructing
 objects: 1 MiB per YAML file, 256 KiB per scalar, 10,000 events, 64 nesting
 levels, 50 aliases, ten CPU seconds, and 512 MiB address space. It uses

@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-          fetch-depth: 1
+          fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
@@ -98,4 +98,79 @@ jobs:
               if document["type"] != "object":
                   raise SystemExit(f"{path}: top-level schema must be an object")
           print(f"validated {len(schemas)} JSON schema documents")
+          PY
+
+      - name: Verify lock and immutable source alignment
+        run: |
+          python - <<'PY'
+          import hashlib
+          import re
+          import subprocess
+          from pathlib import Path
+          import yaml
+
+          lock = yaml.safe_load(Path(".contract-engineering/protocol.lock.yaml").read_text())
+          ref = lock["protocol"]["ref"]
+          if not re.fullmatch(r"[0-9a-f]{40}", ref):
+              raise SystemExit("protocol lock ref must be a full immutable commit")
+          subprocess.run(
+              ["git", "cat-file", "-e", f"{ref}^{{commit}}"],
+              check=True,
+          )
+          for name, pin in lock["skills"].items():
+              content = subprocess.check_output(
+                  ["git", "show", f"{ref}:skills/{name}/SKILL.md"],
+                  text=False,
+              )
+              actual_hash = hashlib.sha256(content).hexdigest()
+              if actual_hash != pin["sha256"]:
+                  raise SystemExit(f"{name}: lock hash does not match {ref}")
+              version = re.search(
+                  rb"^version:\s*(\S+)\s*$", content, re.MULTILINE
+              )
+              if not version or version.group(1).decode() != str(pin["version"]):
+                  raise SystemExit(f"{name}: lock version does not match {ref}")
+          print(f"verified six skill pins against {ref}")
+          PY
+
+  stable-release-gate:
+    name: Stable release gate
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Check out tagged revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Require release attestation
+        run: |
+          test -f .contract-engineering/release-attestation.yaml
+          python - <<'PY'
+          from pathlib import Path
+          import yaml
+
+          attestation = yaml.safe_load(
+              Path(".contract-engineering/release-attestation.yaml").read_text()
+          )
+          required = (
+              "subject",
+              "publisher",
+              "provenance",
+              "review",
+              "verification",
+              "revocation",
+          )
+          missing = [field for field in required if not attestation.get(field)]
+          if missing:
+              raise SystemExit(f"release attestation is incomplete: {missing}")
+          if not attestation["review"].get("independent_approver"):
+              raise SystemExit("release attestation lacks independent approval")
+          if attestation["verification"].get("result") != "pass":
+              raise SystemExit("release attestation is not verified")
+          if attestation["revocation"].get("status") != "active":
+              raise SystemExit("release attestation is revoked or unknown")
           PY

@@ -54,6 +54,27 @@ the takeover and escalate to the reviewer or user.
 The tracker and packet state must agree with the lease record. A completed
 packet has no active lease. A stale lock is not cleanup authorization.
 
+## Native lifecycle conformance
+
+The host must evaluate a requested transition against the packet's current
+state before changing the tracker or packet. The transition record includes
+the source state, destination state, reason, packet ID, and authenticated
+actor. The following cases are mandatory:
+
+| Requested transition | Native result |
+| --- | --- |
+| `Validation -> Handoff` with passing evidence | Permit |
+| `Validation -> Complete` without a handoff | Block |
+| `Handoff -> Complete` without authenticated receiver acceptance | Block |
+| `Handoff -> Complete` with mismatched revision or scope | Block |
+| `Complete -> Implementing` | Block |
+| `Rework -> Implementing` with a current claim | Permit |
+| `Cancelled -> Implementing` | Block |
+
+The host must persist a redacted failure event for every blocked transition.
+Updating a Markdown row or YAML state without a native transition decision is
+not a valid lifecycle event.
+
 ## Packet state integrity
 
 The coordination store or native harness must enforce the packet transition

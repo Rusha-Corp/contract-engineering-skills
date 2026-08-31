@@ -12,6 +12,46 @@ network, external, secret, or destructive capabilities, or is a classified
 packet whose scope touches a security-sensitive path such as workflows,
 adapters, security documents, schemas, or agent templates.
 
+## Native enforcement conformance
+
+Host adapters must enforce the actor contract before executing a packet
+operation. A declaration in YAML is not an enforcement result. For every
+security-sensitive packet, the adapter performs these checks in order:
+
+1. Resolve the authenticated actor and session from the host, and reject a
+   missing, expired, or unverifiable identity.
+2. Compute the required gate from `domain`, `risk_tier`, `external_effects`,
+   `capabilities`, and classified scope. The task identifier is never an
+   input to this decision.
+3. Intersect requested capabilities with the host's actually available
+   capabilities. Reject the operation when any required capability is absent;
+   do not downgrade the request or continue with ambient privileges.
+4. Resolve the approval policy and verify the approver is authorized and
+   independent when required. Reject missing, expired, revoked, or
+   self-approvals.
+5. Preview the operation and bind its packet ID, scope, revision, approval,
+   and declared effects before allowing a write or external action.
+6. Record a redacted capability or approval failure as evidence, and create
+   an incident when the failure indicates escalation, unauthorized use, or
+   attempted bypass.
+
+The conformance cases are deterministic:
+
+| Case | Required result |
+| --- | --- |
+| Security packet with an unrelated task ID | Security gate is selected |
+| Sensitive scope or external effect | Security gate is selected |
+| Required native capability unavailable | Action is blocked, not downgraded |
+| High-risk automatic approval | Action is blocked |
+| Approval identity equals the actor | Action is blocked |
+| Unlisted external effect | Action is blocked |
+| Valid identity, capabilities, approval, and binding | Action may proceed |
+
+Adapters must run these cases against their native capability and approval
+APIs before accepting a security-sensitive handoff. If an adapter cannot
+execute a case, the packet remains blocked and records the unavailable
+capability; a repository validator cannot substitute for that native gate.
+
 ## Actor record
 
 Record the following fields in each packet:

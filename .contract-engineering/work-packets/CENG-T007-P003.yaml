@@ -22,11 +22,12 @@ cleanup_owner: agent
 owner: agent
 reviewer: user
 dependencies: []
-locks: []
-claim_timestamp: '2026-08-30T00:00:00Z'
+locks:
+- CENG-T007-P003
+claim_timestamp: '2026-08-31T19:53:08Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
-- cefd662d05e4e4c0b363cd6c23ba32eb6a805717
+- 21539bd876eb7af9bd71f394e494314bb6762573
 - 0141b878e5561c57966c273f605571df0ecc6f13
 - efcd388cbaaf5cdea63550afb80d872fd35f2e75
 - 0dbfb6c34bedb8d3a5d535e2d9541a9c883dcb76
@@ -57,10 +58,11 @@ validation_plan:
   expected: no unresolved principle violations
 evidence_refs:
 - CENG-T007-P003-EV001
+- CENG-T007-P003-EV002
 handoff_ref: CENG-T007-P003-HO001
 skill_gaps: []
 cleanup_scope:
   dead_refs: []
   stale_refs: []
   temp_refs: []
-state: Rework
+state: Validation

@@ -75,6 +75,20 @@ class SecuritySemanticTests(unittest.TestCase):
                 packet(capabilities=["admin:repository"])
             )
 
+    def test_missing_actor_identity_is_rejected(self):
+        value = packet()
+        value.pop("actor")
+        with self.assertRaises(ValueError):
+            validator.validate_security_semantics(value)
+
+    def test_security_gate_ignores_historical_task_name(self):
+        value = packet(
+            packet_id="TEST-T001-P001",
+            task_id="CENG-T005",
+            domain="security",
+        )
+        validator.validate_security_semantics(value)
+
     def test_unlisted_external_effect_is_rejected(self):
         with self.assertRaises(ValueError):
             validator.validate_security_semantics(

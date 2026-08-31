@@ -1,6 +1,10 @@
 handoff_version: 1
 handoff_id: ""
 packet_id: ""
+transition:
+  from: Validation
+  to: Handoff
+  reason: ""
 sender:
   identity: ""
   identity_type: human|agent|service

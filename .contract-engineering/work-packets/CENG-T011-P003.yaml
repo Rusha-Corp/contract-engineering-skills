@@ -50,11 +50,12 @@ reviewer: user
 cleanup_owner: agent
 dependencies:
 - CENG-T011-P001
-locks: []
-claim_timestamp: '2026-08-31T17:19:50Z'
+locks:
+- CENG-T011-P003
+claim_timestamp: '2026-08-31T19:53:08Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
-- 87453d48063fc7c8d1c0e9618384b50697fa758c
+- 21539bd876eb7af9bd71f394e494314bb6762573
 - "audit findings: lifecycle transitions and accepted handoffs are not machine-enforced"
 design_decision_ref: null
 data_gate_ref: null
@@ -76,6 +77,11 @@ validation_plan:
   - Revision, scope, and changed-resource binding are explicit.
   - Incident handling is required for unresolved side effects.
   expected: no completion path bypasses authorization or receiver verification
+- id: CENG-T011-P003-VAL003
+  kind: native-conformance
+  command: Native lifecycle and handoff cases from docs/coordination.md
+  expected: invalid transitions and unaccepted completion are blocked
+state: Validation
 cleanup_scope:
   dead_refs: []
   stale_refs: []
@@ -84,5 +90,5 @@ skill_gaps: []
 stability: stable
 evidence_refs:
 - CENG-T011-P003-EV001
+- CENG-T011-P003-EV002
 handoff_ref: CENG-T011-P003-HO001
-state: Rework

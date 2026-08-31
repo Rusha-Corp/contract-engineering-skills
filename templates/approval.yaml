@@ -3,6 +3,9 @@ approval_id: ""
 packet_id: ""
 decision: approve|reject|revoke
 policy: automatic|reviewer|user|two_person
+transition:
+  from: ""
+  to: ""
 subject:
   revision: ""
   scope_digest: ""

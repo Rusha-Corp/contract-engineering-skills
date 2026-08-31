@@ -42,11 +42,12 @@ reviewer: user
 cleanup_owner: agent
 dependencies:
 - CENG-T011-P001
-locks: []
-claim_timestamp: '2026-08-31T17:19:50Z'
+locks:
+- CENG-T011-P004
+claim_timestamp: '2026-08-31T19:53:08Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
-- 87453d48063fc7c8d1c0e9618384b50697fa758c
+- 21539bd876eb7af9bd71f394e494314bb6762573
 - "audit findings: schema and evidence contracts exceed validator enforcement"
 design_decision_ref: "CENG-T011-P004 scope expansion: add the normative evidence-policy schema and reference validation coverage."
 data_gate_ref: null
@@ -64,6 +65,11 @@ validation_plan:
   kind: documentation
   command: Native cross-reference review of packet, evidence, and reproducibility contracts
   expected: one normative definition exists for each record contract
+- id: CENG-T011-P004-VAL003
+  kind: schema-conformance
+  command: Native schema validator with malformed, incomplete, and over-broad records
+  expected: records outside the normative contracts are rejected
+state: Validation
 cleanup_scope:
   dead_refs: []
   stale_refs: []
@@ -72,5 +78,5 @@ skill_gaps: []
 stability: stable
 evidence_refs:
 - CENG-T011-P004-EV001
+- CENG-T011-P004-EV002
 handoff_ref: CENG-T011-P004-HO001
-state: Rework

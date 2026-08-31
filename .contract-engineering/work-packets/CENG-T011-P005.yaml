@@ -53,11 +53,12 @@ dependencies:
 - CENG-T011-P002
 - CENG-T011-P003
 - CENG-T011-P004
-locks: []
-claim_timestamp: '2026-08-31T17:19:50Z'
+locks:
+- CENG-T011-P005
+claim_timestamp: '2026-08-31T19:53:08Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
-- 87453d48063fc7c8d1c0e9618384b50697fa758c
+- 21539bd876eb7af9bd71f394e494314bb6762573
 - "audit findings: CI does not run tests or full contract conformance"
 design_decision_ref: CENG-T011-P005-DEC001
 data_gate_ref: null
@@ -75,6 +76,11 @@ validation_plan:
   kind: release
   command: Native release review of lock, skill hashes, changelog, provenance, and rollback references
   expected: unreleased changes cannot be consumed as a stable locked release
+- id: CENG-T011-P005-VAL003
+  kind: drift
+  command: Native CI lock/source verification at the selected immutable ref
+  expected: skill versions and hashes match the immutable source, or CI fails
+state: Validation
 cleanup_scope:
   dead_refs: []
   stale_refs: []
@@ -83,5 +89,5 @@ skill_gaps: []
 stability: stable
 evidence_refs:
 - CENG-T011-P005-EV001
+- CENG-T011-P005-EV002
 handoff_ref: CENG-T011-P005-HO001
-state: Rework

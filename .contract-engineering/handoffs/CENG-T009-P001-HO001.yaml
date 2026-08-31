@@ -1,0 +1,29 @@
+handoff_id: CENG-T009-P001-HO001
+packet_id: CENG-T009-P001
+sender: agent
+receiver: user
+base_revision: 8de326fe67e2aeb1c9918bf52b6549d97df062d8
+head_revision: worktree
+summary: Added a Python 3.12 Bookworm devcontainer with an amd64 platform match and a read-only Factory skill mount. The initially planned read-write gh workspace mount was removed per decision CENG-T009-P001-DEC001 because the host has no ~/gh directory.
+changed_resources:
+- .devcontainer/devcontainer.json
+- .contract-engineering/execution-tracker.md
+- .contract-engineering/work-packets/CENG-T009-P001.yaml
+- .contract-engineering/evidence/CENG-T009-P001-EV001.md
+- .contract-engineering/handoffs/CENG-T009-P001-HO001.yaml
+validation_results:
+- CENG-T009-P001-EV001
+- protocol preflight
+- devcontainer JSON and required-settings checks
+- python3 scripts/validate-contract-records.py
+- git diff --check
+evidence_refs:
+- CENG-T009-P001-EV001
+skill_gaps: []
+unresolved_items:
+- The Dev Container CLI and Docker build were unavailable locally.
+- The host must have ~/.factory before creating the container.
+rollback_notes: Remove .devcontainer/devcontainer.json and the packet records, or revert the implementation commit; host directories and installed skills were not modified.
+requested_next_action: Review and accept this handoff, then use the Dev Container extension or CLI to create the container.
+receiver_status: pending
+receiver_notes: ''

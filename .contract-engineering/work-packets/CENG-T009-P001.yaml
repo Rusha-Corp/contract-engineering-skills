@@ -1,0 +1,68 @@
+packet_id: CENG-T009-P001
+task_id: CENG-T009
+phase: P1_IMPLEMENTATION
+domain: coding
+title: Add Python 3.12 development container
+objective: Provide a reproducible Python 3.12 Linux development container with safe access to host Factory skills.
+open_questions: []
+decisions:
+- id: CENG-T009-P001-DEC001
+  date: '2026-08-31'
+  rationale: The host has no ~/gh directory and no gh CLI installed; the read-write gh bind mount made container creation fail with "bind source path does not exist". Per user request, the mount is removed rather than creating the host directory.
+  change: Removed the source=${localEnv:HOME}/gh,target=/home/vscode/gh,type=bind mount from .devcontainer/devcontainer.json. Only the read-only ~/.factory mount remains.
+scope:
+  in:
+  - .devcontainer/devcontainer.json
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/work-packets/CENG-T009-P001.yaml
+  - .contract-engineering/evidence/CENG-T009-P001-EV001.md
+  - .contract-engineering/handoffs/CENG-T009-P001-HO001.yaml
+  out:
+  - global installed skills
+  - host ~/.factory contents
+  - application runtime behavior
+  - remote systems
+cleanup_owner: agent
+owner: agent
+reviewer: user
+dependencies: []
+locks: []
+claim_timestamp: '2026-08-30T00:00:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 8de326fe67e2aeb1c9918bf52b6549d97df062d8
+- /Users/emmanueldavidson/.factory/specs/2026-08-30-add-python-3-12-development-container.md
+- 'user request: create .devcontainer with Python 3.12 and host mounts'
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- The devcontainer uses a Python 3.12 Bookworm image and Linux amd64 platform.
+- The host ~/.factory directory is mounted read-only at /home/vscode/.factory.
+- Container creation installs the project CI dependencies with the existing require-hashes policy.
+- Configuration syntax and repository records validate successfully.
+validation_plan:
+- id: CENG-T009-P001-VAL001
+  kind: configuration
+  command: 'python3 -m json.tool .devcontainer/devcontainer.json'
+  expected: exit 0 and required image, platform, mounts, and post-create command present
+- id: CENG-T009-P001-VAL002
+  kind: repository
+  command: 'python3 scripts/validate-contract-records.py'
+  expected: exit 0
+- id: CENG-T009-P001-VAL003
+  kind: principles
+  skill: coding-principles
+  checks:
+  - Existing CI Python version and dependency policy were reused.
+  - DRY, KISS, YAGNI, explicit-boundary, and safety checks passed.
+  - Host skill mount is read-only.
+  expected: no unresolved principle violations
+evidence_refs:
+- CENG-T009-P001-EV001
+handoff_ref: CENG-T009-P001-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+state: Handoff

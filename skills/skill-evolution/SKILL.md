@@ -2,6 +2,8 @@
 name: skill-evolution
 version: 1.2.0
 description: Keep skills and project guidance current by recording gaps, reviewing patterns, and applying user-approved updates.
+license: MIT
+compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
 ---
 
 ## Revision history

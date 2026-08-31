@@ -2,6 +2,8 @@
 name: phased-engineering-execution
 version: 2.3.0
 description: Break engineering work into owned packets and execute it through evidence-based phases, gates, validation, and handoffs.
+license: MIT
+compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
 ---
 
 ## Revision history
@@ -63,7 +65,7 @@ explicitly set it to `.factory` while migrating.
 packet_id: PROJECT-T001-P001
 task_id: PROJECT-T001
 phase: P0_FOUNDATIONS
-domain: coding|browser|design|data|documentation
+domain: coding|browser|design|data|documentation|security
 title: "Short measurable title"
 objective: "Verifiable outcome"
 open_questions: []
@@ -432,3 +434,4 @@ validation_plan:
 - Skill gap review: `skill-evolution/SKILL.md`
 - Iteration orchestration: `project-lifecycle/SKILL.md`
 - Coding principles: `coding-principles/SKILL.md`
+- Security assurance: `security-assurance/SKILL.md`

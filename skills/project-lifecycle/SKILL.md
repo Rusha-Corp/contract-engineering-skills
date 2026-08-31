@@ -2,6 +2,8 @@
 name: project-lifecycle
 version: 2.2.0
 description: Orchestrate phased engineering execution, cleanup, skill evolution, user verification, and closure across project iterations.
+license: MIT
+compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
 ---
 
 ## Revision history
@@ -50,6 +52,7 @@ flowchart TD
 | ----------------------------------------------------------------------------------------------- | ------------------------------ | ---------------------------------------------------------------------------- |
 | Baseline, P0 Foundations, Data Gate, P1 Implementation, P2 Design Gaps, Final Integration Audit | `phased-engineering-execution` | Packets, ownership, locks, gates, evidence, validation, handoffs             |
 | P1 Implementation (coding)                                                                      | `coding-principles`            | DRY, SOLID, KISS, YAGNI, composition, boundaries, and architecture alignment |
+| P1 Implementation (security), Security Verification Gate                                        | `security-assurance`           | Threat modeling, secure implementation, verification, supply chain, incident readiness |
 | P3 Cleanup                                                                                      | `cleanup-protocol`             | Dead code, stale artifacts, dependency pruning, retention, tracker archival  |
 | Task Closure retrospective                                                                      | `skill-evolution`              | Skill gaps, user decisions, versioned updates, feedback tracking             |
 | Orchestration, user verification, closure                                                       | `project-lifecycle`            | Iteration boundaries, sequencing, closure record, next iteration             |
@@ -203,5 +206,6 @@ Do not silently expand a closed or active iteration.
 ## Cross-skill references
 
 - `phased-engineering-execution/SKILL.md`
+- `security-assurance/SKILL.md`
 - `cleanup-protocol/SKILL.md`
 - `skill-evolution/SKILL.md`

@@ -38,7 +38,7 @@ STATES = {
     "Interrupted",
     "Cancelled",
 }
-DOMAINS = {"coding", "browser", "design", "data", "documentation"}
+DOMAINS = {"coding", "browser", "design", "data", "documentation", "security"}
 PACKET_ID = re.compile(r"^[A-Z0-9-]+-T\d{3}-P\d{3}$")
 BASE_REVISION = re.compile(r"^[0-9a-f]{40}$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
@@ -302,6 +302,7 @@ def validate_project_lock(root: Path) -> None:
         "project-lifecycle",
         "skill-evolution",
         "coding-principles",
+        "security-assurance",
     }
     if set(skills) != required:
         fail(f"{lock_path}: lock must contain exactly the governed skills")

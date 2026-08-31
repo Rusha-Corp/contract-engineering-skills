@@ -19,7 +19,7 @@ The tracked project control plane is:
   skill-feedback.md
 ```
 
-The lock is pinned to the last published protocol commit. The five
+The lock is pinned to the last published protocol commit. The six
 `SKILL.md` files in `~/.factory/skills` or another harness's global directory
 must pass the lock's version and SHA-256 checks before work starts.
 

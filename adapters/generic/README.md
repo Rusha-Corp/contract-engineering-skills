@@ -6,12 +6,12 @@ runtime.
 
 ## Integration
 
-1. Make the five root protocol directories available to the host's project
+1. Make the six root protocol directories available to the host's project
    instructions, and copy or adapt `templates/AGENTS.md` as the consuming
    repository's `AGENTS.md` or equivalent project-instruction file.
 2. Create `.contract-engineering/protocol.lock.yaml` from
    `templates/protocol-lock.yaml`, selecting one immutable protocol ref and
-   recording all five skill versions and SHA-256 hashes.
+   recording all six skill versions and SHA-256 hashes.
 3. Create the project-local execution tracker, work packets, evidence,
    handoffs, and feedback records relative to `project.protocol_root`.
 4. Record deprecations using `templates/deprecation-record.yaml`.

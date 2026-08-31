@@ -76,7 +76,7 @@ authority for protocol selection.
 - `skills.<name>.sha256`: hash of the installed `SKILL.md`;
 - `project.protocol_root`: project-relative directory for shared records.
 
-The lock must list all five governed skills. The release field is descriptive;
+The lock must list all six governed skills. The release field is descriptive;
 the immutable `ref` and per-file hashes are the integrity controls. When
 using a tag, resolve it to a commit and record that commit in `ref`.
 
@@ -141,9 +141,10 @@ required = {
     "project-lifecycle",
     "skill-evolution",
     "coding-principles",
+    "security-assurance",
 }
 if set(skills) != required:
-    raise SystemExit(f"lock must contain exactly five governed skills: {sorted(skills)}")
+    raise SystemExit(f"lock must contain exactly six governed skills: {sorted(skills)}")
 
 for name, pin in skills.items():
     skill_file = skills_dir / name / "SKILL.md"

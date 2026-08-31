@@ -19,5 +19,8 @@ skills:
   coding-principles:
     version: 1.2.0
     sha256: 5d2df882f6691c42d5b80f23059d7010e53ed1bb7288442773131dec4d74b36e
+  security-assurance:
+    version: 1.0.0
+    sha256: c0e4226a0c8630d25b234a52097fad7dd08fe817eb3a22e1f5045fb1faffc847
 project:
   protocol_root: .contract-engineering

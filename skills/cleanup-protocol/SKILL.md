@@ -2,6 +2,8 @@
 name: cleanup-protocol
 version: 2.2.0
 description: Remove dead code, stale artifacts, and temporary debris after validation using risk-tiered, auditable procedures.
+license: MIT
+compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
 ---
 
 ## Revision history

@@ -82,12 +82,12 @@ git -C "$HOME/contract-engineering-skills" checkout --detach \
   echo "Failed to select the locked protocol revision" >&2
   exit 1
 }
-for skill in phased-engineering-execution cleanup-protocol project-lifecycle skill-evolution coding-principles; do
+for skill in phased-engineering-execution cleanup-protocol project-lifecycle skill-evolution coding-principles security-assurance; do
   test ! -e "$HOME/.factory/skills/$skill" || {
     echo "Refusing to overwrite existing $skill" >&2
     exit 1
   }
-  cp -R "$HOME/contract-engineering-skills/$skill" "$HOME/.factory/skills/" || {
+  cp -R "$HOME/contract-engineering-skills/skills/$skill" "$HOME/.factory/skills/" || {
     echo "Failed to install $skill" >&2
     exit 1
   }

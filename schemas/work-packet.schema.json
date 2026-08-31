@@ -35,7 +35,7 @@
       "pattern": "^P[0-9]+_[A-Z0-9_]+$"
     },
     "domain": {
-      "enum": ["coding", "browser", "design", "data", "documentation"]
+      "enum": ["coding", "browser", "design", "data", "documentation", "security"]
     },
     "title": {"type": "string", "minLength": 1},
     "objective": {"type": "string", "minLength": 1},

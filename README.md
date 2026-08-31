@@ -10,11 +10,14 @@ depend on a particular vendor, editor, CLI, or model.
 
 ## Contents
 
-- Root protocol directories contain the five governed `SKILL.md` files.
+- `skills/` contains the six governed `SKILL.md` files.
 - `docs/` contains deprecation, removal, and process guidance.
 - `templates/` contains portable work-packet, deprecation, feedback,
   validation, and consumer repository-instruction templates.
-- `adapters/` explains host-specific installation and execution integration.
+- `adapters/` explains host-specific installation and execution integration
+  for Factory Droid, Hermes Agent, and generic harnesses.
+- `.factory-plugin/plugin.json` is the Factory Droid plugin manifest.
+- `LICENSE` is the MIT license.
 
 ## Protocol configuration
 
@@ -56,9 +59,18 @@ through bounded practice experiments.
 
 ## Droid installation
 
-For a new or empty Droid Skill directory, first create a project lock using
-the [protocol configuration guide](docs/protocol-configuration.md), then use
-its immutable `protocol.ref`:
+This repository includes a `.factory-plugin/plugin.json` manifest and can be
+installed as a Factory Droid plugin:
+
+```bash
+droid plugin marketplace add https://github.com/Rusha-Corp/contract-engineering-skills
+droid plugin install contract-engineering-skills@contract-engineering-skills --scope user
+```
+
+Alternatively, for a new or empty Droid Skill directory, first create a
+project lock using the
+[protocol configuration guide](docs/protocol-configuration.md), then use its
+immutable `protocol.ref`:
 
 ```bash
 mkdir -p ~/.factory
@@ -75,12 +87,12 @@ git -C ~/.factory/skills checkout --detach \
 ```
 
 Replace the example commit with the value from the consuming project's
-`protocol.lock.yaml`. This works because each protocol directory is at the
-repository root and contains its own `SKILL.md`.
+`protocol.lock.yaml`. This works because each protocol skill directory is
+under `skills/` and contains its own `SKILL.md`.
 
 If `~/.factory/skills` already contains other Droid Skills, do not clone over
 it. Clone separately, review the release, back up the target directory, and
-copy only the five protocol directories:
+copy only the six protocol skill directories:
 
 ```bash
 git clone https://github.com/Rusha-Corp/contract-engineering-skills.git \
@@ -93,12 +105,12 @@ git -C "$HOME/contract-engineering-skills" checkout --detach \
   echo "Failed to select the locked protocol revision" >&2
   exit 1
 }
-for skill in phased-engineering-execution cleanup-protocol project-lifecycle skill-evolution coding-principles; do
+for skill in phased-engineering-execution cleanup-protocol project-lifecycle skill-evolution coding-principles security-assurance; do
   test ! -e "$HOME/.factory/skills/$skill" || {
     echo "Refusing to overwrite existing $skill" >&2
     exit 1
   }
-  cp -R "$HOME/contract-engineering-skills/$skill" "$HOME/.factory/skills/" || {
+  cp -R "$HOME/contract-engineering-skills/skills/$skill" "$HOME/.factory/skills/" || {
     echo "Failed to install $skill" >&2
     exit 1
   }
@@ -118,16 +130,21 @@ guidance mechanism. Use the templates to create project-local packets,
 deprecation records, evidence, exceptions, and closure records. See
 `adapters/generic/README.md`.
 
+For Hermes Agent (Nous Research), skills are compatible with the
+[agentskills.io](https://agentskills.io/specification) open standard and can
+be installed via `hermes skills install` or external skill directories. See
+`adapters/hermes/README.md`.
+
 The project-specific execution ledger belongs to the consuming project. This
 repository supplies the general protocol; it does not own project decisions,
 runtime evidence, or consumer migration records.
 
 ## Updating and rollback
 
-Prefer tagged releases. Review the release notes, copy the five protocol
-directories into the host's configured instruction location, and retain the
-previous version until validation succeeds. Roll back by restoring the prior
-version from the backup or checked-out tag.
+Prefer tagged releases. Review the release notes, copy the six protocol
+skill directories into the host's configured instruction location, and retain
+the previous version until validation succeeds. Roll back by restoring the
+prior version from the backup or checked-out tag.
 
 ## Validation
 

@@ -1,0 +1,22 @@
+{
+  "name": "contract-engineering-skills",
+  "description": "Tool-agnostic protocols for AI-assisted software development: phased delivery, deprecation, cleanup, coding principles, skill evolution, and security assurance.",
+  "version": "2.1.0",
+  "author": {
+    "name": "Rusha-Corp"
+  },
+  "homepage": "https://github.com/Rusha-Corp/contract-engineering-skills",
+  "repository": "https://github.com/Rusha-Corp/contract-engineering-skills",
+  "license": "MIT",
+  "keywords": [
+    "contract-engineering",
+    "phased-execution",
+    "cleanup-protocol",
+    "coding-principles",
+    "security-assurance",
+    "skill-evolution",
+    "project-lifecycle",
+    "ai-agent",
+    "protocol"
+  ]
+}

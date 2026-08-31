@@ -2,6 +2,8 @@
 name: coding-principles
 version: 1.2.0
 description: Enforce DRY, SOLID, KISS, YAGNI, composition, defensive coding, and cross-packet architecture alignment during coding implementation and validation.
+license: MIT
+compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
 ---
 
 ## Revision history
@@ -194,6 +196,8 @@ user approval.
 
 - Packet states, schema, gates, and handoffs:
   `phased-engineering-execution/SKILL.md`
+- Security threat modeling and verification:
+  `security-assurance/SKILL.md`
 - Cleanup risk tiers and execution:
   `cleanup-protocol/SKILL.md`
 - Skill gaps and versioned updates:

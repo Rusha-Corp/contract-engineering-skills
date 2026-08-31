@@ -39,7 +39,7 @@ success metric, expiry, and rollback plan before becoming defaults.
 ## Protocol configuration changes
 
 Changes to the lock template or cross-harness setup guidance must document
-the source commit, release, five skill versions, SHA-256 values, project
+the source commit, release, six skill versions, SHA-256 values, project
 protocol-root behavior, adapter impact, migration steps, rollback, and
 preflight validation. Do not introduce host-specific paths into the portable
 lock contract.

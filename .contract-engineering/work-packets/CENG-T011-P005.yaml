@@ -17,6 +17,7 @@ scope:
   - docs/release-integrity.md
   - docs/protocol-configuration.md
   - CHANGELOG.md
+  - .contract-engineering/protocol.lock.yaml
   out:
   - host-specific approval implementation
   - lifecycle contract design
@@ -58,7 +59,7 @@ baseline_refs:
 - .contract-engineering/protocol.lock.yaml
 - 87453d48063fc7c8d1c0e9618384b50697fa758c
 - "audit findings: CI does not run tests or full contract conformance"
-design_decision_ref: null
+design_decision_ref: "CENG-T011-P005 scope expansion: record the pushed revision as unreleased development without changing the stable consumer lock."
 data_gate_ref: null
 acceptance_criteria:
 - CI runs the repository test suite and normative schema/record conformance checks.

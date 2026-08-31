@@ -24,3 +24,9 @@ skills:
     sha256: c0e4226a0c8630d25b234a52097fad7dd08fe817eb3a22e1f5045fb1faffc847
 project:
   protocol_root: .contract-engineering
+development:
+  status: unreleased
+  ref: 295ff39283fcf2ce9f2c581d166048a1f66481c9
+  based_on_release: 2.1.0
+  reason: Repository hardening changes are pushed for review but are not a stable consumer release.
+  consumer_action: Keep using the stable protocol.ref and synchronize only after independent review and release verification.

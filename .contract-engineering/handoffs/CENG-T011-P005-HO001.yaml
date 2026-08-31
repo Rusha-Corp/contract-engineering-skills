@@ -15,31 +15,27 @@ receiver:
   accepted_at: ''
   acceptance_ref: ''
   signature_ref: ''
-base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
-head_revision: ac09c06e71e38937f46889c14c79320d8326687f
-scope_digest: dff714ca8cc868cf59216aec65b9ee76d84e3977683925dcf063700e706bde5b
+base_revision: 21539bd876eb7af9bd71f394e494314bb6762573
+head_revision: f942d064dd4d4b2e196c8c0f8db767735c6b7e2b
+scope_digest: 0b8ee5d22501038f209eb1fdbabf091389df6356171fa6a64d94dd671d7fdef0
 changed_resources:
 - path: .github/workflows/protocol-validation.yml
-  sha256: d9dcb2ae202b1b68531e1f35db165913dbeb2e8528013357895eefb98bdb8b8a
+  sha256: ce136dd0daa883728a8fc5a1b51cd65535012a0a636982c7764fd5062f855a53
 - path: CHANGELOG.md
-  sha256: ddaceeda3ec37945f3b1cec6ec7a6ecb9fa95efdcbb5002840dafaaa329e97b8
+  sha256: 11f60e067c3b4ec981199d09c5c18e35e4101be6826e6467f51abd36db243d26
 - path: docs/ci-security.md
-  sha256: 67c69f5cce870f987a49eacfbdc0aa5f6b2117f31c801986ffed343b18bcb425
-- path: docs/release-integrity.md
-  sha256: dfaeb8a8042623cf2986d3015b60454e3c8a977201738d02c0e21efde39ee5d7
-created_at: '2026-08-31T17:30:00Z'
+  sha256: eca4dc22fe3eafdface089da5178671edb3cb1f732806ad636fefc2803d52af9
+created_at: '2026-08-31T20:01:23Z'
 expires_at: ''
 approval_ref: user implementation request
 verification:
-  verified_at: '2026-08-31T17:30:00Z'
+  verified_at: '2026-08-31T20:01:23Z'
   verifier: factory-droid
   result: pass
   revocation_checked_at: ''
-  verification_ref: CENG-T011-P005-EV001
+  verification_ref: CENG-T011-P005-EV002
 receiver_status: pending
-receiver_notes: Rework bindings refreshed against implementation revision ac09c06e71e38937f46889c14c79320d8326687f.
-  Independent handoff acceptance remains pending; environment and dependency limitations
-  remain recorded in packet evidence.
+receiver_notes: Rework implementation and validation are recorded against f942d064dd4d4b2e196c8c0f8db767735c6b7e2b. Independent release review and receiver acceptance remain required.
 accepted_revision: ''
 accepted_scope_digest: ''
 accepted_evidence_refs: []

@@ -15,97 +15,23 @@ receiver:
   accepted_at: ''
   acceptance_ref: ''
   signature_ref: ''
-base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
-head_revision: ac09c06e71e38937f46889c14c79320d8326687f
-scope_digest: fa148ec67b19ee29166ea10608b5d5e1959c134662efd1eec907955566a769f8
+base_revision: 21539bd876eb7af9bd71f394e494314bb6762573
+head_revision: f942d064dd4d4b2e196c8c0f8db767735c6b7e2b
+scope_digest: c5639b190ade1001235f43f8a5b17d32e994b6db974153927abb0f1edb57a58a
 changed_resources:
-- path: .contract-engineering/archive/execution-tracker-archive.md
-  sha256: 07de933246ea7aaa2fd6ae5ea8e22918ff493d62dc05ca7a3ebf1dea08bf3bc0
-- path: .contract-engineering/archive/work-packets/CENG-T003-P001.yaml
-  sha256: f444fbeb51e6798e442a187d7f22a098bb1b36c216489b025a8cf740087fb2aa
-- path: .contract-engineering/archive/work-packets/CENG-T004-P001.yaml
-  sha256: 9869701d68835aa366da03a895a4e5a62ebecc08f33af6d647f37392c71f5c61
-- path: .contract-engineering/archive/work-packets/CENG-T004-P002.yaml
-  sha256: c49d3231b3d14737ddff2e5e5de166a5b1a5005c84159e38c120457e99b07c32
-- path: .contract-engineering/archive/work-packets/CENG-T004-P003.yaml
-  sha256: 762df80f4b2be9c7953fd5b2c4d43f608b96f787515e6b91871582200a0fc67e
-- path: .contract-engineering/archive/work-packets/CENG-T004-P004.yaml
-  sha256: 547fc631f5992a2a50d87f426952fb823e2370ca81fd26796ba28c4fc8635142
-- path: .contract-engineering/archive/work-packets/CENG-T004-P005.yaml
-  sha256: e5dd213556b743e44576fe4cc6b3e30472a357c9ffb00bb7e21cb839f2c4da12
-- path: .contract-engineering/archive/work-packets/CENG-T004-P006.yaml
-  sha256: f4b801351f9cc46a800d510c44bc1c88fd1e8ebdd76b42175b0b8f3a885bfb2e
-- path: .contract-engineering/archive/work-packets/CENG-T004-P007.yaml
-  sha256: 6ed412e7f1f6fcfde1f52ee87145e1a884708cf50c625623258e75a37925588c
-- path: .contract-engineering/archive/work-packets/CENG-T004-P008.yaml
-  sha256: 70ebf6925f8166f8a60936bdd448c5769210d5f4484a1e115fcd32f62a609fe4
-- path: .contract-engineering/archive/work-packets/CENG-T004-P009.yaml
-  sha256: 5a7d6ca6ab41cfdfc8e8b181732a678aa9c5753b2f134a0ab4728a220a47c244
-- path: .contract-engineering/archive/work-packets/CENG-T004-P010.yaml
-  sha256: 428db80b0051944ba8c55cf266c3e52f3927a5eafb17e2c8a0d6033edb76dcf3
-- path: .contract-engineering/archive/work-packets/CENG-T004-P011.yaml
-  sha256: bb1547ce180884869ed7f41e7dfc7774a7a91d760a6c92d9a96e1dc0cd0a68c2
-- path: .contract-engineering/archive/work-packets/CENG-T004-P012.yaml
-  sha256: 5da702c37d2a4c9f448b4a9f73f1f8230f3a2f2cba6c3a7e0a777501f4e725e2
-- path: .contract-engineering/archive/work-packets/CENG-T004-P013.yaml
-  sha256: ec1fae514fa41b36cef441b405c90a77e2eabd18f6c6a91c4a11ff03a006fa90
-- path: .contract-engineering/archive/work-packets/CENG-T004-P014.yaml
-  sha256: 5a8ab8dc5b62b51f5554522b95ac7f4b97e40f464a023dd0c6caf5ab67b77b4a
-- path: .contract-engineering/archive/work-packets/CENG-T004-P015.yaml
-  sha256: f1cd7288e905e07ec8ae1f4f6257295b2836d3f134181fab0542e26fd02f1409
-- path: .contract-engineering/archive/work-packets/CENG-T005-P001.yaml
-  sha256: 26a57350244744747440a0eda37390691702ed536bccd0b676282779bf9d9920
-- path: .contract-engineering/archive/work-packets/CENG-T005-P002.yaml
-  sha256: 62c5a4716704bce98ffefae1d60b6cb0ea1ff4e2979edbf0393a0aaf62166a88
-- path: .contract-engineering/archive/work-packets/CENG-T005-P003.yaml
-  sha256: b1d59376dc261a0c5348cd3014d9b2159ed077b40b871f6b2d913197cc9788f2
-- path: .contract-engineering/archive/work-packets/CENG-T005-P004.yaml
-  sha256: ab35bbbe2cd1860e641b0a117cbf6fb5e779a3b6c7d1dc91bc07904700192ea9
-- path: .contract-engineering/archive/work-packets/CENG-T005-P005.yaml
-  sha256: 31e6121ce88e9cd45b9010799e0715bca4ee4f0f622454d8c92bb2b4496a8ad6
-- path: .contract-engineering/archive/work-packets/CENG-T005-P006.yaml
-  sha256: 879d89d4b742c4915aa80f9bc3443ccc71034f0ce6afdc7433027867112fbdb2
-- path: .contract-engineering/archive/work-packets/CENG-T006-P001.yaml
-  sha256: e85073de30eb11c0d1e92915b04d2a1e5bb66b522ebadb53145929a1d0992e82
-- path: .contract-engineering/archive/work-packets/CENG-T008-P001.yaml
-  sha256: 755ecc9fb92ad84814d688809c50b6720a81373c3019bd7ff8c08891d1c96245
-- path: .contract-engineering/execution-tracker.md
-  sha256: f253c0a254dbb7dca2d54b5018faf1e69047b02ee8f7fc3e46abb350511a021e
-- path: .contract-engineering/work-packets/CENG-T007-P003.yaml
-  sha256: 147b084f18b22cecf85653c279956055c3aa79c451c2bc639804aaa8b9320662
-- path: .contract-engineering/work-packets/CENG-T009-P001.yaml
-  sha256: ceba063a4949f973ecd58895d430afaa777b49ef81e3d793f1d1e69a575a1c71
-- path: .contract-engineering/work-packets/CENG-T010-P001.yaml
-  sha256: 4d1a8fd5bdcd0b4ef7cdb426d7c3e0f8e3c62d2c7e043d2f13c49d280de8c7ff
-- path: .contract-engineering/work-packets/CENG-T011-P001.yaml
-  sha256: 74eda192f1415893e06e8327624256c09bb961980ff4256280c2d9582210acec
-- path: .contract-engineering/work-packets/CENG-T011-P002.yaml
-  sha256: d3425b118b45692f783176ba78da049e7799e1f2cb5654840bcfc9cd05fbc225
-- path: .contract-engineering/work-packets/CENG-T011-P003.yaml
-  sha256: 76e66d2bc6f85a0b71e3b460135b2e63ee040953afa55d8122a71c037b139130
-- path: .contract-engineering/work-packets/CENG-T011-P004.yaml
-  sha256: a9c676a034f84bf8c36c7e20be85bde981c85554335a7a4fb655bc3fb31ff7f9
-- path: .contract-engineering/work-packets/CENG-T011-P005.yaml
-  sha256: 8d590765e923dd397114db4e1afd41552808002fa21b54ca9dba78c4c9083b9a
-- path: .contract-engineering/work-packets/CENG-T011-P006.yaml
-  sha256: 7908fcef40f300a5396ac1a838b3cc2e2223fc44d161fc73000c90c9a236978f
-- path: docs/protocol-configuration.md
-  sha256: 02ac0cbdd80fceeb354f28851c6ab62b3214173cbd4def488f8c36a77044d29b
-- path: skills/cleanup-protocol/SKILL.md
-  sha256: 80fde51e6f6fa02929d2654a244311e52176afbeec1d3255f42f697b762b64bc
-created_at: '2026-08-31T17:30:00Z'
+ - path: .contract-engineering/evidence/CENG-T011-P006-EV002.md
+   sha256: 260b5eca4b2ff0342fbed1506961e77a4a0d057c274bf35f488c059f5bcc65b0
+created_at: '2026-08-31T20:01:23Z'
 expires_at: ''
 approval_ref: user implementation request
 verification:
-  verified_at: '2026-08-31T17:30:00Z'
+  verified_at: '2026-08-31T20:01:23Z'
   verifier: factory-droid
   result: pass
   revocation_checked_at: ''
-  verification_ref: CENG-T011-P006-EV001
+  verification_ref: CENG-T011-P006-EV002
 receiver_status: pending
-receiver_notes: Rework bindings refreshed against implementation revision ac09c06e71e38937f46889c14c79320d8326687f.
-  Independent handoff acceptance remains pending; environment and dependency limitations
-  remain recorded in packet evidence.
+receiver_notes: Rework validation is recorded against f942d064dd4d4b2e196c8c0f8db767735c6b7e2b. Dependency and receiver acceptance gates remain explicit.
 accepted_revision: ''
 accepted_scope_digest: ''
 accepted_evidence_refs: []

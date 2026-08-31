@@ -15,37 +15,31 @@ receiver:
   accepted_at: ''
   acceptance_ref: ''
   signature_ref: ''
-base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
-head_revision: ac09c06e71e38937f46889c14c79320d8326687f
-scope_digest: 2a08909fc778d071fd92b809e37272bc35fe01d6b1ac8e1e18d959c3642246a9
+base_revision: 21539bd876eb7af9bd71f394e494314bb6762573
+head_revision: f942d064dd4d4b2e196c8c0f8db767735c6b7e2b
+scope_digest: 6ead09b21263d73fde16005a557ed6a46454e7bc74caef771e8e18d99195bd21
 changed_resources:
 - path: adapters/factory-droid/README.md
-  sha256: 3c66eb37ff1a7a63dac938e389f09695f78a408da727373cba92ee171447c1f6
+  sha256: 5a0c1572d013d21f2c4687a3563c5a64a5ba6dc55e678f43ca5956c052403e4c
 - path: adapters/generic/README.md
-  sha256: e9bce46329a00809dfaa24a59e56ad2c6bb745540333167f8661057c63dfdbde
+  sha256: d1d79146e3b8b1e4b048cd4b5221d7ab4eec22bb11919aa212e102c78a21c44f
 - path: adapters/hermes/README.md
-  sha256: f790e456d96c38e05d32cbdce92a0cbc80f407a758b61ae0237e925ffd7d7e69
+  sha256: a1b19ea6475067c281fd34689f6ecc49ca5c3d2557f5b71eb7310561670093bc
 - path: docs/agent-security.md
-  sha256: 992656c2f19dc01e3df76879970e877860a1293f361d5f8b112c3763dad0b958
-- path: schemas/work-packet.schema.json
-  sha256: 76c65cca19155631c0525bda0c34920646bd96d77e97a633bde3eac5d00ab0a4
-- path: scripts/validate-contract-records.py
-  sha256: 558eef4c1f7382f5030eeba1f295e8a1f1b748a185f737bb59ea2922a37244f7
+  sha256: b62e986089d619f39b0e53878de5a70a1f81469a5ee2f54ec74ad30b632a7f0b
 - path: tests/test_contract_records.py
-  sha256: 95bdf1bcccaf2f1f8aeb10bd0b36987785baff1415a681ad01a1e7e9c14d3681
-created_at: '2026-08-31T17:30:00Z'
+  sha256: 3399969693326ba07eb19dd443a695710b6dd73489d0ea21fbd031db0a0052d4
+created_at: '2026-08-31T20:01:23Z'
 expires_at: ''
 approval_ref: user implementation request
 verification:
-  verified_at: '2026-08-31T17:30:00Z'
+  verified_at: '2026-08-31T20:01:23Z'
   verifier: factory-droid
   result: pass
   revocation_checked_at: ''
-  verification_ref: CENG-T011-P002-EV001
+  verification_ref: CENG-T011-P002-EV002
 receiver_status: pending
-receiver_notes: Rework bindings refreshed against implementation revision ac09c06e71e38937f46889c14c79320d8326687f.
-  Independent handoff acceptance remains pending; environment and dependency limitations
-  remain recorded in packet evidence.
+receiver_notes: Rework implementation and validation are recorded against f942d064dd4d4b2e196c8c0f8db767735c6b7e2b. Native adapter execution remains a host-side gate and requires independent receiver acceptance.
 accepted_revision: ''
 accepted_scope_digest: ''
 accepted_evidence_refs: []

@@ -15,37 +15,29 @@ receiver:
   accepted_at: ''
   acceptance_ref: ''
   signature_ref: ''
-base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
-head_revision: ac09c06e71e38937f46889c14c79320d8326687f
-scope_digest: bffbcc9f69e158123cb7a2645496e264bd83ed27dab7e64ed9250b758697e7b9
+base_revision: 21539bd876eb7af9bd71f394e494314bb6762573
+head_revision: f942d064dd4d4b2e196c8c0f8db767735c6b7e2b
+scope_digest: bb07298ee3062792267e51407e8aaa6c9034e590ec632300ff3fc2ba40c66da3
 changed_resources:
 - path: docs/approval-integrity.md
-  sha256: 71da3ef143628623362c8b3d50c263e6fa79e24d7a5b8e157852463b229695e6
+  sha256: dd5765193d480214bc2ba414463d6e15fa5bd4e61a2861b6c97ca364a3afbeab
 - path: docs/coordination.md
-  sha256: 733ce2a2224651a905f4e274d4866dbe04f2396e7da7f08ebb59b9b864f8abd0
-- path: skills/phased-engineering-execution/SKILL.md
-  sha256: 886d59203d6681a04d1efd499f50cc1dcb9e2d3c1e7501cb0d8431915a555c90
-- path: skills/project-lifecycle/SKILL.md
-  sha256: f56cbce29f835c4dabe1a9b04c3e713bbccd33ab223e039be48469761d33419d
-- path: templates/agent-incident.yaml
-  sha256: 8ceb3630ed632dbf4b45dfc336fbc34351340b5301c593cff1c507db31051687
+  sha256: f220c2f9dbe5f77dd243464dc37192ad04d934b05af897b4af4f22cd25ab81bd
 - path: templates/approval.yaml
-  sha256: 0711bfc2b105e3c103c9b5ebc3fbce74bead7434e4e64f89c1a48f7895b01ca1
+  sha256: f76b1aeea75568d479f454142873e791b59e20cc2d5a50905118001a1b09bcd3
 - path: templates/handoff.yaml
-  sha256: 8cbb7688029c2876f2d18244ee2f8d1dc338bd0fd17505913127bf8aaa6e9bfe
-created_at: '2026-08-31T17:30:00Z'
+  sha256: 196b0b1f6646b4311824bc5f1d0d851cf8a34ea7d810ec3b87d80f8d269a73bb
+created_at: '2026-08-31T20:01:23Z'
 expires_at: ''
 approval_ref: user implementation request
 verification:
-  verified_at: '2026-08-31T17:30:00Z'
+  verified_at: '2026-08-31T20:01:23Z'
   verifier: factory-droid
   result: pass
   revocation_checked_at: ''
-  verification_ref: CENG-T011-P003-EV001
+  verification_ref: CENG-T011-P003-EV002
 receiver_status: pending
-receiver_notes: Rework bindings refreshed against implementation revision ac09c06e71e38937f46889c14c79320d8326687f.
-  Independent handoff acceptance remains pending; environment and dependency limitations
-  remain recorded in packet evidence.
+receiver_notes: Rework implementation and validation are recorded against f942d064dd4d4b2e196c8c0f8db767735c6b7e2b. Native lifecycle execution remains a host-side gate and requires independent receiver acceptance.
 accepted_revision: ''
 accepted_scope_digest: ''
 accepted_evidence_refs: []

@@ -15,35 +15,23 @@ receiver:
   accepted_at: ''
   acceptance_ref: ''
   signature_ref: ''
-base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
-head_revision: ac09c06e71e38937f46889c14c79320d8326687f
-scope_digest: 03cb7ed84516632406f3554294b1da436d5513cac93f370ba2c13bbf1daa7f21
+base_revision: 21539bd876eb7af9bd71f394e494314bb6762573
+head_revision: f942d064dd4d4b2e196c8c0f8db767735c6b7e2b
+scope_digest: 218c6d083a3000b0cca7ede02e5f6e926e392a44b33f209b7d2932dd2490f990
 changed_resources:
-- path: docs/evidence-security.md
-  sha256: bb9b119cf6bd6b62bcf5e96a3b2f552277ce9bdea11857785697d449dfea25b3
-- path: docs/protocol-configuration.md
-  sha256: 02ac0cbdd80fceeb354f28851c6ab62b3214173cbd4def488f8c36a77044d29b
-- path: docs/reproducibility.md
-  sha256: 52fce181d8e3c6c2c91e6d2e9b4e05fbad94af14fa64a0bb317ed64c5c1b255d
-- path: schemas/evidence-policy.schema.json
-  sha256: b76b7438ad62740cd4e35f1a7c191dddb69263f07559abb7f17086ed5e1c8fce
 - path: schemas/work-packet.schema.json
-  sha256: 76c65cca19155631c0525bda0c34920646bd96d77e97a633bde3eac5d00ab0a4
-- path: templates/evidence-policy.yaml
-  sha256: 160aaab60d830c1cf44729036c3727c82e308ef723d396762536aecf82947f51
-created_at: '2026-08-31T17:30:00Z'
+  sha256: 5e78d93e6c1bac767ea30744f143be99d1de6c517c81abeab23debc9f1b28342
+created_at: '2026-08-31T20:01:23Z'
 expires_at: ''
 approval_ref: user implementation request
 verification:
-  verified_at: '2026-08-31T17:30:00Z'
+  verified_at: '2026-08-31T20:01:23Z'
   verifier: factory-droid
   result: pass
   revocation_checked_at: ''
-  verification_ref: CENG-T011-P004-EV001
+  verification_ref: CENG-T011-P004-EV002
 receiver_status: pending
-receiver_notes: Rework bindings refreshed against implementation revision ac09c06e71e38937f46889c14c79320d8326687f.
-  Independent handoff acceptance remains pending; environment and dependency limitations
-  remain recorded in packet evidence.
+receiver_notes: Rework implementation and validation are recorded against f942d064dd4d4b2e196c8c0f8db767735c6b7e2b. Native schema execution remains a host or CI gate and requires independent receiver acceptance.
 accepted_revision: ''
 accepted_scope_digest: ''
 accepted_evidence_refs: []

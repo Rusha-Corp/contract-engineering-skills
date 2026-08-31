@@ -1,0 +1,39 @@
+handoff_version: 2
+handoff_id: CENG-T009-P001-HO002
+packet_id: CENG-T009-P001
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: ''
+  acceptance_ref: ''
+  signature_ref: ''
+base_revision: 55e9405dacde337441262df108bec20ce9cc2e8e
+head_revision: 5dcc63fe5d275bf4e9574abd7105776ba39fcae8
+scope_digest: f3553538d81f55261df3ca2f5a629905f0ab1e0711eb13d9f3f82279dfda3fa9
+changed_resources:
+- path: .contract-engineering/evidence/CENG-T009-P001-EV002.md
+  sha256: 318e1ae21a6b6b75e1b38e4a70f2853b1cc64559205dd5073e50278b99db9c53
+- path: .devcontainer/devcontainer.json
+  sha256: 3d3b236307a8dcfc486d12b29218b4fda9a6d50fdd042b3b81200647b5b1050b
+created_at: '2026-08-31T20:06:00Z'
+expires_at: ''
+approval_ref: user-approved T009 mount correction
+verification:
+  verified_at: '2026-08-31T20:06:00Z'
+  verifier: factory-droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T009-P001-EV002
+receiver_status: pending
+receiver_notes: T009 rework is validated and bound to 5dcc63fe5d275bf4e9574abd7105776ba39fcae8. Docker and Dev Container CLI verification remain unavailable and require receiver disposition.
+accepted_revision: ''
+accepted_scope_digest: ''
+accepted_evidence_refs: []

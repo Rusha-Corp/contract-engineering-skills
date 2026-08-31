@@ -65,7 +65,7 @@ validation_plan:
 evidence_refs:
 - CENG-T009-P001-EV001
 - CENG-T009-P001-EV002
-handoff_ref: null
+handoff_ref: CENG-T009-P001-HO002
 state: Validation
 cleanup_scope:
   dead_refs: []

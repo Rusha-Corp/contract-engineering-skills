@@ -15,14 +15,14 @@ receiver:
   acceptance_ref: ''
   signature_ref: ''
 base_revision: cefd662d05e4e4c0b363cd6c23ba32eb6a805717
-head_revision: c4c314d
+head_revision: ac09c06e71e38937f46889c14c79320d8326687f
 summary: Corrected PR 1's stale negative workflow fixtures and consolidated the compatible
   CodeQL v4.37.9 init and analyze upgrades from PRs 5 and 6.
 changed_resources:
 - path: .contract-engineering/evidence/CENG-T007-P003-EV001.md
   sha256: edb901f6a9042ed420ec683e3e1f4b901e2eba331240fd85e0e8250348af16f1
 - path: .contract-engineering/execution-tracker.md
-  sha256: 0080d5cfb710c9883fa3953e738a0baf05e19223b23c6a5cf6bc7184058c34cd
+  sha256: f253c0a254dbb7dca2d54b5018faf1e69047b02ee8f7fc3e46abb350511a021e
 - path: .contract-engineering/work-packets/CENG-T007-P003.yaml
   sha256: 147b084f18b22cecf85653c279956055c3aa79c451c2bc639804aaa8b9320662
 - path: .github/workflows/protocol-validation.yml
@@ -47,11 +47,11 @@ rollback_notes: Revert commit af48c90 or remove the replacement branch; no globa
 requested_next_action: Use this branch to update PR 1 and consolidate PRs 5 and 6,
   merge PRs 2, 3, and 4, then close superseded PRs.
 receiver_status: pending
-receiver_notes: Rework bindings refreshed against implementation revision c4c314d.
-  Independent handoff acceptance remains pending; prior unresolved gates and limitations
-  must still be independently verified.
+receiver_notes: Rework bindings refreshed against implementation revision ac09c06e71e38937f46889c14c79320d8326687f.
+  Independent handoff acceptance remains pending; environment and dependency limitations
+  remain recorded in packet evidence.
 handoff_version: 2
-scope_digest: 1827d65e8b7d8ad1df799b654e3f70b475fecfae11440af691819417b7fe446d
+scope_digest: 3ed46d6ad1f66830c2a1e97f6e6b144e2f27ac1d749d25a11367f10700471995
 accepted_revision: ''
 accepted_scope_digest: ''
 accepted_evidence_refs: []

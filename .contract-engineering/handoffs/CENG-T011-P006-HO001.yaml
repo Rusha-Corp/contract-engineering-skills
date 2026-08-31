@@ -16,8 +16,8 @@ receiver:
   acceptance_ref: ''
   signature_ref: ''
 base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
-head_revision: c4c314d
-scope_digest: 5b4d6a72fb0ef23791a6be66ce68b9722c31d1291e3fec1230f122f194744fd1
+head_revision: ac09c06e71e38937f46889c14c79320d8326687f
+scope_digest: fa148ec67b19ee29166ea10608b5d5e1959c134662efd1eec907955566a769f8
 changed_resources:
 - path: .contract-engineering/archive/execution-tracker-archive.md
   sha256: 07de933246ea7aaa2fd6ae5ea8e22918ff493d62dc05ca7a3ebf1dea08bf3bc0
@@ -70,7 +70,7 @@ changed_resources:
 - path: .contract-engineering/archive/work-packets/CENG-T008-P001.yaml
   sha256: 755ecc9fb92ad84814d688809c50b6720a81373c3019bd7ff8c08891d1c96245
 - path: .contract-engineering/execution-tracker.md
-  sha256: 0080d5cfb710c9883fa3953e738a0baf05e19223b23c6a5cf6bc7184058c34cd
+  sha256: f253c0a254dbb7dca2d54b5018faf1e69047b02ee8f7fc3e46abb350511a021e
 - path: .contract-engineering/work-packets/CENG-T007-P003.yaml
   sha256: 147b084f18b22cecf85653c279956055c3aa79c451c2bc639804aaa8b9320662
 - path: .contract-engineering/work-packets/CENG-T009-P001.yaml
@@ -78,7 +78,7 @@ changed_resources:
 - path: .contract-engineering/work-packets/CENG-T010-P001.yaml
   sha256: 4d1a8fd5bdcd0b4ef7cdb426d7c3e0f8e3c62d2c7e043d2f13c49d280de8c7ff
 - path: .contract-engineering/work-packets/CENG-T011-P001.yaml
-  sha256: b5dcf4685531e10de53960ab3751a4aa8e19f1a6ac98e7f876ec6c9af817eb89
+  sha256: 74eda192f1415893e06e8327624256c09bb961980ff4256280c2d9582210acec
 - path: .contract-engineering/work-packets/CENG-T011-P002.yaml
   sha256: d3425b118b45692f783176ba78da049e7799e1f2cb5654840bcfc9cd05fbc225
 - path: .contract-engineering/work-packets/CENG-T011-P003.yaml
@@ -103,9 +103,9 @@ verification:
   revocation_checked_at: ''
   verification_ref: CENG-T011-P006-EV001
 receiver_status: pending
-receiver_notes: Rework bindings refreshed against implementation revision c4c314d.
-  Independent handoff acceptance remains pending; prior unresolved gates and limitations
-  must still be independently verified.
+receiver_notes: Rework bindings refreshed against implementation revision ac09c06e71e38937f46889c14c79320d8326687f.
+  Independent handoff acceptance remains pending; environment and dependency limitations
+  remain recorded in packet evidence.
 accepted_revision: ''
 accepted_scope_digest: ''
 accepted_evidence_refs: []

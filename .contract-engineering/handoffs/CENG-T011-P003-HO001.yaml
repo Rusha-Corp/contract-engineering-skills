@@ -16,7 +16,7 @@ receiver:
   acceptance_ref: ''
   signature_ref: ''
 base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
-head_revision: c4c314d
+head_revision: ac09c06e71e38937f46889c14c79320d8326687f
 scope_digest: bffbcc9f69e158123cb7a2645496e264bd83ed27dab7e64ed9250b758697e7b9
 changed_resources:
 - path: docs/approval-integrity.md
@@ -43,9 +43,9 @@ verification:
   revocation_checked_at: ''
   verification_ref: CENG-T011-P003-EV001
 receiver_status: pending
-receiver_notes: Rework bindings refreshed against implementation revision c4c314d.
-  Independent handoff acceptance remains pending; prior unresolved gates and limitations
-  must still be independently verified.
+receiver_notes: Rework bindings refreshed against implementation revision ac09c06e71e38937f46889c14c79320d8326687f.
+  Independent handoff acceptance remains pending; environment and dependency limitations
+  remain recorded in packet evidence.
 accepted_revision: ''
 accepted_scope_digest: ''
 accepted_evidence_refs: []

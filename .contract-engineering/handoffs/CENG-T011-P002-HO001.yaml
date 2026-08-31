@@ -16,7 +16,7 @@ receiver:
   acceptance_ref: ''
   signature_ref: ''
 base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
-head_revision: c4c314d
+head_revision: ac09c06e71e38937f46889c14c79320d8326687f
 scope_digest: 2a08909fc778d071fd92b809e37272bc35fe01d6b1ac8e1e18d959c3642246a9
 changed_resources:
 - path: adapters/factory-droid/README.md
@@ -43,9 +43,9 @@ verification:
   revocation_checked_at: ''
   verification_ref: CENG-T011-P002-EV001
 receiver_status: pending
-receiver_notes: Rework bindings refreshed against implementation revision c4c314d.
-  Independent handoff acceptance remains pending; prior unresolved gates and limitations
-  must still be independently verified.
+receiver_notes: Rework bindings refreshed against implementation revision ac09c06e71e38937f46889c14c79320d8326687f.
+  Independent handoff acceptance remains pending; environment and dependency limitations
+  remain recorded in packet evidence.
 accepted_revision: ''
 accepted_scope_digest: ''
 accepted_evidence_refs: []

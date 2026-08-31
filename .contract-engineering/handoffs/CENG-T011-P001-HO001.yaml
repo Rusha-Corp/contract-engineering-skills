@@ -16,7 +16,7 @@ receiver:
   acceptance_ref: ''
   signature_ref: ''
 base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
-head_revision: c4c314d
+head_revision: ac09c06e71e38937f46889c14c79320d8326687f
 scope_digest: 29675445eb1b0cb7673be6cf5e9fcb8556518a1499708666475ccc42d68f458b
 changed_resources:
 - path: adapters/generic/README.md
@@ -41,10 +41,9 @@ verification:
   revocation_checked_at: ''
   verification_ref: CENG-T011-P001-EV001
 receiver_status: pending
-receiver_notes: |
-  Rework bindings refreshed against implementation revision
-  c4c314d6908f077e40808aecb89c82c3bf7348da. Repository validation passes;
-  independent receiver acceptance remains pending.
+receiver_notes: Rework bindings refreshed against implementation revision ac09c06e71e38937f46889c14c79320d8326687f.
+  Independent handoff acceptance remains pending; environment and dependency limitations
+  remain recorded in packet evidence.
 accepted_revision: ''
 accepted_scope_digest: ''
 accepted_evidence_refs: []

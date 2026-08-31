@@ -16,7 +16,7 @@ receiver:
   acceptance_ref: ''
   signature_ref: ''
 base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
-head_revision: c4c314d
+head_revision: ac09c06e71e38937f46889c14c79320d8326687f
 scope_digest: dff714ca8cc868cf59216aec65b9ee76d84e3977683925dcf063700e706bde5b
 changed_resources:
 - path: .github/workflows/protocol-validation.yml
@@ -37,9 +37,9 @@ verification:
   revocation_checked_at: ''
   verification_ref: CENG-T011-P005-EV001
 receiver_status: pending
-receiver_notes: Rework bindings refreshed against implementation revision c4c314d.
-  Independent handoff acceptance remains pending; prior unresolved gates and limitations
-  must still be independently verified.
+receiver_notes: Rework bindings refreshed against implementation revision ac09c06e71e38937f46889c14c79320d8326687f.
+  Independent handoff acceptance remains pending; environment and dependency limitations
+  remain recorded in packet evidence.
 accepted_revision: ''
 accepted_scope_digest: ''
 accepted_evidence_refs: []

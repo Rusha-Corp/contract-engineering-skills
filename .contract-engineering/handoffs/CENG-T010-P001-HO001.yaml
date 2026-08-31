@@ -14,13 +14,13 @@ receiver:
   authentication_ref: User-approved implementation plan
   signature_ref: ''
 base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
-head_revision: c4c314d
-scope_digest: 03252f2b22232ebf73804ae659e5c02539cdbec86b02384a8f42656003a99a02
+head_revision: ac09c06e71e38937f46889c14c79320d8326687f
+scope_digest: 8c8a2dd0cf8a1fcd5f75410c952761fc0ba7da80e6d9239b8f100301b7e3608a
 changed_resources:
 - path: .contract-engineering/evidence/CENG-T010-P001-EV001.md
   sha256: 533a2a2e8989c8e8e79bf981ced5370fcb0a1ed11f3d23c19c5ef96a74d18a4e
 - path: .contract-engineering/execution-tracker.md
-  sha256: 0080d5cfb710c9883fa3953e738a0baf05e19223b23c6a5cf6bc7184058c34cd
+  sha256: f253c0a254dbb7dca2d54b5018faf1e69047b02ee8f7fc3e46abb350511a021e
 - path: .contract-engineering/work-packets/CENG-T010-P001.yaml
   sha256: 4d1a8fd5bdcd0b4ef7cdb426d7c3e0f8e3c62d2c7e043d2f13c49d280de8c7ff
 - path: docs/protocol-configuration.md
@@ -49,9 +49,9 @@ verification:
   revocation_checked_at: ''
   verification_ref: CENG-T010-P001-EV001
 receiver_status: pending
-receiver_notes: Rework bindings refreshed against implementation revision c4c314d.
-  Independent handoff acceptance remains pending; prior unresolved gates and limitations
-  must still be independently verified.
+receiver_notes: Rework bindings refreshed against implementation revision ac09c06e71e38937f46889c14c79320d8326687f.
+  Independent handoff acceptance remains pending; environment and dependency limitations
+  remain recorded in packet evidence.
 accepted_revision: ''
 accepted_scope_digest: ''
 accepted_evidence_refs: []

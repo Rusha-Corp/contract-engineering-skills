@@ -14,6 +14,9 @@ The tracked project control plane is:
   protocol.lock.yaml
   execution-tracker.md
   work-packets/
+  archive/
+    execution-tracker-archive.md
+    work-packets/
   evidence/
   handoffs/
   skill-feedback.md

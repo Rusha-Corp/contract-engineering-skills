@@ -1,0 +1,77 @@
+packet_id: CENG-T011-P001
+task_id: CENG-T011
+phase: P0_FOUNDATIONS
+domain: documentation
+packet_class: cross-cutting
+title: Define rule ownership and packet boundaries
+objective: Establish one canonical owner for each protocol concern and explicit rules for cross-cutting packets so responsibilities do not overlap.
+open_questions:
+- Which controls must be hard-blocking in every supported harness?
+- Which protocol changes are allowed in one cross-cutting packet versus separate child packets?
+scope:
+  in:
+  - skills/phased-engineering-execution/SKILL.md
+  - skills/coding-principles/SKILL.md
+  - skills/project-lifecycle/SKILL.md
+  - skills/skill-evolution/SKILL.md
+  - docs/rule-ownership.md
+  - templates/work-packet.yaml
+  - adapters/generic/README.md
+  out:
+  - security control implementation
+  - CI workflow implementation
+  - tracker archive migration
+  - global installed skills
+  - remote systems
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: CENG-T011-batch-claim
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: medium
+approval_policy: reviewer
+external_effects: []
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: []
+locks: []
+claim_timestamp: '2026-08-31T17:19:50Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 87453d48063fc7c8d1c0e9618384b50697fa758c
+- "audit findings: concern ownership and cross-cutting packet boundaries"
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Every major protocol concern has one canonical owner, record type, enforcement owner, and failure authority.
+- Cross-cutting packet classes and split rules are documented without duplicating responsibility across skills.
+- The guidance states that host enforcement uses native harness capabilities and blocks work when a required capability is unavailable.
+- Cross-references and terminology are internally consistent.
+validation_plan:
+- id: CENG-T011-P001-VAL001
+  kind: documentation
+  command: Native harness review of rule ownership, packet classes, and cross-references
+  expected: no duplicated owner or contradictory boundary remains
+- id: CENG-T011-P001-VAL002
+  kind: principles
+  skill: coding-principles
+  checks:
+  - Single-responsibility boundaries are explicit.
+  - Cross-cutting work has documented decomposition criteria.
+  - Native host enforcement is distinguished from repository reference tooling.
+  expected: no unresolved concern-separation violations
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+stability: stable
+evidence_refs:
+- CENG-T011-P001-EV001
+handoff_ref: CENG-T011-P001-HO001
+state: Rework

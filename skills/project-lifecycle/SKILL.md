@@ -20,7 +20,8 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 # Project Lifecycle
 
 This skill coordinates the other governed skills. It does not implement
-packets.
+packets or redefine their domain-specific rules. Responsibility ownership is
+defined in `docs/rule-ownership.md`.
 
 ## Project record root
 
@@ -78,7 +79,9 @@ An iteration may contain one feature, a focused refactor, or a bounded group of 
 - Cleanup has run and high-risk actions have user approval.
 - All skill gaps have a user decision.
 - The closure record is complete and user verification is recorded.
-- Active trackers are archived or intentionally retained under policy.
+- Terminal packets have been rolled from `execution-tracker.md` into
+  `archive/execution-tracker-archive.md`, or an intentional-retention
+  decision is recorded under policy.
 
 ## Cross-skill data flow
 

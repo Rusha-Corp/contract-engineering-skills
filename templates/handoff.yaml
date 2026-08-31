@@ -12,6 +12,8 @@ receiver:
   identity_type: human|agent|service
   authenticated: false
   authentication_ref: ""
+  accepted_at: ""
+  acceptance_ref: ""
 base_revision: ""
 head_revision: ""
 scope_digest: ""
@@ -29,3 +31,6 @@ verification:
   verification_ref: ""
 receiver_status: pending|accepted|rejected
 receiver_notes: ""
+accepted_revision: ""
+accepted_scope_digest: ""
+accepted_evidence_refs: []

@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Rusha-Corp/contract-engineering-skills/schemas/evidence-policy.schema.json",
+  "title": "Contract Engineering Evidence Policy",
+  "type": "object",
+  "required": [
+    "evidence_policy_version",
+    "packet_id",
+    "classification",
+    "contains_sensitive_data",
+    "data_categories",
+    "redaction",
+    "secret_scan",
+    "access",
+    "retention",
+    "telemetry",
+    "incident_ref"
+  ],
+  "properties": {
+    "evidence_policy_version": {"type": "integer", "minimum": 1},
+    "packet_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9-]+-T[0-9]{3}-P[0-9]{3}$"
+    },
+    "classification": {
+      "enum": ["public", "internal", "confidential", "restricted"]
+    },
+    "contains_sensitive_data": {"type": "boolean"},
+    "data_categories": {"type": "array", "items": {"type": "string"}},
+    "redaction": {
+      "type": "object",
+      "required": ["required", "performed", "reviewer", "method"],
+      "properties": {
+        "required": {"const": true},
+        "performed": {"const": true},
+        "reviewer": {"type": "string", "minLength": 1},
+        "method": {"type": "string", "minLength": 1}
+      }
+    },
+    "secret_scan": {
+      "type": "object",
+      "required": ["required", "tool", "result"],
+      "properties": {
+        "required": {"const": true},
+        "tool": {"type": "string", "minLength": 1},
+        "result": {"const": "pass"}
+      }
+    },
+    "access": {
+      "type": "object",
+      "required": [
+        "allowed_roles",
+        "storage",
+        "encryption_at_rest",
+        "encryption_in_transit"
+      ],
+      "properties": {
+        "allowed_roles": {"type": "array", "items": {"type": "string"}},
+        "storage": {
+          "enum": ["repository", "encrypted_archive", "restricted_store"]
+        },
+        "encryption_at_rest": {"type": "boolean"},
+        "encryption_in_transit": {"type": "boolean"}
+      }
+    },
+    "retention": {
+      "type": "object",
+      "required": ["class", "retain_until", "disposal_approval"],
+      "properties": {
+        "class": {"enum": ["standard", "extended", "archive"]},
+        "retain_until": {"type": "string"},
+        "disposal_approval": {"type": "string"}
+      }
+    },
+    "telemetry": {
+      "type": "object",
+      "required": ["raw_content_allowed"],
+      "properties": {
+        "raw_content_allowed": {"const": false},
+        "content_capture_approval": {"type": ["string", "null"]}
+      }
+    },
+    "incident_ref": {"type": ["string", "null"]}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "classification": {"enum": ["confidential", "restricted"]}
+        },
+        "required": ["classification"]
+      },
+      "then": {
+        "properties": {
+          "access": {
+            "properties": {
+              "storage": {
+                "enum": ["encrypted_archive", "restricted_store"]
+              },
+              "encryption_at_rest": {"const": true}
+            }
+          }
+        }
+      }
+    }
+  ]
+}

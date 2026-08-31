@@ -1,0 +1,54 @@
+handoff_version: 2
+handoff_id: CENG-T011-P004-HO001
+packet_id: CENG-T011-P004
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ""
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: ""
+  acceptance_ref: ""
+  signature_ref: ""
+base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
+head_revision: worktree
+scope_digest: ""
+changed_resources:
+- path: schemas/work-packet.schema.json
+  sha256: ""
+- path: schemas/evidence-policy.schema.json
+  sha256: ""
+- path: templates/evidence-policy.yaml
+  sha256: ""
+- path: docs/evidence-security.md
+  sha256: ""
+- path: docs/reproducibility.md
+  sha256: ""
+- path: docs/protocol-configuration.md
+  sha256: ""
+created_at: '2026-08-31T17:30:00Z'
+expires_at: ""
+approval_ref: user implementation request
+verification:
+  verified_at: '2026-08-31T17:30:00Z'
+  verifier: factory-droid
+  result: pass
+  revocation_checked_at: ""
+  verification_ref: CENG-T011-P004-EV001
+receiver_status: rejected
+receiver_notes: |
+  Rejected by contract-driven-handoff-acceptance-reviewer. Failures:
+  1. head_revision is "worktree", not a valid 40-character revision binding.
+  2. scope_digest is empty; acceptance requires a bound scope digest.
+  3. All changed_resources sha256 hashes are empty; changed resources are not cryptographically bound.
+  4. No authenticated receiver acceptance has been recorded; receiver authentication_ref is "user review required".
+  5. accepted_revision, accepted_scope_digest, and accepted_evidence_refs are empty.
+  6. Dependency CENG-T011-P001 is not Complete (Handoff); dependency gate is not satisfied.
+accepted_revision: ""
+accepted_scope_digest: ""
+accepted_evidence_refs: []

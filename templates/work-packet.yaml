@@ -2,6 +2,7 @@ packet_id: PROJECT-T001-P001
 task_id: PROJECT-T001
 phase: P1_IMPLEMENTATION
 domain: coding
+packet_class: single-domain|cross-cutting|parent-coordination|child-implementation
 title: ""
 objective: ""
 open_questions: []

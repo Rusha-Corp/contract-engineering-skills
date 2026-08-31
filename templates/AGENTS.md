@@ -16,6 +16,10 @@ protocol skills and linked project documents; do not duplicate them here.
    work packet.
 4. Work only from a claimed packet. Create or update the packet and tracker
    entry before editing when the task is not already tracked.
+5. At cleanup or iteration closure, roll terminal packet files and tracker
+   rows into the configured archive partition as described by the
+   `cleanup-protocol` skill. Use native harness tooling; no Python runtime or
+   repository archive command is required.
 
 ## Scope and ownership
 

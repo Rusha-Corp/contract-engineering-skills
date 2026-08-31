@@ -159,10 +159,38 @@ list.
 | --------------------------------------------- | -------------------------------- | ----------------------------------------- |
 | Active (`Planned`, `Claimed`, `Implementing`) | `work-packets/`         | Keep active                               |
 | Complete, pending closure                     | `work-packets/`         | Retain until user verification            |
-| Complete and user-confirmed                   | `archive/work-packets/` | Archive                                   |
-| Cancelled or superseded                       | `archive/work-packets/` | Archive with reason                       |
+| Complete and user-confirmed                   | `archive/work-packets/` | Move packet and row to the archive ledger |
+| Cancelled or superseded                       | `archive/work-packets/` | Move packet and row with reason           |
 | Closure record                                | `closure/`              | Retain per evidence policy                |
 | Archived and beyond retention                 | Archive storage                  | Delete only under the applicable approval |
+
+The archive tracker is
+`archive/execution-tracker-archive.md`. It is the canonical append-only
+ledger for terminal packet rows; the active `execution-tracker.md` contains
+only live or not-yet-closed work.
+
+### Tracker rollover
+
+At cleanup or iteration closure, use native file and YAML tooling to perform
+the following procedure:
+
+1. Identify packets in `work-packets/` whose state is `Complete` or
+   `Cancelled` and whose closure/user-confirmation requirements are satisfied.
+2. Confirm each packet has a matching row in `execution-tracker.md` and is not
+   already present in `archive/work-packets/`.
+3. Create `archive/work-packets/` and
+   `archive/execution-tracker-archive.md` when needed.
+4. Move each packet YAML to `archive/work-packets/` and move, rather than
+   copy, its row to the archive ledger.
+5. Verify that no archived row remains in the active tracker, every archived
+   packet has an archive row, and the packet state is terminal. A `Complete`
+   packet must retain its handoff reference.
+6. If verification fails, restore the moved files and rows before continuing.
+
+The procedure is harness-native. Use the harness's file and YAML capabilities
+to perform the operation and verify the invariants; no Python runtime or
+repository archive command is required. Evidence and handoffs are not moved
+by tracker rollover and continue to follow their own retention rules.
 
 ## Evidence retention
 

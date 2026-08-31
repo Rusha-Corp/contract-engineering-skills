@@ -32,8 +32,10 @@ verifiable signatures.
 
 An accepted handoff must contain authenticated sender and receiver identities,
 the exact base and head revisions, scope digest, changed-resource hashes,
-approval reference, verification result, and receiver timestamp. A receiver
-may accept only after independently checking the diff and validation evidence.
+approval reference, verification result, and receiver timestamp. The receiver
+must also record the exact evidence checked and an acceptance decision bound to
+those values. A receiver may accept only after independently checking the diff
+and validation evidence.
 The handoff expires when its recorded expiry passes or when its subject revision
 or scope changes.
 

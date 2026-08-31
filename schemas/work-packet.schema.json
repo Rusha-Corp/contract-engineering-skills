@@ -37,6 +37,14 @@
     "domain": {
       "enum": ["coding", "browser", "design", "data", "documentation", "security"]
     },
+    "packet_class": {
+      "enum": [
+        "single-domain",
+        "cross-cutting",
+        "parent-coordination",
+        "child-implementation"
+      ]
+    },
     "title": {"type": "string", "minLength": 1},
     "objective": {"type": "string", "minLength": 1},
     "actor": {
@@ -53,7 +61,28 @@
     "capabilities": {"type": "array", "items": {"type": "string"}},
     "risk_tier": {"enum": ["low", "medium", "high", "critical"]},
     "approval_policy": {"enum": ["automatic", "reviewer", "user", "two_person"]},
-    "external_effects": {"type": "array"},
+    "external_effects": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {"type": "string"},
+          {
+            "type": "object",
+            "required": [
+              "effect_id",
+              "target",
+              "operation",
+              "data_classification",
+              "approval_ref",
+              "rollback"
+            ]
+          }
+        ]
+      }
+    },
+    "evidence_policy": {
+      "$ref": "evidence-policy.schema.json"
+    },
     "research_gap_refs": {
       "type": "array",
       "items": {"type": "string", "pattern": "^CENG-(GAP|SEC)-[0-9]{3}$"}
@@ -124,10 +153,24 @@
   "allOf": [
     {
       "if": {
-        "properties": {
-          "task_id": {"const": "CENG-T005"}
-        },
-        "required": ["task_id"]
+        "anyOf": [
+          {
+            "required": ["domain"],
+            "properties": {"domain": {"const": "security"}}
+          },
+          {
+            "required": ["risk_tier"],
+            "properties": {
+              "risk_tier": {"enum": ["high", "critical"]}
+            }
+          },
+          {
+            "required": ["external_effects"],
+            "properties": {
+              "external_effects": {"minItems": 1}
+            }
+          }
+        ]
       },
       "then": {
         "required": [
@@ -141,25 +184,41 @@
     },
     {
       "if": {
-        "properties": {
-          "task_id": {"const": "CENG-T005"},
-          "state": {
-            "enum": [
-              "Claimed",
-              "DesignReview",
-              "DesignBlocked",
-              "DataReview",
-              "DataBlocked",
-              "Ready",
-              "Implementing",
-              "Validation",
-              "Rework",
-              "Handoff"
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "required": ["domain"],
+                "properties": {"domain": {"const": "security"}}
+              },
+              {
+                "required": ["risk_tier"],
+                "properties": {
+                  "risk_tier": {"enum": ["high", "critical"]}
+                }
+              }
             ]
           },
-          "risk_tier": {"enum": ["high", "critical"]}
-        },
-        "required": ["task_id", "state", "risk_tier"]
+          {
+            "required": ["state"],
+            "properties": {
+              "state": {
+                "enum": [
+                  "Claimed",
+                  "DesignReview",
+                  "DesignBlocked",
+                  "DataReview",
+                  "DataBlocked",
+                  "Ready",
+                  "Implementing",
+                  "Validation",
+                  "Rework",
+                  "Handoff"
+                ]
+              }
+            }
+          }
+        ]
       },
       "then": {
         "required": [
@@ -171,6 +230,21 @@
           "observability_refs",
           "incident_refs"
         ]
+      }
+    },
+    {
+      "if": {
+        "required": ["packet_class", "external_effects"],
+        "properties": {
+          "external_effects": {"minItems": 1}
+        }
+      },
+      "then": {
+        "properties": {
+          "external_effects": {
+            "items": {"type": "object"}
+          }
+        }
       }
     }
   ]

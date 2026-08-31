@@ -54,6 +54,16 @@ the takeover and escalate to the reviewer or user.
 The tracker and packet state must agree with the lease record. A completed
 packet has no active lease. A stale lock is not cleanup authorization.
 
+## Packet state integrity
+
+The coordination store or native harness must enforce the packet transition
+table in `phased-engineering-execution/SKILL.md`. A packet cannot move to
+`Complete` because a tracker row was edited: it needs a receiver-accepted
+handoff whose revision, scope digest, changed-resource hashes, approval, and
+validation evidence match the packet. `Interrupted` and `Cancelled` records
+must carry a reason, disposition, and recovery or closure path. Invalid or
+unverifiable transitions are blocked and retained as audit evidence.
+
 ## File-only fallback
 
 Projects without a coordination service may use an atomic repository commit

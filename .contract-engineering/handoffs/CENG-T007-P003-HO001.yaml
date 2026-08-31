@@ -27,5 +27,13 @@ unresolved_items:
 - PR 6 should be closed as superseded by the combined CodeQL change.
 rollback_notes: Revert commit af48c90 or remove the replacement branch; no global skills were changed.
 requested_next_action: Use this branch to update PR 1 and consolidate PRs 5 and 6, merge PRs 2, 3, and 4, then close superseded PRs.
-receiver_status: pending
-receiver_notes: ''
+receiver_status: rejected
+receiver_notes: |
+  Rejected by contract-driven-handoff-acceptance-reviewer. Failures:
+  1. head_revision is "af48c90" (7-char abbreviation), not a valid 40-character revision binding.
+  2. scope_digest is absent; acceptance requires a bound scope digest.
+  3. changed_resources are bare path strings with no sha256 hashes; changed resources are not cryptographically bound.
+  4. Handoff uses the legacy v1 schema; sender and receiver are bare strings, not structured identity blocks with authenticated, authentication_ref, and signature_ref fields. Receiver authentication cannot be verified.
+  5. No authenticated receiver acceptance has been recorded; no accepted_at, acceptance_ref, accepted_revision, accepted_scope_digest, or accepted_evidence_refs fields exist.
+  6. Evidence records that GitHub-hosted workflow execution and PR merge/closure were unavailable; CI validation was not run in the target environment and cannot be inferred as passing.
+  7. Unresolved items require GitHub-side actions (PR merges/closures) that are out of scope for this review.

@@ -1,4 +1,7 @@
-.factory/
+.factory/*
+!.factory/
+!.factory/droids/
+!.factory/droids/*.md
 .DS_Store
 
 # Local credentials and private key material must never enter the repository.

@@ -25,5 +25,12 @@ unresolved_items:
 - The host must have ~/.factory before creating the container.
 rollback_notes: Remove .devcontainer/devcontainer.json and the packet records, or revert the implementation commit; host directories and installed skills were not modified.
 requested_next_action: Review and accept this handoff, then use the Dev Container extension or CLI to create the container.
-receiver_status: pending
-receiver_notes: ''
+receiver_status: rejected
+receiver_notes: |
+  Rejected by contract-driven-handoff-acceptance-reviewer. Failures:
+  1. head_revision is "worktree", not a valid 40-character revision binding.
+  2. scope_digest is absent; acceptance requires a bound scope digest.
+  3. changed_resources are bare path strings with no sha256 hashes; changed resources are not cryptographically bound.
+  4. Handoff uses the legacy v1 schema; sender and receiver are bare strings, not structured identity blocks with authenticated, authentication_ref, and signature_ref fields. Receiver authentication cannot be verified.
+  5. No authenticated receiver acceptance has been recorded; no accepted_at, acceptance_ref, accepted_revision, accepted_scope_digest, or accepted_evidence_refs fields exist.
+  6. Evidence records that the Dev Container CLI and Docker build were unavailable locally; container creation was not verified in the target environment.

@@ -49,7 +49,24 @@ MAX_YAML_DEPTH = 64
 MAX_YAML_ALIASES = 50
 MAX_CPU_SECONDS = 10
 MAX_ADDRESS_SPACE = 512 * 1024 * 1024
-SECURITY_PACKET_TASK = "CENG-T005"
+SECURITY_SCOPE_PATTERNS = (
+    ".github/workflows/",
+    "adapters/",
+    "docs/agent-security.md",
+    "docs/adapter-security.md",
+    "docs/approval-integrity.md",
+    "docs/incident-response.md",
+    "docs/release-integrity.md",
+    "schemas/",
+    "templates/adapter-",
+    "templates/agent-",
+)
+PACKET_CLASSES = {
+    "single-domain",
+    "cross-cutting",
+    "parent-coordination",
+    "child-implementation",
+}
 EXECUTION_CONTROL_REFS = (
     "trust_boundary_ref",
     "execution_budget_ref",
@@ -141,11 +158,36 @@ def validate_evidence_policy(policy: dict[str, Any], source: str = "evidence pol
     redaction = policy["redaction"]
     scan = policy["secret_scan"]
     access = policy["access"]
+    retention = policy["retention"]
     telemetry = policy["telemetry"]
+    if not isinstance(redaction, dict) or not isinstance(scan, dict):
+        fail(f"{source}: redaction and secret_scan must be mappings")
+    if not isinstance(access, dict) or not isinstance(retention, dict):
+        fail(f"{source}: access and retention must be mappings")
+    if not isinstance(telemetry, dict):
+        fail(f"{source}: telemetry must be a mapping")
     if redaction.get("required") is not True or redaction.get("performed") is not True:
         fail(f"{source}: evidence redaction is incomplete")
+    if not redaction.get("reviewer") or not redaction.get("method"):
+        fail(f"{source}: evidence redaction reviewer and method are required")
     if scan.get("required") is not True or scan.get("result") != "pass":
         fail(f"{source}: evidence secret scan did not pass")
+    if not scan.get("tool"):
+        fail(f"{source}: evidence secret scan tool is required")
+    if not isinstance(access.get("allowed_roles"), list):
+        fail(f"{source}: evidence access roles must be a list")
+    if access.get("storage") not in {
+        "repository",
+        "encrypted_archive",
+        "restricted_store",
+    }:
+        fail(f"{source}: invalid evidence storage")
+    if not isinstance(access.get("encryption_at_rest"), bool) or not isinstance(
+        access.get("encryption_in_transit"), bool
+    ):
+        fail(f"{source}: evidence encryption flags must be boolean")
+    if retention.get("class") not in {"standard", "extended", "archive"}:
+        fail(f"{source}: invalid evidence retention class")
     if policy["classification"] in {"confidential", "restricted"}:
         if access.get("storage") not in {"encrypted_archive", "restricted_store"}:
             fail(f"{source}: sensitive evidence requires encrypted storage")
@@ -156,8 +198,26 @@ def validate_evidence_policy(policy: dict[str, Any], source: str = "evidence pol
 
 
 def validate_security_semantics(packet: dict[str, Any]) -> None:
-    """Enforce security controls for newly introduced security packets."""
-    if packet.get("task_id") != SECURITY_PACKET_TASK:
+    """Enforce security controls from packet metadata, not task identifiers."""
+    scope = packet.get("scope", {}).get("in", [])
+    security_surface = any(
+        path_matches(str(candidate), pattern)
+        for candidate in scope
+        for pattern in SECURITY_SCOPE_PATTERNS
+    )
+    trigger = (
+        packet.get("domain") == "security"
+        or packet.get("risk_tier") in {"high", "critical"}
+        or bool(packet.get("external_effects"))
+        or any(
+            str(capability).startswith(
+                ("network:", "external:", "secrets:", "destructive:")
+            )
+            for capability in packet.get("capabilities", [])
+        )
+        or ("packet_class" in packet and security_surface)
+    )
+    if not trigger:
         return
     required = {"actor", "capabilities", "risk_tier", "approval_policy", "external_effects"}
     missing = required - packet.keys()
@@ -182,8 +242,27 @@ def validate_security_semantics(packet: dict[str, Any]) -> None:
     if packet["risk_tier"] in {"high", "critical"} and packet["approval_policy"] == "automatic":
         fail(f"{packet['packet_id']}: high-risk work cannot use automatic approval")
     for effect in packet["external_effects"]:
+        # Completed records from before structured external effects were
+        # introduced remain readable until an explicit migration packet
+        # updates them. New classified packets must use structured effects.
+        if packet["state"] == "Complete" and "packet_class" not in packet:
+            continue
         if not isinstance(effect, dict):
             fail(f"{packet['packet_id']}: external effects must be structured")
+        required_effect = {
+            "effect_id",
+            "target",
+            "operation",
+            "data_classification",
+            "approval_ref",
+            "rollback",
+        }
+        missing_effect = required_effect - effect.keys()
+        if missing_effect:
+            fail(
+                f"{packet['packet_id']}: external effect missing fields: "
+                f"{sorted(missing_effect)}"
+            )
         if not effect.get("declared") or not effect.get("approval_ref"):
             fail(f"{packet['packet_id']}: external effect is missing declaration or approval")
         if effect.get("reversible") is not True:
@@ -233,6 +312,8 @@ def validate_packet(path: Path, packet: dict[str, Any], packets: dict[str, dict[
         fail(f"{path}: packet_id does not match filename or identifier contract")
     if packet["domain"] not in DOMAINS:
         fail(f"{path}: invalid domain")
+    if "packet_class" in packet and packet["packet_class"] not in PACKET_CLASSES:
+        fail(f"{path}: invalid packet class")
     if packet["state"] not in STATES:
         fail(f"{path}: invalid state {packet['state']}")
     if packet["state"] in {"Claimed", "Implementing", "Validation", "Handoff"}:
@@ -260,29 +341,93 @@ def validate_packet(path: Path, packet: dict[str, Any], packets: dict[str, dict[
     validate_security_semantics(packet)
 
 
-def validate_tracker(root: Path, packets: dict[str, dict[str, Any]]) -> None:
-    tracker = (root / "execution-tracker.md").read_text()
-    rows = re.findall(
-        r"^\| ([^|]+) \| ([A-Z0-9-]+-T\d{3}-P\d{3}) \| ([^|]+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \|$",
-        tracker,
-        re.MULTILINE,
-    )
+ARCHIVE_PACKET_DIR = "archive/work-packets"
+ARCHIVE_TRACKER = "archive/execution-tracker-archive.md"
+TERMINAL_STATES = {"Complete", "Cancelled"}
+TRACKER_ROW_RE = re.compile(
+    r"^\| ([^|]+) \| ([A-Z0-9-]+-T\d{3}-P\d{3}) \| ([^|]+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \|$",
+    re.MULTILINE,
+)
+
+
+def _parse_tracker_rows(text: str) -> list[tuple[str, str, str, str, str, str]]:
+    return TRACKER_ROW_RE.findall(text)
+
+
+def _check_row_consistency(
+    label: str, rows: list[tuple[str, str, str, str, str, str]], packets: dict[str, dict[str, Any]]
+) -> set[str]:
+    """Return the set of packet IDs seen in the given tracker rows.
+
+    Enforces no duplicate rows and that rows for known packets match state,
+    owner, and reviewer. Orphan rows (no matching packet file) are reported by
+    the caller, not here, because a row is only an orphan relative to its
+    expected partition.
+    """
     seen: set[str] = set()
     for _, packet_id, state, owner, reviewer, _ in rows:
         if packet_id in seen:
-            fail(f"tracker: duplicate packet row {packet_id}")
+            fail(f"{label}: duplicate packet row {packet_id}")
         seen.add(packet_id)
         if packet_id in packets:
             packet = packets[packet_id]
             if state.strip() != packet["state"]:
-                fail(f"tracker: state mismatch for {packet_id}")
+                fail(f"{label}: state mismatch for {packet_id}")
             if owner.strip() != str(packet["owner"]):
-                fail(f"tracker: owner mismatch for {packet_id}")
+                fail(f"{label}: owner mismatch for {packet_id}")
             if reviewer.strip() != str(packet["reviewer"]):
-                fail(f"tracker: reviewer mismatch for {packet_id}")
-    missing = set(packets) - seen
-    if missing:
-        fail(f"tracker: missing packet rows {sorted(missing)}")
+                fail(f"{label}: reviewer mismatch for {packet_id}")
+    return seen
+
+
+def validate_tracker(
+    root: Path,
+    live_packets: dict[str, dict[str, Any]],
+    archive_packets: dict[str, dict[str, Any]],
+) -> None:
+    all_packets = {**live_packets, **archive_packets}
+    live_tracker_path = root / "execution-tracker.md"
+    if not live_tracker_path.is_file():
+        fail("tracker: execution-tracker.md is missing")
+    live_rows = _parse_tracker_rows(live_tracker_path.read_text())
+    live_seen = _check_row_consistency("tracker", live_rows, all_packets)
+
+    archive_seen: set[str] = set()
+    archive_tracker_path = root / ARCHIVE_TRACKER
+    if archive_tracker_path.is_file():
+        archive_rows = _parse_tracker_rows(archive_tracker_path.read_text())
+        archive_seen = _check_row_consistency(
+            "archive-tracker", archive_rows, all_packets
+        )
+    elif (root / ARCHIVE_PACKET_DIR).is_dir():
+        fail(f"tracker: {ARCHIVE_PACKET_DIR} exists but {ARCHIVE_TRACKER} is missing")
+
+    # Every packet must appear in exactly one tracker, in the right partition.
+    live_missing = set(live_packets) - live_seen
+    if live_missing:
+        fail(f"tracker: missing live packet rows {sorted(live_missing)}")
+    archive_missing = set(archive_packets) - archive_seen
+    if archive_missing:
+        fail(f"tracker: missing archive packet rows {sorted(archive_missing)}")
+
+    cross_partition = live_seen & archive_seen
+    if cross_partition:
+        fail(f"tracker: packets in both trackers {sorted(cross_partition)}")
+
+    # Rows must resolve to a packet file in the matching partition.
+    live_orphans = live_seen - set(live_packets)
+    if live_orphans:
+        fail(f"tracker: orphan rows with no live packet file {sorted(live_orphans)}")
+    archive_orphans = archive_seen - set(archive_packets)
+    if archive_orphans:
+        fail(f"tracker: orphan rows with no archive packet file {sorted(archive_orphans)}")
+
+    # Archived packets must be terminal state.
+    for packet_id, packet in archive_packets.items():
+        if packet["state"] not in TERMINAL_STATES:
+            fail(f"archive-tracker: {packet_id} is not terminal ({packet['state']})")
+        if packet["state"] == "Complete" and not packet.get("handoff_ref"):
+            fail(f"archive-tracker: {packet_id} Complete without handoff_ref")
 
 
 def validate_project_lock(root: Path) -> None:
@@ -393,20 +538,40 @@ def main() -> int:
     args = parser.parse_args()
     configure_resource_limits()
     root = args.root
-    packet_paths = sorted((root / "work-packets").glob("*.yaml"))
+
+    def load_partition(directory: Path) -> dict[str, dict[str, Any]]:
+        partition: dict[str, dict[str, Any]] = {}
+        if not directory.is_dir():
+            return partition
+        for path in sorted(directory.glob("*.yaml")):
+            packet = load_yaml(path)
+            if not isinstance(packet, dict) or "packet_id" not in packet:
+                fail(f"{path}: packet must be a YAML mapping with packet_id")
+            packet_id = packet["packet_id"]
+            if packet_id in partition:
+                fail(f"duplicate packet ID in {directory}: {packet_id}")
+            partition[packet_id] = packet
+        return partition
+
+    live_packets = load_partition(root / "work-packets")
+    archive_packets = load_partition(root / ARCHIVE_PACKET_DIR)
     packets: dict[str, dict[str, Any]] = {}
-    for path in packet_paths:
-        packet = load_yaml(path)
-        if not isinstance(packet, dict) or "packet_id" not in packet:
-            fail(f"{path}: packet must be a YAML mapping with packet_id")
-        packet_id = packet["packet_id"]
-        if packet_id in packets:
-            fail(f"duplicate packet ID {packet_id}")
-        packets[packet_id] = packet
-    for path in packet_paths:
-        validate_packet(path, packets[path.stem], packets)
+    cross_dup = set(live_packets) & set(archive_packets)
+    if cross_dup:
+        fail(f"duplicate packet ID across partitions {sorted(cross_dup)}")
+    packets.update(live_packets)
+    packets.update(archive_packets)
+    # Validate schema and references for every packet regardless of partition.
+    for directory, partition in (
+        (root / "work-packets", live_packets),
+        (root / ARCHIVE_PACKET_DIR, archive_packets),
+    ):
+        if not directory.is_dir():
+            continue
+        for path in sorted(directory.glob("*.yaml")):
+            validate_packet(path, packets[path.stem], packets)
     validate_project_lock(root)
-    validate_tracker(root, packets)
+    validate_tracker(root, live_packets, archive_packets)
     validate_dependency_graph(packets)
     validate_locks(packets)
     validate_references(root, packets)

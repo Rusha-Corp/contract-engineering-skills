@@ -72,7 +72,12 @@ skills:
   - coding-principles
   - project-lifecycle
   - skill-evolution
+  - security-assurance
 ```
+
+Responsibility ownership is defined once in `docs/rule-ownership.md`.
+Changes to that ownership map require a user-approved protocol update and
+must not be duplicated as competing rules in individual skills.
 
 ## Skill gap schema
 

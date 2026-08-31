@@ -10,8 +10,8 @@ publisher/provenance verification.
 Before publishing a protocol release:
 
 1. Work from a clean, reviewed commit on a protected release path.
-2. Run the complete protocol validation suite, including cross-reference,
-   schema, adapter, security, and compatibility checks.
+2. Run the complete protocol validation suite, including unit tests,
+   cross-reference, JSON schema, adapter, security, and compatibility checks.
 3. Have an independent reviewer approve the release contents, migration
    notes, affected consumers, and rollback plan.
 4. Generate an attestation from `templates/protocol-attestation.yaml`.

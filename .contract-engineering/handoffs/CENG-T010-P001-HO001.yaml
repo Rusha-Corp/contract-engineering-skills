@@ -1,0 +1,62 @@
+handoff_version: 1
+handoff_id: CENG-T010-P001-HO001
+packet_id: CENG-T010-P001
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: Factory Droid session
+  signature_ref: ""
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: User-approved implementation plan
+  signature_ref: ""
+base_revision: 87453d48063fc7c8d1c0e9618384b50697fa758c
+head_revision: worktree
+scope_digest: ""
+changed_resources:
+- path: .contract-engineering/execution-tracker.md
+  sha256: ""
+- path: .contract-engineering/work-packets/CENG-T010-P001.yaml
+  sha256: ""
+- path: .contract-engineering/evidence/CENG-T010-P001-EV001.md
+  sha256: ""
+- path: .contract-engineering/handoffs/CENG-T010-P001-HO001.yaml
+  sha256: ""
+- path: scripts/validate-contract-records.py
+  sha256: ""
+- path: tests/test_contract_records.py
+  sha256: ""
+- path: skills/cleanup-protocol/SKILL.md
+  sha256: ""
+- path: skills/project-lifecycle/SKILL.md
+  sha256: ""
+- path: skills/phased-engineering-execution/SKILL.md
+  sha256: ""
+- path: docs/protocol-configuration.md
+  sha256: ""
+- path: docs/repository-development.md
+  sha256: ""
+- path: templates/AGENTS.md
+  sha256: ""
+created_at: "2026-08-31T00:00:00Z"
+expires_at: ""
+approval_ref: User-approved native-tooling-first archive plan
+verification:
+  verified_at: "2026-08-31T00:00:00Z"
+  verifier: factory-droid
+  result: fail
+  revocation_checked_at: ""
+  verification_ref: CENG-T010-P001-EV001
+receiver_status: rejected
+receiver_notes: |
+  Rejected by contract-driven-handoff-acceptance-reviewer. Failures:
+  1. head_revision is "worktree", not a valid 40-character revision binding.
+  2. scope_digest is empty; acceptance requires a bound scope digest.
+  3. All changed_resources sha256 hashes are empty; changed resources are not cryptographically bound.
+  4. No authenticated receiver acceptance has been recorded; receiver authentication_ref is "User-approved implementation plan" but no accepted_at or acceptance_ref is recorded.
+  5. accepted_revision, accepted_scope_digest, and accepted_evidence_refs are absent from the handoff.
+  6. verification.result is "fail"; the packet's own verification declared failure (protocol preflight hash mismatch for phased-engineering-execution). A failed verification gate is a hard blocker for acceptance.
+  7. Evidence CENG-T010-P001-EV001 records a protocol preflight failure due to hash mismatch; installed global skills were not synchronized, which remains unresolved.

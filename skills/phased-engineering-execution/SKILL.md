@@ -45,12 +45,17 @@ Never reuse an identifier after supersession or cancellation.
 
 ## Required records
 
+- `docs/rule-ownership.md` defines the single canonical owner for each
+  protocol concern and the allowed packet classes.
 - `protocol.lock.yaml` selects the immutable protocol source and skill
   versions for the consuming project.
 - `execution-tracker.md` is the task status source of truth, relative to the
   configured project protocol root.
 - `work-packets/<PACKET-ID>.yaml` is the packet source of truth, relative to
   the configured project protocol root.
+- Terminal packet files and rows are retained in
+  `archive/work-packets/` and `archive/execution-tracker-archive.md` after
+  cleanup rollover; they are not duplicated in the active partition.
 - Evidence, decisions, handoffs, cleanup records, and skill gaps are linked
   by ID relative to that same root.
 - Chat is not the sole record of ownership, scope, approval, blocker, or completion.
@@ -103,6 +108,7 @@ migration_dependencies: []
 removal_criteria: []
 exception_refs: []
 sunset_target: ""
+packet_class: single-domain|cross-cutting|parent-coordination|child-implementation
 state: Planned
 evidence_refs: []
 handoff_ref: null
@@ -152,6 +158,12 @@ Complete exactly these six steps before implementation:
 ## Ownership and locks
 
 Every packet has one owner, one reviewer, one cleanup owner, dependencies, claim timestamp, exclusive resource locks, and a release condition. The cleanup owner may not remove resources owned by an active packet. A stale lock requires a takeover note in the tracker, with the prior owner, reason, and recovery plan.
+
+The `packet_class` must match `docs/rule-ownership.md`. A
+`cross-cutting` packet must name the affected concern owners and explain why
+separate child packets would create an inconsistent intermediate state.
+`parent-coordination` packets may sequence and accept work but must not
+implement a child packet's scope.
 
 For concurrent or side-effecting work, represent ownership with
 `templates/packet-lease.yaml`. A lease has an expiry, heartbeat, atomic
@@ -228,6 +240,31 @@ replayable, and auditable reproduction claims must be distinguished.
 
 ## Packet state machine
 
+The native harness must allow only these packet transitions:
+
+| From | Allowed next states | Required condition |
+| --- | --- | --- |
+| `Planned` | `Claimed`, `Cancelled` | owner/lease or user disposition |
+| `Claimed` | `DesignReview`, `DataReview`, `Ready`, `Interrupted`, `Cancelled` | claim, locks, and required gates |
+| `DesignReview` | `DesignBlocked`, `DataReview` | authenticated design decision |
+| `DesignBlocked` | `DesignReview`, `Cancelled` | revised proposal or disposition |
+| `DataReview` | `DataBlocked`, `Ready` | data gate result |
+| `DataBlocked` | `DataReview`, `Cancelled` | corrected evidence or disposition |
+| `Ready` | `Implementing`, `Interrupted`, `Cancelled` | implementation authorization |
+| `Implementing` | `Validation`, `Interrupted`, `Rework` | scoped changes and checkpoint |
+| `Validation` | `Rework`, `Handoff`, `Interrupted` | validation results |
+| `Rework` | `Implementing`, `Cancelled` | scope remains valid or disposition |
+| `Handoff` | `Rework`, `Complete` | receiver rejection or authenticated acceptance |
+| `Interrupted` | `Claimed`, `Implementing`, `Cancelled` | recovery review and fresh claim |
+| `Cancelled` | none | terminal disposition |
+| `Complete` | none in the packet lifecycle | archive/deprecation is a separate governed process |
+
+No transition may skip a required gate or infer acceptance from a changed
+tracker row. `Complete` requires a receiver-accepted handoff bound to the
+packet revision, scope digest, changed-resource hashes, approval, and
+validation evidence. `Interrupted` and `Cancelled` require a reason,
+disposition, and recovery or closure path.
+
 ```mermaid
 stateDiagram-v2
     [*] --> Planned
@@ -247,17 +284,21 @@ stateDiagram-v2
     Validation --> Handoff: validation passes
     Handoff --> Rework: receiver rejects
     Handoff --> Complete: receiver accepts
-    Complete --> Deprecated: replacement required
-    Deprecated --> Migration: consumers identified
-    Migration --> SunsetEligible: removal criteria met
-    Migration --> RetainedByException: approved exception
-    RetainedByException --> Migration: exception review
-    SunsetEligible --> RemovalReview: evidence review
-    RemovalReview --> Removed: approval and validation
-    RemovalReview --> RetainedByException: risk or consumer remains
-    Removed --> Verified: regression and runtime checks
+    Implementing --> Interrupted: stop or failure
+    Validation --> Interrupted: stop or failure
+    Interrupted --> Claimed: recovery review
+    Interrupted --> Cancelled: disposition
+    Planned --> Cancelled: disposition
+    Claimed --> Cancelled: disposition
+    Rework --> Cancelled: disposition
+    DesignBlocked --> Cancelled: disposition
+    DataBlocked --> Cancelled: disposition
     Complete --> [*]
 ```
+
+Deprecation, migration, sunset, and removal are governed by
+`cleanup-protocol` records after packet completion; they are not packet
+states.
 
 ## Phased execution
 
@@ -355,7 +396,11 @@ receiver_status: pending|accepted|rejected
 receiver_notes: ""
 ```
 
-A handoff is complete only after the receiver records acceptance or rejection with reasons.
+A handoff is complete only after the receiver records authenticated
+acceptance or rejection with reasons. Acceptance must bind the receiver to
+the exact packet revision, scope digest, changed-resource hashes, approval
+reference, validation evidence, and receiver timestamp. A tracker state change
+without that handoff record is invalid.
 
 ## Validation rules
 

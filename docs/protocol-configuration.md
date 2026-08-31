@@ -26,6 +26,9 @@ Create these files in every consuming project:
   protocol.lock.yaml
   execution-tracker.md
   work-packets/
+  archive/
+    execution-tracker-archive.md
+    work-packets/
   evidence/
   handoffs/
   skill-feedback.md
@@ -35,6 +38,19 @@ The protocol root is project-relative and defaults to `.contract-engineering`.
 If an existing project already stores records under `.factory`, set
 `project.protocol_root: .factory` in its lock file while migrating. Do not
 move or delete existing records automatically.
+
+The active tracker is intentionally bounded: it contains live and
+not-yet-closed packets. During cleanup or iteration closure, move terminal
+packet YAML files from `work-packets/` to `archive/work-packets/`, and move
+their rows from `execution-tracker.md` to the append-only
+`archive/execution-tracker-archive.md`. Rows must be moved, not copied. The
+archive ledger preserves history while keeping the active tracker small.
+
+The rollover is a harness-native procedure. The harness should use its native
+file and YAML tooling to identify terminal packets, move the packet files and
+rows, and verify that each packet exists in exactly one partition, each
+partition has the correct tracker row, and archived packets are terminal.
+No Python runtime or repository archive command is required.
 
 ### Repository-level agent instructions
 
@@ -165,12 +181,14 @@ For another harness, change only `SKILLS_DIR`. Do not change the lock to
 match a stale installation. Update the installation from the locked source,
 then rerun preflight.
 
-New security packets must include actor identity, capabilities, risk and
-approval policy, declared effects, and applicable trust, budget, checkpoint,
-evaluation, run, observability, and incident references. The validator enforces
-these fields for active `CENG-T005` packets. Completed packets created before
-this enforcement may be migrated under a separately scoped packet; they are
-not a precedent for new work.
+Security controls are selected from packet metadata, not task identifiers.
+Packets in the security domain, high or critical packets, packets with
+external effects or sensitive capabilities, and classified packets touching
+sensitive scope must include actor identity, capabilities, risk and approval
+policy, declared effects, and applicable trust, budget, checkpoint, evaluation,
+run, observability, and incident references. Completed legacy packets may be
+migrated under a separately scoped packet; they are not a precedent for new
+work.
 
 ## Updating protocols
 

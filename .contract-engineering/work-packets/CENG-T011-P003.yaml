@@ -1,0 +1,88 @@
+packet_id: CENG-T011-P003
+task_id: CENG-T011
+phase: P1_IMPLEMENTATION
+domain: documentation
+packet_class: cross-cutting
+title: Enforce lifecycle approval and handoff integrity
+objective: Align lifecycle states, approvals, handoffs, cancellation records, and closure requirements so completion cannot bypass receiver verification.
+open_questions:
+- Which lifecycle history must be retained to prove legal state transitions?
+- What minimum authenticated handoff fields can every target harness provide natively?
+scope:
+  in:
+  - skills/phased-engineering-execution/SKILL.md
+  - skills/project-lifecycle/SKILL.md
+  - docs/approval-integrity.md
+  - docs/coordination.md
+  - templates/approval.yaml
+  - templates/handoff.yaml
+  - templates/agent-incident.yaml
+  out:
+  - security trigger classification
+  - packet schema implementation
+  - CI workflow implementation
+  - tracker archive migration
+  - global installed skills
+  - remote systems
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: CENG-T011-batch-claim
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: high
+approval_policy: user
+external_effects: []
+trust_boundary_ref: docs/agent-trust-boundaries.md
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+- templates/agent-event.yaml
+incident_refs:
+- templates/agent-incident.yaml
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies:
+- CENG-T011-P001
+locks: []
+claim_timestamp: '2026-08-31T17:19:50Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 87453d48063fc7c8d1c0e9618384b50697fa758c
+- "audit findings: lifecycle transitions and accepted handoffs are not machine-enforced"
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Valid lifecycle transitions and prohibited jumps are explicit.
+- Complete requires an authenticated, accepted handoff bound to the packet revision and scope.
+- Cancelled and interrupted packets require a reason, disposition, and recovery or closure path.
+- Native harnesses can enforce approval and handoff failures without relying on a Python runtime.
+validation_plan:
+- id: CENG-T011-P003-VAL001
+  kind: lifecycle
+  command: Native harness state-transition and handoff conformance cases
+  expected: invalid transitions and unaccepted completion are blocked
+- id: CENG-T011-P003-VAL002
+  kind: security
+  skill: security-assurance
+  checks:
+  - Approval identity and independence are preserved.
+  - Revision, scope, and changed-resource binding are explicit.
+  - Incident handling is required for unresolved side effects.
+  expected: no completion path bypasses authorization or receiver verification
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+stability: stable
+evidence_refs:
+- CENG-T011-P003-EV001
+handoff_ref: CENG-T011-P003-HO001
+state: Rework

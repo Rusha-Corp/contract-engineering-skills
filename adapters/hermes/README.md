@@ -108,6 +108,11 @@ If using an external dir, set `SKILLS_DIR` to that path instead.
 
 ## Security
 
+Route the security gate from packet domain, risk, declared effects,
+capabilities, and classified sensitive scope, never from a task identifier.
+Hermes must block an action when a required native capability or approval is
+unavailable and retain a limitation or incident reference in the packet.
+
 Hermes scans all installed skills (including external and project-local
 skills) with its built-in security scanner before loading them. Skills
 are quarantined if the scan verdict is "dangerous." Trust project-local

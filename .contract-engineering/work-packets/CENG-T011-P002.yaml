@@ -1,0 +1,102 @@
+packet_id: CENG-T011-P002
+task_id: CENG-T011
+phase: P1_IMPLEMENTATION
+domain: security
+packet_class: single-domain
+title: Close security trigger and capability enforcement gap
+objective: Ensure security gates are selected from packet risk and scope rather than historical task identifiers, and make unavailable harness controls blocking.
+open_questions:
+- Which native harness capability declarations are available across Factory Droid and Hermes?
+- Which scope patterns require mandatory security classification?
+scope:
+  in:
+  - skills/security-assurance/SKILL.md
+  - skills/phased-engineering-execution/SKILL.md
+  - schemas/work-packet.schema.json
+  - docs/agent-security.md
+  - adapters/factory-droid/README.md
+  - adapters/hermes/README.md
+  - adapters/generic/README.md
+  - scripts/validate-contract-records.py
+  - tests/test_contract_records.py
+  out:
+  - general lifecycle transitions
+  - evidence retention policy
+  - CI workflow implementation
+  - tracker archive migration
+  - global installed skills
+  - remote systems
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: CENG-T011-batch-claim
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: high
+approval_policy: user
+external_effects: []
+trust_boundary_ref: docs/agent-trust-boundaries.md
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+- templates/agent-event.yaml
+incident_refs:
+- templates/agent-incident.yaml
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies:
+- CENG-T011-P001
+locks: []
+claim_timestamp: '2026-08-31T17:19:50Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 87453d48063fc7c8d1c0e9618384b50697fa758c
+- "audit findings: security enforcement is scoped to CENG-T005"
+design_decision_ref: "CENG-T011-P002 scope expansion: generalized security validation and adversarial tests are required to enforce the contract."
+data_gate_ref: null
+acceptance_criteria:
+- Security enforcement is triggered by security domain, external effects, and security-sensitive scope patterns.
+- No enforcement rule depends on a historical task identifier.
+- Native harness capability and approval failures block the affected action and produce a recorded limitation or incident.
+- Factory Droid, Hermes, and generic adapter guidance maps the same security contract without weakening it.
+validation_plan:
+- id: CENG-T011-P002-VAL001
+  kind: security
+  skill: security-assurance
+  checks:
+  - Security trigger routing covers domain, effects, and sensitive scope.
+  - Missing native capability enforcement is fail-closed.
+  - Least privilege and independent approval remain required.
+  expected: no security-sensitive packet can bypass the applicable security gate
+- id: CENG-T011-P002-VAL002
+  kind: adversarial
+  command: Native harness cases for non-CENG-T005 security packets, external effects, missing capabilities, and scope escalation
+  expected: every prohibited case is blocked and recorded
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps:
+- skill_gap_id: CENG-SG001
+  task_id: CENG-T011
+  packet_id: CENG-T011-P002
+  discovered_at: '2026-08-31T17:30:00Z'
+  skill_file: security-assurance/SKILL.md
+  gap_type: missing
+  severity: medium
+  description: The active Factory runtime could not load the repository security-assurance skill through the Skill tool.
+  impact: Native skill activation could not be independently verified in this session.
+  proposed_change: Synchronize the installed skill directory from the locked protocol source before receiver acceptance.
+  evidence_refs:
+  - CENG-T011-P002-EV001
+stability: stable
+evidence_refs:
+- CENG-T011-P002-EV001
+handoff_ref: CENG-T011-P002-HO001
+state: Rework

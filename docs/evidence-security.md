@@ -54,12 +54,13 @@ gitleaks detect --source . --redact --exit-code 1 --config .gitleaks.toml
 gitleaks dir . --redact --exit-code 1 --config .gitleaks.toml
 ```
 
-The evidence-policy template is a required contract, not a suggestion. Each
-instantiated policy must declare classification, sensitive-data status,
-redaction status and reviewer, scanner and result, access/storage and
-encryption, retention, telemetry capture, and incident linkage. Restricted or
-confidential evidence belongs in an approved encrypted store with authorized
-roles and an audit trail.
+The evidence-policy template and
+`schemas/evidence-policy.schema.json` are required contracts, not
+suggestions. Each instantiated policy must declare classification,
+sensitive-data status, redaction status and reviewer, scanner and result,
+access/storage and encryption, retention, telemetry capture, and incident
+linkage. Restricted or confidential evidence belongs in an approved encrypted
+store with authorized roles and an audit trail.
 
 Do not rely on repository visibility as access control. Restricted evidence
 belongs in an approved encrypted store with authorized roles and an audit

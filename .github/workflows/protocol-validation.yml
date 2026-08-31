@@ -78,3 +78,24 @@ jobs:
           PY
       - name: Validate contract records
         run: python scripts/validate-contract-records.py
+      - name: Run repository unit tests
+        run: python -m unittest discover -s tests -p 'test_*.py'
+      - name: Validate normative JSON schemas
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          required = {"$schema", "$id", "title", "type"}
+          schemas = sorted(Path("schemas").glob("*.json"))
+          if not schemas:
+              raise SystemExit("no JSON schemas found")
+          for path in schemas:
+              document = json.loads(path.read_text())
+              missing = required - document.keys()
+              if missing:
+                  raise SystemExit(f"{path}: missing schema metadata {sorted(missing)}")
+              if document["type"] != "object":
+                  raise SystemExit(f"{path}: top-level schema must be an object")
+          print(f"validated {len(schemas)} JSON schema documents")
+          PY

@@ -1,0 +1,86 @@
+packet_id: CENG-T011-P005
+task_id: CENG-T011
+phase: P1_IMPLEMENTATION
+domain: security
+packet_class: cross-cutting
+title: Complete CI and release enforcement coverage
+objective: Ensure repository CI validates tests, schemas, adapters, lock/source consistency, and release boundaries without becoming the project decision authority.
+open_questions:
+- Which checks belong in repository CI versus each consuming harness?
+- How should unreleased protocol development be represented without making the lock drift look valid?
+scope:
+  in:
+  - .github/workflows/protocol-validation.yml
+  - .github/workflows/security.yml
+  - .github/workflows/secret-scanning.yml
+  - docs/ci-security.md
+  - docs/release-integrity.md
+  - docs/protocol-configuration.md
+  - CHANGELOG.md
+  out:
+  - host-specific approval implementation
+  - lifecycle contract design
+  - packet schema design
+  - tracker archive migration
+  - global installed skills
+  - remote systems
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: CENG-T011-batch-claim
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: high
+approval_policy: user
+external_effects: []
+trust_boundary_ref: docs/agent-trust-boundaries.md
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+- templates/agent-event.yaml
+incident_refs:
+- templates/agent-incident.yaml
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies:
+- CENG-T011-P002
+- CENG-T011-P003
+- CENG-T011-P004
+locks: []
+claim_timestamp: '2026-08-31T17:19:50Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 87453d48063fc7c8d1c0e9618384b50697fa758c
+- "audit findings: CI does not run tests or full contract conformance"
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- CI runs the repository test suite and normative schema/record conformance checks.
+- CI distinguishes native harness enforcement from repository reference conformance tooling.
+- Lock/source skill drift is detected and represented as an explicit unreleased development condition.
+- Release CI preserves immutable refs, independent review, provenance, and rollback requirements.
+validation_plan:
+- id: CENG-T011-P005-VAL001
+  kind: workflow
+  command: Native CI validation of workflow syntax, tests, schema cases, and security invariants
+  expected: all required repository checks run and fail closed
+- id: CENG-T011-P005-VAL002
+  kind: release
+  command: Native release review of lock, skill hashes, changelog, provenance, and rollback references
+  expected: unreleased changes cannot be consumed as a stable locked release
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+stability: stable
+evidence_refs:
+- CENG-T011-P005-EV001
+handoff_ref: CENG-T011-P005-HO001
+state: Rework

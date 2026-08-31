@@ -1,0 +1,91 @@
+packet_id: CENG-T010-P001
+task_id: CENG-T010
+phase: P1_IMPLEMENTATION
+domain: coding
+title: Bound execution tracker growth with partitioned archival
+objective: Keep the active execution tracker bounded while preserving terminal packet history and validator-enforced auditability.
+open_questions: []
+decisions:
+- id: CENG-T010-P001-DEC001
+  date: '2026-08-31'
+  rationale: The target workflow is a harness-native skills protocol; users should not need a Python runtime for tracker rollover.
+  change: Remove the archive Python script and all archive-specific Python references. The harness-native rollover procedure and invariant verification are the only supported workflow.
+scope:
+  in:
+  - scripts/validate-contract-records.py
+  - scripts/archive-completed-packets.py
+  - tests/test_contract_records.py
+  - skills/cleanup-protocol/SKILL.md
+  - skills/project-lifecycle/SKILL.md
+  - skills/phased-engineering-execution/SKILL.md
+  - docs/protocol-configuration.md
+  - docs/repository-development.md
+  - templates/AGENTS.md
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/work-packets/CENG-T010-P001.yaml
+  - .contract-engineering/evidence/CENG-T010-P001-EV001.md
+  - .contract-engineering/handoffs/CENG-T010-P001-HO001.yaml
+  out:
+  - .devcontainer/devcontainer.json
+  - global installed skills
+  - host ~/.factory contents
+  - consumer application runtime behavior
+  - remote systems
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: bounded-execution-tracker
+capabilities:
+- read:repository
+- write:repository
+- execute:local-validation
+risk_tier: medium
+approval_policy: reviewer
+external_effects: []
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies: []
+locks:
+  []
+claim_timestamp: '2026-08-31T00:00:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 87453d48063fc7c8d1c0e9618384b50697fa758c
+- /home/vscode/.factory/specs/2026-08-31-bounded-execution-tracker-via-partitioned-archive-native-tooling-first.md
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Terminal packet files and tracker rows can be moved to an archive partition without retaining stale active rows.
+- The validator enforces live/archive packet, tracker, terminal-state, duplicate, and orphan invariants.
+- The primary archival procedure and verification are harness-native; no Python runtime is required.
+- Tests cover valid and invalid partitioned tracker states.
+- Documentation and consumer bootstrap guidance describe the archive layout and rollover procedure.
+validation_plan:
+- id: CENG-T010-P001-VAL001
+  kind: records
+  command: python3 scripts/validate-contract-records.py --root .contract-engineering
+  expected: exit 0
+- id: CENG-T010-P001-VAL002
+  kind: tests
+  command: python3 -m unittest discover -s tests -v
+  expected: all tests pass
+- id: CENG-T010-P001-VAL003
+  kind: archive
+  command: "Native harness procedure: identify terminal packets, move packet files and tracker rows to the archive partition, then verify partition invariants"
+  expected: terminal packets are moved without stale active rows, duplicate partitions, or orphan rows
+- id: CENG-T010-P001-VAL004
+  kind: hygiene
+  command: git diff --check
+  expected: exit 0
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+evidence_refs:
+- CENG-T010-P001-EV001
+handoff_ref: CENG-T010-P001-HO001
+skill_gaps: []
+stability: stable
+state: Rework

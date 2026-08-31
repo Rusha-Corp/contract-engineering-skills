@@ -5,6 +5,13 @@ claims or executes a packet. It defines who is acting, what the actor may do,
 and which approvals are required. Host adapters provide the identity and
 approval mechanism; they do not weaken this contract.
 
+The security gate is selected from packet metadata, not from a task
+identifier. It is mandatory when the packet uses the `security` domain,
+declares a high or critical risk tier, declares external effects, requests
+network, external, secret, or destructive capabilities, or is a classified
+packet whose scope touches a security-sensitive path such as workflows,
+adapters, security documents, schemas, or agent templates.
+
 ## Actor record
 
 Record the following fields in each packet:
@@ -30,7 +37,9 @@ identity.
 
 The actor record is metadata, not permission by itself. The host must enforce
 the capabilities or explicitly record that enforcement is unavailable and
-block actions that require unavailable controls.
+block actions that require unavailable controls. The limitation or incident
+record must be referenced by the packet before the blocked action can be
+reconsidered.
 
 ## Capability rules
 
@@ -80,7 +89,8 @@ For high and critical work:
    new approval.
 
 If a host cannot provide independent review, the packet remains blocked or
-requires explicit user acceptance of the limitation.
+requires explicit user acceptance of the limitation. That acceptance does not
+authorize a capability the host cannot enforce.
 
 ## External effects
 
@@ -94,6 +104,8 @@ external_effects:
     target: ""
     operation: read|prepare|mutate|delete|publish
     data_classification: public|internal|confidential|restricted
+    declared: true
+    reversible: true
     approval_ref: ""
     rollback: ""
 ```

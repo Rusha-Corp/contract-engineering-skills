@@ -24,6 +24,12 @@ The static invariant check is deliberately local and fail-fast. It checks the
 checked-out workflow before record validation and must remain in the workflow
 when action or trigger changes are proposed.
 
+The protocol-validation workflow also runs the repository's unit tests and
+parses every normative JSON schema, then validates all project records. These
+repository checks are reference conformance checks; the native harness remains
+the authority for runtime identity, capability, approval, lifecycle, and
+side-effect enforcement.
+
 The record validator also applies reviewed parser limits before constructing
 objects: 1 MiB per YAML file, 256 KiB per scalar, 10,000 events, 64 nesting
 levels, 50 aliases, ten CPU seconds, and 512 MiB address space. It uses

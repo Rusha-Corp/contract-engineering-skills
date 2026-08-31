@@ -4,6 +4,9 @@
 
 ### Protocol hardening
 
+- Added packet-class ownership boundaries, metadata-driven security routing,
+  structured external effects, lifecycle transition rules, evidence-policy
+  schema validation, and CI unit/schema checks.
 - Added batch-acceptance guidance that preserves per-packet evidence,
   handoffs, limitations, lock release, and tracker reconciliation.
 - Clarified that pushed development revisions do not become consumer lock

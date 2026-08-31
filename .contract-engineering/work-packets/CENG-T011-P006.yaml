@@ -1,0 +1,73 @@
+packet_id: CENG-T011-P006
+task_id: CENG-T011
+phase: P3_CLEANUP
+domain: documentation
+packet_class: child-implementation
+title: Complete tracker archive migration
+objective: Apply the partitioned archive policy to the repository's own terminal packets so the live tracker contains only active or unconfirmed work.
+open_questions:
+- When does user confirmation permit archival for existing completed packets?
+- Which archive retention class applies to packet records and their linked evidence?
+scope:
+  in:
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/work-packets/
+  - .contract-engineering/archive/
+  - skills/cleanup-protocol/SKILL.md
+  - docs/protocol-configuration.md
+  out:
+  - active or unconfirmed packets
+  - evidence deletion
+  - handoff deletion
+  - global installed skills
+  - remote systems
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: CENG-T011-batch-claim
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: medium
+approval_policy: reviewer
+external_effects: []
+owner: agent
+reviewer: user
+cleanup_owner: agent
+dependencies:
+- CENG-T010-P001
+- CENG-T011-P003
+locks: []
+claim_timestamp: '2026-08-31T17:19:50Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 87453d48063fc7c8d1c0e9618384b50697fa758c
+- "audit findings: repository archive migration remains pending"
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Only active or not-yet-closed packets remain in the live tracker.
+- Terminal packet files and rows exist exactly once in the archive partition and archive ledger.
+- Evidence and handoffs remain available under their own retention policies.
+- Native harness verification proves no orphan, duplicate, or non-terminal archive records.
+validation_plan:
+- id: CENG-T011-P006-VAL001
+  kind: cleanup
+  command: Native harness archive procedure and partition-invariant review
+  expected: archive migration is reversible, auditable, and leaves the live tracker bounded
+- id: CENG-T011-P006-VAL002
+  kind: records
+  command: Native protocol-record validation after migration
+  expected: all packet, tracker, handoff, and evidence references reconcile
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+stability: stable
+evidence_refs:
+- CENG-T011-P006-EV001
+handoff_ref: CENG-T011-P006-HO001
+state: Rework

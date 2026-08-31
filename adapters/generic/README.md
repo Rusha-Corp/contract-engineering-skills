@@ -52,10 +52,13 @@ directory, a container mount, or a CI-provided instruction path. It must
 contain the exact skill files selected by the project lock. The project lock
 and records remain portable and must not be duplicated per host.
 
-The host should provide a way to claim ownership, lock shared resources,
-record decisions, run validation, accept handoffs, and retain evidence. If a
-host lacks one of these capabilities, record the limitation as a Skill Gap
-instead of silently skipping the control.
+The host must provide a way to claim ownership, lock shared resources, record
+decisions, run validation, accept handoffs, and retain evidence. If a host
+lacks one of these capabilities, record the limitation as a Skill Gap and
+block the affected operation instead of silently skipping the control.
+
+Security routing must use packet domain, risk, declared effects, capabilities,
+and classified sensitive scope. It must not use historical task identifiers.
 
 ## Updates and drift
 

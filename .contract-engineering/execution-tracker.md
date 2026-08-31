@@ -10,4 +10,4 @@
 | CENG-T011 | CENG-T011-P006 | Validation | agent | user | CENG-T011-P006 |
 | CENG-T010 | CENG-T010-P001 | Validation | agent | user | CENG-T010-P001 |
 | CENG-T007 | CENG-T007-P003 | Validation | agent | user | CENG-T007-P003 |
-| CENG-T009 | CENG-T009-P001 | Rework | agent | user | Add Python 3.12 development container |
+| CENG-T009 | CENG-T009-P001 | Validation | agent | user | CENG-T009-P001 |

@@ -30,11 +30,12 @@ cleanup_owner: agent
 owner: agent
 reviewer: user
 dependencies: []
-locks: []
-claim_timestamp: '2026-08-30T00:00:00Z'
+locks:
+- CENG-T009-P001
+claim_timestamp: '2026-08-31T20:05:00Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
-- 8de326fe67e2aeb1c9918bf52b6549d97df062d8
+- 55e9405a1cfe3cc8f77539f42a14be08a9c0d0b3
 - /Users/emmanueldavidson/.factory/specs/2026-08-30-add-python-3-12-development-container.md
 - 'user request: create .devcontainer with Python 3.12 and host mounts'
 design_decision_ref: CENG-T009-P001-DEC002
@@ -63,10 +64,10 @@ validation_plan:
   expected: no unresolved principle violations
 evidence_refs:
 - CENG-T009-P001-EV001
-handoff_ref: CENG-T009-P001-HO001
-skill_gaps: []
+- CENG-T009-P001-EV002
+handoff_ref: null
+state: Validation
 cleanup_scope:
   dead_refs: []
   stale_refs: []
   temp_refs: []
-state: Rework

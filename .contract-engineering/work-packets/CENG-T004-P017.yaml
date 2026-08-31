@@ -95,6 +95,9 @@ validation_limitations:
 - Remote publication and signature verification cannot be claimed until the remote operation returns a verifiable result.
 - The configured release key is available in the dedicated GPG home and has
   been backed up outside the repository; hosted security gates remain pending.
+- The release key is passphrase-protected; non-interactive signing failed
+  because no TTY or passphrase was available. Unlock it interactively before
+  retrying the signed tag.
 evidence_refs:
 - CENG-T004-P017-EV001
 handoff_ref: null
@@ -111,4 +114,4 @@ migration_dependencies:
 removal_criteria: []
 exception_refs: []
 sunset_target: ''
-state: Implementing
+state: Rework

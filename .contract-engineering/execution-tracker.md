@@ -12,4 +12,4 @@
 | CENG-T007 | CENG-T007-P003 | Complete | agent | user | released |
 | CENG-T009 | CENG-T009-P001 | Complete | agent | user | released |
 | CENG-T004 | CENG-T004-P016 | Complete | agent | contract-driven-handoff-acceptance-reviewer | released |
-| CENG-T004 | CENG-T004-P017 | Implementing | agent | contract-driven-handoff-acceptance-reviewer | release-path:v2.2.0, release-attestation |
+| CENG-T004 | CENG-T004-P017 | Rework | agent | contract-driven-handoff-acceptance-reviewer | release-path:v2.2.0, release-attestation |

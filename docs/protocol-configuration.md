@@ -52,6 +52,31 @@ rows, and verify that each packet exists in exactly one partition, each
 partition has the correct tracker row, and archived packets are terminal.
 No Python runtime or repository archive command is required.
 
+### Bounded tracker and packet maintenance
+
+The active tracker is an index, not a permanent history log:
+
+- Keep at most 25 packet rows in `execution-tracker.md`.
+- When the index reaches 26 rows, move complete task rows into
+  `tracker-shards/<TASK-ID>.md` and keep one task's rows in one shard.
+- Keep at most 50 packet rows in a task shard. Split a large task into child
+  tasks and shards instead of growing the shard indefinitely.
+- Shards are active-only views. They use the same table schema and remain
+  subject to the one-row/one-packet invariant. A packet row must appear in
+  exactly one of the active index, one active shard, or the archive ledger.
+- At user confirmation or iteration closure, move terminal packet YAML and
+  its row from the active index or shard into `archive/work-packets/` and
+  `archive/execution-tracker-archive.md`. Move, do not copy, and retain the
+  handoff and evidence references.
+
+To prevent stale active work, review every `Claimed`, `Implementing`,
+`Validation`, and `Handoff` packet at least every 14 days. The owner must
+resume it, record an `Interrupted` recovery path, cancel it, or complete the
+handoff. Do not invent a `Stale` state and do not archive active work. A
+failed rollover restores the source files and leaves the packet active.
+Validation enforces shard ownership, row uniqueness, archive partitioning, and
+the row limits; the review cadence remains an owner/reviewer responsibility.
+
 ### Repository-level agent instructions
 
 The project lock and records are the source of truth; a repository-level

@@ -82,6 +82,9 @@ An iteration may contain one feature, a focused refactor, or a bounded group of 
 - Terminal packets have been rolled from `execution-tracker.md` into
   `archive/execution-tracker-archive.md`, or an intentional-retention
   decision is recorded under policy.
+- The active tracker index is no larger than 25 rows, task shards are no
+  larger than 50 rows, and every active packet has passed its 14-day review
+  cadence.
 
 ## Cross-skill data flow
 

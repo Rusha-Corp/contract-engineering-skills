@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*'
 
 permissions:
   contents: read
@@ -150,6 +152,7 @@ jobs:
         run: |
           test -f .contract-engineering/release-attestation.yaml
           python - <<'PY'
+          import os
           from pathlib import Path
           import yaml
 
@@ -173,4 +176,15 @@ jobs:
               raise SystemExit("release attestation is not verified")
           if attestation["revocation"].get("status") != "active":
               raise SystemExit("release attestation is revoked or unknown")
+          tag_release = os.environ.get("GITHUB_REF_NAME", "")
+          if not tag_release.startswith("v"):
+              raise SystemExit("stable release gate requires a version tag")
+          expected_release = tag_release.removeprefix("v")
+          if attestation["subject"].get("release") != expected_release:
+              raise SystemExit(
+                  f"tag {tag_release} does not match attestation release "
+                  f"{attestation['subject'].get('release')}"
+              )
+          if not attestation["subject"].get("commit"):
+              raise SystemExit("release attestation lacks subject commit")
           PY

@@ -1,0 +1,91 @@
+handoff_version: 2
+handoff_id: CENG-T004-P020-HO001
+packet_id: CENG-T004-P020
+transition:
+  from: Validation
+  to: Handoff
+  reason: Stable-tag gate reachability and bounded tracker/packet maintenance are implemented and locally validated; independent review is required before any future protocol release.
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-RECEIVER-IDENTITY-REF
+  accepted_at: '2026-09-01T08:00:00Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T004-P020-20260901
+  signature_ref: ''
+base_revision: ad45e4790cb381478e1847d44d16b6d7db462230
+head_revision: worktree
+scope_digest: 3493c2b21291a56c6e0a98f1367d123d2babadab069bf003fb4c1bb965c16191
+changed_resources:
+- path: .github/workflows/protocol-validation.yml
+  sha256: 97e1cde8116025c6ff9a3394138c872651d550b27d02eec5fcdb57f3dd016ade
+- path: .github/workflows/secret-scanning.yml
+  sha256: 6a37398aa251224083bba98116241e640b515a20af33a0319b873a509829a20d
+- path: .github/workflows/security.yml
+  sha256: 6d9f857daf60a644c838bcaf83bd392594f81ccbaf327c184071edef345a6ca9
+- path: docs/protocol-configuration.md
+  sha256: 0f7a0d09bfb5f688293725865342d803a7c1217ca61cf0d0ff15ee4f7a1b5f87
+- path: docs/repository-development.md
+  sha256: ef4ecd3a35994021b58eb32fa1d685c5ad14b4801523bd951a83f4affd6e61c7
+- path: skills/phased-engineering-execution/SKILL.md
+  sha256: 55204f227a6c0e8bf04298ae39c745c1ffdfc1357cb2ebff297a25dc6006d6dc
+- path: skills/cleanup-protocol/SKILL.md
+  sha256: 6e1a5a68466458bf60bd5da65d4eb967d796a74cce27ad02bc772e007d5bb3d1
+- path: skills/project-lifecycle/SKILL.md
+  sha256: 0d28f9716e92ced8bc86537c9f361227d84c48c385f731fda3d58095ddfd43e0
+- path: templates/AGENTS.md
+  sha256: bd339e1a8d335892bf4541bf10f335387601c7b5681ad62e314f4a7a1ab24550
+- path: scripts/validate-contract-records.py
+  sha256: 2e8b8aa4384b3547a4da98faf8dbbc5932a5b55e9077db74085d7e605ed2d165
+- path: tests/test_contract_records.py
+  sha256: 6f6d3706f56c68e3eed936debf70be55394ea8412021593efef82d8bcc5b6fc5
+- path: .contract-engineering/evidence/CENG-T004-P020-EV001.md
+  sha256: 18d82a1ac3813ba91e21b3e733b6df7a9f665f0686bc26a8199c6ceeb991cf9b
+- path: .contract-engineering/work-packets/CENG-T004-P020.yaml
+  sha256: cf04d6e4587db776613a4792db96d80c1da2044123e21f7e634ad0e766264be6
+- path: .contract-engineering/execution-tracker.md
+  sha256: 80158c49568eed1d8a67b7e4e1b5e98c67aeb0b4f8da9418f7433da81c2f5ae1
+created_at: '2026-09-01T07:50:00Z'
+expires_at: '2026-09-08T07:50:00Z'
+approval_ref: USER-REQUEST-CENG-T004-P020-20260901
+verification:
+  verified_at: '2026-09-01T07:50:00Z'
+  verifier: factory-droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T004-P020-EV001
+receiver_status: accepted
+receiver_notes: >-
+  Independent review accepted. All six criteria pass. (1) The issue is
+  accurately recorded: the stable-release-gate job was conditional on version
+  tags but the workflow trigger accepted only main pushes, so the v2.2.1
+  attestation gate could not run; v2.2.1 remains unchanged and is not
+  republished (scope.out excludes retagging). (2) All three workflows
+  (protocol-validation, secret-scanning, security) now trigger on v* tag
+  pushes, all third-party action refs remain full immutable commit SHAs, and
+  the stable gate reads GITHUB_REF_NAME, requires a v-prefixed tag, and
+  matches the tag release name against release-attestation.yaml subject
+  release 2.2.1. (3) The validator enforces a 25-row active index cap, 50-row
+  task-shard cap under tracker-shards/<TASK-ID>.md, task ownership of shard
+  rows, and rejects duplicate/orphan/over-limit rows while preserving archive
+  partition invariants; unit tests cover these paths. (4) Documentation and
+  skills give a deterministic 14-day active-packet review, terminal-only
+  move-not-delete compaction, recovery on failed moves, no invented Stale
+  state, and no manual long-history burden. (5) Packet actor, approval
+  (two_person, reviewer distinct from author), trust, dependencies (P019
+  Complete/accepted), scope, baseline, rollback, evidence, and validation are
+  valid. (6) No private data or unsafe release/tag mutation is introduced;
+  workflows use contents:read and persist-credentials:false. Changed-resource
+  hashes and scope digest accepted as declared (file-tool-only restriction
+  prevents independent recomputation). Subsequent release gates (new tag,
+  hosted tag-run workflow) are NOT claimed as passed and remain pending.
+accepted_revision: ad45e4790cb381478e1847d44d16b6d7db462230
+accepted_scope_digest: 3493c2b21291a56c6e0a98f1367d123d2babadab069bf003fb4c1bb965c16191
+accepted_evidence_refs:
+- CENG-T004-P020-EV001

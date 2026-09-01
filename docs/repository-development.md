@@ -30,6 +30,13 @@ Existing ignored `.factory/` records are historical Factory session records.
 They are preserved for auditability but are not the canonical project ledger.
 New work uses `.contract-engineering/`.
 
+The active tracker is deliberately bounded. Keep its index at 25 rows or
+fewer; move task-specific rows to `.contract-engineering/tracker-shards/`
+when it reaches the limit, with no more than 50 rows per task shard. Terminal
+packets are compacted by moving their YAML and tracker row into the archive
+partition after user confirmation. This keeps day-to-day records short while
+preserving the complete audit trail.
+
 ## Starting work
 
 From the repository root:
@@ -112,6 +119,17 @@ If an agent stops unexpectedly:
 
 An abandoned worktree is not cleanup-authorized until its packet and locks
 have been reconciled.
+
+### Tracker sharding and compaction
+
+Use the active index for a small cross-task view and one Markdown shard per
+large task, named `<TASK-ID>.md`. Shards contain the standard tracker table,
+not a second packet format. The validator reads the index and all Markdown
+shards together, rejects duplicate or orphan rows, and enforces the 25-row
+index and 50-row shard limits. At closure, move terminal packet files and
+rows to the archive; never delete them as a shortcut. Review active packets
+every 14 days and resolve them through the existing state machine rather than
+adding a stale status.
 
 ## Updating the protocol itself
 

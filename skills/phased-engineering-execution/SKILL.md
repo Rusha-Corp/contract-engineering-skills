@@ -56,6 +56,10 @@ Never reuse an identifier after supersession or cancellation.
 - Terminal packet files and rows are retained in
   `archive/work-packets/` and `archive/execution-tracker-archive.md` after
   cleanup rollover; they are not duplicated in the active partition.
+- The active tracker index is capped at 25 packet rows. Additional active rows
+  belong in one task shard per task under `tracker-shards/<TASK-ID>.md`, with
+  a 50-row cap per shard. The validator treats the index and shards as one
+  partition and rejects duplicate, orphan, or over-limit rows.
 - Evidence, decisions, handoffs, cleanup records, and skill gaps are linked
   by ID relative to that same root.
 - Chat is not the sole record of ownership, scope, approval, blocker, or completion.
@@ -299,6 +303,12 @@ stateDiagram-v2
 Deprecation, migration, sunset, and removal are governed by
 `cleanup-protocol` records after packet completion; they are not packet
 states.
+
+Active packet records require a 14-day review cadence. An owner must resume,
+recover as `Interrupted`, cancel, or hand off an unchanged packet at review;
+`Stale` is not a packet state. Terminal packet YAML and its tracker row move
+to the archive only after user confirmation or iteration closure, preserving
+the handoff and evidence references.
 
 ## Phased execution
 

@@ -254,6 +254,64 @@ class TrackerPartitionTests(unittest.TestCase):
         archive = {"TEST-T002-P001": _packet("TEST-T002-P001", "Complete", handoff_ref="X")}
         validator.validate_tracker(root, live, archive)
 
+    def test_task_tracker_shard_passes(self):
+        root = self._write_root(LIVE_TRACKER)
+        shard = root / validator.TRACKER_SHARD_DIR
+        shard.mkdir()
+        (shard / "TEST-T001.md").write_text(
+            LIVE_TRACKER + self._row("TEST-T001", "TEST-T001-P001", "Implementing")
+        )
+        validator.validate_tracker(
+            root,
+            {"TEST-T001-P001": _packet("TEST-T001-P001", "Implementing")},
+            {},
+        )
+
+    def test_tracker_shard_rejects_wrong_task(self):
+        root = self._write_root(LIVE_TRACKER)
+        shard = root / validator.TRACKER_SHARD_DIR
+        shard.mkdir()
+        (shard / "TEST-T001.md").write_text(
+            LIVE_TRACKER + self._row("TEST-T002", "TEST-T002-P001", "Implementing")
+        )
+        with self.assertRaises(ValueError) as ctx:
+            validator.validate_tracker(
+                root,
+                {"TEST-T002-P001": _packet("TEST-T002-P001", "Implementing")},
+                {},
+            )
+        self.assertIn("does not belong", str(ctx.exception))
+
+    def test_tracker_shard_rejects_duplicate_packet(self):
+        root = self._write_root(
+            LIVE_TRACKER + self._row("TEST-T001", "TEST-T001-P001", "Implementing")
+        )
+        shard = root / validator.TRACKER_SHARD_DIR
+        shard.mkdir()
+        (shard / "TEST-T001.md").write_text(
+            LIVE_TRACKER + self._row("TEST-T001", "TEST-T001-P001", "Implementing")
+        )
+        live = {"TEST-T001-P001": _packet("TEST-T001-P001", "Implementing")}
+        with self.assertRaises(ValueError) as ctx:
+            validator.validate_tracker(root, live, {})
+        self.assertIn("index and shard", str(ctx.exception))
+
+    def test_tracker_index_enforces_row_cap(self):
+        rows = "".join(
+            self._row("TEST-T001", f"TEST-T001-P{i:03d}", "Implementing")
+            for i in range(1, validator.MAX_INDEX_PACKET_ROWS + 2)
+        )
+        root = self._write_root(LIVE_TRACKER + rows)
+        live = {
+            f"TEST-T001-P{i:03d}": _packet(
+                f"TEST-T001-P{i:03d}", "Implementing"
+            )
+            for i in range(1, validator.MAX_INDEX_PACKET_ROWS + 2)
+        }
+        with self.assertRaises(ValueError) as ctx:
+            validator.validate_tracker(root, live, {})
+        self.assertIn("active index has", str(ctx.exception))
+
 
 if __name__ == "__main__":
     unittest.main()

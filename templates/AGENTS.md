@@ -20,6 +20,9 @@ protocol skills and linked project documents; do not duplicate them here.
    rows into the configured archive partition as described by the
    `cleanup-protocol` skill. Use native harness tooling; no Python runtime or
    repository archive command is required.
+6. Keep `execution-tracker.md` at 25 rows or fewer. Shard larger task views
+   into `tracker-shards/<TASK-ID>.md` with at most 50 rows per shard; the
+   validator checks uniqueness, ownership, and archive partitioning.
 
 ## Scope and ownership
 
@@ -29,6 +32,9 @@ protocol skills and linked project documents; do not duplicate them here.
   skills or another packet's worktree.
 - Record design, data, authorization, trust-boundary, and security decisions
   in the project records rather than relying on chat.
+- Review active packets every 14 days. Resume, interrupt with a recovery note,
+  cancel, or hand off them; never create a `Stale` state or archive active
+  work.
 
 ## Validation and handoff
 

@@ -343,6 +343,9 @@ def validate_packet(path: Path, packet: dict[str, Any], packets: dict[str, dict[
 
 ARCHIVE_PACKET_DIR = "archive/work-packets"
 ARCHIVE_TRACKER = "archive/execution-tracker-archive.md"
+TRACKER_SHARD_DIR = "tracker-shards"
+MAX_INDEX_PACKET_ROWS = 25
+MAX_SHARD_PACKET_ROWS = 50
 TERMINAL_STATES = {"Complete", "Cancelled"}
 TRACKER_ROW_RE = re.compile(
     r"^\| ([^|]+) \| ([A-Z0-9-]+-T\d{3}-P\d{3}) \| ([^|]+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \|$",
@@ -390,7 +393,36 @@ def validate_tracker(
     if not live_tracker_path.is_file():
         fail("tracker: execution-tracker.md is missing")
     live_rows = _parse_tracker_rows(live_tracker_path.read_text())
+    if len(live_rows) > MAX_INDEX_PACKET_ROWS:
+        fail(
+            f"tracker: active index has {len(live_rows)} packet rows; "
+            f"move task rows into {TRACKER_SHARD_DIR}/"
+        )
     live_seen = _check_row_consistency("tracker", live_rows, all_packets)
+    shard_dir = root / TRACKER_SHARD_DIR
+    if shard_dir.exists() and not shard_dir.is_dir():
+        fail(f"tracker: {TRACKER_SHARD_DIR} is not a directory")
+    shard_paths = sorted(shard_dir.glob("*.md")) if shard_dir.is_dir() else []
+    for shard_path in shard_paths:
+        shard_rows = _parse_tracker_rows(shard_path.read_text())
+        if len(shard_rows) > MAX_SHARD_PACKET_ROWS:
+            fail(
+                f"tracker shard {shard_path.name}: has {len(shard_rows)} packet rows; "
+                f"split the task shard before adding more work"
+            )
+        for task, packet_id, *_ in shard_rows:
+            if not task.strip() or not shard_path.stem.startswith(task.strip()):
+                fail(
+                    f"tracker shard {shard_path.name}: row {packet_id} "
+                    f"does not belong to task {task.strip()}"
+                )
+        shard_seen = _check_row_consistency(
+            f"tracker shard {shard_path.name}", shard_rows, all_packets
+        )
+        duplicate = live_seen & shard_seen
+        if duplicate:
+            fail(f"tracker: packets in index and shard {sorted(duplicate)}")
+        live_seen |= shard_seen
 
     archive_seen: set[str] = set()
     archive_tracker_path = root / ARCHIVE_TRACKER

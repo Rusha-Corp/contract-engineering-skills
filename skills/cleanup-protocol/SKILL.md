@@ -169,6 +169,18 @@ The archive tracker is
 ledger for terminal packet rows; the active `execution-tracker.md` contains
 only live or not-yet-closed work.
 
+The active tracker index has a 25-row cap. Once it reaches 26 rows, move
+task-specific active rows into `tracker-shards/<TASK-ID>.md`; each shard has a
+50-row cap and uses the standard tracker table. Shards are not archives:
+active packet YAML remains in `work-packets/`, and every packet appears in
+exactly one active index/shard or the archive ledger. The record validator
+enforces these bounds and partition invariants.
+
+Review active packets every 14 days. Resolve an unchanged packet through the
+normal state machine, using `Interrupted` with a recovery note when work is
+paused. Do not create a `Stale` state and do not archive a packet until it is
+terminal and user-confirmed.
+
 ### Tracker rollover
 
 At cleanup or iteration closure, use native file and YAML tooling to perform

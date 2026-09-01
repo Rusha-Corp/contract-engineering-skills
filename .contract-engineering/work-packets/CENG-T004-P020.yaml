@@ -1,0 +1,128 @@
+packet_id: CENG-T004-P020
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: security
+packet_class: cross-cutting
+title: Reach stable tag gates and bound record maintenance
+objective: Make stable release gates reachable on version-tag pushes and define enforceable tracker sharding, terminal packet compaction, and stale-record controls so active project records remain bounded without losing audit history.
+open_questions: []
+scope:
+  in:
+  - .github/workflows/protocol-validation.yml
+  - .github/workflows/secret-scanning.yml
+  - .github/workflows/security.yml
+  - docs/protocol-configuration.md
+  - docs/repository-development.md
+  - skills/phased-engineering-execution/SKILL.md
+  - skills/cleanup-protocol/SKILL.md
+  - skills/project-lifecycle/SKILL.md
+  - templates/AGENTS.md
+  - scripts/validate-contract-records.py
+  - tests/test_contract_records.py
+  - .contract-engineering/work-packets/CENG-T004-P020.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/evidence/CENG-T004-P020-EV001.md
+  - .contract-engineering/handoffs/CENG-T004-P020-HO001.yaml
+  out:
+  - rewriting, deleting, or retagging v2.2.0 or v2.2.1
+  - changing the consumer protocol lock
+  - archiving existing packets as part of this implementation
+  - global installed skills
+  - private GPG key material and passphrases
+  - remote publication without a separate approval
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: CENG-T004-P020-record-maintenance
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+- external:git-read
+risk_tier: high
+approval_policy: two_person
+external_effects:
+- effect_id: CENG-T004-P020-EXT001
+  target: protocol consumers and GitHub Actions
+  operation: change future stable-tag validation and record-maintenance behavior
+  data_classification: public
+  declared: true
+  approval_ref: USER-REQUEST-CENG-T004-P020-20260901
+  reversible: true
+  rollback: revert the reviewed commit and retain v2.2.1 as the last published release
+trust_boundary_ref: docs/agent-trust-boundaries.md
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+- templates/agent-event.yaml
+incident_refs:
+- templates/agent-incident.yaml
+owner: agent
+reviewer: contract-driven-handoff-acceptance-reviewer
+cleanup_owner: agent
+dependencies:
+- CENG-T004-P019
+locks: []
+claim_timestamp: '2026-09-01T07:40:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- ad45e4790cb381478e1847d44d16b6d7db462230
+- .contract-engineering/handoffs/CENG-T004-P019-HO001.yaml
+- docs/protocol-configuration.md
+- docs/release-integrity.md
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Version-tag pushes trigger the protocol, secret-scanning, and security workflows, and the stable release gate validates the tagged release name against its attestation.
+- The active tracker has a documented bounded layout with task-based shard files, while archive/work-packets remains the terminal packet partition.
+- The validator discovers active tracker shards, rejects duplicate or orphan rows across the active index and shards, and preserves archive partition invariants.
+- The protocol defines deterministic stale-record and terminal-packet compaction rules that retain audit evidence and do not archive active or unconfirmed work.
+- User-facing templates and repository guidance explain the zero-manual-maintenance path, including when to shard, when to compact, and how to recover from failed moves.
+- Local record, workflow, parser, unit, link, and security validation passes; v2.2.0 and v2.2.1 remain unchanged.
+validation_plan:
+- id: CENG-T004-P020-VAL001
+  kind: records
+  skill: phased-engineering-execution
+  checks:
+  - Validate packet schemas, dependency graph, tracker/shard/archive partition, references, locks, and changed-path scope.
+  expected: contract records pass
+- id: CENG-T004-P020-VAL002
+  kind: workflow
+  skill: security-assurance
+  checks:
+  - Validate all workflow action refs remain immutable and all release/security workflows include version-tag triggers.
+  - Validate stable tag gate checks the tag release name and attestation.
+  expected: workflow security invariants pass
+- id: CENG-T004-P020-VAL003
+  kind: tests
+  skill: coding-principles
+  checks:
+  - Run parser, tracker-shard, record, and regression unit tests.
+  - Verify the simplest viable shard and compaction rules with representative and adversarial fixtures.
+  expected: tests pass
+- id: CENG-T004-P020-VAL004
+  kind: security
+  skill: security-assurance
+  checks:
+  - Run Gitleaks 8.24.3 history and working-tree scans.
+  - Verify no credentials, tag rewriting, unsafe workflow permissions, or unbounded record deletion were introduced.
+  expected: no unresolved blocking security findings
+evidence_refs:
+- CENG-T004-P020-EV001
+handoff_ref: CENG-T004-P020-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+deprecation_refs: []
+migration_dependencies:
+- CENG-T004-P019
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

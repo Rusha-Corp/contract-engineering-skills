@@ -1,0 +1,113 @@
+packet_id: CENG-T004-P019
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: security
+packet_class: cross-cutting
+title: Prepare replacement stable 2.2.1 release
+objective: Prepare a separately reviewed replacement release after immutable v2.2.0 failed hosted secret scanning, preserving v2.2.0 as rollback evidence and publishing only after new attestation and hosted gates pass.
+open_questions:
+- Which exact content commit will be the v2.2.1 attestation subject?
+- Which hosted workflow runs will verify the replacement release?
+scope:
+  in:
+  - CHANGELOG.md
+  - .contract-engineering/work-packets/CENG-T004-P019.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/release-attestation.yaml
+  - .contract-engineering/evidence/CENG-T004-P019-EV001.md
+  - .contract-engineering/handoffs/CENG-T004-P019-HO001.yaml
+  out:
+  - rewriting or deleting v2.2.0
+  - consumer lock update before replacement verification
+  - global installed skills
+  - private GPG key material and passphrases
+  - unapproved remote changes
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: CENG-T004-P019-v221-release
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+- external:git-publish
+- external:release-tag
+risk_tier: high
+approval_policy: two_person
+external_effects:
+- effect_id: CENG-T004-P019-EXT001
+  target: origin GitHub repository
+  operation: publish signed immutable v2.2.1 tag and release metadata
+  data_classification: public
+  declared: true
+  approval_ref: USER-APPROVAL-CENG-T004-P019-20260901
+  reversible: true
+  rollback: revoke v2.2.1 and restore consumers to verified 2.1.0; retain v2.2.0 as failed audit evidence
+trust_boundary_ref: docs/agent-trust-boundaries.md
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+- templates/agent-event.yaml
+incident_refs:
+- templates/agent-incident.yaml
+owner: agent
+reviewer: contract-driven-handoff-acceptance-reviewer
+cleanup_owner: agent
+dependencies:
+- CENG-T004-P016
+- CENG-T004-P018
+locks: []
+lock_state: released
+claim_timestamp: '2026-09-01T07:13:34Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- f9cb0d581688d8ea9b60766ad9109cf9aee564cd
+- .contract-engineering/handoffs/CENG-T004-P016-HO001.yaml
+- .contract-engineering/handoffs/CENG-T004-P018-HO001.yaml
+- docs/release-integrity.md
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Changelog, migration boundary, failed v2.2.0 rollback status, and replacement release scope are documented.
+- The replacement attestation is bound to the exact content commit, artifacts, publisher, independent approval, verification, active revocation state, and rollback reference.
+- Local validation and hosted security/release gates pass before v2.2.1 publication is treated as complete.
+- The signed immutable v2.2.1 tag targets the intended attestation-bearing commit and v2.2.0 remains unchanged.
+- Consumer locks remain on the prior verified release until v2.2.1 is independently verified.
+validation_plan:
+- id: CENG-T004-P019-VAL001
+  kind: release
+  skill: phased-engineering-execution
+  checks:
+  - Validate records, schemas, tests, workflow invariants, YAML, Markdown links, Gitleaks history and working-tree scans, and lock/source alignment.
+  - Verify v2.2.0 remains immutable and v2.2.1 points to the intended commit.
+  expected: replacement release validation passes
+- id: CENG-T004-P019-VAL002
+  kind: security
+  skill: security-assurance
+  checks:
+  - Verify signed tag, attestation provenance, independent approval, active revocation, rollback, and hosted security workflows.
+  - Verify no private key, passphrase, or secret value is stored in repository records.
+  expected: no unresolved blocking security finding
+validation_limitations:
+- Hosted workflows and remote tag verification are mandatory and remain pending until publication.
+- Consumer lock synchronization is intentionally out of scope until replacement verification.
+evidence_refs:
+- CENG-T004-P019-EV001
+handoff_ref: CENG-T004-P019-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+deprecation_refs: []
+migration_dependencies:
+- CENG-T004-P013
+- CENG-T004-P018
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

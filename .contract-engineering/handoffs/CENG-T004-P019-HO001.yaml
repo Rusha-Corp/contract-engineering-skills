@@ -1,0 +1,74 @@
+handoff_version: 2
+handoff_id: CENG-T004-P019-HO001
+packet_id: CENG-T004-P019
+transition:
+  from: Validation
+  to: Handoff
+  reason: Replacement release scope and migration boundary prepared after v2.2.0 failed hosted secret scanning; independent review is required before v2.2.1 publication.
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-RECEIVER-IDENTITY-REF
+  accepted_at: '2026-09-01T07:20:00Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T004-P019-20260901
+  signature_ref: ''
+base_revision: f9cb0d581688d8ea9b60766ad9109cf9aee564cd
+head_revision: f9cb0d581688d8ea9b60766ad9109cf9aee564cd
+scope_digest: 2180ed38ead4e7362f5c2c846819e4ca8940406d4c850c5d1daed78179941449
+changed_resources:
+- path: CHANGELOG.md
+  sha256: b4d10757c0646f54e465adc3e87de2d79a43d059e52e0df61782ae07c2bbb022
+- path: .contract-engineering/evidence/CENG-T004-P019-EV001.md
+  sha256: 81569e8d5163d8c61a9b31aa13033eb82b97b725013acabcb9bc560551e0a74a
+- path: .contract-engineering/work-packets/CENG-T004-P019.yaml
+  sha256: bea1e768b1ec26bbe64e9c4a3002c181345e7df8260e6ea66c736e10aaa0f708
+- path: .contract-engineering/execution-tracker.md
+  sha256: d54fda1020cd6c7194491f6d5ff24db064734c333ae2f0156a776da84d2c487e
+created_at: '2026-09-01T07:13:34Z'
+expires_at: '2026-09-08T07:13:34Z'
+approval_ref: USER-APPROVAL-CENG-T004-P019-20260901
+verification:
+  verified_at: '2026-09-01T07:13:34Z'
+  verifier: factory-droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T004-P019-EV001
+receiver_status: accepted
+receiver_notes: >-
+  Pre-publication independent review accepted. All five acceptance criteria
+  pass. (1) CHANGELOG.md documents the 2.2.1 replacement release, the failed
+  immutable v2.2.0 rollback status (preserved at 90f29dc, not rewritten), and
+  the replacement scope; migration_dependencies P013 and P018 are recorded.
+  (2) The replacement attestation is correctly NOT claimed as complete; it is
+  explicitly deferred as a subsequent mandatory gate, consistent with
+  pre-publication scope. (3) Remediation hosted runs are recorded in
+  CENG-T004-P019-EV001: Secret scanning 33480435593, Protocol validation
+  33480435579, and Security checks 33480435586 pass for remediation source
+  7483e19; local Gitleaks history and working-tree scans pass with the exact
+  public fingerprint/path allowlist and the private-key negative fixture
+  rejected. (4) The signed immutable v2.2.1 tag is deferred (not claimed);
+  v2.2.0 remains unchanged at 90f29dc. (5) The consumer lock remains on the
+  prior verified release (protocol.lock.yaml still pins 2.2.0-dev/unreleased);
+  synchronization is intentionally out of scope until v2.2.1 is independently
+  verified. Dependencies CENG-T004-P016 and CENG-T004-P018 are Complete with
+  accepted handoffs. Two-person approval satisfied: user approval
+  USER-APPROVAL-CENG-T004-P019-20260901 plus independent reviewer distinct
+  from author factory-droid. Revision binding consistent (base=head=f9cb0d5,
+  matching current HEAD). Scope adhered to: all changed_resources are in
+  scope.in. Changed-resource hashes and scope digest accepted as declared
+  (file-tool-only restriction prevents independent recomputation). Packet locks
+  released per normal lifecycle. Subsequent mandatory gates remain pending and
+  are NOT claimed as passed: v2.2.1 content commit, attestation, GPG
+  signature, immutable tag, remote publication, hosted tag gate, and final
+  handoff.
+accepted_revision: f9cb0d581688d8ea9b60766ad9109cf9aee564cd
+accepted_scope_digest: 2180ed38ead4e7362f5c2c846819e4ca8940406d4c850c5d1daed78179941449
+accepted_evidence_refs:
+- CENG-T004-P019-EV001

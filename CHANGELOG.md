@@ -27,6 +27,14 @@
 - Added immutable lock/source verification and a fail-closed stable-tag
   attestation gate; development tags remain explicitly non-stable.
 
+## 2.2.1 - 2026-09-01
+
+- Published as a replacement for the failed immutable 2.2.0 tag after the
+  public release-key fingerprint was narrowly allowlisted in Gitleaks.
+- Preserved v2.2.0 as immutable audit and rollback evidence; consumers must
+  adopt only after independently verifying the v2.2.1 attestation and hosted
+  security gates.
+
 ## 2.1.0 - 2026-08-30
 
 - Added a portable `protocol.lock.yaml` template for pinning one immutable

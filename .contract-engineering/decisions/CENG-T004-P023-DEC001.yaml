@@ -1,0 +1,38 @@
+decision_id: CENG-T004-P023-DEC001
+packet_id: CENG-T004-P023
+title: Make README branding and project purpose explicit
+status: approved
+created_at: '2026-09-01T10:00:00Z'
+created_by: factory-droid
+approver: user
+approval_ref: USER-REQUEST-CENG-T004-P023-20260901
+proposal:
+  branding:
+    placement: README top-level header immediately below the project title
+    asset: assets/contract-spark/contract-spark-lockup.svg
+    alt_text: Contract Spark, the Contract-Driven Engineering protocol identity
+  project_explanation:
+    placement: opening section immediately below the branding
+    content: >-
+      Explain that this repository provides reusable protocols, governed skills,
+      templates, and host adapters for evidence-based AI-assisted software
+      delivery.
+    audience: human engineers, coding assistants, CI automation, and agentic development environments
+  constraints:
+    - Use the existing local SVG asset; do not add a remote image or runtime dependency.
+    - Keep the README concise and link to deeper documentation.
+    - Preserve existing installation, configuration, and validation guidance.
+alternatives_considered:
+  - name: Documentation-only mention
+    rejected_because: The user needs the identity visibly represented in the repository landing page.
+  - name: Remote hosted image
+    rejected_because: It adds an external dependency and weakens offline rendering and supply-chain properties.
+acceptance_criteria:
+  - >-
+    The README visibly renders the Contract Spark lockup near the title using
+    the existing local SVG and meaningful alt text.
+  - >-
+    The README opening explains what the project is, what it provides, and who
+    it is for before configuration details.
+  - Existing README links and validation guidance remain intact.
+rollback: Revert the README-only commit; no assets or protocol behavior need to change.

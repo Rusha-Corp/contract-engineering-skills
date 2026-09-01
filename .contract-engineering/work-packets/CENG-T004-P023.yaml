@@ -1,0 +1,167 @@
+packet_id: CENG-T004-P023
+task_id: CENG-T004
+phase: P2_DESIGN_GAPS
+domain: documentation
+packet_class: single-domain
+title: Make README branding and project purpose explicit
+objective: >-
+  Add visible Contract Spark branding and a concise project overview to the
+  repository README without changing protocol behavior.
+open_questions: []
+scope:
+  in:
+    - README.md
+    - .contract-engineering/decisions/CENG-T004-P023-DEC001.yaml
+    - .contract-engineering/work-packets/CENG-T004-P023.yaml
+    - .contract-engineering/execution-tracker.md
+    - .contract-engineering/evidence/CENG-T004-P023-EV001.md
+    - .contract-engineering/handoffs/CENG-T004-P023-HO001.yaml
+  out:
+    - changing SVG assets
+    - changing protocol behavior, schemas, skills, workflows, or locks
+    - adding remote image URLs, JavaScript, fonts, or dependencies
+    - rewriting or retagging published releases
+    - publishing or pushing without separate approval
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: CENG-T004-P023-readme-branding
+capabilities:
+  - read:repository
+  - write:packet-scope
+  - execute:local-validation
+risk_tier: low
+approval_policy: reviewer
+external_effects: []
+owner: agent
+reviewer: contract-driven-handoff-acceptance-reviewer
+cleanup_owner: agent
+dependencies:
+  - CENG-T004-P022
+locks: []
+claim_timestamp: '2026-09-01T10:00:00Z'
+baseline_refs:
+  - .contract-engineering/protocol.lock.yaml
+  - 9984587b4ed68f0b8df7a40d1a1b98ff4c56d3a1
+  - .contract-engineering/handoffs/CENG-T004-P022-HO001.yaml
+  - .contract-engineering/decisions/CENG-T004-P023-DEC001.yaml
+  - README.md
+design_decision_ref: CENG-T004-P023-DEC001
+data_gate_ref: null
+acceptance_criteria:
+  - >-
+    README visibly renders the Contract Spark lockup near the title using the
+    existing local SVG and meaningful alt text.
+  - >-
+    README opening explains what the project is, what it provides, and who it
+    is for before configuration details.
+  - >-
+    Existing README links and validation guidance remain intact.
+  - >-
+    Local record, link, and regression validation passes without changing
+    assets, protocol behavior, or published release refs.
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T004-P023-AC001
+      statement: >-
+        README includes the existing Contract Spark lockup as a local image
+        directly below the title with meaningful alt text.
+      expected_result: >-
+        README contains a relative image reference to
+        assets/contract-spark/contract-spark-lockup.svg and non-empty alt text.
+      verification_method: README content inspection
+      evidence_refs:
+        - CENG-T004-P023-EV001
+      failure_result: >-
+        Branding is absent, remotely hosted, or missing meaningful alt text.
+      validation_ref: CENG-T004-P023-VAL001
+    - id: CENG-T004-P023-AC002
+      statement: >-
+        README explains the repository purpose, supplied artifacts, and
+        intended audience before the Protocol configuration section.
+      expected_result: >-
+        Opening overview identifies protocols, skills, templates, adapters,
+        evidence-based delivery, and the intended human and agent audiences.
+      verification_method: README content inspection
+      evidence_refs:
+        - CENG-T004-P023-EV001
+      failure_result: >-
+        Readers encounter configuration details without a project explanation.
+      validation_ref: CENG-T004-P023-VAL001
+    - id: CENG-T004-P023-AC003
+      statement: >-
+        Existing README navigation and validation guidance remain valid after
+        the update.
+      expected_result: >-
+        Relative Markdown links resolve, the existing sections remain present,
+        and no remote image or dependency is introduced.
+      verification_method: Markdown link and content validation
+      verification_command: python3 scripts/check-markdown-links.py
+      evidence_refs:
+        - CENG-T004-P023-EV001
+      failure_result: >-
+        A link breaks, an existing section disappears, or an external asset is
+        introduced.
+      validation_ref: CENG-T004-P023-VAL002
+    - id: CENG-T004-P023-AC004
+      statement: >-
+        The follow-up change stays within README documentation scope and does
+        not modify protocol locks, assets, or published tags.
+      expected_result: >-
+        Changed paths contain README.md and governed P023 records only;
+        published tag refs remain unchanged.
+      verification_method: git diff and ref inspection
+      evidence_refs:
+        - CENG-T004-P023-EV001
+      failure_result: >-
+        Out-of-scope behavior or release state changes are detected.
+      validation_ref: CENG-T004-P023-VAL003
+validation_plan:
+  - id: CENG-T004-P023-VAL001
+    kind: documentation
+    skill: coding-principles
+    checks:
+      - Verify the local Contract Spark lockup appears directly below the title with meaningful alt text.
+      - Verify the opening overview explains project purpose, artifacts, and audience before Protocol configuration.
+      - Verify the existing visual identity, installation, and validation sections remain present.
+    expected: README communicates identity and purpose clearly
+  - id: CENG-T004-P023-VAL002
+    kind: links
+    skill: coding-principles
+    command: python3 scripts/check-markdown-links.py
+    checks:
+      - Resolve all relative Markdown links and anchors.
+      - Verify the image target is local and exists.
+    expected: Markdown links pass
+  - id: CENG-T004-P023-VAL003
+    kind: records
+    skill: phased-engineering-execution
+    checks:
+      - Validate packet schema, dependency, tracker row, scope, and handoff bindings.
+      - Verify published release refs are unchanged.
+    expected: documentation packet records pass
+  - id: CENG-T004-P023-VAL004
+    kind: regression
+    skill: coding-principles
+    command: python3 -m unittest discover -s tests -p 'test_*.py'
+    checks:
+      - Run the existing repository unit tests.
+    expected: existing tests pass
+evidence_refs:
+  - CENG-T004-P023-EV001
+handoff_ref: CENG-T004-P023-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+deprecation_refs: []
+migration_dependencies:
+  - CENG-T004-P022
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

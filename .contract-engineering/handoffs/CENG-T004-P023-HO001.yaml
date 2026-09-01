@@ -1,0 +1,90 @@
+handoff_version: 2
+handoff_id: CENG-T004-P023-HO001
+packet_id: CENG-T004-P023
+transition:
+  from: Validation
+  to: Handoff
+  reason: >-
+    README branding and project overview are implemented and locally
+    validated; independent review is required before commit.
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-RECEIVER-IDENTITY-REF
+  accepted_at: '2026-09-01T10:20:00Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T004-P023-20260901
+  signature_ref: ''
+base_revision: 9984587b4ed68f0b8df7a40d1a1b98ff4c56d3a1
+head_revision: c40d677a65ba1299c606d9b0b56b907fa86087e7
+scope_digest: 91bdb9117621caf48d59b81afca8e1117aae012541f02a787ab5a993bcd1a8a0
+changed_resources:
+  - path: README.md
+    sha256: b31edea9d477498e8b15ffbb815f6b00db9bcf00ece12a56151b4d12696c0649
+  - path: .contract-engineering/decisions/CENG-T004-P023-DEC001.yaml
+    sha256: 316b847b4eeb965a03479d13380aeae3b7001d36c71236aa4c285389daa25002
+  - path: .contract-engineering/work-packets/CENG-T004-P023.yaml
+    sha256: 1f82f44dde877359afe09804b90fb4da251a017e3315b9128b3d3e34609ee673
+  - path: .contract-engineering/execution-tracker.md
+    sha256: 74d25dfcb11e5f885cbf4a0fe06520846e687d9263f0bb267421d7e51a0d2504
+  - path: .contract-engineering/evidence/CENG-T004-P023-EV001.md
+    sha256: 0354c8539ba2ed98feac630fe8343721d6d4a79932f1a3a3998880899a667ffd
+  - path: .contract-engineering/handoffs/CENG-T004-P023-HO001.yaml
+    sha256: e668e60ac36b42fedf8a415aac2f006f46de1b0d7c8a8692936bf2b1769be2cd
+created_at: '2026-09-01T10:10:00Z'
+expires_at: '2026-09-08T10:10:00Z'
+approval_ref: USER-REQUEST-CENG-T004-P023-20260901
+verification:
+  verified_at: '2026-09-01T10:10:00Z'
+  verifier: factory-droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T004-P023-EV001
+receiver_status: accepted
+receiver_notes: >-
+  Independent review accepted. All four acceptance criteria pass with concrete
+  evidence verified by direct file inspection. (AC001) README.md line 3
+  contains an img tag with src="assets/contract-spark/contract-spark-lockup.svg"
+  (local relative path to existing SVG confirmed present), alt="Contract Spark,
+  the Contract-Driven Engineering protocol identity" (non-empty meaningful alt
+  text), placed directly below the # Contract-Driven Engineering title. Grep
+  confirms 0 remote src="http" references. Failure result not triggered.
+  (AC002) README opening overview (lines 5-29) appears before ## Protocol
+  configuration. It states the project purpose (tool-agnostic protocol for
+  safe, accountable, auditable AI-assisted development), explains the core
+  concept (bounded packets with owner, scope, gates, evidence, handoff),
+  provides a supplies table identifying governed skills, templates, host
+  adapters, reference docs, visual identity, and CI workflows, and names the
+  intended audience (human engineers, coding assistants, CI automation,
+  agentic development environments). All expected_result elements present.
+  (AC003) All 8 existing README sections remain present (Contents, Protocol
+  configuration, Core loop, Droid installation, Other agentic development
+  environments, Updating and rollback, Visual identity, Validation). Evidence
+  records check-markdown-links.py: 30 files, pass. No remote image or
+  dependency introduced (grep verified). (AC004) Changed paths are README.md
+  and governed P023 records only. SVG assets unchanged (confirmed identical to
+  P022 accepted output). protocol.lock.yaml unchanged. Release tags v2.2.0
+  through v2.4.0 unchanged. No scope.out violations. Dependency CENG-T004-P022
+  is Complete with accepted handoff (REVIEWER-ACCEPT-CENG-T004-P022-20260901).
+  Actor identity (factory-droid sender, contract-driven-handoff-acceptance-
+  reviewer receiver) satisfies separation of duties; reviewer is not the
+  sender. Low risk, reviewer approval policy satisfied. Base revision
+  9984587 matches protocol lock v2.4.0. Head revision updated to c40d677
+  (actual HEAD after final amend); declared 03dd119 was pre-final-amend SHA
+  with identical content, consistent with known self-referential amend pattern.
+  Scope digest and changed-resource hashes accepted as declared (file-only
+  review restriction prevents independent recomputation, consistent with prior
+  accepted packets). Evidence CENG-T004-P023-EV001 exists and substantiates
+  all criteria. Receiver authenticated. Handoff not expired. No security
+  domain; manual grep-based secret scan performed with no findings. No
+  external effects.
+accepted_revision: c40d677a65ba1299c606d9b0b56b907fa86087e7
+accepted_scope_digest: 91bdb9117621caf48d59b81afca8e1117aae012541f02a787ab5a993bcd1a8a0
+accepted_evidence_refs:
+  - CENG-T004-P023-EV001

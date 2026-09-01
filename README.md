@@ -1,12 +1,28 @@
 # Contract-Driven Engineering
 
-Tool-agnostic protocols and templates for AI-assisted software development:
-phased delivery, deprecation, dead-code removal, evidence, and continuous
-process improvement.
+<img src="assets/contract-spark/contract-spark-lockup.svg" alt="Contract Spark, the Contract-Driven Engineering protocol identity" width="280">
 
-This repository is usable by human engineers, coding assistants, CI
-automation, and agentic development environments. The core protocols do not
-depend on a particular vendor, editor, CLI, or model.
+**Contract-Driven Engineering** is a tool-agnostic protocol for making
+AI-assisted software development safe, accountable, and auditable. It turns
+every piece of work into a bounded *packet* with an owner, a scope, explicit
+gates, reproducible evidence, and an independent handoff that a reviewer must
+accept before the work is considered done.
+
+This repository supplies everything you need to adopt the protocol:
+
+| What | Where | Purpose |
+| --- | --- | --- |
+| Governed skills | `skills/` | Six `SKILL.md` files covering phased execution, coding principles, security assurance, cleanup, skill evolution, and project lifecycle. |
+| Templates | `templates/` | Work-packet, deprecation, feedback, validation, and consumer `AGENTS.md` templates. |
+| Host adapters | `adapters/` | Installation and integration guides for Factory Droid, Hermes Agent, and generic harnesses. |
+| Reference docs | `docs/` | Release integrity, protocol configuration, secret management, incident response, and more. |
+| Visual identity | `assets/contract-spark/` | Contract Spark SVG mark, lockup, and badge for documentation and branding. |
+| CI workflows | `.github/workflows/` | Protocol validation, secret scanning, and security checks with pinned actions. |
+
+It is designed for **human engineers, coding assistants, CI automation, and
+agentic development environments**. The core protocols do not depend on a
+particular vendor, editor, CLI, or model — any team or agent harness can
+adopt them by pinning an immutable release in a project-local lock file.
 
 ## Contents
 

@@ -1,0 +1,53 @@
+handoff_version: 2
+handoff_id: CENG-T004-P023-HO001
+packet_id: CENG-T004-P023
+transition:
+  from: Validation
+  to: Handoff
+  reason: >-
+    README branding and project overview are implemented and locally
+    validated; independent review is required before commit.
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-RECEIVER-IDENTITY-REF
+  accepted_at: ''
+  acceptance_ref: ''
+  signature_ref: ''
+base_revision: 9984587b4ed68f0b8df7a40d1a1b98ff4c56d3a1
+head_revision: 03dd1192ac35c865e5bd2317b424656916b25a06
+scope_digest: 91bdb9117621caf48d59b81afca8e1117aae012541f02a787ab5a993bcd1a8a0
+changed_resources:
+  - path: README.md
+    sha256: b31edea9d477498e8b15ffbb815f6b00db9bcf00ece12a56151b4d12696c0649
+  - path: .contract-engineering/decisions/CENG-T004-P023-DEC001.yaml
+    sha256: 316b847b4eeb965a03479d13380aeae3b7001d36c71236aa4c285389daa25002
+  - path: .contract-engineering/work-packets/CENG-T004-P023.yaml
+    sha256: 1f82f44dde877359afe09804b90fb4da251a017e3315b9128b3d3e34609ee673
+  - path: .contract-engineering/execution-tracker.md
+    sha256: 74d25dfcb11e5f885cbf4a0fe06520846e687d9263f0bb267421d7e51a0d2504
+  - path: .contract-engineering/evidence/CENG-T004-P023-EV001.md
+    sha256: 0354c8539ba2ed98feac630fe8343721d6d4a79932f1a3a3998880899a667ffd
+  - path: .contract-engineering/handoffs/CENG-T004-P023-HO001.yaml
+    sha256: e668e60ac36b42fedf8a415aac2f006f46de1b0d7c8a8692936bf2b1769be2cd
+created_at: '2026-09-01T10:10:00Z'
+expires_at: '2026-09-08T10:10:00Z'
+approval_ref: USER-REQUEST-CENG-T004-P023-20260901
+verification:
+  verified_at: '2026-09-01T10:10:00Z'
+  verifier: factory-droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T004-P023-EV001
+receiver_status: pending
+receiver_notes: ''
+accepted_revision: ''
+accepted_scope_digest: ''
+accepted_evidence_refs: []

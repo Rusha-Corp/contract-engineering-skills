@@ -1,11 +1,11 @@
 attestation_version: 1
-attestation_id: CENG-T004-P017-ATT001
-issued_at: '2026-08-31T21:20:00Z'
-expires_at: '2027-08-31T21:20:00Z'
+attestation_id: CENG-T004-P019-ATT001
+issued_at: '2026-09-01T07:25:00Z'
+expires_at: '2027-09-01T07:25:00Z'
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: 54e3a33e2ca904c41050b9344b16d809cb26a0ba
-  release: 2.2.0
+  commit: db66cc4db7e179fdb06cf89c89bae0c686d1bfcc
+  release: 2.2.1
   artifacts:
   - path: skills/phased-engineering-execution/SKILL.md
     sha256: 886d59203d6681a04d1efd499f50cc1dcb9e2d3c1e7501cb0d8431915a555c90
@@ -22,19 +22,21 @@ subject:
   - path: schemas/work-packet.schema.json
     sha256: 5e78d93e6c1bac767ea30744f143be99d1de6c517c81abeab23debc9f1b28342
   - path: CHANGELOG.md
-    sha256: 11f60e067c3b4ec981199d09c5c18e35e4101be6826e6467f51abd36db243d26
+    sha256: b4d10757c0646f54e465adc3e87de2d79a43d059e52e0df61782ae07c2bbb022
+  - path: .gitleaks.toml
+    sha256: 7883026ea65018b3828382c1b6c7c646f84f94db0e8a5bdbc56b3f5cb18253c9
 publisher:
   identity: Emmanuel
   identity_type: human
   authentication_ref: GPG-KEY-274B8E457D3BAA92986D4F2FEE48B7C4736E0648
-  workflow: Factory Droid local release workflow
+  workflow: Factory Droid replacement release workflow
   signing_system: gpg
-  signature_ref: gpg:tag:v2.2.0
+  signature_ref: gpg:tag:v2.2.1
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:54e3a33e2ca904c41050b9344b16d809cb26a0ba
+  builder_digest: git-tree:db66cc4db7e179fdb06cf89c89bae0c686d1bfcc
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: 54e3a33e2ca904c41050b9344b16d809cb26a0ba
+  source_commit: db66cc4db7e179fdb06cf89c89bae0c686d1bfcc
   dependencies:
   - PyYAML 6.0.3, hash-pinned in requirements-ci.txt
   - gitleaks 8.24.3, SHA-256 pinned in secret-scanning workflow
@@ -43,14 +45,14 @@ provenance:
 review:
   author: factory-droid
   independent_approver: contract-driven-handoff-acceptance-reviewer
-  approval_ref: REVIEWER-ACCEPT-CENG-T004-P016-20260831
-  approved_at: '2026-08-31T21:10:00Z'
+  approval_ref: REVIEWER-ACCEPT-CENG-T004-P019-20260901
+  approved_at: '2026-09-01T07:20:00Z'
 verification:
-  verified_at: '2026-08-31T21:20:00Z'
+  verified_at: '2026-09-01T07:25:00Z'
   verifier: factory-droid
   result: pass
-  transparency_ref: local-attestation-verification:54e3a33e2ca904c41050b9344b16d809cb26a0ba
-  revocation_checked_at: '2026-08-31T21:20:00Z'
+  transparency_ref: local-attestation-verification:db66cc4db7e179fdb06cf89c89bae0c686d1bfcc
+  revocation_checked_at: '2026-09-01T07:25:00Z'
 revocation:
   status: active
   revocation_ref: null

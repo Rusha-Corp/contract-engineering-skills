@@ -1,0 +1,68 @@
+handoff_version: 2
+handoff_id: CENG-T004-P022-HO001
+packet_id: CENG-T004-P022
+transition:
+  from: Validation
+  to: Handoff
+  reason: >-
+    Scorecard tag-scope fix, Contract Spark SVG identity, documentation, and
+    validation scripts are implemented and locally validated; independent
+    review is required before commit.
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-RECEIVER-IDENTITY-REF
+  accepted_at: ''
+  acceptance_ref: ''
+  signature_ref: ''
+base_revision: d2828d9bd17b120b8148eb0c4cb2e5b68ef6efd4
+head_revision: daa39eeb28c3b5037753e2ea799b923aa6b9b5cd
+scope_digest: abccb13a65c77ccb883e473ce710a231a05a26963bd81db75d8baf15cc4fd3b2
+changed_resources:
+  - path: .github/workflows/security.yml
+    sha256: 4f85eba058db9e4efb64c5ae16f66d3823410f745845aca0160291b2a98d746f
+  - path: assets/contract-spark/contract-spark-mark.svg
+    sha256: 134cfd473544d24753ee824b221d0edd44775905f9baa6e6d91a78a93c7056fe
+  - path: assets/contract-spark/contract-spark-lockup.svg
+    sha256: eacbf5ff87a73a995fda3d5d902a969938ab63ad17f80eab0cb1c9cfc60a2b0b
+  - path: assets/contract-spark/contract-spark-badge.svg
+    sha256: b610dd91f34296f10b4b87291800d86428110ba06cc0e8ef8ed768f719feb675
+  - path: docs/visual-identity.md
+    sha256: fa438fc4e3da37d0a916bbf29949d2437617a9376a09ad57bbbefc18f0582523
+  - path: README.md
+    sha256: fa8354142b39d2c8a458d00e1a133695abf2b914f79a3936a364eb2a2748b1a8
+  - path: scripts/validate-svg-assets.py
+    sha256: deb75910df4b89abb4538e15682c24e52f922c9da6b4203fb83b8d884ee92962
+  - path: scripts/check-markdown-links.py
+    sha256: be99a3487867b775ad1798953ca3ff8a36d96d044b754ca9d5f4942ce3bbdcf1
+  - path: .contract-engineering/decisions/CENG-T004-P022-DEC001.yaml
+    sha256: be0a177fe3ced165aaef8f9e412d348356cfe440a299db67e1b4303c698f48d3
+  - path: .contract-engineering/work-packets/CENG-T004-P022.yaml
+    sha256: d170a14b37fe3bb0f3a027ae45162ffcd43e4ae913c869e9255458cca0a21674
+  - path: .contract-engineering/execution-tracker.md
+    sha256: 04737dfbc458aad2535a8872b638b5635d0393b15c753fd0c5f19dc285830280
+  - path: .contract-engineering/evidence/CENG-T004-P022-EV001.md
+    sha256: 4d025c41974c5896187643d8a13ef3d5c3fe6892232c33489c53c2312ef7db0e
+  - path: .contract-engineering/handoffs/CENG-T004-P022-HO001.yaml
+    sha256: 7dc90e9067aa83615641798fce86c7e13d10163a57506bb0eecc081ac45da5e6
+created_at: '2026-09-01T09:30:00Z'
+expires_at: '2026-09-08T09:30:00Z'
+approval_ref: USER-REQUEST-CENG-T004-P022-20260901
+verification:
+  verified_at: '2026-09-01T09:30:00Z'
+  verifier: factory-droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T004-P022-EV001
+receiver_status: pending
+receiver_notes: ''
+accepted_revision: ''
+accepted_scope_digest: ''
+accepted_evidence_refs: []

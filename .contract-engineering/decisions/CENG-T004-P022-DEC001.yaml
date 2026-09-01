@@ -1,0 +1,57 @@
+decision_id: CENG-T004-P022-DEC001
+packet_id: CENG-T004-P022
+title: Scorecard branch scope and protocol visual identity
+status: approved
+created_at: '2026-09-01T09:15:00Z'
+created_by: factory-droid
+approver: user
+approval_ref: USER-REQUEST-CENG-T004-P022-20260901
+proposal:
+  scorecard:
+    default_branch: main
+    tag_behavior: skip
+    rationale: >-
+      OpenSSF Scorecard rejects non-default branch refs with the message
+      "Only the default branch main is supported". Tag-triggered release gates
+      must still run, so Scorecard is skipped only for version-tag refs while
+      CodeQL and workflow-invariant checks remain active on tags.
+  visual_identity:
+    name: Contract Spark
+    concept: >-
+      A cheerful four-point spark made from linked contract loops, with a
+      small check mark at its center. The loops represent the iterative
+      contract cycle; the spark represents the energy of agreement; the check
+      mark represents verified acceptance.
+    palette:
+      - '#173F5F'
+      - '#20639B'
+      - '#3CAEA3'
+      - '#F6D55C'
+      - '#ED553B'
+    tone: playful, trustworthy, precise
+    constraints:
+      - SVG-only, no external assets or fonts
+      - readable at favicon and documentation sizes
+      - accessible title and description
+      - no gradients or script
+alternatives_considered:
+  - name: Formal shield
+    rejected_because: >-
+      Secure but generic and less memorable for a human-centered protocol.
+  - name: Literal document icon
+    rejected_because: >-
+      Clear but visually crowded at small sizes and overused in developer
+      tooling.
+acceptance_criteria:
+  - >-
+    Scorecard runs on the default branch and is skipped only for tag refs,
+    while other tag security jobs remain active.
+  - >-
+    Contract Spark SVGs are self-contained, accessible, and recognizable at
+    small and large sizes.
+  - >-
+    The visual identity is documented for consistent use without introducing a
+    runtime dependency.
+rollback: >-
+  Revert the branch commit; restore the prior workflow and remove only the
+  new branding assets and guidance.

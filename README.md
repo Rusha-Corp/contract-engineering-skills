@@ -16,6 +16,8 @@ depend on a particular vendor, editor, CLI, or model.
   validation, and consumer repository-instruction templates.
 - `adapters/` explains host-specific installation and execution integration
   for Factory Droid, Hermes Agent, and generic harnesses.
+- `assets/contract-spark/` contains the Contract Spark visual identity (SVG
+  mark, lockup, and badge). See the [visual identity guide](docs/visual-identity.md).
 - `.factory-plugin/plugin.json` is the Factory Droid plugin manifest.
 - `LICENSE` is the MIT license.
 
@@ -145,6 +147,23 @@ Prefer tagged releases. Review the release notes, copy the six protocol
 skill directories into the host's configured instruction location, and retain
 the previous version until validation succeeds. Roll back by restoring the
 prior version from the backup or checked-out tag.
+
+## Visual identity
+
+The protocol's visual identity is **Contract Spark**: four interlinked
+contract loops forming a spark with a check mark at its center. The loops
+represent the iterative contract cycle; the spark represents the energy of
+agreement; the check mark represents verified acceptance.
+
+Three self-contained SVG assets are available in `assets/contract-spark/`:
+
+- `contract-spark-mark.svg` — compact mark for favicons and small surfaces.
+- `contract-spark-lockup.svg` — mark plus wordmark for documentation headers.
+- `contract-spark-badge.svg` — rounded badge for repository and release surfaces.
+
+All assets are script-free, font-free, and accessible. Read the
+[visual identity guide](docs/visual-identity.md) for the palette, accessibility,
+reuse rules, and size guidance.
 
 ## Validation
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="cs-mark-title cs-mark-desc">
+  <title id="cs-mark-title">Contract Spark mark</title>
+  <desc id="cs-mark-desc">A four-point spark made from four interlinked contract loops in teal, yellow, blue, and coral, surrounding a deep-navy hub with a white check mark at the center.</desc>
+
+  <!-- Four linked contract loops forming the spark points -->
+  <circle cx="32" cy="18" r="11" fill="none" stroke="#3CAEA3" stroke-width="3.5"/>
+  <circle cx="46" cy="32" r="11" fill="none" stroke="#F6D55C" stroke-width="3.5"/>
+  <circle cx="32" cy="46" r="11" fill="none" stroke="#20639B" stroke-width="3.5"/>
+  <circle cx="18" cy="32" r="11" fill="none" stroke="#ED553B" stroke-width="3.5"/>
+
+  <!-- Central agreement hub -->
+  <circle cx="32" cy="32" r="9" fill="#173F5F"/>
+
+  <!-- Verified-acceptance check mark -->
+  <path d="M 27.5 32.5 L 30.5 35.5 L 37 29" fill="none" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

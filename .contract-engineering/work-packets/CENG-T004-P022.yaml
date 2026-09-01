@@ -1,0 +1,227 @@
+packet_id: CENG-T004-P022
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: security
+packet_class: cross-cutting
+title: Fix tag Scorecard scope and add Contract Spark identity
+objective: >-
+  Correct the OpenSSF Scorecard tag limitation without weakening default-branch
+  security coverage, and add a playful, reusable SVG identity for the
+  Contract-Driven Engineering protocol.
+open_questions: []
+scope:
+  in:
+    - .github/workflows/security.yml
+    - assets/contract-spark/contract-spark-mark.svg
+    - assets/contract-spark/contract-spark-lockup.svg
+    - assets/contract-spark/contract-spark-badge.svg
+    - docs/visual-identity.md
+    - README.md
+    - scripts/validate-svg-assets.py
+    - scripts/check-markdown-links.py
+    - .contract-engineering/decisions/CENG-T004-P022-DEC001.yaml
+    - .contract-engineering/work-packets/CENG-T004-P022.yaml
+    - .contract-engineering/execution-tracker.md
+    - .contract-engineering/evidence/CENG-T004-P022-EV001.md
+    - .contract-engineering/handoffs/CENG-T004-P022-HO001.yaml
+  out:
+    - changing protocol release tags or rewriting v2.2.0, v2.2.1, or v2.3.0
+    - changing the consumer protocol lock
+    - changing Scorecard action versions or permissions
+    - adding external fonts, images, JavaScript, or runtime dependencies
+    - publishing or pushing the branch without separate approval
+    - global installed skills
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: CENG-T004-P022-scorecard-branding
+capabilities:
+  - read:repository
+  - write:packet-scope
+  - execute:local-validation
+  - external:git-read
+risk_tier: medium
+approval_policy: reviewer
+external_effects:
+  - effect_id: CENG-T004-P022-EXT001
+    target: future GitHub Actions runs
+    operation: restrict OpenSSF Scorecard to the supported default branch
+    data_classification: public
+    declared: true
+    approval_ref: USER-REQUEST-CENG-T004-P022-20260901
+    reversible: true
+    rollback: revert the workflow condition
+trust_boundary_ref: docs/agent-trust-boundaries.md
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+  - templates/agent-event.yaml
+incident_refs:
+  - templates/agent-incident.yaml
+owner: agent
+reviewer: contract-driven-handoff-acceptance-reviewer
+cleanup_owner: agent
+dependencies:
+  - CENG-T004-P021
+locks: []
+claim_timestamp: '2026-09-01T09:15:00Z'
+baseline_refs:
+  - .contract-engineering/protocol.lock.yaml
+  - d2828d9bd17b120b8148eb0c4cb2e5b68ef6efd4
+  - .contract-engineering/handoffs/CENG-T004-P021-HO001.yaml
+  - .contract-engineering/decisions/CENG-T004-P022-DEC001.yaml
+  - .github/workflows/security.yml
+design_decision_ref: CENG-T004-P022-DEC001
+data_gate_ref: null
+acceptance_criteria:
+  - >-
+    The security workflow runs OpenSSF Scorecard on main and pull requests,
+    skips Scorecard only for version-tag refs, and retains tag-triggered CodeQL
+    and workflow-invariant coverage.
+  - >-
+    The three Contract Spark SVGs are self-contained, script-free, font-free,
+    accessible, and recognizable at 16px, 64px, and documentation sizes.
+  - >-
+    README and visual-identity guidance explain the name, meaning, palette,
+    accessibility, and reuse rules.
+  - >-
+    The packet records the Scorecard limitation accurately and does not claim a
+    skipped tag Scorecard run as a pass.
+  - >-
+    Local workflow, SVG, record, unit, link, and security validation passes
+    without changing release tags or consumer locks.
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T004-P022-AC001
+      statement: >-
+        The security workflow Scorecard job has an explicit condition that
+        skips version-tag refs while CodeQL and workflow-invariants remain
+        unconditional.
+      expected_result: >-
+        Scorecard if-condition excludes tag refs; CodeQL and
+        workflow-invariants have no tag-excluding condition.
+      verification_method: workflow YAML inspection
+      verification_command: >-
+        python3 -c "import yaml,sys; w=yaml.safe_load(open('.github/workflows/security.yml')); s=w['jobs']['scorecard']; assert 'if' in s and 'github.ref_type' in s['if'], 'scorecard missing ref guard'; c=w['jobs']['codeql']; assert 'if' not in c or 'ref_type' not in c.get('if',''), 'codeql has tag guard'; print('ok')"
+      evidence_refs:
+        - CENG-T004-P022-EV001
+      failure_result: >-
+        Scorecard runs on tags or CodeQL/workflow-invariants are skipped on
+        tags.
+      validation_ref: CENG-T004-P022-VAL001
+    - id: CENG-T004-P022-AC002
+      statement: >-
+        All three Contract Spark SVGs are valid XML, contain accessible title
+        and desc elements, declare a viewBox, contain no script tags, no
+        external references, and use only the approved palette.
+      expected_result: >-
+        xmllint parses each SVG; no script, href, or off-palette color is
+        present; title and desc exist in each file.
+      verification_method: XML and content inspection
+      verification_command: >-
+        python3 scripts/validate-svg-assets.py assets/contract-spark/
+      evidence_refs:
+        - CENG-T004-P022-EV001
+      failure_result: >-
+        An SVG is malformed, inaccessible, off-palette, or contains
+        scripts or external references.
+      validation_ref: CENG-T004-P022-VAL002
+    - id: CENG-T004-P022-AC003
+      statement: >-
+        docs/visual-identity.md and README.md document the Contract Spark name,
+        meaning, palette, accessibility, and reuse rules.
+      expected_result: >-
+        Both files mention Contract Spark, the palette, accessibility, and
+        reuse constraints.
+      verification_method: documentation content inspection
+      evidence_refs:
+        - CENG-T004-P022-EV001
+      failure_result: >-
+        Name, palette, accessibility, or reuse guidance is missing.
+      validation_ref: CENG-T004-P022-VAL004
+    - id: CENG-T004-P022-AC004
+      statement: >-
+        The packet evidence records the Scorecard tag limitation as a known
+        scope decision and does not claim a skipped tag Scorecard run as a pass.
+      expected_result: >-
+        Evidence states Scorecard is skipped on tags by design and that
+        tag-triggered security relies on CodeQL and workflow-invariants.
+      verification_method: evidence inspection
+      evidence_refs:
+        - CENG-T004-P022-EV001
+      failure_result: >-
+        Evidence falsely claims a tag Scorecard pass or omits the skip
+        rationale.
+      validation_ref: CENG-T004-P022-VAL003
+    - id: CENG-T004-P022-AC005
+      statement: >-
+        Local record validation, unit tests, Markdown link checks, and pinned
+        Gitleaks scans pass without changing release tags or the consumer
+        protocol lock.
+      expected_result: >-
+        Validator, unittest, link check, and Gitleaks all report pass; git
+        refs for v2.2.0, v2.2.1, and v2.3.0 are unchanged.
+      verification_method: local command execution
+      verification_command: >-
+        python3 scripts/validate-contract-records.py && python3 -m unittest discover -s tests -p 'test_*.py' && python3 scripts/check-markdown-links.py && gitleaks detect --no-git --verbose
+      evidence_refs:
+        - CENG-T004-P022-EV001
+      failure_result: >-
+        Any validation command fails or a release tag is modified.
+      validation_ref: CENG-T004-P022-VAL005
+validation_plan:
+  - id: CENG-T004-P022-VAL001
+    kind: workflow
+    skill: security-assurance
+    checks:
+      - Parse security workflow YAML.
+      - Verify Scorecard has an explicit ref-type guard that skips tags.
+      - Verify CodeQL and workflow-invariant jobs remain active for tag refs.
+    expected: workflow scope is explicit and secure
+  - id: CENG-T004-P022-VAL002
+    kind: design
+    skill: coding-principles
+    checks:
+      - Inspect all SVGs for valid XML, accessible title/desc, viewBox, no scripts, no external references, and palette consistency.
+      - Verify mark remains legible at 16px and lockup/badge preserve clear space.
+    expected: Contract Spark identity is usable and self-contained
+  - id: CENG-T004-P022-VAL003
+    kind: records
+    skill: phased-engineering-execution
+    checks:
+      - Validate packet schema, decision reference, dependency graph, tracker, scope, and handoff bindings.
+    expected: contract records pass
+  - id: CENG-T004-P022-VAL004
+    kind: tests
+    skill: coding-principles
+    checks:
+      - Run all repository unit tests and Markdown link checks.
+      - Verify documentation mentions name, palette, accessibility, and reuse rules.
+    expected: tests and links pass
+  - id: CENG-T004-P022-VAL005
+    kind: security
+    skill: security-assurance
+    checks:
+      - Run pinned Gitleaks history and working-tree scans.
+      - Verify no credentials, remote assets, or unsafe workflow permissions were introduced.
+    expected: no unresolved blocking security findings
+evidence_refs:
+  - CENG-T004-P022-EV001
+handoff_ref: CENG-T004-P022-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+deprecation_refs: []
+migration_dependencies:
+  - CENG-T004-P021
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

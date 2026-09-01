@@ -17,4 +17,4 @@
 | CENG-T004 | CENG-T004-P019 | Complete | agent | contract-driven-handoff-acceptance-reviewer | released |
 | CENG-T004 | CENG-T004-P020 | Complete | agent | contract-driven-handoff-acceptance-reviewer | released |
 | CENG-T004 | CENG-T004-P021 | Complete | agent | contract-driven-handoff-acceptance-reviewer | released |
-| CENG-T004 | CENG-T004-P022 | Validation | agent | contract-driven-handoff-acceptance-reviewer | workflow:scorecard-scope, visual-identity:contract-spark |
+| CENG-T004 | CENG-T004-P022 | Complete | agent | contract-driven-handoff-acceptance-reviewer | released |

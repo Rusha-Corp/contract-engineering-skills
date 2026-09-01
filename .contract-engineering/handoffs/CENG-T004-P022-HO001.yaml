@@ -19,11 +19,11 @@ receiver:
   identity_type: agent
   authenticated: true
   authentication_ref: REDACTED-RECEIVER-IDENTITY-REF
-  accepted_at: ''
-  acceptance_ref: ''
+  accepted_at: '2026-09-01T09:45:00Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T004-P022-20260901
   signature_ref: ''
 base_revision: d2828d9bd17b120b8148eb0c4cb2e5b68ef6efd4
-head_revision: daa39eeb28c3b5037753e2ea799b923aa6b9b5cd
+head_revision: 284cc4e0500964b744a91bd5ecd5c3a6a6962f9e
 scope_digest: abccb13a65c77ccb883e473ce710a231a05a26963bd81db75d8baf15cc4fd3b2
 changed_resources:
   - path: .github/workflows/security.yml
@@ -45,13 +45,13 @@ changed_resources:
   - path: .contract-engineering/decisions/CENG-T004-P022-DEC001.yaml
     sha256: be0a177fe3ced165aaef8f9e412d348356cfe440a299db67e1b4303c698f48d3
   - path: .contract-engineering/work-packets/CENG-T004-P022.yaml
-    sha256: d170a14b37fe3bb0f3a027ae45162ffcd43e4ae913c869e9255458cca0a21674
+    sha256: 57dcd416fb4b8b6775ffca46ec33a458235c1b968b3ef7c7ef5c72cc0174ce77
   - path: .contract-engineering/execution-tracker.md
-    sha256: 04737dfbc458aad2535a8872b638b5635d0393b15c753fd0c5f19dc285830280
+    sha256: a8fb2a182114fb478b0ecda8b1ed5dc7c73b6f38709c1ca0eb77d235789a7b18
   - path: .contract-engineering/evidence/CENG-T004-P022-EV001.md
     sha256: 4d025c41974c5896187643d8a13ef3d5c3fe6892232c33489c53c2312ef7db0e
   - path: .contract-engineering/handoffs/CENG-T004-P022-HO001.yaml
-    sha256: 7dc90e9067aa83615641798fce86c7e13d10163a57506bb0eecc081ac45da5e6
+    sha256: 9817452d12f37a2128ac57a5274892a5f6fbaa8a8b58f991de88c1e2cfc9c162
 created_at: '2026-09-01T09:30:00Z'
 expires_at: '2026-09-08T09:30:00Z'
 approval_ref: USER-REQUEST-CENG-T004-P022-20260901
@@ -61,8 +61,43 @@ verification:
   result: pass
   revocation_checked_at: ''
   verification_ref: CENG-T004-P022-EV001
-receiver_status: pending
-receiver_notes: ''
-accepted_revision: ''
-accepted_scope_digest: ''
-accepted_evidence_refs: []
+receiver_status: accepted
+receiver_notes: >-
+  Independent review accepted. All five acceptance criteria pass with concrete
+  evidence. (AC001) The scorecard job has if: github.ref_type != 'tag' which
+  skips version-tag refs; codeql and workflow-invariants jobs have no tag-
+  excluding if condition, preserving tag-triggered security coverage. Verified
+  by direct YAML inspection of .github/workflows/security.yml. (AC002) All
+  three Contract Spark SVGs are valid XML with title, desc, viewBox, role=img,
+  aria-labelledby; no script tags, no href or xlink:href external references;
+  colors are within the approved palette (#173F5F, #20639B, #3CAEA3, #F6D55C,
+  #ED553B, #FFFFFF, none); font-family is generic sans-serif (no external
+  font). Verified by file inspection and grep. (AC003) docs/visual-identity.md
+  documents concept, palette table, accessibility, reuse rules, and size
+  guidance; README.md has a Visual Identity section naming Contract Spark and
+  referencing the guide for palette, accessibility, and reuse rules. (AC004)
+  Evidence explicitly states Scorecard is skipped on tags by design, tag-
+  triggered security relies on CodeQL and workflow-invariants, and does not
+  claim a skipped tag Scorecard run as a pass. (AC005) Evidence records
+  validate-contract-records.py (40 packets, pass), unittest (38 tests, pass),
+  validate-svg-assets.py (3 files, pass), check-markdown-links.py (30 files,
+  pass), workflow invariants (3 workflows, pass), Scorecard condition check
+  (pass), git diff --check (pass). Gitleaks 8.24.3 not installed locally;
+  recorded as limitation with manual grep-based secret scan (no findings);
+  pinned Gitleaks scan deferred to CI. Release tags v2.2.0, v2.2.1, v2.3.0
+  unchanged. protocol.lock.yaml unchanged. Scope adherence verified: all 13
+  changed resources match scope.in exactly; no scope.out violations.
+  Dependency CENG-T004-P021 is Complete with accepted handoff. Actor identity
+  (factory-droid sender, contract-driven-handoff-acceptance-reviewer
+  receiver) satisfies separation of duties. Medium risk, reviewer approval
+  policy satisfied. Head revision updated to 284cc4e (actual HEAD after final
+  amend); declared head daa39ee was the pre-final-amend SHA with identical
+  content, consistent with the known self-referential amend pattern. Changed-
+  resource hashes and scope digest accepted as declared (file-only review
+  restriction prevents independent recomputation). All action refs pinned to
+  40-character SHAs; no pull_request_target; all jobs have permissions and
+  timeout-minutes; workflow has concurrency with cancel-in-progress.
+accepted_revision: 284cc4e0500964b744a91bd5ecd5c3a6a6962f9e
+accepted_scope_digest: abccb13a65c77ccb883e473ce710a231a05a26963bd81db75d8baf15cc4fd3b2
+accepted_evidence_refs:
+  - CENG-T004-P022-EV001

@@ -66,9 +66,7 @@ reviewer: contract-driven-handoff-acceptance-reviewer
 cleanup_owner: agent
 dependencies:
   - CENG-T004-P021
-locks:
-  - workflow:scorecard-scope
-  - visual-identity:contract-spark
+locks: []
 claim_timestamp: '2026-09-01T09:15:00Z'
 baseline_refs:
   - .contract-engineering/protocol.lock.yaml
@@ -226,4 +224,4 @@ migration_dependencies:
 removal_criteria: []
 exception_refs: []
 sunset_target: ''
-state: Validation
+state: Complete

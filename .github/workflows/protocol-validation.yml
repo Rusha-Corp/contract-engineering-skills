@@ -147,7 +147,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-          fetch-depth: 1
+          fetch-depth: 2
       - name: Require release attestation
         run: |
           test -f .contract-engineering/release-attestation.yaml
@@ -193,13 +193,22 @@ jobs:
           if not subject_commit:
               raise SystemExit("release attestation lacks subject commit")
           # The tag points to the attestation-bearing commit; the attestation
-          # subject is its exact content parent. Verify that relationship.
+          # subject is either that same commit (single-commit model) or its
+          # exact content parent (two-commit model). Verify the relationship.
           tag_commit = os.environ.get("GITHUB_SHA", "")
           if tag_commit and tag_commit != subject_commit:
-              raise SystemExit(
-                  f"tag commit {tag_commit} does not match attestation "
-                  f"subject commit {subject_commit}"
-              )
+              # Two-commit model: subject must be the direct parent of the tag.
+              import subprocess
+              parent = subprocess.run(
+                  ["git", "rev-parse", "HEAD^"],
+                  capture_output=True, text=True,
+              ).stdout.strip()
+              if not parent or parent != subject_commit:
+                  raise SystemExit(
+                      f"tag commit {tag_commit} does not match attestation "
+                      f"subject commit {subject_commit} and subject is not "
+                      f"the direct parent of the tag"
+                  )
           publisher = attestation.get("publisher", {})
           if not publisher.get("identity") or not publisher.get("signing_system"):
               raise SystemExit("release attestation lacks publisher identity or signing system")

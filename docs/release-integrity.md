@@ -37,12 +37,12 @@ A protocol release uses two commits:
    approval, verification, and revocation status. The signed annotated tag
    points to this commit.
 
-The stable release gate verifies the relationship: `GITHUB_SHA` (the tag
-target) must equal the attestation subject commit, and the provenance
-source_commit must match the subject commit. The gate also validates the tag
-format, release name, publisher identity, signature reference, and active
-revocation status. Development tags (containing a hyphen) are excluded from
-the stable gate.
+The stable release gate verifies the relationship: the tag target
+(`GITHUB_SHA`) must either equal the attestation subject commit (single-commit
+model) or the subject must be the direct parent of the tag target (two-commit
+model). The gate also validates the tag format, release name, publisher
+identity, signature reference, and active revocation status. Development tags
+(containing a hyphen) are excluded from the stable gate.
 
 The attestation is valid only when it includes an authenticated publisher,
 immutable source commit, artifact hashes, builder/workflow identity,

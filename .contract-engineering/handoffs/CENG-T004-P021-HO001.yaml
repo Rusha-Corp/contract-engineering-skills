@@ -15,10 +15,10 @@ sender:
 receiver:
   identity: contract-driven-handoff-acceptance-reviewer
   identity_type: agent
-  authenticated: false
-  authentication_ref: ''
-  accepted_at: ''
-  acceptance_ref: ''
+  authenticated: true
+  authentication_ref: REDACTED-RECEIVER-IDENTITY-REF
+  accepted_at: '2026-09-01T08:35:00Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T004-P021-20260901
   signature_ref: ''
 base_revision: e7a7177f09946afc3137f4798b1cd406f015b1fe
 head_revision: b7c84d5231101afc5d20574cd6830a129706c72d
@@ -61,8 +61,42 @@ verification:
   result: pass
   revocation_checked_at: ''
   verification_ref: CENG-T004-P021-EV001
-receiver_status: pending
-receiver_notes: ''
-accepted_revision: ''
-accepted_scope_digest: ''
-accepted_evidence_refs: []
+receiver_status: accepted
+receiver_notes: >-
+  Independent review accepted. All ten criteria pass. (1) The schema defines
+  acceptance_contract.version and structural criteria (id, statement,
+  expected_result, verification_method, verification_command, evidence_refs,
+  failure_result, validation_ref) while retaining legacy acceptance_criteria;
+  schema required list retains acceptance_criteria and adds the contract as an
+  optional structure. (2) validate_acceptance_contract fails closed on
+  version != 1, empty criteria, invalid/duplicate criterion IDs, missing
+  statement/expected_result/verification_method, empty evidence_refs, and
+  unknown validation_ref; unit tests cover each rejection path. (3) The
+  reviewer droid instructions require criterion-by-criterion evaluation and
+  rejection of aspirational or non-measurable criteria. (4) The stable
+  release gate validates v-prefixed stable tag format (no hyphen), tag release
+  name vs attestation subject.release, GITHUB_SHA vs subject.commit,
+  provenance source_commit vs subject.commit, publisher
+  identity/signing_system/signature_ref, and existing independent
+  approver/verification/revocation checks. (5) The two-commit release model is
+  documented in docs/release-integrity.md. (6) Skill version bumps are
+  correct: phased-engineering-execution 2.4.0, cleanup-protocol 2.3.0,
+  project-lifecycle 2.3.0, each with a revision-history entry. (7) CHANGELOG.md
+  has a 2.3.0 entry with an explicit Migration section. (8) Packet actor,
+  two_person approval, trust boundary, dependent P020 (Complete/accepted),
+  scope, baseline, rollback, evidence, and validation plan are valid. (9)
+  v2.2.0 and v2.2.1 are unchanged and not retagged (scope.out excludes
+  rewriting/retagging; evidence confirms). (10) No private data, credentials,
+  or unsafe release/tag mutation is introduced; workflows use contents:read
+  and persist-credentials:false; Gitleaks history and working-tree scans pass.
+  Changed-resource hashes and scope digest are accepted as declared (the
+  file-only review restriction prevents independent recomputation). The
+  declared head_revision b7c84d5 is the P021 content commit; current main HEAD
+  97a43a2 is the immediate cosmetic amend of that same content (all delivered
+  changes confirmed present in the working tree). Subsequent release gates
+  (new signed tag, hosted tag-run workflow) are NOT claimed as passed and
+  remain pending.
+accepted_revision: b7c84d5231101afc5d20574cd6830a129706c72d
+accepted_scope_digest: 258bef7c109cc93b6bf458c7a35e43708f2f6d5de5cf99aa1b6d186d866e7573
+accepted_evidence_refs:
+- CENG-T004-P021-EV001

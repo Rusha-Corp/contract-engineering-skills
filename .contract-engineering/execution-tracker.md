@@ -13,3 +13,4 @@
 | CENG-T009 | CENG-T009-P001 | Complete | agent | user | released |
 | CENG-T004 | CENG-T004-P016 | Complete | agent | contract-driven-handoff-acceptance-reviewer | released |
 | CENG-T004 | CENG-T004-P017 | Validation | agent | contract-driven-handoff-acceptance-reviewer | release-path:v2.2.0, release-attestation |
+| CENG-T004 | CENG-T004-P018 | Complete | agent | contract-driven-handoff-acceptance-reviewer | released |

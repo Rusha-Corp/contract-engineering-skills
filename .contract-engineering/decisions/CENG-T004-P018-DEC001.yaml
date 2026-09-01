@@ -1,0 +1,16 @@
+decision_id: CENG-T004-P018-DEC001
+packet_id: CENG-T004-P018
+title: Allowlist the documented public release fingerprint
+status: approved
+reason: Gitleaks classified the public GPG fingerprint in the release attestation as a generic API key; the release must remain blocked until the false positive is narrowly dispositioned.
+change:
+  added_scope:
+  - .gitleaks.toml
+  removed_scope: []
+  proposed_allowlist:
+  - exact public release-key fingerprint
+  - exact release-attestation.yaml path
+impact: The allowlist would suppress only the known public fingerprint at its attestation field and would not weaken private-key or unrelated-secret detection.
+rollback: Remove the path- and value-specific allowlist and rerun the full pinned history and working-tree scans.
+approved_by: user
+evidence_ref: CENG-T004-P018-EV001

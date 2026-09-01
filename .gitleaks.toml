@@ -8,3 +8,9 @@ id = "private-key-material"
 description = "Private key material is never valid repository content"
 regex = '''-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----'''
 keywords = ["PRIVATE KEY"]
+
+[allowlist]
+description = "The release attestation records a public GPG fingerprint, not a credential"
+condition = "AND"
+paths = ['''^\.contract-engineering/release-attestation\.yaml$''']
+regexes = ['''274B8E457D3BAA92986D4F2FEE48B7C4736E0648''']

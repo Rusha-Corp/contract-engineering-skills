@@ -1,0 +1,71 @@
+handoff_version: 2
+handoff_id: CENG-T004-P018-HO001
+packet_id: CENG-T004-P018
+transition:
+  from: Validation
+  to: Handoff
+  reason: Gitleaks remediation validation passed locally; independent security review is required before committing the configuration change.
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-RECEIVER-IDENTITY-REF
+  accepted_at: '2026-08-31T22:10:00Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T004-P018-20260831
+  signature_ref: ''
+base_revision: 90f29dc75b2936f30ee09d7c171e69633333adfe
+head_revision: 90f29dc75b2936f30ee09d7c171e69633333adfe
+scope_digest: f6acb4abe4a30bacd7d0deafdec8b2c5aed2e2ead9adf85287fc0ccfabc74f22
+changed_resources:
+- path: .gitleaks.toml
+  sha256: 7883026ea65018b3828382c1b6c7c646f84f94db0e8a5bdbc56b3f5cb18253c9
+- path: .contract-engineering/decisions/CENG-T004-P018-DEC001.yaml
+  sha256: 1b02a18ea2a9aa0089c9fa1b8bc9c79f7cb974b5e702315a43ac4ba1768f8379
+- path: .contract-engineering/evidence/CENG-T004-P018-EV001.md
+  sha256: 6a1f65ed983c7cb73e5aee77169d8031ddccc47cb3e97256ffbd845e2294313c
+- path: .contract-engineering/work-packets/CENG-T004-P018.yaml
+  sha256: 4055af8ac81154acf1f3d2c7c87f36a009821c2900f7b4a34a1c60ca40c45715
+- path: .contract-engineering/execution-tracker.md
+  sha256: 0081ec645b27a2deb517060111c2d4bb25bb1c7c12c1ac5d6710f5d47774b8e1
+created_at: '2026-08-31T21:42:00Z'
+expires_at: '2026-09-07T21:42:00Z'
+approval_ref: USER-APPROVAL-CENG-T004-P018-20260831
+verification:
+  verified_at: '2026-08-31T21:42:00Z'
+  verifier: factory-droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T004-P018-EV001
+receiver_status: accepted
+receiver_notes: |
+  All four acceptance criteria pass. The allowlist in .gitleaks.toml is
+  narrowly scoped with condition AND, exact path
+  (^\.contract-engineering/release-attestation\.yaml$), and exact fingerprint
+  regex (274B8E457D3BAA92986D4F2FEE48B7C4736E0648), matching the public GPG
+  fingerprint at release-attestation.yaml:29. The private-key-material rule is
+  preserved and the allowlist cannot suppress it or unrelated generic API keys.
+  No private key, passphrase, or secret value was found in evidence, decision,
+  or config records. Scope is adhered to: all changed files are in scope.in,
+  release-attestation.yaml is not modified (scope.out respected). Decision
+  CENG-T004-P018-DEC001 is approved by user satisfying two_person policy.
+  Actor (factory-droid), approver (user), and reviewer are distinct identities.
+  Revision binding is consistent (base=head=90f29dc, uncommitted changes).
+  Evidence CENG-T004-P018-EV001 links the original hosted failure (run
+  33442439570) and the remediation, and honestly does not claim hosted CI
+  passed; hosted checks remain deferred per validation_limitations. Dependency
+  P017 is in Validation (not Complete) but P018 is a targeted remediation of
+  P017's blocking Gitleaks false positive, not a bypass of P017 requirements.
+  Changed-resource hashes and scope digest declared in handoff could not be
+  independently recomputed by the reviewer due to file-tool-only restrictions;
+  they are accepted as declared. Next action: commit the remediation, push, and
+  rerun hosted secret-scanning and security workflows to unblock P017.
+accepted_revision: 90f29dc75b2936f30ee09d7c171e69633333adfe
+accepted_scope_digest: f6acb4abe4a30bacd7d0deafdec8b2c5aed2e2ead9adf85287fc0ccfabc74f22
+accepted_evidence_refs:
+- CENG-T004-P018-EV001

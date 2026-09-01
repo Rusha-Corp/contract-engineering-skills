@@ -1,0 +1,97 @@
+packet_id: CENG-T004-P018
+task_id: CENG-T004
+phase: P2_DESIGN_GAPS
+domain: security
+packet_class: single-domain
+title: Remediate public release fingerprint false positive
+objective: Update the secret-scanning configuration to allow only the documented public release-key fingerprint, verify the full history and working-tree scans, and preserve the fail-closed release gate.
+open_questions:
+- Should the allowlist match only the exact release-key fingerprint or a narrowly named attestation field?
+scope:
+  in:
+  - .gitleaks.toml
+  - .contract-engineering/decisions/CENG-T004-P018-DEC001.yaml
+  - .contract-engineering/evidence/CENG-T004-P018-EV001.md
+  - .contract-engineering/work-packets/CENG-T004-P018.yaml
+  - .contract-engineering/handoffs/CENG-T004-P018-HO001.yaml
+  - .contract-engineering/execution-tracker.md
+  out:
+  - private keys, passphrases, or GPG home contents
+  - release-attestation.yaml content changes
+  - consumer lock updates
+  - remote tag deletion or history rewriting
+  - new remote publication until separately approved
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: CENG-T004-P018-gitleaks-remediation
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: high
+approval_policy: two_person
+external_effects: []
+trust_boundary_ref: docs/agent-trust-boundaries.md
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+- templates/agent-event.yaml
+incident_refs:
+- templates/agent-incident.yaml
+owner: agent
+reviewer: contract-driven-handoff-acceptance-reviewer
+cleanup_owner: agent
+dependencies:
+- CENG-T004-P017
+locks: []
+claim_timestamp: '2026-08-31T21:42:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 90f29dc75b2936f30ee09d7c171e69633333adfe
+- .gitleaks.toml
+- hosted scan run 33442439570
+design_decision_ref: CENG-T004-P018-DEC001
+data_gate_ref: null
+acceptance_criteria:
+- The allowlist is narrowly scoped to the documented public release-key fingerprint and cannot suppress unrelated secrets.
+- Pinned Gitleaks history and working-tree scans pass, including the negative private-key fixture behavior.
+- Contract records, tests, and workflow security checks pass with the failed scan and remediation evidence linked.
+- No private key, passphrase, or secret value is added to the repository or evidence.
+validation_plan:
+- id: CENG-T004-P018-VAL001
+  kind: security
+  skill: security-assurance
+  checks:
+  - Run pinned Gitleaks history scan with redacted output.
+  - Run pinned Gitleaks working-tree scan with redacted output.
+  - Verify the allowlist cannot suppress the configured private-key rule or unrelated generic API keys.
+  expected: secret scans pass without suppressing real secrets
+- id: CENG-T004-P018-VAL002
+  kind: records
+  skill: phased-engineering-execution
+  checks:
+  - Contract records, tracker reconciliation, and packet scope validation pass.
+  - Unit tests and workflow invariant checks pass.
+  expected: repository records and regression checks pass
+validation_limitations:
+- Hosted Security checks remain separate and must be rerun after this remediation is published.
+- GPG key material remains outside the repository.
+evidence_refs:
+- CENG-T004-P018-EV001
+handoff_ref: CENG-T004-P018-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Complete

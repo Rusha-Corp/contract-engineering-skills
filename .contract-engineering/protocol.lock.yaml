@@ -1,18 +1,18 @@
 lock_version: 1
 protocol:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  ref: f9396263ad858c8d79fc09d5f16f1b1cd286901e
-  release: 2.2.0-dev
+  ref: 2b556a15f37e2bfaf9867917f191762908dee44e
+  release: 2.4.0
 skills:
   phased-engineering-execution:
-    version: 2.3.0
-    sha256: 886d59203d6681a04d1efd499f50cc1dcb9e2d3c1e7501cb0d8431915a555c90
+    version: 2.4.0
+    sha256: 25358b7d61ebcf4354bcdd6859c654045f2e3d532f81f2515dcbb465d2507f9e
   cleanup-protocol:
-    version: 2.2.0
-    sha256: 80fde51e6f6fa02929d2654a244311e52176afbeec1d3255f42f697b762b64bc
+    version: 2.3.0
+    sha256: f878e01912c343710a4d4bc1ccaf5465ceefa0ad787388d4372726651930f6d9
   project-lifecycle:
-    version: 2.2.0
-    sha256: f56cbce29f835c4dabe1a9b04c3e713bbccd33ab223e039be48469761d33419d
+    version: 2.3.0
+    sha256: dbca337ef455383a2bad0d3fb6264d9461bcbc2036f5db03cdb47977ce8c733f
   skill-evolution:
     version: 1.2.0
     sha256: 149be48373c05e58e1127efd4dc329f3f0af516a836d31b99cb62b64e0a2cafd
@@ -25,21 +25,21 @@ skills:
 project:
   protocol_root: .contract-engineering
 development:
-  status: unreleased
-  ref: f9396263ad858c8d79fc09d5f16f1b1cd286901e
-  based_on_release: 2.1.0
-  reason: Repository hardening changes are pushed for review but are not a stable consumer release.
-  consumer_action: Keep using the stable protocol.ref and synchronize only after independent review and release verification.
+  status: released
+  ref: 2b556a15f37e2bfaf9867917f191762908dee44e
+  based_on_release: 2.4.0
+  reason: v2.4.0 is published and independently reviewed; the lock now points to the stable release.
+  consumer_action: Synchronize from the locked ref after running the protocol preflight.
   skills:
     phased-engineering-execution:
-      version: 2.3.0
-      sha256: 886d59203d6681a04d1efd499f50cc1dcb9e2d3c1e7501cb0d8431915a555c90
+      version: 2.4.0
+      sha256: 25358b7d61ebcf4354bcdd6859c654045f2e3d532f81f2515dcbb465d2507f9e
     cleanup-protocol:
-      version: 2.2.0
-      sha256: 80fde51e6f6fa02929d2654a244311e52176afbeec1d3255f42f697b762b64bc
+      version: 2.3.0
+      sha256: f878e01912c343710a4d4bc1ccaf5465ceefa0ad787388d4372726651930f6d9
     project-lifecycle:
-      version: 2.2.0
-      sha256: f56cbce29b835c4dabe1a9b04c3e713bbccd33ab223e039be48469761d33419d
+      version: 2.3.0
+      sha256: dbca337ef455383a2bad0d3fb6264d9461bcbc2036f5db03cdb47977ce8c733f
     skill-evolution:
       version: 1.2.0
       sha256: 149be48373c05e58e1127efd4dc329f3f0af516a836d31b99cb62b64e0a2cafd

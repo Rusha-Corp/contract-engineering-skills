@@ -95,6 +95,9 @@ validation_limitations:
 - Remote publication and signature verification cannot be claimed until the remote operation returns a verifiable result.
 - The configured release key is available in the dedicated GPG home and has
   been backed up outside the repository; hosted security gates remain pending.
+- The published immutable v2.2.0 tag points to 90f29dc, whose hosted Secret
+  scanning run failed; it cannot be rewritten and requires a separately
+  approved replacement release.
 - The release key is passphrase-protected; non-interactive signing failed
   because no TTY or passphrase was available. Unlock it interactively before
   retrying the signed tag.
@@ -114,4 +117,4 @@ migration_dependencies:
 removal_criteria: []
 exception_refs: []
 sunset_target: ''
-state: Validation
+state: Rework

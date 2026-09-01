@@ -67,6 +67,8 @@ PACKET_CLASSES = {
     "parent-coordination",
     "child-implementation",
 }
+ACCEPTANCE_CRITERION_ID = re.compile(r"^[A-Z0-9-]+-AC\d{3}$")
+VALIDATION_PLAN_ID = re.compile(r"^[A-Z0-9-]+-VAL\d{3}$")
 EXECUTION_CONTROL_REFS = (
     "trust_boundary_ref",
     "execution_budget_ref",
@@ -285,6 +287,55 @@ def path_matches(candidate: str, rule: str) -> bool:
     return candidate == rule or candidate.startswith(rule + "/")
 
 
+def validate_acceptance_contract(path: Path, packet: dict[str, Any]) -> None:
+    """Enforce structured acceptance contracts when present.
+
+    Historical packets may use only the legacy ``acceptance_criteria`` list.
+    New packets SHOULD provide ``acceptance_contract`` with structured
+    criteria. When present, the contract is validated for completeness.
+    """
+    contract = packet.get("acceptance_contract")
+    if contract is None:
+        return
+    if not isinstance(contract, dict):
+        fail(f"{path}: acceptance_contract must be a mapping")
+    if contract.get("version") != 1:
+        fail(f"{path}: acceptance_contract.version must be 1")
+    criteria = contract.get("criteria")
+    if not isinstance(criteria, list) or not criteria:
+        fail(f"{path}: acceptance_contract.criteria must be a non-empty list")
+    seen_ids: set[str] = set()
+    for item in criteria:
+        if not isinstance(item, dict):
+            fail(f"{path}: acceptance_contract criterion must be a mapping")
+        criterion_id = item.get("id", "")
+        if not ACCEPTANCE_CRITERION_ID.fullmatch(str(criterion_id)):
+            fail(f"{path}: invalid acceptance criterion id: {criterion_id}")
+        if criterion_id in seen_ids:
+            fail(f"{path}: duplicate acceptance criterion id: {criterion_id}")
+        seen_ids.add(criterion_id)
+        for field in ("statement", "expected_result", "verification_method"):
+            val = item.get(field, "")
+            if not isinstance(val, str) or not val.strip():
+                fail(f"{path}: acceptance criterion {criterion_id} missing {field}")
+        evidence_refs = item.get("evidence_refs", [])
+        if not isinstance(evidence_refs, list) or not evidence_refs:
+            fail(f"{path}: acceptance criterion {criterion_id} must have evidence_refs")
+        for ref in evidence_refs:
+            if not isinstance(ref, str) or not ref.strip():
+                fail(f"{path}: acceptance criterion {criterion_id} has empty evidence ref")
+    # If validation_ref is present, it must match a validation_plan id.
+    validation_ids = {
+        vp.get("id", "")
+        for vp in packet.get("validation_plan", [])
+        if isinstance(vp, dict) and VALIDATION_PLAN_ID.fullmatch(str(vp.get("id", "")))
+    }
+    for item in criteria:
+        vref = item.get("validation_ref")
+        if vref and vref not in validation_ids:
+            fail(f"{path}: acceptance criterion {item['id']} references unknown validation {vref}")
+
+
 def validate_packet(path: Path, packet: dict[str, Any], packets: dict[str, dict[str, Any]]) -> None:
     required = {
         "packet_id",
@@ -339,6 +390,7 @@ def validate_packet(path: Path, packet: dict[str, Any], packets: dict[str, dict[
     if len(packet["locks"]) != len(set(packet["locks"])):
         fail(f"{path}: duplicate lock")
     validate_security_semantics(packet)
+    validate_acceptance_contract(path, packet)
 
 
 ARCHIVE_PACKET_DIR = "archive/work-packets"

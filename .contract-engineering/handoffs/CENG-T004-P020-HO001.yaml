@@ -20,7 +20,7 @@ receiver:
   acceptance_ref: REVIEWER-ACCEPT-CENG-T004-P020-20260901
   signature_ref: ''
 base_revision: ad45e4790cb381478e1847d44d16b6d7db462230
-head_revision: worktree
+head_revision: e7a7177
 scope_digest: 3493c2b21291a56c6e0a98f1367d123d2babadab069bf003fb4c1bb965c16191
 changed_resources:
 - path: .github/workflows/protocol-validation.yml

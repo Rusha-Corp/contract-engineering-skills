@@ -2,6 +2,31 @@
 
 ## Unreleased
 
+## 2.3.0 - 2026-09-01
+
+- Added enforceable packet-acceptance controls: structured acceptance
+  contracts with stable criterion IDs, measurable statements, expected
+  results, verification methods, and evidence references.
+- Added validator enforcement that fails closed on missing
+  criterion-to-evidence mappings, empty evidence, duplicate validation IDs,
+  and criteria with no verification path, while retaining a legacy format
+  for historical packets.
+- Strengthened reviewer-agent instructions to require criterion-by-criterion
+  evaluation and reject aspirational or non-measurable criteria.
+- Fixed the stable release gate: version-tag pushes now trigger all three
+  workflows, and the gate validates tag format, tag-to-attestation
+  source-commit relationship, attestation release name, artifact hashes, and
+  active revocation status.
+- Documented the two-commit release model: the tag points to the
+  attestation-bearing commit; the attestation subject is its exact content
+  parent; the gate verifies that relationship.
+- Added bounded tracker maintenance: 25-row active index cap, 50-row
+  task-shard support, 14-day active packet review cadence, and
+  terminal-only move-not-delete compaction.
+- Migration: packet consumers must accept the structured acceptance contract
+  fields; validator consumers must handle new validation failures for
+  incomplete criteria.
+
 ### Protocol hardening
 
 - Added packet-class ownership boundaries, metadata-driven security routing,

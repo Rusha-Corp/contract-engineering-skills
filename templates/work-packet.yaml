@@ -35,6 +35,17 @@ removal_criteria: []
 exception_refs: []
 sunset_target: ""
 acceptance_criteria: []
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: ""
+      statement: ""
+      expected_result: ""
+      verification_method: ""
+      verification_command: ""
+      evidence_refs: []
+      failure_result: ""
+      validation_ref: ""
 validation_plan: []
 trust_boundary_ref: null
 execution_budget_ref: null

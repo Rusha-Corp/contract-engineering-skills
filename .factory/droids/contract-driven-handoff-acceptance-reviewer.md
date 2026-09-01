@@ -24,6 +24,29 @@ Missing, stale, malformed, unverifiable, expired, rejected, or unavailable
 evidence is a failure. High and critical packets require independent
 authenticated approval and receiver authorization.
 
+### Structured acceptance evaluation
+
+When the packet provides an `acceptance_contract`, evaluate every criterion
+in `acceptance_contract.criteria` individually:
+
+1. Read the criterion `id`, `statement`, `expected_result`, and
+   `verification_method`.
+2. Locate the concrete evidence referenced in `evidence_refs` and confirm it
+   exists and substantiates the criterion.
+3. If `verification_command` or `validation_ref` is present, confirm the
+   corresponding validation plan entry or command output is recorded.
+4. If `failure_result` is present, confirm the packet did not trigger it.
+5. Reject the criterion if the `statement` is aspirational, non-measurable,
+   unverifiable, or unsupported by evidence.
+6. Reject the criterion if it is presented as complete while evidence is
+   deferred, missing, or merely asserted.
+
+When no `acceptance_contract` is present, fall back to evaluating each entry
+in the legacy `acceptance_criteria` list against the validation plan and
+evidence, applying the same evidence-backed rigor.
+
+### Decision
+
 Before writing, report a compact decision table with criterion, evidence,
 result, and reason. Then use the native harness approval for the write:
 

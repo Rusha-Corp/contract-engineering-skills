@@ -313,5 +313,130 @@ class TrackerPartitionTests(unittest.TestCase):
         self.assertIn("active index has", str(ctx.exception))
 
 
+class AcceptanceContractTests(unittest.TestCase):
+    """validate_acceptance_contract enforces structured criteria."""
+
+    def _valid_contract(self):
+        return {
+            "version": 1,
+            "criteria": [
+                {
+                    "id": "TEST-T005-P001-AC001",
+                    "statement": "All tests pass",
+                    "expected_result": "exit 0",
+                    "verification_method": "execute",
+                    "verification_command": "python3 -m pytest",
+                    "evidence_refs": ["TEST-T005-P001-EV001"],
+                    "failure_result": "non-zero exit",
+                    "validation_ref": "TEST-T005-P001-VAL001",
+                },
+            ],
+        }
+
+    def _packet_with_contract(self, contract=None, validation_plan=None):
+        pkt = packet()
+        if contract is not None:
+            pkt["acceptance_contract"] = contract
+        if validation_plan is not None:
+            pkt["validation_plan"] = validation_plan
+        else:
+            pkt["validation_plan"] = [
+                {"id": "TEST-T005-P001-VAL001", "kind": "tests", "expected": "pass"}
+            ]
+        return pkt
+
+    def test_valid_contract_passes(self):
+        validator.validate_acceptance_contract(
+            Path("test.yaml"),
+            self._packet_with_contract(self._valid_contract()),
+        )
+
+    def test_missing_contract_is_legacy_and_passes(self):
+        validator.validate_acceptance_contract(
+            Path("test.yaml"),
+            self._packet_with_contract(None),
+        )
+
+    def test_wrong_version_rejected(self):
+        contract = self._valid_contract()
+        contract["version"] = 2
+        with self.assertRaises(ValueError) as ctx:
+            validator.validate_acceptance_contract(
+                Path("test.yaml"),
+                self._packet_with_contract(contract),
+            )
+        self.assertIn("version", str(ctx.exception))
+
+    def test_empty_criteria_rejected(self):
+        contract = self._valid_contract()
+        contract["criteria"] = []
+        with self.assertRaises(ValueError) as ctx:
+            validator.validate_acceptance_contract(
+                Path("test.yaml"),
+                self._packet_with_contract(contract),
+            )
+        self.assertIn("non-empty", str(ctx.exception))
+
+    def test_invalid_criterion_id_rejected(self):
+        contract = self._valid_contract()
+        contract["criteria"][0]["id"] = "bad-id"
+        with self.assertRaises(ValueError) as ctx:
+            validator.validate_acceptance_contract(
+                Path("test.yaml"),
+                self._packet_with_contract(contract),
+            )
+        self.assertIn("invalid acceptance criterion id", str(ctx.exception))
+
+    def test_duplicate_criterion_id_rejected(self):
+        contract = self._valid_contract()
+        contract["criteria"].append(dict(contract["criteria"][0]))
+        with self.assertRaises(ValueError) as ctx:
+            validator.validate_acceptance_contract(
+                Path("test.yaml"),
+                self._packet_with_contract(contract),
+            )
+        self.assertIn("duplicate", str(ctx.exception))
+
+    def test_missing_statement_rejected(self):
+        contract = self._valid_contract()
+        contract["criteria"][0]["statement"] = ""
+        with self.assertRaises(ValueError) as ctx:
+            validator.validate_acceptance_contract(
+                Path("test.yaml"),
+                self._packet_with_contract(contract),
+            )
+        self.assertIn("missing statement", str(ctx.exception))
+
+    def test_empty_evidence_refs_rejected(self):
+        contract = self._valid_contract()
+        contract["criteria"][0]["evidence_refs"] = []
+        with self.assertRaises(ValueError) as ctx:
+            validator.validate_acceptance_contract(
+                Path("test.yaml"),
+                self._packet_with_contract(contract),
+            )
+        self.assertIn("evidence_refs", str(ctx.exception))
+
+    def test_unknown_validation_ref_rejected(self):
+        contract = self._valid_contract()
+        contract["criteria"][0]["validation_ref"] = "NONEXISTENT-VAL999"
+        with self.assertRaises(ValueError) as ctx:
+            validator.validate_acceptance_contract(
+                Path("test.yaml"),
+                self._packet_with_contract(contract),
+            )
+        self.assertIn("unknown validation", str(ctx.exception))
+
+    def test_valid_validation_ref_passes(self):
+        contract = self._valid_contract()
+        plan = [
+            {"id": "TEST-T005-P001-VAL001", "kind": "tests", "expected": "pass"}
+        ]
+        validator.validate_acceptance_contract(
+            Path("test.yaml"),
+            self._packet_with_contract(contract, plan),
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

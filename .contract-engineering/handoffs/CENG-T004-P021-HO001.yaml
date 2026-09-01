@@ -1,0 +1,68 @@
+handoff_version: 2
+handoff_id: CENG-T004-P021-HO001
+packet_id: CENG-T004-P021
+transition:
+  from: Validation
+  to: Handoff
+  reason: Acceptance hardening, reviewer guidance, release-gate correctness, and 2.3.0 release preparation are implemented
+    and locally validated; independent review is required before publication.
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: false
+  authentication_ref: ''
+  accepted_at: ''
+  acceptance_ref: ''
+  signature_ref: ''
+base_revision: e7a7177f09946afc3137f4798b1cd406f015b1fe
+head_revision: b7c84d5231101afc5d20574cd6830a129706c72d
+scope_digest: 258bef7c109cc93b6bf458c7a35e43708f2f6d5de5cf99aa1b6d186d866e7573
+changed_resources:
+- path: schemas/work-packet.schema.json
+  sha256: 857f2bbaef5b19c190df840eafc779c27708f13cd573a98e370fba51246fe107
+- path: templates/work-packet.yaml
+  sha256: 8265c5d30c47306225757460f53343ac95d3a905625b2f8d62bd9c6b1210dc8f
+- path: scripts/validate-contract-records.py
+  sha256: a3d21d5a635cf91642b5c8b4d9869a209eb9fe03a2267431ac27d2c0ebf041cb
+- path: tests/test_contract_records.py
+  sha256: 835326d20516f4cb4e892f416bb5066ebade01b25ea179df05fa8819fb3dacc6
+- path: skills/phased-engineering-execution/SKILL.md
+  sha256: 25358b7d61ebcf4354bcdd6859c654045f2e3d532f81f2515dcbb465d2507f9e
+- path: .factory/droids/contract-driven-handoff-acceptance-reviewer.md
+  sha256: d8e0f2c44122c9b0094d0325e7d94cc5b5ec20188196810b39fa8c06b372dd09
+- path: .github/workflows/protocol-validation.yml
+  sha256: 732de0d4ff34d83c46b6259070f449f8815baecd0fbaaeddcdc2672b5410d6c8
+- path: CHANGELOG.md
+  sha256: b43eedb2b395411068f2db3c5ef17c5946900c757857df4b1a7d2a8a81cdff55
+- path: docs/release-integrity.md
+  sha256: e5820c19a806e6783254345d661a0e7d0a0e3d76dd4fe69d4bb581817c62ea73
+- path: .contract-engineering/work-packets/CENG-T004-P021.yaml
+  sha256: 2c83d854474571207bf4c36c13d33b3bb133e7358a51cd48dc234cf51e2965f1
+- path: .contract-engineering/execution-tracker.md
+  sha256: 1ed76dc7e497770fd5dc41f2a4a0a5109e68d1a297e2239fd005ec8e4b3894cc
+- path: .contract-engineering/evidence/CENG-T004-P021-EV001.md
+  sha256: 5b6e6eb08a19b74bf5aa7731e3703aba2839e7ca061a55a191ff9522f42d7406
+- path: .contract-engineering/handoffs/CENG-T004-P021-HO001.yaml
+  sha256: 51e07c087ad760f3cef84373f5221247d809119788a0c0e6c115b5a3976572a2
+- path: .contract-engineering/handoffs/CENG-T004-P020-HO001.yaml
+  sha256: 26ce593f51646ca7c7b9499ad7101e05903d6210757d7c07bc9f8734ad07d508
+created_at: '2026-09-01T08:20:00Z'
+expires_at: '2026-09-08T08:20:00Z'
+approval_ref: USER-APPROVAL-CENG-T004-P021-20260901
+verification:
+  verified_at: '2026-09-01T08:20:00Z'
+  verifier: factory-droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T004-P021-EV001
+receiver_status: pending
+receiver_notes: ''
+accepted_revision: ''
+accepted_scope_digest: ''
+accepted_evidence_refs: []

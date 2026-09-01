@@ -1,0 +1,129 @@
+packet_id: CENG-T004-P021
+task_id: CENG-T004
+phase: P0_FOUNDATIONS
+domain: security
+packet_class: cross-cutting
+title: Release 2.3.0 with acceptance hardening and gate correctness
+objective: Publish an immutable 2.3.0 protocol release containing the committed tracker/sharding/tag-trigger work, enforceable packet-acceptance controls, reviewer-agent guidance, and a correct tag-to-attestation release gate, preserving v2.2.1 unchanged.
+open_questions: []
+scope:
+  in:
+  - schemas/work-packet.schema.json
+  - templates/work-packet.yaml
+  - scripts/validate-contract-records.py
+  - tests/test_contract_records.py
+  - skills/phased-engineering-execution/SKILL.md
+  - .factory/droids/contract-driven-handoff-acceptance-reviewer.md
+  - .github/workflows/protocol-validation.yml
+  - CHANGELOG.md
+  - .contract-engineering/work-packets/CENG-T004-P021.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/evidence/CENG-T004-P021-EV001.md
+  - .contract-engineering/handoffs/CENG-T004-P021-HO001.yaml
+  - .contract-engineering/release-attestation.yaml
+  - .contract-engineering/handoffs/CENG-T004-P020-HO001.yaml
+  out:
+  - rewriting, deleting, or retagging v2.2.0 or v2.2.1
+  - changing the consumer protocol lock before v2.3.0 verification
+  - global installed skills
+  - private GPG key material and passphrases
+  - unapproved remote publication
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: CENG-T004-P021-release-230
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+- external:git-publish
+- external:release-tag
+risk_tier: high
+approval_policy: two_person
+external_effects:
+- effect_id: CENG-T004-P021-EXT001
+  target: origin GitHub repository
+  operation: publish signed immutable v2.3.0 tag and release metadata
+  data_classification: public
+  declared: true
+  approval_ref: USER-APPROVAL-CENG-T004-P021-20260901
+  reversible: true
+  rollback: revoke v2.3.0 and restore consumers to verified 2.2.1; retain v2.2.0 as failed audit evidence
+trust_boundary_ref: docs/agent-trust-boundaries.md
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+- templates/agent-event.yaml
+incident_refs:
+- templates/agent-incident.yaml
+owner: agent
+reviewer: contract-driven-handoff-acceptance-reviewer
+cleanup_owner: agent
+dependencies:
+- CENG-T004-P020
+locks:
+- release-path:v2.3.0
+- release-attestation:v2.3.0
+claim_timestamp: '2026-09-01T08:10:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- e7a7177f09946afc3137f4798b1cd406f015b1fe
+- .contract-engineering/handoffs/CENG-T004-P020-HO001.yaml
+- docs/release-integrity.md
+- docs/protocol-configuration.md
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- The schema and template define a structured acceptance contract with stable criterion IDs, measurable statements, expected results, verification methods, and evidence references, while retaining a legacy format for historical packets.
+- The validator fails closed on missing criterion-to-evidence mappings, empty evidence, duplicate validation IDs, criteria with no verification path, and incomplete high-risk packet controls.
+- The reviewer-agent instructions require criterion-by-criterion evaluation, reject aspirational or non-measurable criteria, and require exact revision, scope digest, changed-resource hashes, validation outputs, limitations, and next action before acceptance.
+- The stable release gate validates tag format, tag-to-attestation source-commit relationship, attestation release name, artifact hashes, signature/provenance fields, and active revocation status.
+- The two-commit release model is documented: the tag points to the attestation-bearing commit; the attestation subject is its exact content parent; the gate verifies that relationship.
+- Local record, workflow, parser, unit, link, and security validation passes; v2.2.0 and v2.2.1 remain unchanged.
+validation_plan:
+- id: CENG-T004-P021-VAL001
+  kind: records
+  skill: phased-engineering-execution
+  checks:
+  - Validate packet schemas, dependency graph, tracker/shard/archive partition, references, locks, and changed-path scope.
+  expected: contract records pass
+- id: CENG-T004-P021-VAL002
+  kind: workflow
+  skill: security-assurance
+  checks:
+  - Validate all workflow action refs remain immutable and all release/security workflows include version-tag triggers.
+  - Validate stable tag gate checks tag format, tag-to-attestation source relationship, release name, and attestation completeness.
+  expected: workflow security invariants pass
+- id: CENG-T004-P021-VAL003
+  kind: tests
+  skill: coding-principles
+  checks:
+  - Run parser, acceptance-contract, tracker-shard, record, and regression unit tests.
+  - Verify valid legacy packets still pass while incomplete criteria are rejected.
+  expected: tests pass
+- id: CENG-T004-P021-VAL004
+  kind: security
+  skill: security-assurance
+  checks:
+  - Run Gitleaks 8.24.3 history and working-tree scans.
+  - Verify no credentials, tag rewriting, unsafe workflow permissions, or unbounded record deletion were introduced.
+  expected: no unresolved blocking security findings
+evidence_refs:
+- CENG-T004-P021-EV001
+handoff_ref: CENG-T004-P021-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+deprecation_refs: []
+migration_dependencies:
+- CENG-T004-P020
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Handoff

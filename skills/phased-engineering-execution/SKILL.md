@@ -1,6 +1,6 @@
 ---
 name: phased-engineering-execution
-version: 2.3.0
+version: 2.4.0
 description: Break engineering work into owned packets and execute it through evidence-based phases, gates, validation, and handoffs.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,9 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.4.0 (2026-09-01): Added structured acceptance contracts, bounded tracker
+  sharding, 14-day active packet review cadence, and release-gate correctness
+  for version-tag pushes.
 - 2.3.0 (2026-08-30): Added explicit batch acceptance and task-closure
   guidance while preserving per-packet evidence, handoffs, and release gates.
 - 2.2.0 (2026-08-30): Added agent identity, trust-boundary, runtime-budget,
@@ -100,6 +103,17 @@ baseline_refs: []
 design_decision_ref: null
 data_gate_ref: null
 acceptance_criteria: []
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: ""
+      statement: ""
+      expected_result: ""
+      verification_method: ""
+      verification_command: ""
+      evidence_refs: []
+      failure_result: ""
+      validation_ref: ""
 validation_plan: []
 cleanup_scope:
   dead_refs: []
@@ -119,6 +133,26 @@ handoff_ref: null
 ```
 
 `cleanup_scope` and `skill_gaps` are inventories and references only. Cleanup execution belongs to `cleanup-protocol`; gap review belongs to `skill-evolution`.
+
+### Structured acceptance contract
+
+New packets SHOULD provide `acceptance_contract` with structured criteria.
+Each criterion SHALL have:
+
+- a stable `id` matching `<PACKET-ID>-AC<NNN>`;
+- a measurable `statement` describing what must be true;
+- an `expected_result` that is observable or testable;
+- a `verification_method` (inspect, execute, or review);
+- an optional `verification_command` for executable checks;
+- at least one `evidence_refs` entry linking to concrete evidence;
+- an optional `failure_result` describing the prohibited outcome;
+- an optional `validation_ref` linking to a `validation_plan` entry.
+
+The record validator enforces these fields when `acceptance_contract` is
+present. Legacy packets may use only the `acceptance_criteria` string list,
+but new packets should migrate to the structured contract. Reviewers must
+evaluate each criterion individually and reject aspirational, non-measurable,
+or evidence-deficient criteria.
 
 ### Deprecation and removal planning
 

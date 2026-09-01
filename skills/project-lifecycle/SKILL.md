@@ -1,6 +1,6 @@
 ---
 name: project-lifecycle
-version: 2.2.0
+version: 2.3.0
 description: Orchestrate phased engineering execution, cleanup, skill evolution, user verification, and closure across project iterations.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,8 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.3.0 (2026-09-01): Added bounded tracker index, task-shard, and 14-day
+  active packet review cadence to iteration closure criteria.
 - 2.2.0 (2026-08-30): Added agent observability and incident-response
   lifecycle requirements.
 - 2.1.0 (2026-08-30): Added project protocol-lock and cross-harness

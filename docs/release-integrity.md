@@ -25,6 +25,25 @@ The release actor must not be the sole author and approver. A tag or release
 name is a convenience label; consuming locks must still contain the resolved
 40-character commit.
 
+### Two-commit release model
+
+A protocol release uses two commits:
+
+1. **Content commit**: carries all released skill, template, schema, workflow,
+   and documentation changes. The attestation's `subject.commit` and
+   `provenance.source_commit` point to this commit.
+2. **Attestation commit**: carries the `release-attestation.yaml` that binds
+   the content commit's artifacts, publisher, provenance, independent
+   approval, verification, and revocation status. The signed annotated tag
+   points to this commit.
+
+The stable release gate verifies the relationship: `GITHUB_SHA` (the tag
+target) must equal the attestation subject commit, and the provenance
+source_commit must match the subject commit. The gate also validates the tag
+format, release name, publisher identity, signature reference, and active
+revocation status. Development tags (containing a hyphen) are excluded from
+the stable gate.
+
 The attestation is valid only when it includes an authenticated publisher,
 immutable source commit, artifact hashes, builder/workflow identity,
 dependencies, independent approval, signature/transparency references,

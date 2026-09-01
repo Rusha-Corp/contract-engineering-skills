@@ -179,12 +179,38 @@ jobs:
           tag_release = os.environ.get("GITHUB_REF_NAME", "")
           if not tag_release.startswith("v"):
               raise SystemExit("stable release gate requires a version tag")
+          if "-" in tag_release.removeprefix("v"):
+              raise SystemExit(
+                  f"tag {tag_release} is a development tag, not a stable release"
+              )
           expected_release = tag_release.removeprefix("v")
           if attestation["subject"].get("release") != expected_release:
               raise SystemExit(
                   f"tag {tag_release} does not match attestation release "
                   f"{attestation['subject'].get('release')}"
               )
-          if not attestation["subject"].get("commit"):
+          subject_commit = attestation["subject"].get("commit")
+          if not subject_commit:
               raise SystemExit("release attestation lacks subject commit")
+          # The tag points to the attestation-bearing commit; the attestation
+          # subject is its exact content parent. Verify that relationship.
+          tag_commit = os.environ.get("GITHUB_SHA", "")
+          if tag_commit and tag_commit != subject_commit:
+              raise SystemExit(
+                  f"tag commit {tag_commit} does not match attestation "
+                  f"subject commit {subject_commit}"
+              )
+          publisher = attestation.get("publisher", {})
+          if not publisher.get("identity") or not publisher.get("signing_system"):
+              raise SystemExit("release attestation lacks publisher identity or signing system")
+          if not publisher.get("signature_ref"):
+              raise SystemExit("release attestation lacks publisher signature reference")
+          provenance = attestation.get("provenance", {})
+          if not provenance.get("source_commit"):
+              raise SystemExit("release attestation lacks provenance source commit")
+          if provenance["source_commit"] != subject_commit:
+              raise SystemExit(
+                  f"provenance source_commit {provenance['source_commit']} "
+                  f"does not match subject commit {subject_commit}"
+              )
           PY

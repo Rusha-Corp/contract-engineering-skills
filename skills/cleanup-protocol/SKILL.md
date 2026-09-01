@@ -1,6 +1,6 @@
 ---
 name: cleanup-protocol
-version: 2.2.0
+version: 2.3.0
 description: Remove dead code, stale artifacts, and temporary debris after validation using risk-tiered, auditable procedures.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,8 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.3.0 (2026-09-01): Added bounded tracker index cap, task-shard support,
+  14-day active packet review cadence, and terminal-only compaction rules.
 - 2.2.0 (2026-08-30): Added evidence classification, redaction, secret,
   access, encryption, telemetry, and incident-linkage controls.
 - 2.1.0 (2026-08-30): Added project protocol-root and cross-harness

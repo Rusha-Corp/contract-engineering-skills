@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+## 2.4.0 - 2026-09-01
+
+- Fixed OpenSSF Scorecard tag-run failure: Scorecard now skips version-tag
+  refs where it is unsupported ("Only the default branch main is supported")
+  while retaining tag-triggered CodeQL and workflow-invariant coverage.
+- Added the Contract Spark visual identity: three self-contained, accessible
+  SVGs (mark, lockup, badge) with no scripts, fonts, or external references.
+- Added `docs/visual-identity.md` with concept, palette, accessibility, reuse
+  rules, and size guidance.
+- Added `scripts/validate-svg-assets.py` for SVG XML, accessibility, palette,
+  and safety validation.
+- Added `scripts/check-markdown-links.py` for relative Markdown link and
+  anchor validation.
+- Updated README with visual identity section and assets listing.
+- Migration: none. No skill files, schemas, or packet templates changed.
+  Consumers who pin the security workflow benefit from the Scorecard fix
+  after updating to this release.
+
 ## 2.3.0 - 2026-09-01
 
 - Added enforceable packet-acceptance controls: structured acceptance

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import re
+from datetime import date, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -29,6 +30,7 @@ STATES = {
 }
 TASK_ID = re.compile(r"^[A-Z0-9-]+-T[0-9]{3}$")
 PACKET_ID = re.compile(r"^[A-Z0-9-]+-T[0-9]{3}-P[0-9]{3}$")
+MAX_ACTIVE_AGE = timedelta(days=14)
 
 
 def fail(message: str) -> None:
@@ -77,6 +79,15 @@ def validate_row(row: Any, source: Path, expected_partition: str) -> str:
         isinstance(lock, str) for lock in row["locks"]
     ):
         fail(f"{source}: locks must be a string list for {packet_id!r}")
+    updated_at = row["updated_at"]
+    if not isinstance(updated_at, str):
+        fail(f"{source}: updated_at must be an ISO date for {packet_id!r}")
+    try:
+        updated_date = date.fromisoformat(updated_at)
+    except ValueError:
+        fail(f"{source}: updated_at must be an ISO date for {packet_id!r}")
+    if expected_partition == "active" and date.today() - updated_date > MAX_ACTIVE_AGE:
+        fail(f"{source}: active packet {packet_id!r} has a stale updated_at")
     if expected_partition == "archive" and row["state"] not in {"Complete", "Cancelled"}:
         fail(f"{source}: archived packet {packet_id!r} is not terminal")
     return packet_id

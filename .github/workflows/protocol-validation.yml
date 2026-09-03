@@ -156,7 +156,9 @@ jobs:
         run: |
           test -f .contract-engineering/release-attestation.yaml
           python - <<'PY'
+          import hashlib
           import os
+          import re
           from pathlib import Path
           import yaml
 
@@ -252,4 +254,24 @@ jobs:
                   f"provenance source_commit {provenance['source_commit']} "
                   f"does not match subject commit {subject_commit}"
               )
+          artifacts = attestation["subject"].get("artifacts")
+          if not isinstance(artifacts, list) or not artifacts:
+              raise SystemExit("release attestation lacks artifact hashes")
+          for artifact in artifacts:
+              if not isinstance(artifact, dict):
+                  raise SystemExit("release artifact entry must be a mapping")
+              artifact_path = artifact.get("path")
+              expected_hash = artifact.get("sha256")
+              if (
+                  not isinstance(artifact_path, str)
+                  or not isinstance(expected_hash, str)
+                  or not re.fullmatch(r"[0-9a-f]{64}", expected_hash)
+              ):
+                  raise SystemExit("release artifact entry has invalid path or hash")
+              path = Path(artifact_path)
+              if path.is_absolute() or ".." in path.parts or not path.is_file():
+                  raise SystemExit(f"release artifact path is unsafe or missing: {path}")
+              actual_hash = hashlib.sha256(path.read_bytes()).hexdigest()
+              if actual_hash != expected_hash:
+                  raise SystemExit(f"release artifact hash mismatch: {path}")
           PY

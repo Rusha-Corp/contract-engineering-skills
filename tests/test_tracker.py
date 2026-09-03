@@ -1,6 +1,7 @@
 import importlib.util
 import tempfile
 import unittest
+from datetime import date, timedelta
 from pathlib import Path
 
 
@@ -14,6 +15,7 @@ RENDER_SPEC = importlib.util.spec_from_file_location("render_tracker", RENDER_SC
 assert RENDER_SPEC and RENDER_SPEC.loader
 renderer = importlib.util.module_from_spec(RENDER_SPEC)
 RENDER_SPEC.loader.exec_module(renderer)
+TODAY = date.today().isoformat()
 
 
 def row(packet_id="TEST-T001-P001", state="Implementing", task_id="TEST-T001"):
@@ -25,7 +27,7 @@ def row(packet_id="TEST-T001-P001", state="Implementing", task_id="TEST-T001"):
         "reviewer": "user",
         "locks": [],
         "next_action": "continue",
-        "updated_at": "2026-09-03",
+        "updated_at": TODAY,
     }
 
 
@@ -38,6 +40,12 @@ class TrackerValidationTests(unittest.TestCase):
         with self.assertRaises(SystemExit):
             validator.validate_row(row(state="Validation"), Path("archive.yaml"), "archive")
 
+    def test_rejects_stale_active_row(self):
+        stale = row()
+        stale["updated_at"] = (date.today() - timedelta(days=15)).isoformat()
+        with self.assertRaises(SystemExit):
+            validator.validate_row(stale, Path("index.yaml"), "active")
+
     def test_rejects_duplicate_partition_rows(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -46,10 +54,10 @@ class TrackerValidationTests(unittest.TestCase):
                 "tracker_schema_version: 1\npartition: active\nmax_rows: 25\nrows:\n"
                 "  - task_id: TEST-T001\n    packet_id: TEST-T001-P001\n"
                 "    state: Implementing\n    owner: agent\n    reviewer: user\n"
-                "    locks: []\n    next_action: continue\n    updated_at: today\n"
+                f"    locks: []\n    next_action: continue\n    updated_at: {TODAY}\n"
                 "  - task_id: TEST-T001\n    packet_id: TEST-T001-P001\n"
                 "    state: Implementing\n    owner: agent\n    reviewer: user\n"
-                "    locks: []\n    next_action: continue\n    updated_at: today\n"
+                f"    locks: []\n    next_action: continue\n    updated_at: {TODAY}\n"
             )
             with self.assertRaises(SystemExit):
                 validator.partition_rows(root, "tracker/index.yaml", "active")
@@ -62,7 +70,7 @@ class TrackerValidationTests(unittest.TestCase):
                 "  - task_id: TEST-T001\n"
                 f"    packet_id: TEST-T001-P{i:03d}\n"
                 "    state: Implementing\n    owner: agent\n    reviewer: user\n"
-                "    locks: []\n    next_action: continue\n    updated_at: today"
+                f"    locks: []\n    next_action: continue\n    updated_at: {TODAY}"
                 for i in range(1, 27)
             )
             (root / "tracker" / "index.yaml").write_text(
@@ -86,7 +94,7 @@ class TrackerValidationTests(unittest.TestCase):
                 "task_id: TEST-T001\nrows:\n"
                 "  - task_id: TEST-T001\n    packet_id: TEST-T001-P001\n"
                 "    state: Implementing\n    owner: agent\n    reviewer: user\n"
-                "    locks: []\n    next_action: continue\n    updated_at: today\n"
+                f"    locks: []\n    next_action: continue\n    updated_at: {TODAY}\n"
             )
             rows, files = validator.partition_rows(
                 root, "tracker/index.yaml", "active"
@@ -139,7 +147,7 @@ class TrackerValidationTests(unittest.TestCase):
                 "tracker_schema_version: 1\npartition: active\nmax_rows: 25\nrows:\n"
                 "  - task_id: TEST-T001\n    packet_id: TEST-T001-P001\n"
                 "    state: Implementing\n    owner: agent\n    reviewer: user\n"
-                "    locks: [tracker/]\n    next_action: continue\n    updated_at: today\n"
+                f"    locks: [tracker/]\n    next_action: continue\n    updated_at: {TODAY}\n"
             )
             (root / "tracker" / "archive" / "index.yaml").write_text(
                 "tracker_schema_version: 1\npartition: archive\nmax_rows: 50\nrows: []\n"

@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 2.5.3 - 2026-09-03
+
+- Corrective release for the unverified `v2.5.2` tag. Fixes the malformed
+  content commit reference in the protocol lock and release attestation.
+
 ## 2.5.2 - 2026-09-03
 
 - Corrective release for the unverified `v2.5.1` tag. Fixes generated archive

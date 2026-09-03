@@ -3,6 +3,7 @@
 Canonical state: `tracker/archive/index.yaml` and its declared archive shards.
 
 | Task | Packet | State | Owner | Reviewer | Locks |
+| --- | --- | --- | --- | --- | --- |
 | CENG-T008 | CENG-T008-P001 | Complete | agent | user | released |
 | CENG-T003 | CENG-T003-P001 | Complete | agent | user | released |
 | CENG-T004 | CENG-T004-P001 | Complete | agent | user | released |

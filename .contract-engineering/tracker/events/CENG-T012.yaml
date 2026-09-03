@@ -43,3 +43,9 @@ events:
     actor: droid
     occurred_at: "2026-09-03T20:00:00Z"
     summary: "The v2.5.0 tag workflow failed closed because the attestation subject was not the direct parent of the tag and the complete packet retained packet locks; v2.5.0 is unverified and v2.5.1 corrective publication is required."
+  - event_id: CENG-T012-E008
+    packet_id: CENG-T012-P001
+    type: release_validation
+    actor: droid
+    occurred_at: "2026-09-03T20:15:00Z"
+    summary: "The v2.5.1 tag workflow failed closed because the archive Markdown projection lacked the generated table separator and CI extracted the VALIDSIG label instead of the publisher fingerprint; v2.5.2 corrective publication is required."

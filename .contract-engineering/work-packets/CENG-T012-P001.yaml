@@ -126,4 +126,5 @@ state: Complete
 evidence_refs:
   - CENG-T012-P001-EV001
   - CENG-T012-P001-EV002
+  - CENG-T012-P001-EV003
 handoff_ref: CENG-T012-P001-HO001

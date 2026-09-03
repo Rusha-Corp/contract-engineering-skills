@@ -292,7 +292,7 @@ jobs:
               raise SystemExit("release tag signature verification failed")
           status = signature.stdout + signature.stderr
           valid_signatures = [
-              line.split()[1]
+              line.split()[2]
               for line in status.splitlines()
               if line.startswith("[GNUPG:] VALIDSIG ")
           ]

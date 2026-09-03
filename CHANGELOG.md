@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 2.5.2 - 2026-09-03
+
+- Corrective release for the unverified `v2.5.1` tag. Fixes generated archive
+  projection formatting and CI extraction of the GPG signing fingerprint.
+
 ## 2.5.1 - 2026-09-03
 
 - Corrective release for the unverified `v2.5.0` tag. No protocol behavior

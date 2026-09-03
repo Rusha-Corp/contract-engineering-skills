@@ -159,6 +159,7 @@ jobs:
           import hashlib
           import os
           import re
+          import subprocess
           from datetime import datetime, timezone
           from pathlib import Path
           import yaml
@@ -266,7 +267,6 @@ jobs:
           tag_commit = os.environ.get("GITHUB_SHA", "")
           if tag_commit and tag_commit != subject_commit:
               # Two-commit model: subject must be the direct parent of the tag.
-              import subprocess
               parent = subprocess.run(
                   ["git", "rev-parse", "HEAD^"],
                   capture_output=True, text=True,
@@ -282,6 +282,26 @@ jobs:
               raise SystemExit("release attestation lacks publisher identity or signing system")
           if not publisher.get("signature_ref"):
               raise SystemExit("release attestation lacks publisher signature reference")
+          signature = subprocess.run(
+              ["git", "verify-tag", "--raw", tag_release],
+              capture_output=True,
+              text=True,
+          )
+          if signature.returncode != 0:
+              raise SystemExit("release tag signature verification failed")
+          status = signature.stdout + signature.stderr
+          valid_signatures = [
+              line.split()[1]
+              for line in status.splitlines()
+              if line.startswith("[GNUPG:] VALIDSIG ")
+          ]
+          if len(valid_signatures) != 1:
+              raise SystemExit("release tag must have exactly one valid signature")
+          publisher_key = publisher.get("authentication_ref")
+          if not publisher_key or valid_signatures[0] != publisher_key:
+              raise SystemExit(
+                  "release tag signature does not match publisher authentication_ref"
+              )
           provenance = attestation.get("provenance", {})
           if not provenance.get("source_commit"):
               raise SystemExit("release attestation lacks provenance source commit")

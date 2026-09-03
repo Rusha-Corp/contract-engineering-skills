@@ -80,11 +80,14 @@ def validate_row(row: Any, source: Path, expected_partition: str) -> str:
     ):
         fail(f"{source}: locks must be a string list for {packet_id!r}")
     updated_at = row["updated_at"]
-    if not isinstance(updated_at, str):
-        fail(f"{source}: updated_at must be an ISO date for {packet_id!r}")
-    try:
-        updated_date = date.fromisoformat(updated_at)
-    except ValueError:
+    if isinstance(updated_at, date):
+        updated_date = updated_at
+    elif isinstance(updated_at, str):
+        try:
+            updated_date = date.fromisoformat(updated_at)
+        except ValueError:
+            fail(f"{source}: updated_at must be an ISO date for {packet_id!r}")
+    else:
         fail(f"{source}: updated_at must be an ISO date for {packet_id!r}")
     if expected_partition == "active" and date.today() - updated_date > MAX_ACTIVE_AGE:
         fail(f"{source}: active packet {packet_id!r} has a stale updated_at")

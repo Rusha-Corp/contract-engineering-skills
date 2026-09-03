@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 2.5.4 - 2026-09-03
+
+- Corrective release for the unverified `v2.5.3` tag. Accepts ISO dates loaded
+  by YAML as native date values in tracker validation.
+
 ## 2.5.3 - 2026-09-03
 
 - Corrective release for the unverified `v2.5.2` tag. Fixes the malformed

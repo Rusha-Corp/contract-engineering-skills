@@ -55,3 +55,9 @@ events:
     actor: droid
     occurred_at: "2026-09-03T20:30:00Z"
     summary: "The v2.5.2 tag workflow failed closed because the protocol lock and attestation contained a 41-character content commit reference; v2.5.2 is unverified and v2.5.3 corrective publication is required."
+  - event_id: CENG-T012-E010
+    packet_id: CENG-T012-P001
+    type: release_validation
+    actor: droid
+    occurred_at: "2026-09-03T20:45:00Z"
+    summary: "The v2.5.3 tag stable gate passed, but the records job failed because YAML-native ISO dates were rejected by the tracker validator; v2.5.3 is unverified and v2.5.4 corrective publication is required."

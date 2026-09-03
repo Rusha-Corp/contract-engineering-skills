@@ -142,9 +142,9 @@ rows:
     updated_at: "2026-09-03"
   - task_id: "CENG-T012"
     packet_id: "CENG-T012-P001"
-    state: "Validation"
+    state: "Handoff"
     owner: "droid"
     reviewer: "worker"
     locks: [".contract-engineering/", "schemas/", "templates/", "scripts/", "docs/", "README.md"]
-    next_action: "Record handoff and obtain independent release review"
+    next_action: "Obtain independent release review"
     updated_at: "2026-09-03"

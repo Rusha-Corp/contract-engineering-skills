@@ -25,3 +25,9 @@ events:
     actor: droid
     occurred_at: "2026-09-03T19:20:00Z"
     summary: "Node-based YAML/JSON parsing and tracker alignment checks passed; Python validation and unit tests are deferred because no Python interpreter is installed in the working container."
+  - event_id: CENG-T012-E005
+    packet_id: CENG-T012-P001
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-03T19:25:45Z"
+    summary: "Submitted CENG-T012-P001-HO001 for independent release review; receiver acceptance is pending."

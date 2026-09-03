@@ -1,0 +1,25 @@
+decision_version: 1
+decision_id: CENG-T012-P001-DEC001
+packet_id: CENG-T012-P001
+status: approved
+title: "Bounded release exception for unavailable independent review"
+proposal: "Publish 2.5.0 using explicit user acceptance because independent reviewer launches failed before producing a verdict."
+alternatives_considered:
+  - "Wait for an independent reviewer and do not publish."
+  - "Publish without recording the missing-review condition."
+decision: "Proceed only with this recorded exception, transparent attestation, CI release gates, and a rollback reference."
+scope:
+  - "CENG-T012-P001 release publication"
+  - "v2.5.0 protocol tag"
+controls:
+  - "User acceptance is recorded in CENG-T012-P001-HO001."
+  - "The attestation names this exception instead of claiming independent approval."
+  - "The stable release workflow requires this exception to be approved and complete."
+  - "The release remains rollbackable to 2.4.0."
+approved_by: user
+approved_at: "2026-09-03T19:30:00Z"
+expires_at: "2026-09-10T19:30:00Z"
+success_measure: "Obtain and record independent review before the next protocol release or any follow-up changes."
+rollback_ref: 2b556a15f37e2bfaf9867917f191762908dee44e
+review_owner: user
+review_at: "2026-09-10T19:30:00Z"

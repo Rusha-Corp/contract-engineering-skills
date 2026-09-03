@@ -174,8 +174,34 @@ jobs:
           missing = [field for field in required if not attestation.get(field)]
           if missing:
               raise SystemExit(f"release attestation is incomplete: {missing}")
-          if not attestation["review"].get("independent_approver"):
-              raise SystemExit("release attestation lacks independent approval")
+          review = attestation["review"]
+          if not review.get("independent_approver"):
+              exception_ref = review.get("exception_ref")
+              if not exception_ref:
+                  raise SystemExit(
+                      "release attestation lacks independent approval or an exception"
+                  )
+              exception_path = (
+                  Path(".contract-engineering/decisions") / f"{exception_ref}.yaml"
+              )
+              if not exception_path.is_file():
+                  raise SystemExit(f"release exception is missing: {exception_path}")
+              exception = yaml.safe_load(exception_path.read_text())
+              required_exception = (
+                  "status",
+                  "approved_by",
+                  "approved_at",
+                  "expires_at",
+                  "rollback_ref",
+              )
+              missing_exception = [
+                  field for field in required_exception if not exception.get(field)
+              ]
+              if missing_exception or exception.get("status") != "approved":
+                  raise SystemExit(
+                      f"release exception is incomplete or not approved: "
+                      f"{exception_ref}"
+                  )
           if attestation["verification"].get("result") != "pass":
               raise SystemExit("release attestation is not verified")
           if attestation["revocation"].get("status") != "active":

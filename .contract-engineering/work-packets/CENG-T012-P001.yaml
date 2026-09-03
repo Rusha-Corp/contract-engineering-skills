@@ -125,7 +125,8 @@ stability: beta
 deprecation_refs: []
 migration_dependencies: []
 removal_criteria: []
-exception_refs: []
+exception_refs:
+  - CENG-T012-P001-DEC001
 sunset_target: ""
 state: Complete
 evidence_refs:

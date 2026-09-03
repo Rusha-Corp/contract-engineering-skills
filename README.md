@@ -103,7 +103,7 @@ git clone https://github.com/Rusha-Corp/contract-engineering-skills.git \
   exit 1
 }
 git -C ~/.factory/skills checkout --detach \
-  575f473a9349c5dfb61df7758b52a5592b2e2915 || {
+  YOUR_LOCKED_PROTOCOL_COMMIT || {
   echo "Failed to select the locked protocol revision" >&2
   exit 1
 }
@@ -124,7 +124,7 @@ git clone https://github.com/Rusha-Corp/contract-engineering-skills.git \
   exit 1
 }
 git -C "$HOME/contract-engineering-skills" checkout --detach \
-  575f473a9349c5dfb61df7758b52a5592b2e2915 || {
+  YOUR_LOCKED_PROTOCOL_COMMIT || {
   echo "Failed to select the locked protocol revision" >&2
   exit 1
 }

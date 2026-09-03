@@ -13,7 +13,7 @@ sender:
   signature_ref: ""
 receiver:
   identity: user
-  identity_type: agent
+  identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
   accepted_at: "2026-09-03T19:30:00Z"

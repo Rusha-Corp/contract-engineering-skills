@@ -20,7 +20,7 @@ receiver:
   acceptance_ref: USER-ACCEPT-CENG-T012-P001-20260903
   signature_ref: ""
 base_revision: 25a1631d2f4d094908c4c69fbc0bbff2819de1ec
-head_revision: 5c052089d93ac8c5b80eb2ce5e1695e65d221322
+head_revision: 4a78b0ad0704d2932a9e1a9a4e059bf50c5e685a
 scope_digest: 09aafa525773ed27aeaebd2cbd02a28b15326b87b323b99609989e9ca6e935f4
 changed_resources:
   - path: .contract-engineering/archive/execution-tracker-archive.md
@@ -28,7 +28,7 @@ changed_resources:
   - path: .contract-engineering/decisions/CENG-T012-P001-DEC001.yaml
     sha256: df513a1e8bcc226f7a11ea7b4900441f7bfbb9a6f2d5ef3654df255984ca1cb7
   - path: .contract-engineering/evidence/CENG-T012-P001-EV001.md
-    sha256: 0341a3c8b21176cfa441c392add0787b77502151709a91d515a584189a9dd59b
+    sha256: df831a242be689b2618b0162c2d8aa2c0f3e1774a157922df682e8853a1e2f1c
   - path: .contract-engineering/execution-tracker.md
     sha256: 63b32a80141b7d911a837354c6ab2458873c02782c2e6ad399f6f22df75a44f7
   - path: .contract-engineering/tracker/archive/index.yaml
@@ -40,7 +40,7 @@ changed_resources:
   - path: .contract-engineering/work-packets/CENG-T012-P001.yaml
     sha256: de2fdd2e4c8cd6ba41fd0feecd17fb6eca21c5f2dafc67a05dce75a6f664f3c2
   - path: .github/workflows/protocol-validation.yml
-    sha256: 7fe74859ae1c42f0a33c4fd952405edb1cb27f6b90476e9ec82918355beeb33f
+    sha256: ad2b606fd036697150d29439e99ee5e04342906be9efc59a5c5b0a3e87f92957
   - path: CHANGELOG.md
     sha256: 1898341eabd1b15457e75f41cc20b13bc39483e08948972adf3d691e378e8b42
   - path: README.md
@@ -94,7 +94,7 @@ verification:
   verification_ref: CENG-T012-P001-EV001
 receiver_status: accepted
 receiver_notes: "User accepted the documented handoff and explicitly authorized publication despite the unavailable independent review. The two review launches failed before producing a verdict; this limitation remains recorded in EV001."
-accepted_revision: 5c052089d93ac8c5b80eb2ce5e1695e65d221322
+accepted_revision: 4a78b0ad0704d2932a9e1a9a4e059bf50c5e685a
 accepted_scope_digest: 09aafa525773ed27aeaebd2cbd02a28b15326b87b323b99609989e9ca6e935f4
 accepted_evidence_refs:
   - CENG-T012-P001-EV001

@@ -21,7 +21,7 @@ receiver:
   signature_ref: ""
 base_revision: 25a1631d2f4d094908c4c69fbc0bbff2819de1ec
 head_revision: d6cbcf9a19d6962ddf346b02e6bd5ac7595fff01
-scope_digest: 74c2143fe1017fd9d6dacabc644381c5c80ead09f7cf8ba71f9e352d43e2a710
+scope_digest: 2819412eb47cbfda672b77b22b52e174c6d237605fd8a8c5a8ad53b96ff23a37
 changed_resources:
   - path: .contract-engineering/archive/execution-tracker-archive.md
     sha256: 10265f8dab5b1f5a6c3bb92154e580f04900b26527184dc2e39f0f67254aa6dd
@@ -35,10 +35,6 @@ changed_resources:
     sha256: 26af45beae640e84904a4cf0e3aa547c43f3e50b98c2a7a1f080640ccf81576c
   - path: .contract-engineering/execution-tracker.md
     sha256: 63b32a80141b7d911a837354c6ab2458873c02782c2e6ad399f6f22df75a44f7
-  - path: .contract-engineering/protocol.lock.yaml
-    sha256: c374d0780c86d1513b3beb5fb7d988e14d678a8f67f247fbd739c08e3f87bcc1
-  - path: .contract-engineering/release-attestation.yaml
-    sha256: 6d908bc30147e28db903a0771f07d15c7e7ccd9f128379d38277a7463f45302c
   - path: .contract-engineering/release-signing-key.asc
     sha256: b9282ac933a398a5b069e1da094d0a8c87b87548a4c61f6bd4c24dc515b2d499
   - path: .contract-engineering/tracker/archive/index.yaml
@@ -105,7 +101,7 @@ verification:
 receiver_status: accepted
 receiver_notes: "User accepted the documented handoff and explicitly authorized publication despite the unavailable independent review. The two review launches failed before producing a verdict; this limitation remains recorded in EV001."
 accepted_revision: d6cbcf9a19d6962ddf346b02e6bd5ac7595fff01
-accepted_scope_digest: 74c2143fe1017fd9d6dacabc644381c5c80ead09f7cf8ba71f9e352d43e2a710
+accepted_scope_digest: 2819412eb47cbfda672b77b22b52e174c6d237605fd8a8c5a8ad53b96ff23a37
 accepted_evidence_refs:
   - CENG-T012-P001-EV001
   - CENG-T012-P001-EV002

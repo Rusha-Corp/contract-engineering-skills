@@ -155,6 +155,7 @@ jobs:
       - name: Require release attestation
         run: |
           test -f .contract-engineering/release-attestation.yaml
+          gpg --batch --no-tty --import .contract-engineering/release-signing-key.asc
           python - <<'PY'
           import hashlib
           import os

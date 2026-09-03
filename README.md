@@ -16,6 +16,7 @@ This repository supplies everything you need to adopt the protocol:
 | Templates | `templates/` | Work-packet, deprecation, feedback, validation, and consumer `AGENTS.md` templates. |
 | Host adapters | `adapters/` | Installation and integration guides for Factory Droid, Hermes Agent, and generic harnesses. |
 | Reference docs | `docs/` | Release integrity, protocol configuration, secret management, incident response, and more. |
+| Tracker storage | `.contract-engineering/tracker/`, `scripts/` | Canonical YAML tracker partitions, bounded task shards, event history, and generated Markdown projections. |
 | Visual identity | `assets/contract-spark/` | Contract Spark SVG mark, lockup, and badge for documentation and branding. |
 | CI workflows | `.github/workflows/` | Protocol validation, secret scanning, and security checks with pinned actions. |
 
@@ -34,6 +35,10 @@ adopt them by pinning an immutable release in a project-local lock file.
   for Factory Droid, Hermes Agent, and generic harnesses.
 - `assets/contract-spark/` contains the Contract Spark visual identity (SVG
   mark, lockup, and badge). See the [visual identity guide](docs/visual-identity.md).
+- `.contract-engineering/tracker/` contains the canonical YAML tracker index,
+  task shards, event history, and archive projection. Read
+  [`docs/tracker-storage.md`](docs/tracker-storage.md) for the bounded storage
+  contract and database-backed consumer model.
 - `.factory-plugin/plugin.json` is the Factory Droid plugin manifest.
 - `LICENSE` is the MIT license.
 
@@ -98,7 +103,7 @@ git clone https://github.com/Rusha-Corp/contract-engineering-skills.git \
   exit 1
 }
 git -C ~/.factory/skills checkout --detach \
-  575f473a9349c5dfb61df7758b52a5592b2e2915 || {
+  YOUR_LOCKED_PROTOCOL_COMMIT || {
   echo "Failed to select the locked protocol revision" >&2
   exit 1
 }
@@ -119,7 +124,7 @@ git clone https://github.com/Rusha-Corp/contract-engineering-skills.git \
   exit 1
 }
 git -C "$HOME/contract-engineering-skills" checkout --detach \
-  575f473a9349c5dfb61df7758b52a5592b2e2915 || {
+  YOUR_LOCKED_PROTOCOL_COMMIT || {
   echo "Failed to select the locked protocol revision" >&2
   exit 1
 }

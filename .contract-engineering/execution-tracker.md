@@ -1,5 +1,7 @@
 # Execution Tracker
 
+Canonical state: `tracker/index.yaml` and its declared task shards.
+
 | Task | Packet | State | Owner | Reviewer | Locks |
 | --- | --- | --- | --- | --- | --- |
 | CENG-T011 | CENG-T011-P001 | Complete | agent | user | released |
@@ -19,3 +21,4 @@
 | CENG-T004 | CENG-T004-P021 | Complete | agent | contract-driven-handoff-acceptance-reviewer | released |
 | CENG-T004 | CENG-T004-P022 | Complete | agent | contract-driven-handoff-acceptance-reviewer | released |
 | CENG-T004 | CENG-T004-P023 | Complete | agent | contract-driven-handoff-acceptance-reviewer | released |
+| CENG-T012 | CENG-T012-P001 | Complete | droid | worker | released |

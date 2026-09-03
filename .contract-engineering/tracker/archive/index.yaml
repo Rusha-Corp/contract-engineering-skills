@@ -1,0 +1,29 @@
+tracker_schema_version: 1
+partition: archive
+max_rows: 50
+updated_at: "2026-09-03"
+rows:
+  - { task_id: "CENG-T008", packet_id: "CENG-T008-P001", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T003", packet_id: "CENG-T003-P001", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P001", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P002", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P003", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P004", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P005", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P006", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P007", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P008", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P009", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P010", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P011", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P012", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P013", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P014", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T004", packet_id: "CENG-T004-P015", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T005", packet_id: "CENG-T005-P001", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T005", packet_id: "CENG-T005-P002", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T005", packet_id: "CENG-T005-P003", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T005", packet_id: "CENG-T005-P004", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T005", packet_id: "CENG-T005-P005", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T005", packet_id: "CENG-T005-P006", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T006", packet_id: "CENG-T006-P001", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }

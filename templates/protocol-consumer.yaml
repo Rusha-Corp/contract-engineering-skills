@@ -14,6 +14,12 @@ protocol:
   release: ""
   ref: ""
   lock_version: 1
+records:
+  tracker_format: yaml
+  tracker_schema_version: 1
+  markdown_projection: generated
+  event_history: per_task_yaml
+  database_projection: supported
 compatibility:
   minimum_release: ""
   maximum_release: ""

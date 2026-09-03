@@ -25,6 +25,14 @@ The release actor must not be the sole author and approver. A tag or release
 name is a convenience label; consuming locks must still contain the resolved
 40-character commit.
 
+If an independent review is genuinely unavailable, publication requires an
+explicit, bounded exception record approved by the user or release owner.
+The attestation must reference that exception rather than claiming independent
+approval. The exception must name the reason, controls, expiry, review owner,
+and rollback reference; the stable release gate must fail if any of those
+fields are absent. This is a temporary control deviation, not a replacement
+for independent review.
+
 ### Two-commit release model
 
 A protocol release uses two commits:

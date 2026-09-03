@@ -12,6 +12,11 @@ The tracked project control plane is:
 ```text
 .contract-engineering/
   protocol.lock.yaml
+  tracker/
+    index.yaml
+    shards/
+    events/
+    archive/index.yaml
   execution-tracker.md
   work-packets/
   archive/
@@ -30,12 +35,14 @@ Existing ignored `.factory/` records are historical Factory session records.
 They are preserved for auditability but are not the canonical project ledger.
 New work uses `.contract-engineering/`.
 
-The active tracker is deliberately bounded. Keep its index at 25 rows or
-fewer; move task-specific rows to `.contract-engineering/tracker-shards/`
-when it reaches the limit, with no more than 50 rows per task shard. Terminal
-packets are compacted by moving their YAML and tracker row into the archive
-partition after user confirmation. This keeps day-to-day records short while
-preserving the complete audit trail.
+The active YAML tracker is deliberately bounded. Keep
+`.contract-engineering/tracker/index.yaml` at 25 rows or fewer; move
+task-specific rows to declared `.contract-engineering/tracker/shards/*.yaml`
+files when it reaches the limit, with no more than 50 rows per task shard.
+Terminal packets are compacted by moving their YAML and tracker row into the
+archive partition after user confirmation. Markdown tracker files are
+generated projections. Event history is stored separately so day-to-day agent
+context stays short while preserving the complete audit trail.
 
 ## Starting work
 
@@ -47,7 +54,8 @@ From the repository root:
 3. Confirm the packet owner, reviewer, locks, dependencies, scope, and
    acceptance criteria.
 4. For a new task, create a packet from `templates/work-packet.yaml` and
-   register it in `.contract-engineering/execution-tracker.md`.
+   register its row in `.contract-engineering/tracker/index.yaml` or the
+   appropriate declared shard.
 5. Complete the six-step baseline before editing.
 
 The packet's `baseline_refs` must include:
@@ -122,14 +130,15 @@ have been reconciled.
 
 ### Tracker sharding and compaction
 
-Use the active index for a small cross-task view and one Markdown shard per
-large task, named `<TASK-ID>.md`. Shards contain the standard tracker table,
-not a second packet format. The validator reads the index and all Markdown
-shards together, rejects duplicate or orphan rows, and enforces the 25-row
-index and 50-row shard limits. At closure, move terminal packet files and
+Use the active YAML index for a small cross-task view and one or more YAML
+shards per large task, named `<TASK-ID>.yaml` and declared by the index.
+Markdown files are generated projections, not a second state format. The
+tracker validator reads the index and all declared shards, rejects duplicate
+or orphan rows, and enforces the 25-row index and 50-row shard limits. Event
+files hold append-only history. At closure, move terminal packet files and
 rows to the archive; never delete them as a shortcut. Review active packets
 every 14 days and resolve them through the existing state machine rather than
-adding a stale status.
+adding a stale status. See `docs/tracker-storage.md`.
 
 ## Updating the protocol itself
 

@@ -80,6 +80,10 @@ jobs:
           PY
       - name: Validate contract records
         run: python scripts/validate-contract-records.py
+      - name: Validate canonical tracker partitions
+        run: |
+          python scripts/validate-tracker.py --root .contract-engineering
+          python scripts/render-tracker.py --root .contract-engineering --check
       - name: Run repository unit tests
         run: python -m unittest discover -s tests -p 'test_*.py'
       - name: Validate normative JSON schemas
@@ -151,8 +155,13 @@ jobs:
       - name: Require release attestation
         run: |
           test -f .contract-engineering/release-attestation.yaml
+          gpg --batch --no-tty --import .contract-engineering/release-signing-key.asc
           python - <<'PY'
+          import hashlib
           import os
+          import re
+          import subprocess
+          from datetime import datetime, timezone
           from pathlib import Path
           import yaml
 
@@ -170,8 +179,69 @@ jobs:
           missing = [field for field in required if not attestation.get(field)]
           if missing:
               raise SystemExit(f"release attestation is incomplete: {missing}")
-          if not attestation["review"].get("independent_approver"):
-              raise SystemExit("release attestation lacks independent approval")
+          review = attestation["review"]
+          if not review.get("independent_approver"):
+              exception_ref = review.get("exception_ref")
+              if not exception_ref:
+                  raise SystemExit(
+                      "release attestation lacks independent approval or an exception"
+                  )
+              exception_path = (
+                  Path(".contract-engineering/decisions") / f"{exception_ref}.yaml"
+              )
+              if not exception_path.is_file():
+                  raise SystemExit(f"release exception is missing: {exception_path}")
+              exception = yaml.safe_load(exception_path.read_text())
+              required_exception = (
+                  "proposal",
+                  "controls",
+                  "review_owner",
+                  "review_at",
+                  "success_measure",
+                  "status",
+                  "approved_by",
+                  "approved_at",
+                  "expires_at",
+                  "rollback_ref",
+              )
+              missing_exception = [
+                  field for field in required_exception if not exception.get(field)
+              ]
+              if missing_exception or exception.get("status") != "approved":
+                  raise SystemExit(
+                      f"release exception is incomplete or not approved: "
+                      f"{exception_ref}"
+                  )
+              try:
+                  approved_at = datetime.fromisoformat(
+                      str(exception["approved_at"]).replace("Z", "+00:00")
+                  )
+                  expires_at = datetime.fromisoformat(
+                      str(exception["expires_at"]).replace("Z", "+00:00")
+                  )
+                  review_at = datetime.fromisoformat(
+                      str(exception["review_at"]).replace("Z", "+00:00")
+                  )
+              except ValueError as exc:
+                  raise SystemExit(
+                      f"release exception timestamps are invalid: {exception_ref}"
+                  ) from exc
+              now = datetime.now(timezone.utc)
+              if approved_at.tzinfo is None or expires_at.tzinfo is None or review_at.tzinfo is None:
+                  raise SystemExit(
+                      f"release exception timestamps must include timezone: "
+                      f"{exception_ref}"
+                  )
+              if expires_at <= approved_at or expires_at <= now or review_at > expires_at:
+                  raise SystemExit(
+                      f"release exception is expired or has invalid review window: "
+                      f"{exception_ref}"
+                  )
+              if not re.fullmatch(r"[0-9a-f]{40}", str(exception["rollback_ref"])):
+                  raise SystemExit(
+                      f"release exception rollback_ref must be an immutable commit: "
+                      f"{exception_ref}"
+                  )
           if attestation["verification"].get("result") != "pass":
               raise SystemExit("release attestation is not verified")
           if attestation["revocation"].get("status") != "active":
@@ -198,7 +268,6 @@ jobs:
           tag_commit = os.environ.get("GITHUB_SHA", "")
           if tag_commit and tag_commit != subject_commit:
               # Two-commit model: subject must be the direct parent of the tag.
-              import subprocess
               parent = subprocess.run(
                   ["git", "rev-parse", "HEAD^"],
                   capture_output=True, text=True,
@@ -214,6 +283,26 @@ jobs:
               raise SystemExit("release attestation lacks publisher identity or signing system")
           if not publisher.get("signature_ref"):
               raise SystemExit("release attestation lacks publisher signature reference")
+          signature = subprocess.run(
+              ["git", "verify-tag", "--raw", tag_release],
+              capture_output=True,
+              text=True,
+          )
+          if signature.returncode != 0:
+              raise SystemExit("release tag signature verification failed")
+          status = signature.stdout + signature.stderr
+          valid_signatures = [
+              line.split()[2]
+              for line in status.splitlines()
+              if line.startswith("[GNUPG:] VALIDSIG ")
+          ]
+          if len(valid_signatures) != 1:
+              raise SystemExit("release tag must have exactly one valid signature")
+          publisher_key = publisher.get("authentication_ref")
+          if not publisher_key or valid_signatures[0] != publisher_key:
+              raise SystemExit(
+                  "release tag signature does not match publisher authentication_ref"
+              )
           provenance = attestation.get("provenance", {})
           if not provenance.get("source_commit"):
               raise SystemExit("release attestation lacks provenance source commit")
@@ -222,4 +311,24 @@ jobs:
                   f"provenance source_commit {provenance['source_commit']} "
                   f"does not match subject commit {subject_commit}"
               )
+          artifacts = attestation["subject"].get("artifacts")
+          if not isinstance(artifacts, list) or not artifacts:
+              raise SystemExit("release attestation lacks artifact hashes")
+          for artifact in artifacts:
+              if not isinstance(artifact, dict):
+                  raise SystemExit("release artifact entry must be a mapping")
+              artifact_path = artifact.get("path")
+              expected_hash = artifact.get("sha256")
+              if (
+                  not isinstance(artifact_path, str)
+                  or not isinstance(expected_hash, str)
+                  or not re.fullmatch(r"[0-9a-f]{64}", expected_hash)
+              ):
+                  raise SystemExit("release artifact entry has invalid path or hash")
+              path = Path(artifact_path)
+              if path.is_absolute() or ".." in path.parts or not path.is_file():
+                  raise SystemExit(f"release artifact path is unsafe or missing: {path}")
+              actual_hash = hashlib.sha256(path.read_bytes()).hexdigest()
+              if actual_hash != expected_hash:
+                  raise SystemExit(f"release artifact hash mismatch: {path}")
           PY

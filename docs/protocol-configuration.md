@@ -24,6 +24,11 @@ Create these files in every consuming project:
 ```text
 .contract-engineering/
   protocol.lock.yaml
+  tracker/
+    index.yaml
+    shards/
+    events/
+    archive/index.yaml
   execution-tracker.md
   work-packets/
   archive/
@@ -39,43 +44,51 @@ If an existing project already stores records under `.factory`, set
 `project.protocol_root: .factory` in its lock file while migrating. Do not
 move or delete existing records automatically.
 
-The active tracker is intentionally bounded: it contains live and
-not-yet-closed packets. During cleanup or iteration closure, move terminal
+The canonical active tracker is `.contract-engineering/tracker/index.yaml`
+plus its declared task shards. `execution-tracker.md` is a generated
+human-readable projection. During cleanup or iteration closure, move terminal
 packet YAML files from `work-packets/` to `archive/work-packets/`, and move
-their rows from `execution-tracker.md` to the append-only
-`archive/execution-tracker-archive.md`. Rows must be moved, not copied. The
-archive ledger preserves history while keeping the active tracker small.
+their canonical rows from the active index or shard to
+`tracker/archive/index.yaml`. Regenerate
+`archive/execution-tracker-archive.md` as the human-readable archive
+projection. Rows must be moved, not copied. The archive preserves history
+while keeping active context small.
 
 The rollover is a harness-native procedure. The harness should use its native
 file and YAML tooling to identify terminal packets, move the packet files and
 rows, and verify that each packet exists in exactly one partition, each
 partition has the correct tracker row, and archived packets are terminal.
-No Python runtime or repository archive command is required.
+Use `scripts/validate-tracker.py` where Python is available, or implement the
+same checks with the harness's native YAML tooling. No automatic destructive
+archive command is required.
 
 ### Bounded tracker and packet maintenance
 
 The active tracker is an index, not a permanent history log:
 
-- Keep at most 25 packet rows in `execution-tracker.md`.
-- When the index reaches 26 rows, move complete task rows into
-  `tracker-shards/<TASK-ID>.md` and keep one task's rows in one shard.
+- Keep at most 25 packet rows in `tracker/index.yaml`.
+- When the index reaches 26 rows, move task rows into a declared
+  `tracker/shards/<TASK-ID>.yaml` shard.
 - Keep at most 50 packet rows in a task shard. Split a large task into child
   tasks and shards instead of growing the shard indefinitely.
-- Shards are active-only views. They use the same table schema and remain
-  subject to the one-row/one-packet invariant. A packet row must appear in
-  exactly one of the active index, one active shard, or the archive ledger.
+- Shards are active-only YAML projections. They remain subject to the
+  one-row/one-packet invariant. A packet row must appear in exactly one of the
+  active index, one active shard, or the archive index.
 - At user confirmation or iteration closure, move terminal packet YAML and
   its row from the active index or shard into `archive/work-packets/` and
-  `archive/execution-tracker-archive.md`. Move, do not copy, and retain the
-  handoff and evidence references.
+  `tracker/archive/index.yaml`. Move, do not copy, retain the handoff and
+  evidence references, and regenerate the Markdown projection.
 
 To prevent stale active work, review every `Claimed`, `Implementing`,
 `Validation`, and `Handoff` packet at least every 14 days. The owner must
 resume it, record an `Interrupted` recovery path, cancel it, or complete the
 handoff. Do not invent a `Stale` state and do not archive active work. A
 failed rollover restores the source files and leaves the packet active.
-Validation enforces shard ownership, row uniqueness, archive partitioning, and
-the row limits; the review cadence remains an owner/reviewer responsibility.
+`scripts/validate-tracker.py` enforces shard ownership, row uniqueness, archive
+partitioning, packet-state alignment, and row limits; the review cadence
+remains an owner/reviewer responsibility. Use
+`docs/tracker-storage.md` for event-history, projection, and database consumer
+guidance.
 
 ### Repository-level agent instructions
 

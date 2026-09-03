@@ -2,6 +2,45 @@
 
 ## Unreleased
 
+## 2.5.4 - 2026-09-03
+
+- Corrective release for the unverified `v2.5.3` tag. Accepts ISO dates loaded
+  by YAML as native date values in tracker validation.
+
+## 2.5.3 - 2026-09-03
+
+- Corrective release for the unverified `v2.5.2` tag. Fixes the malformed
+  content commit reference in the protocol lock and release attestation.
+
+## 2.5.2 - 2026-09-03
+
+- Corrective release for the unverified `v2.5.1` tag. Fixes generated archive
+  projection formatting and CI extraction of the GPG signing fingerprint.
+
+## 2.5.1 - 2026-09-03
+
+- Corrective release for the unverified `v2.5.0` tag. No protocol behavior
+  changes; packet lock release and the two-commit attestation/tag relationship
+  are corrected.
+
+## 2.5.0 - 2026-09-03
+
+- Made YAML tracker partitions the canonical machine-readable status store:
+  active index, bounded task shards, archive index, and per-task event streams.
+- Added tracker and event JSON Schemas, reusable YAML templates, and native
+  `validate-tracker.py` and `render-tracker.py` commands.
+- Added duplicate, orphan, partition, state, lock, ownership, row-limit, and
+  generated-projection drift checks.
+- Kept `execution-tracker.md` and its archive as generated human-readable
+  projections for backward-compatible review.
+- Added migration guidance for the database-backed Packet application,
+  including optimistic concurrency, transactional event/projection updates,
+  evidence retention, and audit export requirements.
+- Migration: consumers should create canonical tracker YAML from their current
+  Markdown rows, run the tracker validator, and then update their protocol lock
+  to this release. Existing Markdown consumers may migrate incrementally while
+  retaining the generated projection.
+
 ## 2.4.0 - 2026-09-01
 
 - Fixed OpenSSF Scorecard tag-run failure: Scorecard now skips version-tag

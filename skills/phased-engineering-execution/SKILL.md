@@ -1,6 +1,6 @@
 ---
 name: phased-engineering-execution
-version: 2.4.0
+version: 2.5.0
 description: Break engineering work into owned packets and execute it through evidence-based phases, gates, validation, and handoffs.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,9 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.5.0 (2026-09-03): Made YAML tracker partitions canonical, added generated
+  Markdown projections, append-only task event streams, bounded shard
+  validation, and database-backed consumer guidance.
 - 2.4.0 (2026-09-01): Added structured acceptance contracts, bounded tracker
   sharding, 14-day active packet review cadence, and release-gate correctness
   for version-tag pushes.
@@ -52,17 +55,22 @@ Never reuse an identifier after supersession or cancellation.
   protocol concern and the allowed packet classes.
 - `protocol.lock.yaml` selects the immutable protocol source and skill
   versions for the consuming project.
-- `execution-tracker.md` is the task status source of truth, relative to the
-  configured project protocol root.
+- `tracker/index.yaml` is the canonical active task-status index, relative to
+  the configured project protocol root. Declared `tracker/shards/*.yaml`
+  contain bounded task projections; `tracker/events/*.yaml` contains
+  append-only task history.
+- `execution-tracker.md` is a generated human-readable projection, not the
+  canonical status source.
 - `work-packets/<PACKET-ID>.yaml` is the packet source of truth, relative to
   the configured project protocol root.
 - Terminal packet files and rows are retained in
-  `archive/work-packets/` and `archive/execution-tracker-archive.md` after
-  cleanup rollover; they are not duplicated in the active partition.
-- The active tracker index is capped at 25 packet rows. Additional active rows
-  belong in one task shard per task under `tracker-shards/<TASK-ID>.md`, with
-  a 50-row cap per shard. The validator treats the index and shards as one
-  partition and rejects duplicate, orphan, or over-limit rows.
+  `archive/work-packets/` and `tracker/archive/index.yaml` after cleanup
+  rollover; they are not duplicated in the active partition.
+- The active YAML tracker index is capped at 25 packet rows. Additional
+  active rows belong in declared task shards under
+  `tracker/shards/<TASK-ID>.yaml`, with a 50-row cap per shard. The validator
+  treats the index and shards as one partition and rejects duplicate, orphan,
+  state-mismatched, or over-limit rows.
 - Evidence, decisions, handoffs, cleanup records, and skill gaps are linked
   by ID relative to that same root.
 - Chat is not the sole record of ownership, scope, approval, blocker, or completion.
@@ -191,7 +199,9 @@ Complete exactly these six steps before implementation:
 3. Inventory likely dead code, stale artifacts, temporary files, orphaned tests, and unused dependencies.
 4. Capture current behavior, tests, screenshots, accessibility snapshots, fixtures, and data samples as immutable evidence.
 5. Separate observed facts, assumptions, known limitations, and unavailable fixtures.
-6. Register packets, owners, locks, acceptance criteria, and required Design and Data gates in the tracker.
+6. Register packets, owners, locks, acceptance criteria, and required Design
+   and Data gates in `tracker/index.yaml` or its declared task shard. Append
+   significant transitions to the task event stream.
 
 ## Ownership and locks
 
@@ -366,9 +376,9 @@ The core protocol does not require a particular coding assistant, CLI, IDE, or
 workflow engine.
 
 1. **During spec planning** — requirements gathered via AskUser, scope-in/out, and acceptance criteria are exactly the packet's `open_questions`, `scope`, and `acceptance_criteria`. Write them once, in the spec.
-2. **On spec approval (first write)** — if the work is multi-step, touches shared resources, or needs a handoff, the agent's FIRST action after approval is to create the packet YAML with the approved spec's file path in `baseline_refs` (and `design_decision_ref` when the spec decided a design), set `claim_timestamp` and locks, and register it in the tracker at state `Claimed` (transitioning to `Implementing` once coding starts). The approved spec counts as the Design Gate artifact; a separate Decision record is only needed if the design changes during implementation.
-3. **Small single-file specs** — no packet. Instead add one line to the tracker's session log noting the spec path and resulting commit. Keeps the ledger cheap enough to actually maintain.
-4. **Before ending any task or session** — update packet state and tracker row. A task may never be called complete with a stale tracker. Merged code with a tracker row still saying Implementing/Validation is a process failure, not a formality.
+2. **On spec approval (first write)** — if the work is multi-step, touches shared resources, or needs a handoff, the agent's FIRST action after approval is to create the packet YAML with the approved spec's file path in `baseline_refs` (and `design_decision_ref` when the spec decided a design), set `claim_timestamp` and locks, and register it in `tracker/index.yaml` or the appropriate shard at state `Claimed` (transitioning to `Implementing` once coding starts). Append the transition to the task event stream. The approved spec counts as the Design Gate artifact; a separate Decision record is only needed if the design changes during implementation.
+3. **Small single-file specs** — no packet. Instead add one event to the task event stream noting the spec path and resulting commit. Keeps the canonical ledger compact.
+4. **Before ending any task or session** — update packet state, canonical tracker row, and event stream, then regenerate the Markdown projection. A task may never be called complete with a stale tracker.
 
 ### Batch acceptance and task closure
 
@@ -385,7 +395,8 @@ For every packet in an accepted batch, the coordinator SHALL:
 3. preserve documented limitations, skipped checks, and unresolved items;
 4. move only packets whose acceptance criteria, evidence, and required gates
    are satisfied to `Complete`;
-5. release that packet's locks and reconcile its tracker row atomically.
+5. release that packet's locks and reconcile its canonical tracker row and
+   generated projection atomically.
 
 One packet's acceptance must not close another packet that lacks evidence,
 handoff, required validation, or a recorded receiver decision. A task may
@@ -396,8 +407,9 @@ after a batch acceptance.
 
 ### Start
 
-1. Read and pass the project's protocol-lock preflight, then read the
-   tracker, requirements, applicable skills, and assigned packet.
+1. Read and pass the project's protocol-lock preflight, then read the active
+   tracker index, relevant task shard/events, requirements, applicable skills,
+   and assigned packet.
 2. Confirm actor identity, capabilities, risk tier, approval policy, owner,
    reviewer, cleanup owner, dependencies, locks, gates, and scope.
 3. Claim the packet and complete the baseline before editing. Include the

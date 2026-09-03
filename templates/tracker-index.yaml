@@ -1,0 +1,6 @@
+tracker_schema_version: 1
+partition: active
+max_rows: 25
+updated_at: "YYYY-MM-DD"
+shards: []
+rows: []

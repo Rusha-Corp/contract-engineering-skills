@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Rusha-Corp/contract-engineering-skills/schemas/tracker.schema.json",
+  "title": "Contract Engineering Tracker Partition",
+  "type": "object",
+  "required": ["tracker_schema_version", "partition", "max_rows", "rows"],
+  "properties": {
+    "tracker_schema_version": {"type": "integer", "const": 1},
+    "partition": {"enum": ["active", "archive"]},
+    "max_rows": {"type": "integer", "minimum": 1},
+    "updated_at": {"type": "string", "minLength": 1},
+    "shards": {"type": "array", "items": {"type": "string"}},
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["task_id", "packet_id", "state", "owner", "reviewer", "locks", "next_action", "updated_at"],
+        "properties": {
+          "task_id": {"type": "string", "pattern": "^[A-Z0-9-]+-T[0-9]{3}$"},
+          "packet_id": {"type": "string", "pattern": "^[A-Z0-9-]+-T[0-9]{3}-P[0-9]{3}$"},
+          "state": {"type": "string", "minLength": 1},
+          "owner": {"type": "string", "minLength": 1},
+          "reviewer": {"type": "string", "minLength": 1},
+          "locks": {"type": "array", "items": {"type": "string"}},
+          "next_action": {"type": "string", "minLength": 1},
+          "updated_at": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

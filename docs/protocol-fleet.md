@@ -8,9 +8,10 @@ where fleet management is needed.
 ## Consumer inventory
 
 Record each consuming repository, owner, environment, lock path, pinned
-release/ref, lock schema, harnesses, adapters, skill directory, compatibility
-window, migration status, last verification, and evidence. Do not record
-credentials or private session content.
+release/ref, lock schema, tracker format, database-projection status,
+harnesses, adapters, skill directory, compatibility window, migration status,
+last verification, and evidence. Do not record credentials or private session
+content.
 
 The inventory is metadata about consumers; it does not replace the consumer's
 project-local lock, tracker, packets, or evidence.
@@ -19,8 +20,9 @@ project-local lock, tracker, packets, or evidence.
 
 Before publishing a release:
 
-1. Compare the release's schema, state-machine, safeguard, adapter, and
-   migration changes with each supported consumer.
+1. Compare the release's schema, state-machine, safeguard, adapter, tracker
+   format, database-projection, and migration changes with each supported
+   consumer.
 2. Identify consumers outside the supported compatibility window.
 3. Create migration packets for breaking changes before changing locks.
 4. Test representative harnesses and protocol preflight.

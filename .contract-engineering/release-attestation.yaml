@@ -1,73 +1,88 @@
 attestation_version: 1
-attestation_id: CENG-T004-P022-ATT001
-issued_at: '2026-09-01T09:50:00Z'
-expires_at: '2027-09-01T09:50:00Z'
+attestation_id: CENG-T012-P001-ATT005
+issued_at: "2026-09-03T22:00:00Z"
+expires_at: "2027-09-03T22:00:00Z"
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: 2b556a15f37e2bfaf9867917f191762908dee44e
-  release: 2.4.0
+  commit: 80f1c21f9428324e07644484bdfdac3832bb49e9
+  release: 2.5.4
   artifacts:
-  - path: skills/phased-engineering-execution/SKILL.md
-    sha256: 25358b7d61ebcf4354bcdd6859c654045f2e3d532f81f2515dcbb465d2507f9e
-  - path: skills/cleanup-protocol/SKILL.md
-    sha256: f878e01912c343710a4d4bc1ccaf5465ceefa0ad787388d4372726651930f6d9
-  - path: skills/project-lifecycle/SKILL.md
-    sha256: dbca337ef455383a2bad0d3fb6264d9461bcbc2036f5db03cdb47977ce8c733f
-  - path: skills/skill-evolution/SKILL.md
-    sha256: 149be48373c05e58e1127efd4dc329f3f0af516a836d31b99cb62b64e0a2cafd
-  - path: skills/coding-principles/SKILL.md
-    sha256: 7b4fb4e71e18e6e256776ff0918c8693815f060088485b5a72c2d886ee0c3770
-  - path: skills/security-assurance/SKILL.md
-    sha256: c0e4226a0c8630d25b234a52097fad7dd08fe817eb3a22e1f5045fb1faffc847
-  - path: schemas/work-packet.schema.json
-    sha256: 857f2bbaef5b19c190df840eafc779c27708f13cd573a98e370fba51246fe107
-  - path: CHANGELOG.md
-    sha256: 9630bb3e174039709949531e60d8dab91c8b2b6c16eee36c9640d90e7c19e49b
-  - path: .gitleaks.toml
-    sha256: 7883026ea65018b3828382c1b6c7c646f84f94db0e8a5bdbc56b3f5cb18253c9
-  - path: .github/workflows/security.yml
-    sha256: 4f85eba058db9e4efb64c5ae16f66d3823410f745845aca0160291b2a98d746f
-  - path: assets/contract-spark/contract-spark-mark.svg
-    sha256: 134cfd473544d24753ee824b221d0edd44775905f9baa6e6d91a78a93c7056fe
-  - path: assets/contract-spark/contract-spark-lockup.svg
-    sha256: eacbf5ff87a73a995fda3d5d902a969938ab63ad17f80eab0cb1c9cfc60a2b0b
-  - path: assets/contract-spark/contract-spark-badge.svg
-    sha256: b610dd91f34296f10b4b87291800d86428110ba06cc0e8ef8ed768f719feb675
-  - path: docs/visual-identity.md
-    sha256: fa438fc4e3da37d0a916bbf29949d2437617a9376a09ad57bbbefc18f0582523
-  - path: scripts/validate-svg-assets.py
-    sha256: deb75910df4b89abb4538e15682c24e52f922c9da6b4203fb83b8d884ee92962
-  - path: scripts/check-markdown-links.py
-    sha256: be99a3487867b775ad1798953ca3ff8a36d96d044b754ca9d5f4942ce3bbdcf1
+    - path: .github/workflows/protocol-validation.yml
+      sha256: d737588c32eb97b98129fc176a9a6430d4b34c0c9457b986eb6302a1a43af58b
+    - path: CHANGELOG.md
+      sha256: 10a60416ccd7368a51fecb0c417817f8e6d26c0b5d416f64b5a290595ac17eb1
+    - path: README.md
+      sha256: b2ec83a5bbb26dcb29ab0318f01662bca624135e6f0ce54ad4d693eb281994c5
+    - path: docs/protocol-configuration.md
+      sha256: ab52c2d4754bbeb015e63aa81cbafd7613e2c45f7881e24995daa31252b81673
+    - path: docs/protocol-fleet.md
+      sha256: 4fb263853267ed0ad9c5db51ae0fe1d502e7cb20254bc9acc4bafa082a4d0121
+    - path: docs/release-integrity.md
+      sha256: 360e379fb03e04c5bedc390c1ec7742ad9d8b9498391f0441b28d57bb0fd7d22
+    - path: docs/repository-development.md
+      sha256: 60dba771f2d86c0448887e209f8f7d2ba95b50c0fb4eb6c0dec0aeff77e2b944
+    - path: docs/tracker-storage.md
+      sha256: afca53df000843a0aa8c267f4fc06052dd0b65721c4e95add1decbb1d0d5837d
+    - path: schemas/tracker-event.schema.json
+      sha256: 8157c1f6ab7cdb5b04eb12d6efa1d5e6364120213cad14c6c9de901024e0e6c0
+    - path: schemas/tracker.schema.json
+      sha256: 238def2f0a93b028345244078a4ae3e2cc3d24b0232f782d026e7b84993bd06c
+    - path: scripts/render-tracker.py
+      sha256: cb5629cf407bd34e1161686b72c33723f6afdd5033aabfd355c51b2d606abc21
+    - path: scripts/validate-contract-records.py
+      sha256: 90ce0f01c1c22e9264fda6f6baae6570277861632e47459e2b8832d05dc9350b
+    - path: scripts/validate-tracker.py
+      sha256: 0fa47441d359ef786e1229ca63ab301e9c5983b0274a93bd0eaec32921614afc
+    - path: skills/cleanup-protocol/SKILL.md
+      sha256: 79af8387cc3219bc1a169561ec77a3349f435bcf0ce61c051f4692ec619765ec
+    - path: skills/phased-engineering-execution/SKILL.md
+      sha256: e67e9f5b9c99d0122b1058c8e5a86c9a283d5b560b2acf2937312b0f858b9d43
+    - path: skills/project-lifecycle/SKILL.md
+      sha256: 37b2793346c8d38180d43486ed7ec0f8bb5f657fd01e9cae0da4650077335136
+    - path: templates/AGENTS.md
+      sha256: 5ec9933cd39f77a7872fd899e62131c2fec7cac3f364ad1c8667d06ae0275c52
+    - path: templates/protocol-consumer.yaml
+      sha256: fa8ccff7ba619b8d6b50b869145e1939c0e3fd6b9e9db55cc8079c6143dae500
+    - path: templates/tracker-event.yaml
+      sha256: 95382c5d288c6416460edb44be292ae3a56be4c024956d4508277f7adb3b25b6
+    - path: templates/tracker-index.yaml
+      sha256: d0af55ef6c727b8771da456c967417e7479bd5e412961b53d590cc2d2fdf921b
+    - path: templates/tracker-shard.yaml
+      sha256: 46046847ea4d3fc1d648c5995f34671e5a201e978351b373eb0d973de281cab4
+    - path: tests/test_tracker.py
+      sha256: 5d80969baaf98438568642678fca00134ca477fb8a1d38d47fe12475c90bfe40
+    - path: .contract-engineering/release-signing-key.asc
+      sha256: b9282ac933a398a5b069e1da094d0a8c87b87548a4c61f6bd4c24dc515b2d499
 publisher:
   identity: Emmanuel
   identity_type: human
-  authentication_ref: GPG-KEY-274B8E457D3BAA92986D4F2FEE48B7C4736E0648
-  workflow: Factory Droid 2.4.0 release workflow
+  authentication_ref: C1E424B182D9BE73803093F9FDD25DE5085489D6
+  workflow: Factory Droid 2.5.4 release workflow
   signing_system: gpg
-  signature_ref: gpg:tag:v2.4.0
+  signature_ref: gpg:tag:v2.5.4:C1E424B182D9BE73803093F9FDD25DE5085489D6
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:2b556a15f37e2bfaf9867917f191762908dee44e
+  builder_digest: git-tree:80f1c21f9428324e07644484bdfdac3832bb49e9
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: 2b556a15f37e2bfaf9867917f191762908dee44e
+  source_commit: 80f1c21f9428324e07644484bdfdac3832bb49e9
   dependencies:
-  - PyYAML 6.0.3, hash-pinned in requirements-ci.txt
-  - gitleaks 8.24.3, SHA-256 pinned in secret-scanning workflow
-  - GitHub CodeQL security-extended workflow
+    - "PyYAML 6.0.3, hash-pinned in requirements-ci.txt"
+    - "gitleaks 8.24.3, SHA-256 pinned in secret-scanning workflow"
+    - "GitHub CodeQL security-extended workflow"
   reproducible: false
 review:
   author: factory-droid
-  independent_approver: contract-driven-handoff-acceptance-reviewer
-  approval_ref: REVIEWER-ACCEPT-CENG-T004-P022-20260901
-  approved_at: '2026-09-01T09:45:00Z'
+  independent_approver: ""
+  exception_ref: CENG-T012-P001-DEC001
+  approval_ref: USER-ACCEPT-CENG-T012-P001-20260903
+  approved_at: "2026-09-03T22:00:00Z"
 verification:
-  verified_at: '2026-09-01T09:50:00Z'
+  verified_at: "2026-09-03T22:00:00Z"
   verifier: factory-droid
   result: pass
-  transparency_ref: local-attestation-verification:2b556a15f37e2bfaf9867917f191762908dee44e
-  revocation_checked_at: '2026-09-01T09:50:00Z'
+  transparency_ref: local-attestation-verification:80f1c21f9428324e07644484bdfdac3832bb49e9
+  revocation_checked_at: "2026-09-03T22:00:00Z"
 revocation:
   status: active
-  revocation_ref: null
-  rollback_ref: 16a95d5cc7f6f7629ed13498a0df4ba7e77a54fe
+  revocation_ref: CENG-T012-P001-EV005-v2.5.3-unverified-33796183011
+  rollback_ref: 2b556a15f37e2bfaf9867917f191762908dee44e

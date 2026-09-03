@@ -1,0 +1,111 @@
+handoff_version: 2
+handoff_id: CENG-T012-P001-HO001
+packet_id: CENG-T012-P001
+transition:
+  from: Validation
+  to: Handoff
+  reason: "Implementation and available local validation are complete; independent release review is required before publication."
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ""
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: "2026-09-03T19:30:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T012-P001-20260903
+  signature_ref: ""
+base_revision: 25a1631d2f4d094908c4c69fbc0bbff2819de1ec
+head_revision: f57cfed4807af3a721d6424859aeeddd43f58d87
+scope_digest: b2f5849036ac60a7a070a3dff5c1eb00084b3dde24afb1839c6b5733d270d406
+changed_resources:
+  - path: .contract-engineering/archive/execution-tracker-archive.md
+    sha256: 10265f8dab5b1f5a6c3bb92154e580f04900b26527184dc2e39f0f67254aa6dd
+  - path: .contract-engineering/decisions/CENG-T012-P001-DEC001.yaml
+    sha256: df513a1e8bcc226f7a11ea7b4900441f7bfbb9a6f2d5ef3654df255984ca1cb7
+  - path: .contract-engineering/evidence/CENG-T012-P001-EV001.md
+    sha256: df831a242be689b2618b0162c2d8aa2c0f3e1774a157922df682e8853a1e2f1c
+  - path: .contract-engineering/evidence/CENG-T012-P001-EV002.md
+    sha256: cb2c1984e3c03298078c74d067c13912d0d8b6a9b2bb763a1c23afeb8b60ca6d
+  - path: .contract-engineering/evidence/CENG-T012-P001-EV003.md
+    sha256: 26af45beae640e84904a4cf0e3aa547c43f3e50b98c2a7a1f080640ccf81576c
+  - path: .contract-engineering/evidence/CENG-T012-P001-EV004.md
+    sha256: 30d9e385a94796825fb2113bb5d39a0b5de6e245fd083f8fefadab567e28cd3c
+  - path: .contract-engineering/evidence/CENG-T012-P001-EV005.md
+    sha256: 0ce18e3d0a8d9499a3361356f536e23e399538aee3cb0a95c2566200e2c1ba69
+  - path: .contract-engineering/execution-tracker.md
+    sha256: 63b32a80141b7d911a837354c6ab2458873c02782c2e6ad399f6f22df75a44f7
+  - path: .contract-engineering/release-signing-key.asc
+    sha256: b9282ac933a398a5b069e1da094d0a8c87b87548a4c61f6bd4c24dc515b2d499
+  - path: .contract-engineering/tracker/archive/index.yaml
+    sha256: fc9af8289efb80c078a1be70a7cb51bda92b4b30dbb7004fafa4e6989ca6bc2c
+  - path: .contract-engineering/tracker/events/CENG-T012.yaml
+    sha256: ccc2a71878536a3b1ecf0d88731d5fb3e1f836f9ab4dfc895d23cb03439a0f04
+  - path: .contract-engineering/tracker/index.yaml
+    sha256: 662d0e7e5414a7c816e8476c139ce9eed01f2333323ae52fb76598193217a931
+  - path: .contract-engineering/work-packets/CENG-T012-P001.yaml
+    sha256: bd52b7c15fc592c7315dda4e3b9e69d55e9af88db3a9ef108884ec7582920fc5
+  - path: .github/workflows/protocol-validation.yml
+    sha256: d737588c32eb97b98129fc176a9a6430d4b34c0c9457b986eb6302a1a43af58b
+  - path: CHANGELOG.md
+    sha256: 10a60416ccd7368a51fecb0c417817f8e6d26c0b5d416f64b5a290595ac17eb1
+  - path: README.md
+    sha256: b2ec83a5bbb26dcb29ab0318f01662bca624135e6f0ce54ad4d693eb281994c5
+  - path: docs/protocol-configuration.md
+    sha256: ab52c2d4754bbeb015e63aa81cbafd7613e2c45f7881e24995daa31252b81673
+  - path: docs/protocol-fleet.md
+    sha256: 4fb263853267ed0ad9c5db51ae0fe1d502e7cb20254bc9acc4bafa082a4d0121
+  - path: docs/release-integrity.md
+    sha256: 360e379fb03e04c5bedc390c1ec7742ad9d8b9498391f0441b28d57bb0fd7d22
+  - path: docs/repository-development.md
+    sha256: 60dba771f2d86c0448887e209f8f7d2ba95b50c0fb4eb6c0dec0aeff77e2b944
+  - path: docs/tracker-storage.md
+    sha256: afca53df000843a0aa8c267f4fc06052dd0b65721c4e95add1decbb1d0d5837d
+  - path: schemas/tracker-event.schema.json
+    sha256: 8157c1f6ab7cdb5b04eb12d6efa1d5e6364120213cad14c6c9de901024e0e6c0
+  - path: schemas/tracker.schema.json
+    sha256: 238def2f0a93b028345244078a4ae3e2cc3d24b0232f782d026e7b84993bd06c
+  - path: scripts/render-tracker.py
+    sha256: cb5629cf407bd34e1161686b72c33723f6afdd5033aabfd355c51b2d606abc21
+  - path: scripts/validate-contract-records.py
+    sha256: 90ce0f01c1c22e9264fda6f6baae6570277861632e47459e2b8832d05dc9350b
+  - path: scripts/validate-tracker.py
+    sha256: 0fa47441d359ef786e1229ca63ab301e9c5983b0274a93bd0eaec32921614afc
+  - path: skills/cleanup-protocol/SKILL.md
+    sha256: 79af8387cc3219bc1a169561ec77a3349f435bcf0ce61c051f4692ec619765ec
+  - path: skills/phased-engineering-execution/SKILL.md
+    sha256: e67e9f5b9c99d0122b1058c8e5a86c9a283d5b560b2acf2937312b0f858b9d43
+  - path: skills/project-lifecycle/SKILL.md
+    sha256: 37b2793346c8d38180d43486ed7ec0f8bb5f657fd01e9cae0da4650077335136
+  - path: templates/AGENTS.md
+    sha256: 5ec9933cd39f77a7872fd899e62131c2fec7cac3f364ad1c8667d06ae0275c52
+  - path: templates/protocol-consumer.yaml
+    sha256: fa8ccff7ba619b8d6b50b869145e1939c0e3fd6b9e9db55cc8079c6143dae500
+  - path: templates/tracker-event.yaml
+    sha256: 95382c5d288c6416460edb44be292ae3a56be4c024956d4508277f7adb3b25b6
+  - path: templates/tracker-index.yaml
+    sha256: d0af55ef6c727b8771da456c967417e7479bd5e412961b53d590cc2d2fdf921b
+  - path: templates/tracker-shard.yaml
+    sha256: 46046847ea4d3fc1d648c5995f34671e5a201e978351b373eb0d973de281cab4
+  - path: tests/test_tracker.py
+    sha256: 5d80969baaf98438568642678fca00134ca477fb8a1d38d47fe12475c90bfe40
+created_at: "2026-09-03T18:25:45Z"
+expires_at: ""
+approval_ref: "User request to update and release contract-engineering-skills"
+verification:
+  verified_at: "2026-09-03T18:25:45Z"
+  verifier: droid
+  result: pass
+  revocation_checked_at: ""
+  verification_ref: CENG-T012-P001-EV001
+receiver_status: accepted
+receiver_notes: "User accepted the documented handoff and explicitly authorized publication despite the unavailable independent review. The two review launches failed before producing a verdict; this limitation remains recorded in EV001."
+accepted_revision: f57cfed4807af3a721d6424859aeeddd43f58d87
+accepted_scope_digest: b2f5849036ac60a7a070a3dff5c1eb00084b3dde24afb1839c6b5733d270d406
+accepted_evidence_refs:
+  - CENG-T012-P001-EV001
+  - CENG-T012-P001-EV002

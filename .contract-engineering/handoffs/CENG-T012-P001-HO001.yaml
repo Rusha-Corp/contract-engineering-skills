@@ -20,7 +20,7 @@ receiver:
   acceptance_ref: USER-ACCEPT-CENG-T012-P001-20260903
   signature_ref: ""
 base_revision: 25a1631d2f4d094908c4c69fbc0bbff2819de1ec
-head_revision: 7344e4a8e032903eed3a5969d67692cd637ffa60
+head_revision: 2efff0c0bcf099f38872f72fa726e3cda11208f7
 scope_digest: 0474d15c3d2cd91b18e9fc75ff24d16a40b617b5ac577f35bf6464df8544ff85
 changed_resources:
   - path: .contract-engineering/archive/execution-tracker-archive.md
@@ -102,7 +102,7 @@ verification:
   verification_ref: CENG-T012-P001-EV001
 receiver_status: accepted
 receiver_notes: "User accepted the documented handoff and explicitly authorized publication despite the unavailable independent review. The two review launches failed before producing a verdict; this limitation remains recorded in EV001."
-accepted_revision: 7344e4a8e032903eed3a5969d67692cd637ffa60
+accepted_revision: 2efff0c0bcf099f38872f72fa726e3cda11208f7
 accepted_scope_digest: 0474d15c3d2cd91b18e9fc75ff24d16a40b617b5ac577f35bf6464df8544ff85
 accepted_evidence_refs:
   - CENG-T012-P001-EV001

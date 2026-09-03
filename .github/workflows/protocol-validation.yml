@@ -159,6 +159,7 @@ jobs:
           import hashlib
           import os
           import re
+          from datetime import datetime, timezone
           from pathlib import Path
           import yaml
 
@@ -190,6 +191,11 @@ jobs:
                   raise SystemExit(f"release exception is missing: {exception_path}")
               exception = yaml.safe_load(exception_path.read_text())
               required_exception = (
+                  "proposal",
+                  "controls",
+                  "review_owner",
+                  "review_at",
+                  "success_measure",
                   "status",
                   "approved_by",
                   "approved_at",
@@ -202,6 +208,36 @@ jobs:
               if missing_exception or exception.get("status") != "approved":
                   raise SystemExit(
                       f"release exception is incomplete or not approved: "
+                      f"{exception_ref}"
+                  )
+              try:
+                  approved_at = datetime.fromisoformat(
+                      str(exception["approved_at"]).replace("Z", "+00:00")
+                  )
+                  expires_at = datetime.fromisoformat(
+                      str(exception["expires_at"]).replace("Z", "+00:00")
+                  )
+                  review_at = datetime.fromisoformat(
+                      str(exception["review_at"]).replace("Z", "+00:00")
+                  )
+              except ValueError as exc:
+                  raise SystemExit(
+                      f"release exception timestamps are invalid: {exception_ref}"
+                  ) from exc
+              now = datetime.now(timezone.utc)
+              if approved_at.tzinfo is None or expires_at.tzinfo is None or review_at.tzinfo is None:
+                  raise SystemExit(
+                      f"release exception timestamps must include timezone: "
+                      f"{exception_ref}"
+                  )
+              if expires_at <= approved_at or expires_at <= now or review_at > expires_at:
+                  raise SystemExit(
+                      f"release exception is expired or has invalid review window: "
+                      f"{exception_ref}"
+                  )
+              if not re.fullmatch(r"[0-9a-f]{40}", str(exception["rollback_ref"])):
+                  raise SystemExit(
+                      f"release exception rollback_ref must be an immutable commit: "
                       f"{exception_ref}"
                   )
           if attestation["verification"].get("result") != "pass":

@@ -1,6 +1,6 @@
 ---
 name: project-lifecycle
-version: 2.3.0
+version: 2.4.0
 description: Orchestrate phased engineering execution, cleanup, skill evolution, user verification, and closure across project iterations.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,9 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.4.0 (2026-09-03): Made YAML tracker partitions and generated Markdown
+  projections part of iteration boundaries, with separate event history for
+  database-backed consumers.
 - 2.3.0 (2026-09-01): Added bounded tracker index, task-shard, and 14-day
   active packet review cadence to iteration closure criteria.
 - 2.2.0 (2026-08-30): Added agent observability and incident-response
@@ -67,7 +70,7 @@ An iteration may contain one feature, a focused refactor, or a bounded group of 
 ### Entry criteria
 
 - The prior iteration is closed or explicitly paused.
-- `<protocol_root>/execution-tracker.md` exists and has no untransferred
+- `<protocol_root>/tracker/index.yaml` exists and has no untransferred
   active locks.
 - The objective, scope, owner, and expected closure conditions are recorded.
 - Applicable Skill versions are pinned.
@@ -81,9 +84,9 @@ An iteration may contain one feature, a focused refactor, or a bounded group of 
 - Cleanup has run and high-risk actions have user approval.
 - All skill gaps have a user decision.
 - The closure record is complete and user verification is recorded.
-- Terminal packets have been rolled from `execution-tracker.md` into
-  `archive/execution-tracker-archive.md`, or an intentional-retention
-  decision is recorded under policy.
+- Terminal packets have been rolled from the active YAML index/shards into
+  `tracker/archive/index.yaml`, or an intentional-retention decision is
+  recorded under policy. Markdown projections are regenerated.
 - The active tracker index is no larger than 25 rows, task shards are no
   larger than 50 rows, and every active packet has passed its 14-day review
   cadence.

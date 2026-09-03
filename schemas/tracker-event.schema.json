@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Rusha-Corp/contract-engineering-skills/schemas/tracker-event.schema.json",
+  "title": "Contract Engineering Tracker Event Stream",
+  "type": "object",
+  "required": ["task_id", "schema_version", "events"],
+  "properties": {
+    "task_id": {"type": "string", "pattern": "^[A-Z0-9-]+-T[0-9]{3}$"},
+    "schema_version": {"type": "integer", "const": 1},
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["event_id", "packet_id", "type", "actor", "occurred_at", "summary"],
+        "properties": {
+          "event_id": {"type": "string", "minLength": 1},
+          "packet_id": {"type": "string", "pattern": "^[A-Z0-9-]+-T[0-9]{3}-P[0-9]{3}$"},
+          "type": {"type": "string", "minLength": 1},
+          "actor": {"type": "string", "minLength": 1},
+          "occurred_at": {"type": "string", "minLength": 1},
+          "summary": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,6 +1,6 @@
 ---
 name: cleanup-protocol
-version: 2.3.0
+version: 2.4.0
 description: Remove dead code, stale artifacts, and temporary debris after validation using risk-tiered, auditable procedures.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,9 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.4.0 (2026-09-03): Made YAML tracker partitions canonical and Markdown
+  files generated projections; added event-stream and database-consumer
+  archive guidance.
 - 2.3.0 (2026-09-01): Added bounded tracker index cap, task-shard support,
   14-day active packet review cadence, and terminal-only compaction rules.
 - 2.2.0 (2026-08-30): Added evidence classification, redaction, secret,
@@ -166,17 +169,19 @@ list.
 | Closure record                                | `closure/`              | Retain per evidence policy                |
 | Archived and beyond retention                 | Archive storage                  | Delete only under the applicable approval |
 
-The archive tracker is
-`archive/execution-tracker-archive.md`. It is the canonical append-only
-ledger for terminal packet rows; the active `execution-tracker.md` contains
-only live or not-yet-closed work.
+The canonical archive tracker is `tracker/archive/index.yaml`. The
+`archive/execution-tracker-archive.md` file is its generated human-readable
+projection. It contains terminal packet rows; the active YAML index and
+shards contain only live or not-yet-closed work.
 
-The active tracker index has a 25-row cap. Once it reaches 26 rows, move
-task-specific active rows into `tracker-shards/<TASK-ID>.md`; each shard has a
-50-row cap and uses the standard tracker table. Shards are not archives:
+The active YAML tracker index has a 25-row cap. Once it reaches 26 rows, move
+task-specific active rows into a declared
+`tracker/shards/<TASK-ID>.yaml`; each shard has a 50-row cap. Shards are not
+archives:
 active packet YAML remains in `work-packets/`, and every packet appears in
-exactly one active index/shard or the archive ledger. The record validator
-enforces these bounds and partition invariants.
+exactly one active index/shard or the archive index. The tracker validator
+enforces these bounds and partition invariants. Append-only transition history
+belongs in `tracker/events/<TASK-ID>.yaml`, not in the active projection.
 
 Review active packets every 14 days. Resolve an unchanged packet through the
 normal state machine, using `Interrupted` with a recovery note when work is
@@ -190,16 +195,17 @@ the following procedure:
 
 1. Identify packets in `work-packets/` whose state is `Complete` or
    `Cancelled` and whose closure/user-confirmation requirements are satisfied.
-2. Confirm each packet has a matching row in `execution-tracker.md` and is not
-   already present in `archive/work-packets/`.
-3. Create `archive/work-packets/` and
-   `archive/execution-tracker-archive.md` when needed.
+2. Confirm each packet has a matching row in the active YAML index or shard and
+   is not already present in `archive/work-packets/`.
+3. Create `archive/work-packets/` and `tracker/archive/index.yaml` when
+   needed.
 4. Move each packet YAML to `archive/work-packets/` and move, rather than
-   copy, its row to the archive ledger.
-5. Verify that no archived row remains in the active tracker, every archived
+   copy, its row to `tracker/archive/index.yaml`.
+5. Verify that no archived row remains in the active YAML tracker, every archived
    packet has an archive row, and the packet state is terminal. A `Complete`
    packet must retain its handoff reference.
-6. If verification fails, restore the moved files and rows before continuing.
+6. Regenerate both Markdown projections and run tracker validation.
+7. If verification fails, restore the moved files and rows before continuing.
 
 The procedure is harness-native. Use the harness's file and YAML capabilities
 to perform the operation and verify the invariants; no Python runtime or

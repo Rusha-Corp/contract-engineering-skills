@@ -16,13 +16,14 @@ protocol skills and linked project documents; do not duplicate them here.
    work packet.
 4. Work only from a claimed packet. Create or update the packet and tracker
    entry before editing when the task is not already tracked.
-5. At cleanup or iteration closure, roll terminal packet files and tracker
-   rows into the configured archive partition as described by the
+5. At cleanup or iteration closure, roll terminal packet files and canonical
+   tracker rows into the configured archive partition as described by the
    `cleanup-protocol` skill. Use native harness tooling; no Python runtime or
    repository archive command is required.
-6. Keep `execution-tracker.md` at 25 rows or fewer. Shard larger task views
-   into `tracker-shards/<TASK-ID>.md` with at most 50 rows per shard; the
-   validator checks uniqueness, ownership, and archive partitioning.
+6. Keep `tracker/index.yaml` at 25 rows or fewer. Shard larger task views into
+   declared `tracker/shards/<TASK-ID>.yaml` files with at most 50 rows per
+   shard; `execution-tracker.md` is generated, and the validator checks
+   uniqueness, ownership, state alignment, and archive partitioning.
 
 ## Scope and ownership
 

@@ -80,6 +80,10 @@ jobs:
           PY
       - name: Validate contract records
         run: python scripts/validate-contract-records.py
+      - name: Validate canonical tracker partitions
+        run: |
+          python scripts/validate-tracker.py --root .contract-engineering
+          python scripts/render-tracker.py --root .contract-engineering --check
       - name: Run repository unit tests
         run: python -m unittest discover -s tests -p 'test_*.py'
       - name: Validate normative JSON schemas

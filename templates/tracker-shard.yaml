@@ -1,0 +1,6 @@
+tracker_schema_version: 1
+partition: active
+task_id: PROJECT-T001
+max_rows: 50
+updated_at: "YYYY-MM-DD"
+rows: []

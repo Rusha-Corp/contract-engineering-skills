@@ -1,0 +1,9 @@
+task_id: PROJECT-T001
+schema_version: 1
+events:
+  - event_id: PROJECT-T001-E001
+    packet_id: PROJECT-T001-P001
+    type: state_transition
+    actor: ""
+    occurred_at: "YYYY-MM-DDTHH:MM:SSZ"
+    summary: ""

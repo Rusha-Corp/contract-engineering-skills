@@ -1,0 +1,27 @@
+task_id: CENG-T012
+schema_version: 1
+events:
+  - event_id: CENG-T012-E001
+    packet_id: CENG-T012-P001
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-03T18:15:00Z"
+    summary: "Claimed the tracker storage, sharding, projection, validation, and consumer guidance packet."
+  - event_id: CENG-T012-E002
+    packet_id: CENG-T012-P001
+    type: baseline
+    actor: droid
+    occurred_at: "2026-09-03T18:20:00Z"
+    summary: "Recorded the 18 live and 24 archived packet-row migration baseline."
+  - event_id: CENG-T012-E003
+    packet_id: CENG-T012-P001
+    type: implementation
+    actor: droid
+    occurred_at: "2026-09-03T19:00:00Z"
+    summary: "Implemented canonical tracker partitions, bounded projections, event history, validation, schemas, templates, CI checks, and database-backed consumer guidance."
+  - event_id: CENG-T012-E004
+    packet_id: CENG-T012-P001
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-03T19:20:00Z"
+    summary: "Node-based YAML/JSON parsing and tracker alignment checks passed; Python validation and unit tests are deferred because no Python interpreter is installed in the working container."

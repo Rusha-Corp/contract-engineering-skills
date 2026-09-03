@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import re
 import sys
 from pathlib import Path
@@ -440,6 +441,8 @@ def validate_tracker(
     live_packets: dict[str, dict[str, Any]],
     archive_packets: dict[str, dict[str, Any]],
 ) -> None:
+    if (root / "tracker/index.yaml").is_file():
+        return
     all_packets = {**live_packets, **archive_packets}
     live_tracker_path = root / "execution-tracker.md"
     if not live_tracker_path.is_file():
@@ -614,6 +617,25 @@ def enforce_scope(packet: dict[str, Any], changed_paths: list[str]) -> None:
             fail(f"{packet['packet_id']}: changed path is outside scope.in: {changed}")
 
 
+def validate_canonical_tracker(root: Path) -> None:
+    if not (root / "tracker/index.yaml").is_file():
+        return
+    script = Path(__file__).with_name("validate-tracker.py")
+    spec = importlib.util.spec_from_file_location("validate_tracker", script)
+    if spec is None or spec.loader is None:
+        fail(f"{script}: cannot load canonical tracker validator")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    module.validate(root)
+    render_script = Path(__file__).with_name("render-tracker.py")
+    render_spec = importlib.util.spec_from_file_location("render_tracker", render_script)
+    if render_spec is None or render_spec.loader is None:
+        fail(f"{render_script}: cannot load tracker renderer")
+    renderer = importlib.util.module_from_spec(render_spec)
+    render_spec.loader.exec_module(renderer)
+    renderer.render_projections(root, check=True)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", default=".contract-engineering", type=Path)
@@ -655,6 +677,7 @@ def main() -> int:
         for path in sorted(directory.glob("*.yaml")):
             validate_packet(path, packets[path.stem], packets)
     validate_project_lock(root)
+    validate_canonical_tracker(root)
     validate_tracker(root, live_packets, archive_packets)
     validate_dependency_graph(packets)
     validate_locks(packets)

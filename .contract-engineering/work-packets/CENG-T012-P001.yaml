@@ -1,0 +1,133 @@
+packet_id: CENG-T012-P001
+task_id: CENG-T012
+phase: P0_FOUNDATIONS
+domain: coding
+packet_class: cross-cutting
+title: "Add machine-readable tracker storage and bounded projections"
+objective: "Make tracker state canonical in bounded YAML partitions while preserving a generated Markdown view and documenting database-backed consumer integration."
+open_questions: []
+scope:
+  in:
+    - "Define canonical YAML tracker index, task shards, event history, and archive metadata."
+    - "Add schemas and templates for tracker storage and event records."
+    - "Extend record validation to enforce tracker partition uniqueness, limits, state alignment, and generated-view consistency."
+    - "Provide a native command to render the bounded YAML tracker into execution-tracker.md."
+    - "Document migration, sharding, compaction, concurrency, and database-backed Packet consumer integration."
+  out:
+    - "Implementing a database server, ORM, Packet application, or remote synchronization service."
+    - "Migrating every existing consumer repository in this packet."
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities:
+  - repository-read
+  - repository-write
+  - local-test
+  - local-build
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: droid
+reviewer: worker
+cleanup_owner: droid
+dependencies:
+  - CENG-T011-P006
+locks:
+  - .contract-engineering/
+  - schemas/
+  - templates/
+  - scripts/
+  - docs/
+  - README.md
+claim_timestamp: "2026-09-03T18:15:00Z"
+baseline_refs:
+  - ".contract-engineering/protocol.lock.yaml"
+  - "25a1631d2f4d094908c4c69fbc0bbff2819de1ec"
+  - "docs/repository-development.md"
+  - "docs/protocol-configuration.md"
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+  - "The protocol defines a canonical YAML tracker index, bounded task shards, append-only event history, and archive partition."
+  - "A native validation command rejects duplicate, orphaned, over-limit, stale, or packet-state-inconsistent tracker records."
+  - "A native render command produces a human-readable execution-tracker.md projection without making Markdown the canonical source."
+  - "Migration guidance explains how the future database-backed Packet app uses packet records, events, projections, optimistic concurrency, and audit retention."
+  - "Existing Markdown consumers have a documented backward-compatible migration path."
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T012-P001-AC001
+      statement: "Canonical active and archive tracker partitions, event history, schemas, and templates are present."
+      expected_result: "The repository contains the YAML tracker layout, event stream, JSON Schemas, and reusable templates."
+      verification_method: inspect
+      evidence_refs: [CENG-T012-P001-EV001]
+      failure_result: "Any required canonical record type is missing."
+      validation_ref: CENG-T012-P001-VAL002
+    - id: CENG-T012-P001-AC002
+      statement: "Tracker validation rejects duplicate, orphaned, over-limit, stale, and packet-inconsistent records."
+      expected_result: "The validator enforces identifiers, partition uniqueness, row limits, terminal archive state, ownership, packet alignment, and locks."
+      verification_method: execute
+      verification_command: "python3 scripts/validate-tracker.py --root .contract-engineering"
+      evidence_refs: [CENG-T012-P001-EV001]
+      failure_result: "Invalid tracker fixtures or repository records pass validation."
+      validation_ref: CENG-T012-P001-VAL002
+    - id: CENG-T012-P001-AC003
+      statement: "Markdown tracker files remain generated projections."
+      expected_result: "The renderer produces both projections and check mode detects drift."
+      verification_method: execute
+      verification_command: "python3 scripts/render-tracker.py --root .contract-engineering --check"
+      evidence_refs: [CENG-T012-P001-EV001]
+      failure_result: "A stale Markdown projection is accepted."
+      validation_ref: CENG-T012-P001-VAL003
+    - id: CENG-T012-P001-AC004
+      statement: "Packet consumers have a documented database-backed projection boundary."
+      expected_result: "Packet snapshots, tracker state, events, evidence, handoffs, locks, optimistic concurrency, and audit export are documented."
+      verification_method: inspect
+      evidence_refs: [CENG-T012-P001-EV001]
+      failure_result: "Database guidance permits a second unsynchronized source of truth or drops audit records."
+      validation_ref: CENG-T012-P001-VAL004
+    - id: CENG-T012-P001-AC005
+      statement: "Existing Markdown consumers have a bounded migration path."
+      expected_result: "Legacy consumers can continue using Markdown while adopting YAML canonical state and generated projections."
+      verification_method: inspect
+      evidence_refs: [CENG-T012-P001-EV001]
+      failure_result: "Migration requires an unbounded or flag-day rewrite."
+      validation_ref: CENG-T012-P001-VAL004
+validation_plan:
+  - id: CENG-T012-P001-VAL001
+    kind: validation
+    command: "python3 scripts/validate-contract-records.py"
+    expected: "exit 0 for the repository's records"
+  - id: CENG-T012-P001-VAL002
+    kind: schema
+    command: "python3 scripts/validate-tracker.py --root .contract-engineering"
+    expected: "exit 0 for canonical tracker fixtures and boundary failures"
+  - id: CENG-T012-P001-VAL003
+    kind: render
+    command: "python3 scripts/render-tracker.py --root .contract-engineering --check"
+    expected: "generated Markdown projection is current"
+  - id: CENG-T012-P001-VAL004
+    kind: principles
+    skill: coding-principles
+    checks:
+      - "YAML is the canonical machine-readable tracker state and Markdown is a generated projection."
+      - "Task shards, events, and archives have one ownership boundary and bounded growth."
+      - "Database-backed consumer guidance preserves packet evidence, state transitions, and auditability."
+    expected: "no unresolved principle violations"
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+state: Validation
+evidence_refs:
+  - CENG-T012-P001-EV001
+handoff_ref: null

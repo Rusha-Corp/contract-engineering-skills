@@ -142,9 +142,9 @@ rows:
     updated_at: "2026-09-03"
   - task_id: "CENG-T012"
     packet_id: "CENG-T012-P001"
-    state: "Handoff"
+    state: "Complete"
     owner: "droid"
     reviewer: "worker"
-    locks: [".contract-engineering/", "schemas/", "templates/", "scripts/", "docs/", "README.md"]
-    next_action: "Obtain independent release review"
+    locks: []
+    next_action: "Retain in active index until iteration closure"
     updated_at: "2026-09-03"

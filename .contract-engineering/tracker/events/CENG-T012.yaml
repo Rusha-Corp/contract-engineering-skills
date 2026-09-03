@@ -31,3 +31,9 @@ events:
     actor: droid
     occurred_at: "2026-09-03T19:25:45Z"
     summary: "Submitted CENG-T012-P001-HO001 for independent release review; receiver acceptance is pending."
+  - event_id: CENG-T012-E006
+    packet_id: CENG-T012-P001
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-03T19:30:00Z"
+    summary: "User accepted the handoff and explicitly authorized publication despite both independent reviewer launches failing before producing a verdict."

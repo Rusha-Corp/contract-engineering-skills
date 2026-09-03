@@ -12,12 +12,12 @@ sender:
   authentication_ref: REDACTED-IDENTITY-REF
   signature_ref: ""
 receiver:
-  identity: worker
+  identity: user
   identity_type: agent
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ""
-  acceptance_ref: ""
+  accepted_at: "2026-09-03T19:30:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T012-P001-20260903
   signature_ref: ""
 base_revision: 25a1631d2f4d094908c4c69fbc0bbff2819de1ec
 head_revision: ed1e373d7ae6bc25fd64affc3cb86101ec75237a
@@ -88,8 +88,9 @@ verification:
   result: pass
   revocation_checked_at: ""
   verification_ref: CENG-T012-P001-EV001
-receiver_status: pending
-receiver_notes: ""
-accepted_revision: ""
-accepted_scope_digest: ""
-accepted_evidence_refs: []
+receiver_status: accepted
+receiver_notes: "User accepted the documented handoff and explicitly authorized publication despite the unavailable independent review. The two review launches failed before producing a verdict; this limitation remains recorded in EV001."
+accepted_revision: b166d92704587f3961d785f26dbd05218671b2f4
+accepted_scope_digest: b5c3d5dc3b75a85b473692ff0aa25e405ce43022e59d67e677643ec5ca5cac6b
+accepted_evidence_refs:
+  - CENG-T012-P001-EV001

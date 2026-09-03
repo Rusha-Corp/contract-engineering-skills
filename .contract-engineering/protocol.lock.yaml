@@ -1,8 +1,8 @@
 lock_version: 1
 protocol:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  ref: e505439e2d13502c47197346e34a4e52fc277ebf
-  release: 2.5.3
+  ref: 80f1c21f9428324e07644484bdfdac3832bb49e9
+  release: 2.5.4
 skills:
   phased-engineering-execution:
     version: 2.5.0
@@ -26,8 +26,8 @@ project:
   protocol_root: .contract-engineering
 development:
   status: released
-  ref: e505439e2d13502c47197346e34a4e52fc277ebf
-  based_on_release: 2.5.3
+  ref: 80f1c21f9428324e07644484bdfdac3832bb49e9
+  based_on_release: 2.5.4
   reason: v2.5.3 is the signed corrective release after the v2.5.2 tag failed its stable CI gate; the lock now points to the verified content release.
   consumer_action: Synchronize from the locked ref after running the protocol preflight.
   skills:

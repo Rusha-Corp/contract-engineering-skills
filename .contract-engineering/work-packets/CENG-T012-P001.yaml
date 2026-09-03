@@ -34,13 +34,7 @@ reviewer: worker
 cleanup_owner: droid
 dependencies:
   - CENG-T011-P006
-locks:
-  - .contract-engineering/
-  - schemas/
-  - templates/
-  - scripts/
-  - docs/
-  - README.md
+locks: []
 claim_timestamp: "2026-09-03T18:15:00Z"
 baseline_refs:
   - ".contract-engineering/protocol.lock.yaml"
@@ -131,4 +125,5 @@ sunset_target: ""
 state: Complete
 evidence_refs:
   - CENG-T012-P001-EV001
+  - CENG-T012-P001-EV002
 handoff_ref: CENG-T012-P001-HO001

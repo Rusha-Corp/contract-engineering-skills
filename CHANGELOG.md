@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 2.5.1 - 2026-09-03
+
+- Corrective release for the unverified `v2.5.0` tag. No protocol behavior
+  changes; packet lock release and the two-commit attestation/tag relationship
+  are corrected.
+
 ## 2.5.0 - 2026-09-03
 
 - Made YAML tracker partitions the canonical machine-readable status store:

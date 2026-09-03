@@ -37,3 +37,9 @@ events:
     actor: user
     occurred_at: "2026-09-03T19:30:00Z"
     summary: "User accepted the handoff and explicitly authorized publication despite both independent reviewer launches failing before producing a verdict."
+  - event_id: CENG-T012-E007
+    packet_id: CENG-T012-P001
+    type: release_validation
+    actor: droid
+    occurred_at: "2026-09-03T20:00:00Z"
+    summary: "The v2.5.0 tag workflow failed closed because the attestation subject was not the direct parent of the tag and the complete packet retained packet locks; v2.5.0 is unverified and v2.5.1 corrective publication is required."

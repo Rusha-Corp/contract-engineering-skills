@@ -20,37 +20,39 @@ receiver:
   acceptance_ref: USER-ACCEPT-CENG-T012-P001-20260903
   signature_ref: ""
 base_revision: 25a1631d2f4d094908c4c69fbc0bbff2819de1ec
-head_revision: 2efff0c0bcf099f38872f72fa726e3cda11208f7
-scope_digest: 0474d15c3d2cd91b18e9fc75ff24d16a40b617b5ac577f35bf6464df8544ff85
+head_revision: d6cbcf9a19d6962ddf346b02e6bd5ac7595fff01
+scope_digest: 74c2143fe1017fd9d6dacabc644381c5c80ead09f7cf8ba71f9e352d43e2a710
 changed_resources:
   - path: .contract-engineering/archive/execution-tracker-archive.md
-    sha256: 81d6cac129b3e999de689575d18bd191ffcee50b73f47f8906ec73e4de954dbb
+    sha256: 10265f8dab5b1f5a6c3bb92154e580f04900b26527184dc2e39f0f67254aa6dd
   - path: .contract-engineering/decisions/CENG-T012-P001-DEC001.yaml
     sha256: df513a1e8bcc226f7a11ea7b4900441f7bfbb9a6f2d5ef3654df255984ca1cb7
   - path: .contract-engineering/evidence/CENG-T012-P001-EV001.md
     sha256: df831a242be689b2618b0162c2d8aa2c0f3e1774a157922df682e8853a1e2f1c
   - path: .contract-engineering/evidence/CENG-T012-P001-EV002.md
     sha256: cb2c1984e3c03298078c74d067c13912d0d8b6a9b2bb763a1c23afeb8b60ca6d
+  - path: .contract-engineering/evidence/CENG-T012-P001-EV003.md
+    sha256: 26af45beae640e84904a4cf0e3aa547c43f3e50b98c2a7a1f080640ccf81576c
   - path: .contract-engineering/execution-tracker.md
     sha256: 63b32a80141b7d911a837354c6ab2458873c02782c2e6ad399f6f22df75a44f7
   - path: .contract-engineering/protocol.lock.yaml
-    sha256: 6b8b63a7d4e6643369a8cb4031ebcdf78b5b595eb352a96a6d349820e2c08cae
+    sha256: c374d0780c86d1513b3beb5fb7d988e14d678a8f67f247fbd739c08e3f87bcc1
   - path: .contract-engineering/release-attestation.yaml
-    sha256: 3ebc5568b0bf3963b086064bd6112ddac63bef9432c2e508770f79ba5706e8d9
+    sha256: 6d908bc30147e28db903a0771f07d15c7e7ccd9f128379d38277a7463f45302c
   - path: .contract-engineering/release-signing-key.asc
     sha256: b9282ac933a398a5b069e1da094d0a8c87b87548a4c61f6bd4c24dc515b2d499
   - path: .contract-engineering/tracker/archive/index.yaml
     sha256: fc9af8289efb80c078a1be70a7cb51bda92b4b30dbb7004fafa4e6989ca6bc2c
   - path: .contract-engineering/tracker/events/CENG-T012.yaml
-    sha256: 9c9e352d650f8fe12af7da656aed73a4450db5f863dc6e51462f39227f3b0f6a
+    sha256: c7548ab7b7623285916cd202a4ca8bf8244dd9eb34959b502780ec14bd4b75eb
   - path: .contract-engineering/tracker/index.yaml
     sha256: 662d0e7e5414a7c816e8476c139ce9eed01f2333323ae52fb76598193217a931
   - path: .contract-engineering/work-packets/CENG-T012-P001.yaml
-    sha256: 37dbd715ee2b3c833363f7b61dbbe210fbd1e5e7e21e7cd9be7a5a2aba52a668
+    sha256: 805cee7063df40ccc511a1a0bf1de1945e4850e76587016c289723f79b5d6f12
   - path: .github/workflows/protocol-validation.yml
-    sha256: da884c63eb647a7d8f4549c1c20222720be839bd40b3c50ada7b9900ed4d939e
+    sha256: d737588c32eb97b98129fc176a9a6430d4b34c0c9457b986eb6302a1a43af58b
   - path: CHANGELOG.md
-    sha256: 47af5844a308509946411ae84a0ff8f71500dc2a7c34dbb11369b6f3e79769be
+    sha256: c0dc4fc10ca270d7b4672c1e15322ac90ff1765029ef5858c6b51bac53e0d8d2
   - path: README.md
     sha256: b2ec83a5bbb26dcb29ab0318f01662bca624135e6f0ce54ad4d693eb281994c5
   - path: docs/protocol-configuration.md
@@ -102,8 +104,8 @@ verification:
   verification_ref: CENG-T012-P001-EV001
 receiver_status: accepted
 receiver_notes: "User accepted the documented handoff and explicitly authorized publication despite the unavailable independent review. The two review launches failed before producing a verdict; this limitation remains recorded in EV001."
-accepted_revision: 2efff0c0bcf099f38872f72fa726e3cda11208f7
-accepted_scope_digest: 0474d15c3d2cd91b18e9fc75ff24d16a40b617b5ac577f35bf6464df8544ff85
+accepted_revision: d6cbcf9a19d6962ddf346b02e6bd5ac7595fff01
+accepted_scope_digest: 74c2143fe1017fd9d6dacabc644381c5c80ead09f7cf8ba71f9e352d43e2a710
 accepted_evidence_refs:
   - CENG-T012-P001-EV001
   - CENG-T012-P001-EV002

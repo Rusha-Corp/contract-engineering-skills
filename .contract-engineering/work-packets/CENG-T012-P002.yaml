@@ -6,7 +6,7 @@ packet_class: cross-cutting
 title: "Rotate release signing identity and publish corrected v2.5.5"
 objective: "Preserve immutable v2.5.4 and publish a separately signed v2.5.5 release with a verified public signing key, corrected attestation, and hosted release-gate evidence."
 open_questions: []
-state: Implementing
+state: Validation
 scope:
   in:
     - CHANGELOG.md
@@ -167,8 +167,9 @@ security_verification:
       kind: sast
       tool: "repository validation"
       scope: "changed release metadata and workflow paths"
-      result: pass
-      findings: []
+      result: fail
+      findings:
+        - "Python-based contract-record validation and repository unit tests are unavailable because no Python runtime is installed in this environment."
       evidence_ref: CENG-T012-P002-EV001
     - id: SEC-004
       kind: threat-model-verification
@@ -187,7 +188,7 @@ security_verification:
     high: 0
     moderate: 0
     low: 0
-  disposition: pass
+  disposition: blocked
   exception_ref: ""
   approval_ref: USER-REQUEST-ROTATE-RELEASE-KEY-20260904
 cleanup_scope:
@@ -215,5 +216,6 @@ observability_refs:
   - templates/agent-event.yaml
 incident_refs:
   - templates/agent-incident.yaml
-evidence_refs: []
+evidence_refs:
+  - CENG-T012-P002-EV001
 handoff_ref: null

@@ -150,11 +150,11 @@ rows:
     updated_at: "2026-09-03"
   - task_id: "CENG-T012"
     packet_id: "CENG-T012-P002"
-    state: "Implementing"
+    state: "Validation"
     owner: "droid"
     reviewer: "worker"
     locks:
       - "release-path:v2.5.5"
       - "release-attestation"
-    next_action: "Prepare the v2.5.5 content commit and rotated public release key"
+    next_action: "Install a Python runtime, run the complete repository validation suite, then review the signed local tag"
     updated_at: "2026-09-04"

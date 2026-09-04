@@ -1,16 +1,16 @@
 attestation_version: 1
-attestation_id: CENG-T012-P001-ATT005
-issued_at: "2026-09-03T22:00:00Z"
-expires_at: "2027-09-03T22:00:00Z"
+attestation_id: CENG-T012-P002-ATT001
+issued_at: "2026-09-04T16:29:06Z"
+expires_at: "2027-09-04T16:29:06Z"
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: 80f1c21f9428324e07644484bdfdac3832bb49e9
-  release: 2.5.4
+  commit: 1d08010dd6d9388350ac483020f6ec9717bce1a8
+  release: 2.5.5
   artifacts:
     - path: .github/workflows/protocol-validation.yml
       sha256: d737588c32eb97b98129fc176a9a6430d4b34c0c9457b986eb6302a1a43af58b
     - path: CHANGELOG.md
-      sha256: 10a60416ccd7368a51fecb0c417817f8e6d26c0b5d416f64b5a290595ac17eb1
+      sha256: bb9328a0d44f1a06ce16e774263a51e39b3d96add9af3c7b2edf361fe32fac6a
     - path: README.md
       sha256: b2ec83a5bbb26dcb29ab0318f01662bca624135e6f0ce54ad4d693eb281994c5
     - path: docs/protocol-configuration.md
@@ -52,19 +52,21 @@ subject:
     - path: tests/test_tracker.py
       sha256: 5d80969baaf98438568642678fca00134ca477fb8a1d38d47fe12475c90bfe40
     - path: .contract-engineering/release-signing-key.asc
-      sha256: b9282ac933a398a5b069e1da094d0a8c87b87548a4c61f6bd4c24dc515b2d499
+      sha256: 21b7eed14fa0ac44841fc895a822161decc4a3a3ad5c612199fbd3cf64d4f198
+    - path: .gitleaks.toml
+      sha256: 0d1d692c25beafe94231b613282ce8da125112f147174c5a551f876d30651973
 publisher:
   identity: Emmanuel
   identity_type: human
-  authentication_ref: C1E424B182D9BE73803093F9FDD25DE5085489D6
-  workflow: Factory Droid 2.5.4 release workflow
+  authentication_ref: E0695C669AF8BD1ED298EF6EB2EECCB9F7AA535D
+  workflow: Factory Droid 2.5.5 release workflow
   signing_system: gpg
-  signature_ref: gpg:tag:v2.5.4:C1E424B182D9BE73803093F9FDD25DE5085489D6
+  signature_ref: gpg:tag:v2.5.5:E0695C669AF8BD1ED298EF6EB2EECCB9F7AA535D
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:80f1c21f9428324e07644484bdfdac3832bb49e9
+  builder_digest: git-tree:1d08010dd6d9388350ac483020f6ec9717bce1a8
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: 80f1c21f9428324e07644484bdfdac3832bb49e9
+  source_commit: 1d08010dd6d9388350ac483020f6ec9717bce1a8
   dependencies:
     - "PyYAML 6.0.3, hash-pinned in requirements-ci.txt"
     - "gitleaks 8.24.3, SHA-256 pinned in secret-scanning workflow"
@@ -72,17 +74,17 @@ provenance:
   reproducible: false
 review:
   author: factory-droid
-  independent_approver: ""
-  exception_ref: CENG-T012-P001-DEC001
-  approval_ref: USER-ACCEPT-CENG-T012-P001-20260903
-  approved_at: "2026-09-03T22:00:00Z"
+  independent_approver: user
+  exception_ref: ""
+  approval_ref: USER-ACCEPT-CENG-T012-P002-20260904
+  approved_at: "2026-09-04T16:29:06Z"
 verification:
-  verified_at: "2026-09-03T22:00:00Z"
+  verified_at: "2026-09-04T16:29:06Z"
   verifier: factory-droid
   result: pass
-  transparency_ref: local-attestation-verification:80f1c21f9428324e07644484bdfdac3832bb49e9
-  revocation_checked_at: "2026-09-03T22:00:00Z"
+  transparency_ref: local-attestation-verification:1d08010dd6d9388350ac483020f6ec9717bce1a8
+  revocation_checked_at: "2026-09-04T16:29:06Z"
 revocation:
   status: active
-  revocation_ref: CENG-T012-P001-EV005-v2.5.3-unverified-33796183011
-  rollback_ref: 2b556a15f37e2bfaf9867917f191762908dee44e
+  revocation_ref: CENG-T012-P002-EV001
+  rollback_ref: 71bedf29f6f97c818c6a2ce129de559bfb6fb8ed

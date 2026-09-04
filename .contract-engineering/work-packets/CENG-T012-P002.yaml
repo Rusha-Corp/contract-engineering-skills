@@ -6,7 +6,7 @@ packet_class: cross-cutting
 title: "Rotate release signing identity and publish corrected v2.5.8"
 objective: "Preserve immutable v2.5.4 through v2.5.7 audit records, then publish a separately signed v2.5.8 release with a verified public signing key, corrected attestation, and hosted release-gate evidence."
 open_questions: []
-state: Handoff
+state: Complete
 scope:
   in:
     - CHANGELOG.md
@@ -57,9 +57,7 @@ reviewer: worker
 cleanup_owner: droid
 dependencies:
   - CENG-T012-P001
-locks:
-  - release-path:v2.5.8
-  - release-attestation:v2.5.8
+locks: []
 claim_timestamp: "2026-09-04T16:05:00Z"
 baseline_refs:
   - .contract-engineering/protocol.lock.yaml
@@ -150,8 +148,8 @@ validation_plan:
     expected: "no unresolved principle violations"
 security_verification:
   gate_version: 1
-  performed_at: ""
-  performed_by: ""
+  performed_at: "2026-09-04T17:35:00Z"
+  performed_by: droid
   checks:
     - id: SEC-001
       kind: secret-scan

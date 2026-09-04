@@ -44,5 +44,5 @@ rollback_notes:
   - "Keep consumers on v2.5.4."
   - "Revoke v2.5.8 if future provenance or hosted verification becomes invalid; preserve v2.5.5-v2.5.8 audit records."
 requested_next_action: "Independently accept this handoff, then approve a separate consumer-lock migration packet if desired."
-receiver_status: pending
-receiver_notes: ""
+receiver_status: accepted
+receiver_notes: "User accepted the handoff for verified v2.5.8. Consumer migration remains deferred to v2.5.4."

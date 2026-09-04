@@ -150,11 +150,9 @@ rows:
     updated_at: "2026-09-03"
   - task_id: "CENG-T012"
     packet_id: "CENG-T012-P002"
-    state: "Handoff"
+    state: "Complete"
     owner: "droid"
     reviewer: "worker"
-    locks:
-      - "release-path:v2.5.8"
-      - "release-attestation:v2.5.8"
-    next_action: "Receive independent handoff acceptance; keep consumers on v2.5.4 until migration approval"
+    locks: []
+    next_action: "Retain in active index until iteration closure"
     updated_at: "2026-09-04"

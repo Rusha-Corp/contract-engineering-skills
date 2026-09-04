@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 2.5.8 - 2026-09-04
+
+- Corrective patch release that uses packet-specific release locks so active
+  packet ownership remains collision-free during hosted validation.
+
 ## 2.5.7 - 2026-09-04
 
 - Corrective patch release that restores an unrelated tracker row and binds

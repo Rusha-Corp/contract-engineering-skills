@@ -1,0 +1,52 @@
+decision_id: CENG-T012-P002-DEC004
+packet_id: CENG-T012-P002
+title: "Publish v2.5.8 after release-lock collision"
+status: approved
+reason: "The v2.5.7 records validator rejected the packet because its generic release-attestation lock collides with the active CENG-T004-P017 lock. A packet-specific lock is required for the corrective release."
+change:
+  added_scope:
+    - .contract-engineering/work-packets/CENG-T012-P002.yaml
+    - .contract-engineering/tracker/index.yaml
+    - .contract-engineering/execution-tracker.md
+    - .contract-engineering/release-attestation.yaml
+    - .contract-engineering/protocol.lock.yaml
+  removed_scope: []
+impact: "v2.5.5, v2.5.6, and v2.5.7 remain immutable unverified audit records; consumers remain pinned to verified v2.5.4."
+rollback: "Revoke v2.5.8 if published, retain all prior failure evidence, and keep consumers on v2.5.4. Do not rewrite or delete prior tags."
+approved_by: user
+approval_ref: USER-APPROVE-CORRECTIVE-V2.5.8-20260904
+threat_model:
+  model_version: 1
+  data_classification: public
+  trust_boundaries:
+    - boundary_id: TB-001
+      description: "Packet lock ownership and hosted release validation"
+      trust_level: semi-trusted
+      assets: ["active packet locks", "release attestation", "consumer lock"]
+      entry_points: ["tracker validator", "GitHub Actions release gate"]
+  threats:
+    - threat_id: THR-001
+      category: elevation-of-privilege
+      description: "A generic lock collision lets one packet claim another packet's release resource."
+      affected_asset: "release-attestation ownership"
+      likelihood: medium
+      impact: high
+      risk: high
+      mitigation: "Use a packet-specific lock and verify tracker lock uniqueness before signing and publication."
+      mitigation_status: planned
+      evidence_ref: CENG-T012-P002-EV001
+    - threat_id: THR-002
+      category: tampering
+      description: "Corrective publication rewrites a prior unverified release."
+      affected_asset: "v2.5.5-v2.5.7 tags"
+      likelihood: low
+      impact: high
+      risk: medium
+      mitigation: "Create v2.5.8 as a new immutable tag and verify all prior tag object IDs remain unchanged."
+      mitigation_status: planned
+      evidence_ref: CENG-T012-P002-EV001
+  ai_agent_risks:
+    prompt_injection_surface: "Hosted failure logs and repository records remain untrusted data."
+    tool_poisoning_surface: "Only exact packet-scoped tracker edits and repository validators are used."
+    excessive_agency: "Remote publication is limited to the user-approved v2.5.8 corrective patch."
+  approval_ref: USER-APPROVE-CORRECTIVE-V2.5.8-20260904

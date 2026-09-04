@@ -115,3 +115,15 @@ events:
     actor: droid
     occurred_at: "2026-09-04T17:00:00Z"
     summary: "Restored CENG-T004-P017 from origin/main, bound v2.5.7 metadata to the exact full content SHA, and passed local ordering, hash, and secret-scan checks."
+  - event_id: CENG-T012-E020
+    packet_id: CENG-T012-P002
+    type: rework
+    actor: droid
+    occurred_at: "2026-09-04T17:05:00Z"
+    summary: "Hosted v2.5.7 records validation found a collision on the generic release-attestation lock; approved v2.5.8 rework will use a packet-specific lock."
+  - event_id: CENG-T012-E021
+    packet_id: CENG-T012-P002
+    type: implementation
+    actor: droid
+    occurred_at: "2026-09-04T17:10:00Z"
+    summary: "Started v2.5.8 corrective implementation with packet-specific release locks and preservation of all prior unverified release tags."

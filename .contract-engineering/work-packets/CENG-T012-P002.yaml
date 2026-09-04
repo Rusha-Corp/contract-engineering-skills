@@ -13,6 +13,7 @@ scope:
     - .gitleaks.toml
     - .contract-engineering/decisions/CENG-T012-P002-DEC001.yaml
     - .contract-engineering/decisions/CENG-T012-P002-DEC002.yaml
+    - .contract-engineering/decisions/CENG-T012-P002-DEC003.yaml
     - .contract-engineering/work-packets/CENG-T012-P002.yaml
     - .contract-engineering/evidence/CENG-T012-P002-EV001.md
     - .contract-engineering/handoffs/CENG-T012-P002-HO001.yaml

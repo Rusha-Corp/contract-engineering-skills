@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 2.5.7 - 2026-09-04
+
+- Corrective patch release that restores an unrelated tracker row and binds
+  release metadata to the full content commit SHA after v2.5.6 hosted-gate
+  failures.
+
 ## 2.5.6 - 2026-09-04
 
 - Corrective patch release that preserves the failed v2.5.5 audit trail and

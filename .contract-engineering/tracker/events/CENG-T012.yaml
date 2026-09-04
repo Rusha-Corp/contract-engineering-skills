@@ -103,3 +103,9 @@ events:
     actor: droid
     occurred_at: "2026-09-04T16:50:00Z"
     summary: "Corrective content commit 3630be1 and v2.5.6 attestation draft pass local ordering, hash, and secret-scan checks; Python record validation remains unavailable."
+  - event_id: CENG-T012-E018
+    packet_id: CENG-T012-P002
+    type: rework
+    actor: droid
+    occurred_at: "2026-09-04T16:55:00Z"
+    summary: "Hosted v2.5.6 validation exposed an unrelated tracker-row mutation and an abbreviated attestation subject SHA; approved v2.5.7 rework restores the row and binds the full commit."

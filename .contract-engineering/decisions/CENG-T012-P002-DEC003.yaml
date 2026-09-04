@@ -1,0 +1,51 @@
+decision_id: CENG-T012-P002-DEC003
+packet_id: CENG-T012-P002
+title: "Publish v2.5.7 after v2.5.6 metadata failures"
+status: approved
+reason: "The v2.5.6 records job found that an imprecise patch changed the unrelated CENG-T004-P017 tracker row, and the stable gate found that the attestation used an abbreviated content SHA. A new patch is required without rewriting either prior tag."
+change:
+  added_scope:
+    - .contract-engineering/tracker/index.yaml
+    - .contract-engineering/release-attestation.yaml
+    - .contract-engineering/protocol.lock.yaml
+    - .contract-engineering/decisions/CENG-T012-P002-DEC003.yaml
+  removed_scope: []
+impact: "CENG-T004-P017 is restored to its origin/main state; v2.5.5 and v2.5.6 remain immutable unverified audit records; consumers remain pinned to verified v2.5.4."
+rollback: "Revoke v2.5.7 if published, retain v2.5.5 and v2.5.6 failure evidence, and keep consumers on v2.5.4. Do not rewrite or delete prior tags."
+approved_by: user
+approval_ref: USER-APPROVE-CORRECTIVE-V2.5.7-20260904
+threat_model:
+  model_version: 1
+  data_classification: public
+  trust_boundaries:
+    - boundary_id: TB-001
+      description: "Canonical tracker and signed release metadata"
+      trust_level: semi-trusted
+      assets: ["tracker ownership", "attestation commit relationship", "consumer lock"]
+      entry_points: ["Git push", "GitHub Actions records and stable-release gates"]
+  threats:
+    - threat_id: THR-001
+      category: tampering
+      description: "Corrective work changes unrelated packet records or rewrites prior releases."
+      affected_asset: "CENG-T004-P017 and v2.5.5/v2.5.6 audit history"
+      likelihood: medium
+      impact: high
+      risk: high
+      mitigation: "Restore the unrelated row from origin/main, use packet-specific patch contexts, and publish v2.5.7 without modifying prior tag objects."
+      mitigation_status: planned
+      evidence_ref: CENG-T012-P002-EV001
+    - threat_id: THR-002
+      category: tampering
+      description: "The attestation subject is not the exact direct parent of the signed tag."
+      affected_asset: "v2.5.7 release attestation"
+      likelihood: medium
+      impact: high
+      risk: high
+      mitigation: "Resolve the full content commit with git rev-parse before writing the attestation, then verify the two-commit relationship locally and in the hosted gate."
+      mitigation_status: planned
+      evidence_ref: CENG-T012-P002-EV001
+  ai_agent_risks:
+    prompt_injection_surface: "Hosted logs and repository files are treated as untrusted data, not authorization."
+    tool_poisoning_surface: "Release changes use exact packet-specific contexts and immutable Git comparisons."
+    excessive_agency: "Remote publication is limited to the user-approved v2.5.7 corrective patch and does not update consumers."
+  approval_ref: USER-APPROVE-CORRECTIVE-V2.5.7-20260904

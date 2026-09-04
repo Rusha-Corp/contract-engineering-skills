@@ -1,30 +1,6 @@
 task_id: CENG-T012
 schema_version: 1
 events:
-  - event_id: CENG-T012-E011
-    packet_id: CENG-T012-P002
-    type: claimed
-    actor: droid
-    occurred_at: "2026-09-04T16:05:00Z"
-    summary: "Claimed the scoped v2.5.5 release correction and signing-key rotation packet."
-  - event_id: CENG-T012-E012
-    packet_id: CENG-T012-P002
-    type: baseline
-    actor: droid
-    occurred_at: "2026-09-04T16:06:00Z"
-    summary: "Recorded the clean v2.5.4-based release worktree, current main divergence, old public key fingerprint, and the user-approved key-rotation decision."
-  - event_id: CENG-T012-E013
-    packet_id: CENG-T012-P002
-    type: implementation
-    actor: droid
-    occurred_at: "2026-09-04T16:10:00Z"
-    summary: "Completed the packet baseline and began the scoped v2.5.5 key-rotation implementation."
-  - event_id: CENG-T012-E014
-    packet_id: CENG-T012-P002
-    type: validation
-    actor: droid
-    occurred_at: "2026-09-04T16:30:00Z"
-    summary: "Prepared the v2.5.5 attestation draft and protocol lock update; Gitleaks and static checks passed, but Python-based record validation and unit tests are unavailable in the environment."
   - event_id: CENG-T012-E001
     packet_id: CENG-T012-P001
     type: claimed
@@ -85,3 +61,39 @@ events:
     actor: droid
     occurred_at: "2026-09-03T20:45:00Z"
     summary: "The v2.5.3 tag stable gate passed, but the records job failed because YAML-native ISO dates were rejected by the tracker validator; v2.5.3 is unverified and v2.5.4 corrective publication is required."
+  - event_id: CENG-T012-E011
+    packet_id: CENG-T012-P002
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-04T16:05:00Z"
+    summary: "Claimed the scoped v2.5.5 release correction and signing-key rotation packet."
+  - event_id: CENG-T012-E012
+    packet_id: CENG-T012-P002
+    type: baseline
+    actor: droid
+    occurred_at: "2026-09-04T16:06:00Z"
+    summary: "Recorded the clean v2.5.4-based release worktree, current main divergence, old public key fingerprint, and the user-approved key-rotation decision."
+  - event_id: CENG-T012-E013
+    packet_id: CENG-T012-P002
+    type: implementation
+    actor: droid
+    occurred_at: "2026-09-04T16:10:00Z"
+    summary: "Completed the packet baseline and began the scoped v2.5.5 key-rotation implementation."
+  - event_id: CENG-T012-E014
+    packet_id: CENG-T012-P002
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-04T16:30:00Z"
+    summary: "Prepared the v2.5.5 attestation draft and protocol lock update; Gitleaks and static checks passed, but Python-based record validation and unit tests are unavailable in the environment."
+  - event_id: CENG-T012-E015
+    packet_id: CENG-T012-P002
+    type: release_validation
+    actor: droid
+    occurred_at: "2026-09-04T16:36:00Z"
+    summary: "Hosted v2.5.5 records validation failed because CENG-T012 events were not chronologically ordered; v2.5.5 remains unchanged and unverified, requiring corrective v2.5.6 publication."
+  - event_id: CENG-T012-E016
+    packet_id: CENG-T012-P002
+    type: implementation
+    actor: droid
+    occurred_at: "2026-09-04T16:45:00Z"
+    summary: "Started the approved v2.5.6 corrective implementation by reordering the append-only event stream and preserving v2.5.5 failure evidence."

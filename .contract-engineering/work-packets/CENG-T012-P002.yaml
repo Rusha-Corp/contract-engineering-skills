@@ -3,15 +3,16 @@ task_id: CENG-T012
 phase: P1_IMPLEMENTATION
 domain: security
 packet_class: cross-cutting
-title: "Rotate release signing identity and publish corrected v2.5.5"
-objective: "Preserve immutable v2.5.4 and publish a separately signed v2.5.5 release with a verified public signing key, corrected attestation, and hosted release-gate evidence."
+title: "Rotate release signing identity and publish corrected v2.5.6"
+objective: "Preserve immutable v2.5.4 and the failed v2.5.5 audit trail, then publish a separately signed v2.5.6 release with a verified public signing key, corrected attestation, and hosted release-gate evidence."
 open_questions: []
-state: Validation
+state: Implementing
 scope:
   in:
     - CHANGELOG.md
     - .gitleaks.toml
     - .contract-engineering/decisions/CENG-T012-P002-DEC001.yaml
+    - .contract-engineering/decisions/CENG-T012-P002-DEC002.yaml
     - .contract-engineering/work-packets/CENG-T012-P002.yaml
     - .contract-engineering/evidence/CENG-T012-P002-EV001.md
     - .contract-engineering/handoffs/CENG-T012-P002-HO001.yaml
@@ -68,12 +69,12 @@ baseline_refs:
 design_decision_ref: .contract-engineering/decisions/CENG-T012-P002-DEC001.yaml
 data_gate_ref: null
 acceptance_criteria:
-  - "v2.5.4 remains unchanged and retained as rollback evidence."
-  - "The new public signing key matches the v2.5.5 tag signature fingerprint and is the only key material committed."
-  - "The v2.5.5 attestation binds the exact content commit, artifacts, publisher, approval, verification, active revocation state, and rollback reference."
+  - "v2.5.4 and the failed v2.5.5 tag remain unchanged and retained as audit evidence."
+  - "The new public signing key matches the v2.5.6 tag signature fingerprint and is the only key material committed."
+  - "The v2.5.6 attestation binds the exact content commit, artifacts, publisher, approval, verification, active revocation state, and rollback reference."
   - "Local release validation, secret scanning, and signature verification pass before publication."
-  - "The v2.5.5 tag is immutable, signed, and points to the attestation-bearing commit whose direct parent is the attested content commit."
-  - "Consumers remain pinned to v2.5.4 until the v2.5.5 hosted release gate is independently verified."
+  - "The v2.5.6 tag is immutable, signed, and points to the attestation-bearing commit whose direct parent is the attested content commit."
+  - "Consumers remain pinned to v2.5.4 until the v2.5.6 hosted release gate is independently verified."
 acceptance_contract:
   version: 1
   criteria:

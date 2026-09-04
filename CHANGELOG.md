@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 2.5.6 - 2026-09-04
+
+- Corrective patch release that preserves the failed v2.5.5 audit trail and
+  fixes chronological tracker event ordering required by the hosted records
+  validator.
+
 ## 2.5.5 - 2026-09-04
 
 - Corrective patch release that rotates the public GPG signing identity,

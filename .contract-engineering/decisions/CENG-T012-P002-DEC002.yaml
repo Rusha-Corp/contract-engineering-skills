@@ -1,0 +1,51 @@
+decision_id: CENG-T012-P002-DEC002
+packet_id: CENG-T012-P002
+title: "Publish v2.5.6 after v2.5.5 records-gate failure"
+status: approved
+reason: "The published v2.5.5 tag is immutable but unverified because the hosted records validator rejected the event-stream ordering. A new patch release is required; the failed tag must remain unchanged audit evidence."
+change:
+  added_scope:
+    - .contract-engineering/tracker/events/CENG-T012.yaml
+    - CHANGELOG.md
+    - .contract-engineering/release-attestation.yaml
+    - .contract-engineering/protocol.lock.yaml
+  removed_scope: []
+impact: "Consumers remain pinned to v2.5.4. v2.5.5 remains publicly visible and unverified; v2.5.6 will carry only the chronological event-stream correction and updated release metadata."
+rollback: "Revoke v2.5.6 if published, retain v2.5.5 and v2.5.4 audit records, and keep consumers on v2.5.4. Do not rewrite or delete either prior tag."
+approved_by: user
+approval_ref: USER-APPROVE-CORRECTIVE-V2.5.6-20260904
+threat_model:
+  model_version: 1
+  data_classification: public
+  trust_boundaries:
+    - boundary_id: TB-001
+      description: "Published Git history and hosted release workflows"
+      trust_level: semi-trusted
+      assets: ["v2.5.5 failure evidence", "v2.5.6 attestation", "consumer lock state"]
+      entry_points: ["Git push", "GitHub Actions stable-release gate"]
+  threats:
+    - threat_id: THR-001
+      category: tampering
+      description: "The corrective release rewrites or obscures the failed v2.5.5 audit trail."
+      affected_asset: "v2.5.5 tag and hosted workflow evidence"
+      likelihood: low
+      impact: high
+      risk: medium
+      mitigation: "Create v2.5.6 from the published v2.5.5 commit, preserve v2.5.5 unchanged, and record the failed run before corrective publication."
+      mitigation_status: implemented
+      evidence_ref: CENG-T012-P002-EV001
+    - threat_id: THR-002
+      category: supply-chain
+      description: "The corrective tag is published without the same protected publisher identity."
+      affected_asset: "v2.5.6 signed tag"
+      likelihood: low
+      impact: high
+      risk: medium
+      mitigation: "Reuse the registered public key, verify one local tag signature, and compare the hosted tag fingerprint to the attestation."
+      mitigation_status: planned
+      evidence_ref: CENG-T012-P002-EV001
+  ai_agent_risks:
+    prompt_injection_surface: "Hosted logs and repository records are treated as untrusted data, not authorization."
+    tool_poisoning_surface: "Only the repository's pinned workflow and local validation tools are used."
+    excessive_agency: "Remote publication is limited to the user-approved v2.5.6 corrective patch and does not update consumers."
+  approval_ref: USER-APPROVE-CORRECTIVE-V2.5.6-20260904

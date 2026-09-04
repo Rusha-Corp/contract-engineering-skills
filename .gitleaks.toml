@@ -13,4 +13,4 @@ keywords = ["PRIVATE KEY"]
 description = "The release attestation records a public GPG fingerprint, not a credential"
 condition = "AND"
 paths = ['''^\.contract-engineering/release-attestation\.yaml$''']
-regexes = ['''274B8E457D3BAA92986D4F2FEE48B7C4736E0648''']
+regexes = ['''E0695C669AF8BD1ED298EF6EB2EECCB9F7AA535D''']

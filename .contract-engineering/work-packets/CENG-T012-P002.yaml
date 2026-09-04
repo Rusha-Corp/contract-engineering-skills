@@ -1,0 +1,219 @@
+packet_id: CENG-T012-P002
+task_id: CENG-T012
+phase: P1_IMPLEMENTATION
+domain: security
+packet_class: cross-cutting
+title: "Rotate release signing identity and publish corrected v2.5.5"
+objective: "Preserve immutable v2.5.4 and publish a separately signed v2.5.5 release with a verified public signing key, corrected attestation, and hosted release-gate evidence."
+open_questions: []
+state: Implementing
+scope:
+  in:
+    - CHANGELOG.md
+    - .gitleaks.toml
+    - .contract-engineering/decisions/CENG-T012-P002-DEC001.yaml
+    - .contract-engineering/work-packets/CENG-T012-P002.yaml
+    - .contract-engineering/evidence/CENG-T012-P002-EV001.md
+    - .contract-engineering/handoffs/CENG-T012-P002-HO001.yaml
+    - .contract-engineering/release-signing-key.asc
+    - .contract-engineering/release-attestation.yaml
+    - .contract-engineering/protocol.lock.yaml
+    - .contract-engineering/execution-tracker.md
+    - .contract-engineering/tracker/index.yaml
+    - .contract-engineering/tracker/events/CENG-T012.yaml
+  out:
+    - Rewriting, deleting, or retagging v2.5.4
+    - Updating consumer protocol locks before v2.5.5 verification
+    - Committing private GPG key material or passphrases
+    - Modifying global installed skills
+    - Publishing unrelated repository changes
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: inherit
+  session_id: current-session
+capabilities:
+  - repository-read
+  - repository-write
+  - local-validation
+  - gpg-signing
+  - external-git-publish
+risk_tier: high
+approval_policy: two_person
+external_effects:
+  - effect_id: CENG-T012-P002-EXT001
+    target: "https://github.com/Rusha-Corp/contract-engineering-skills"
+    operation: "publish v2.5.5 content/attestation commits, signed immutable tag, public key, and release metadata"
+    data_classification: public
+    declared: true
+    approval_ref: USER-REQUEST-ROTATE-RELEASE-KEY-20260904
+    reversible: true
+    rollback: "Revoke v2.5.5 and retain v2.5.4 as the verified consumer release."
+owner: droid
+reviewer: worker
+cleanup_owner: droid
+dependencies:
+  - CENG-T012-P001
+locks:
+  - release-path:v2.5.5
+  - release-attestation
+claim_timestamp: "2026-09-04T16:05:00Z"
+baseline_refs:
+  - .contract-engineering/protocol.lock.yaml
+  - 1be220f2691194a8e69f330ebc85fff9fd6c0172
+  - 71bedf29f6f97c818c6a2ce129de559bfb6fb8ed
+  - .contract-engineering/handoffs/CENG-T012-P001-HO001.yaml
+  - docs/release-integrity.md
+  - docs/repository-development.md
+design_decision_ref: .contract-engineering/decisions/CENG-T012-P002-DEC001.yaml
+data_gate_ref: null
+acceptance_criteria:
+  - "v2.5.4 remains unchanged and retained as rollback evidence."
+  - "The new public signing key matches the v2.5.5 tag signature fingerprint and is the only key material committed."
+  - "The v2.5.5 attestation binds the exact content commit, artifacts, publisher, approval, verification, active revocation state, and rollback reference."
+  - "Local release validation, secret scanning, and signature verification pass before publication."
+  - "The v2.5.5 tag is immutable, signed, and points to the attestation-bearing commit whose direct parent is the attested content commit."
+  - "Consumers remain pinned to v2.5.4 until the v2.5.5 hosted release gate is independently verified."
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T012-P002-AC001
+      statement: "The release preserves the prior verified release and isolates the correction."
+      expected_result: "v2.5.4 tag and commits remain unchanged; v2.5.5 uses new commits."
+      verification_method: execute
+      verification_command: "git diff v2.5.4^{}..v2.5.4 --exit-code"
+      evidence_refs: [CENG-T012-P002-EV001]
+      failure_result: "Any v2.5.4 object is rewritten or deleted."
+      validation_ref: CENG-T012-P002-VAL001
+    - id: CENG-T012-P002-AC002
+      statement: "The public key and signed tag identify the same new publisher fingerprint."
+      expected_result: "The committed public key fingerprint equals the sole VALIDSIG fingerprint from v2.5.5."
+      verification_method: execute
+      verification_command: "gpg --show-keys .contract-engineering/release-signing-key.asc && git verify-tag --raw v2.5.5"
+      evidence_refs: [CENG-T012-P002-EV001]
+      failure_result: "Key mismatch, missing signature, or multiple signatures."
+      validation_ref: CENG-T012-P002-VAL002
+    - id: CENG-T012-P002-AC003
+      statement: "The attestation is bound to exact released bytes and release provenance."
+      expected_result: "All artifact hashes, commit references, approval, verification, revocation, and rollback fields match the release."
+      verification_method: execute
+      verification_command: "Run the stable release gate locally with v2.5.5 metadata."
+      evidence_refs: [CENG-T012-P002-EV001]
+      failure_result: "Any attestation field or artifact hash is missing or mismatched."
+      validation_ref: CENG-T012-P002-VAL001
+    - id: CENG-T012-P002-AC004
+      statement: "No private key, passphrase, or secret is committed."
+      expected_result: "Pinned secret scanning passes for history and working tree."
+      verification_method: execute
+      verification_command: "Run the pinned Gitleaks scan and repository secret checks."
+      evidence_refs: [CENG-T012-P002-EV001]
+      failure_result: "Private key or passphrase material is detected."
+      validation_ref: CENG-T012-P002-VAL002
+    - id: CENG-T012-P002-AC005
+      statement: "Consumer lock migration remains deferred until new release verification."
+      expected_result: "protocol.lock.yaml remains on verified v2.5.4 during publication preparation."
+      verification_method: inspect
+      evidence_refs: [CENG-T012-P002-EV001]
+      failure_result: "A consumer lock points to unverified v2.5.5."
+      validation_ref: CENG-T012-P002-VAL003
+validation_plan:
+  - id: CENG-T012-P002-VAL001
+    kind: release
+    skill: phased-engineering-execution
+    command: "Run repository record validation, protocol validation, unit tests, artifact hash checks, and the local stable-release relationship check."
+    expected: "exit 0"
+  - id: CENG-T012-P002-VAL002
+    kind: security
+    skill: security-assurance
+    checks:
+      - "Threat model mitigations are verified."
+      - "Gitleaks history and working-tree scans pass with the new public fingerprint narrowly allowlisted."
+      - "No private key, passphrase, or credential is present in tracked files or evidence."
+      - "The signed tag has exactly one valid signature matching the committed public key."
+      - "Tooling and release inputs use trusted, recorded sources."
+    expected: "no unresolved blocking security findings"
+  - id: CENG-T012-P002-VAL003
+    kind: release-migration
+    command: "Inspect protocol.lock.yaml and consumer migration guidance."
+    expected: "consumer remains on v2.5.4 until v2.5.5 hosted verification"
+  - id: CENG-T012-P002-VAL004
+    kind: principles
+    skill: coding-principles
+    checks:
+      - "The old immutable release is preserved."
+      - "Public and private key boundaries are explicit."
+      - "Release metadata is generated from source-of-truth commits and hashes."
+      - "No speculative consumer lock update is added."
+    expected: "no unresolved principle violations"
+security_verification:
+  gate_version: 1
+  performed_at: ""
+  performed_by: ""
+  checks:
+    - id: SEC-001
+      kind: secret-scan
+      tool: "gitleaks 8.24.3"
+      scope: "git-history, working-tree"
+      result: pass
+      evidence_ref: CENG-T012-P002-EV001
+    - id: SEC-002
+      kind: dependency-review
+      tool: "repository dependency policy"
+      scope: "release tooling and Debian package inputs"
+      result: pass
+      findings: []
+      evidence_ref: CENG-T012-P002-EV001
+    - id: SEC-003
+      kind: sast
+      tool: "repository validation"
+      scope: "changed release metadata and workflow paths"
+      result: pass
+      findings: []
+      evidence_ref: CENG-T012-P002-EV001
+    - id: SEC-004
+      kind: threat-model-verification
+      scope: "CENG-T012-P002-DEC001 mitigations"
+      result: pass
+      unverified_mitigations: []
+      evidence_ref: CENG-T012-P002-EV001
+    - id: SEC-005
+      kind: trust-boundary-validation
+      scope: "repository, GitHub, GPG, and agent tool boundaries"
+      result: pass
+      injection_attempts: []
+      evidence_ref: CENG-T012-P002-EV001
+  finding_summary:
+    critical: 0
+    high: 0
+    moderate: 0
+    low: 0
+  disposition: pass
+  exception_ref: ""
+  approval_ref: USER-REQUEST-ROTATE-RELEASE-KEY-20260904
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs:
+    - target: "User-local GnuPG cache and passphrase/keyring under /home/node/.local"
+      evidence: "Required for signing but outside repository scope."
+      risk: medium
+      proposed_action: "Retain until publication and verification complete, then remove only after user confirms key backup."
+skill_gaps: []
+stability: stable
+deprecation_refs: []
+migration_dependencies:
+  - CENG-T012-P001
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+trust_boundary_ref: docs/agent-trust-boundaries.md
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+  - templates/agent-event.yaml
+incident_refs:
+  - templates/agent-incident.yaml
+evidence_refs: []
+handoff_ref: null

@@ -1,6 +1,24 @@
 task_id: CENG-T012
 schema_version: 1
 events:
+  - event_id: CENG-T012-E011
+    packet_id: CENG-T012-P002
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-04T16:05:00Z"
+    summary: "Claimed the scoped v2.5.5 release correction and signing-key rotation packet."
+  - event_id: CENG-T012-E012
+    packet_id: CENG-T012-P002
+    type: baseline
+    actor: droid
+    occurred_at: "2026-09-04T16:06:00Z"
+    summary: "Recorded the clean v2.5.4-based release worktree, current main divergence, old public key fingerprint, and the user-approved key-rotation decision."
+  - event_id: CENG-T012-E013
+    packet_id: CENG-T012-P002
+    type: implementation
+    actor: droid
+    occurred_at: "2026-09-04T16:10:00Z"
+    summary: "Completed the packet baseline and began the scoped v2.5.5 key-rotation implementation."
   - event_id: CENG-T012-E001
     packet_id: CENG-T012-P001
     type: claimed

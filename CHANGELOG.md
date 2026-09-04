@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 2.5.5 - 2026-09-04
+
+- Corrective patch release that rotates the public GPG signing identity,
+  preserves the immutable v2.5.4 release, and republishes the release
+  attestation with a new verified publisher fingerprint.
+
 ## 2.5.4 - 2026-09-03
 
 - Corrective release for the unverified `v2.5.3` tag. Accepts ISO dates loaded

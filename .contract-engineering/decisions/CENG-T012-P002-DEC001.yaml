@@ -1,0 +1,74 @@
+decision_id: CENG-T012-P002-DEC001
+packet_id: CENG-T012-P002
+title: Rotate the public release signing key for v2.5.5
+status: approved
+reason: "The v2.5.4 release attestation uses a signing identity that is not available in the current release environment. Publish a new immutable patch release with a newly generated protected key while preserving v2.5.4 unchanged."
+change:
+  added_scope:
+    - .contract-engineering/release-signing-key.asc
+    - .contract-engineering/release-attestation.yaml
+    - .contract-engineering/protocol.lock.yaml
+    - .contract-engineering/execution-tracker.md
+    - .gitleaks.toml
+    - CHANGELOG.md
+  removed_scope: []
+impact: "Consumers remain pinned to verified v2.5.4 until the new signed v2.5.5 tag and hosted release gates pass. The old v2.5.4 tag, attestation, and public key remain immutable audit evidence."
+rollback: "Revoke v2.5.5 if published, retain its audit records, and keep consumers on v2.5.4. Do not rewrite or delete v2.5.4."
+approved_by: user
+approval_ref: USER-REQUEST-ROTATE-RELEASE-KEY-20260904
+threat_model:
+  model_version: 1
+  data_classification: public
+  trust_boundaries:
+    - boundary_id: TB-001
+      description: "Local protected signing key and passphrase file"
+      trust_level: trusted
+      assets: ["private signing key", "passphrase"]
+      entry_points: ["local GPG keyring", "release signing command"]
+    - boundary_id: TB-002
+      description: "Public GitHub repository and tag workflows"
+      trust_level: semi-trusted
+      assets: ["public key", "attestation", "signed tag", "release artifacts"]
+      entry_points: ["git push", "GitHub Actions release gate"]
+  threats:
+    - threat_id: THR-001
+      category: information-disclosure
+      description: "Private key or passphrase is accidentally committed or logged."
+      affected_asset: "private signing key and passphrase"
+      likelihood: medium
+      impact: critical
+      risk: high
+      mitigation: "Keep private key and passphrase outside both repositories, scan tracked history and working tree, and publish only the armored public key."
+      mitigation_status: planned
+    - threat_id: THR-002
+      category: tampering
+      description: "Attestation binds to a different content commit or release tag."
+      affected_asset: "v2.5.5 attestation and signed tag"
+      likelihood: medium
+      impact: high
+      risk: high
+      mitigation: "Use the two-commit model, compute artifact hashes from the content commit, sign the attestation commit, and run local and hosted relationship checks."
+      mitigation_status: planned
+    - threat_id: THR-003
+      category: spoofing
+      description: "A different signing identity is accepted as the release publisher."
+      affected_asset: "publisher authentication_ref"
+      likelihood: medium
+      impact: high
+      risk: high
+      mitigation: "Publish the new public key through the approved GitHub account/repository path and verify the tag signature fingerprint equals the attestation fingerprint."
+      mitigation_status: planned
+    - threat_id: THR-004
+      category: supply-chain
+      description: "Downloaded signing tooling or release inputs are tampered with."
+      affected_asset: "GnuPG tooling and release source"
+      likelihood: low
+      impact: high
+      risk: medium
+      mitigation: "Use trusted Debian packages, record package versions, work from the clean cloned repository, and run the repository's pinned validation and secret scans."
+      mitigation_status: planned
+  ai_agent_risks:
+    prompt_injection_surface: "Repository files and tool output are treated as untrusted data, not release authorization."
+    tool_poisoning_surface: "Only explicit local Git, GPG, and repository validation commands are used."
+    excessive_agency: "Remote publication is limited to the user-authorized v2.5.5 tag/release path and requires independent handoff acceptance."
+  approval_ref: USER-REQUEST-ROTATE-RELEASE-KEY-20260904

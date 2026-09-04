@@ -1,0 +1,48 @@
+handoff_id: CENG-T012-P002-HO001
+packet_id: CENG-T012-P002
+sender: droid
+receiver: user
+summary: "Published and verified corrective v2.5.8 with rotated public signing key while preserving v2.5.4 and failed v2.5.5-v2.5.7 audit records."
+base_revision: 1be220f2691194a8e69f330ebc85fff9fd6c0172
+head_revision: 481312029a3073a86c3e5e0f0743db0012e2ed4b
+changed_resources:
+  - .contract-engineering/release-signing-key.asc
+  - .contract-engineering/release-attestation.yaml
+  - .contract-engineering/protocol.lock.yaml
+  - .gitleaks.toml
+  - CHANGELOG.md
+  - .contract-engineering/decisions/CENG-T012-P002-DEC001.yaml
+  - .contract-engineering/decisions/CENG-T012-P002-DEC002.yaml
+  - .contract-engineering/decisions/CENG-T012-P002-DEC003.yaml
+  - .contract-engineering/decisions/CENG-T012-P002-DEC004.yaml
+  - .contract-engineering/work-packets/CENG-T012-P002.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/tracker/events/CENG-T012.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/evidence/CENG-T012-P002-EV001.md
+  - .contract-engineering/handoffs/CENG-T012-P002-HO001.yaml
+validation_results:
+  - check: "Pinned Gitleaks 8.24.3 history and working-tree scans"
+    result: pass
+    evidence_ref: CENG-T012-P002-EV001
+  - check: "Local public-key fingerprint, signed-tag, two-commit, and artifact-hash verification"
+    result: pass
+    evidence_ref: CENG-T012-P002-EV001
+  - check: "Hosted records validation and stable release gate"
+    result: pass
+    evidence_ref: CENG-T012-P002-EV001
+  - check: "Python local validator and unit tests"
+    result: unavailable
+    evidence_ref: CENG-T012-P002-EV001
+evidence_refs:
+  - CENG-T012-P002-EV001
+skill_gaps: []
+unresolved_items:
+  - "Factory Floor consumer lock remains on v2.5.4 pending separate migration approval."
+  - "The Python-based local validator and unit-test suite was unavailable in the container; hosted records validation passed."
+rollback_notes:
+  - "Keep consumers on v2.5.4."
+  - "Revoke v2.5.8 if future provenance or hosted verification becomes invalid; preserve v2.5.5-v2.5.8 audit records."
+requested_next_action: "Independently accept this handoff, then approve a separate consumer-lock migration packet if desired."
+receiver_status: pending
+receiver_notes: ""

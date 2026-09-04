@@ -133,3 +133,15 @@ events:
     actor: droid
     occurred_at: "2026-09-04T17:15:00Z"
     summary: "v2.5.8 packet-specific lock correction passes local uniqueness, event-order, artifact-hash, unrelated-row, and secret-scan checks."
+  - event_id: CENG-T012-E023
+    packet_id: CENG-T012-P002
+    type: release_validation
+    actor: droid
+    occurred_at: "2026-09-04T17:25:00Z"
+    summary: "Hosted v2.5.8 run 33897619518 passed both records validation and the stable release gate; the signed tag and attestation are verified."
+  - event_id: CENG-T012-E024
+    packet_id: CENG-T012-P002
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-04T17:30:00Z"
+    summary: "Prepared CENG-T012-P002-HO001 for independent acceptance; consumer migration remains deferred until hosted v2.5.8 verification is reviewed."

@@ -6,7 +6,7 @@ packet_class: cross-cutting
 title: "Rotate release signing identity and publish corrected v2.5.6"
 objective: "Preserve immutable v2.5.4 and the failed v2.5.5 audit trail, then publish a separately signed v2.5.6 release with a verified public signing key, corrected attestation, and hosted release-gate evidence."
 open_questions: []
-state: Implementing
+state: Validation
 scope:
   in:
     - CHANGELOG.md

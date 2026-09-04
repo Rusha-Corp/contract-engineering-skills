@@ -97,3 +97,9 @@ events:
     actor: droid
     occurred_at: "2026-09-04T16:45:00Z"
     summary: "Started the approved v2.5.6 corrective implementation by reordering the append-only event stream and preserving v2.5.5 failure evidence."
+  - event_id: CENG-T012-E017
+    packet_id: CENG-T012-P002
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-04T16:50:00Z"
+    summary: "Corrective content commit 3630be1 and v2.5.6 attestation draft pass local ordering, hash, and secret-scan checks; Python record validation remains unavailable."

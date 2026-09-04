@@ -1,8 +1,8 @@
 lock_version: 1
 protocol:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  ref: 3630be1d3f70f81c876603eb05b37ae0210702c8
-  release: 2.5.6
+  ref: 68bd77db8c4db5dcc54bfc3e68091f9090febf3b
+  release: 2.5.7
 skills:
   phased-engineering-execution:
     version: 2.5.0
@@ -26,9 +26,9 @@ project:
   protocol_root: .contract-engineering
 development:
   status: released
-  ref: 3630be1d3f70f81c876603eb05b37ae0210702c8
-  based_on_release: 2.5.6
-  reason: v2.5.6 is the corrective release that preserves the unverified v2.5.5 audit trail and fixes hosted records validation ordering while retaining v2.5.4 as the verified rollback release.
+  ref: 68bd77db8c4db5dcc54bfc3e68091f9090febf3b
+  based_on_release: 2.5.7
+  reason: v2.5.7 is the corrective release that restores unrelated tracker ownership and binds the full attestation subject SHA while retaining v2.5.4 as the verified rollback release.
   consumer_action: Synchronize from the locked ref after running the protocol preflight.
   skills:
     phased-engineering-execution:

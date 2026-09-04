@@ -150,11 +150,11 @@ rows:
     updated_at: "2026-09-03"
   - task_id: "CENG-T012"
     packet_id: "CENG-T012-P002"
-    state: "Implementing"
+    state: "Validation"
     owner: "droid"
     reviewer: "worker"
     locks:
       - "release-path:v2.5.5"
       - "release-attestation"
-    next_action: "Restore unrelated tracker state, correct the full content SHA, and prepare v2.5.7 metadata"
+    next_action: "Verify v2.5.7 metadata and signed tag locally, then publish only after validation review"
     updated_at: "2026-09-04"

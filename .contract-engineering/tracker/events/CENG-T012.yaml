@@ -109,3 +109,9 @@ events:
     actor: droid
     occurred_at: "2026-09-04T16:55:00Z"
     summary: "Hosted v2.5.6 validation exposed an unrelated tracker-row mutation and an abbreviated attestation subject SHA; approved v2.5.7 rework restores the row and binds the full commit."
+  - event_id: CENG-T012-E019
+    packet_id: CENG-T012-P002
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-04T17:00:00Z"
+    summary: "Restored CENG-T004-P017 from origin/main, bound v2.5.7 metadata to the exact full content SHA, and passed local ordering, hash, and secret-scan checks."

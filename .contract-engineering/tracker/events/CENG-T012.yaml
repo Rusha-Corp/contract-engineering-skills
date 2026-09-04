@@ -127,3 +127,9 @@ events:
     actor: droid
     occurred_at: "2026-09-04T17:10:00Z"
     summary: "Started v2.5.8 corrective implementation with packet-specific release locks and preservation of all prior unverified release tags."
+  - event_id: CENG-T012-E022
+    packet_id: CENG-T012-P002
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-04T17:15:00Z"
+    summary: "v2.5.8 packet-specific lock correction passes local uniqueness, event-order, artifact-hash, unrelated-row, and secret-scan checks."

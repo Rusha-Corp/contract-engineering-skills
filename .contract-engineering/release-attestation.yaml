@@ -1,16 +1,16 @@
 attestation_version: 1
 attestation_id: CENG-T012-P002-ATT002
-issued_at: "2026-09-04T16:45:08Z"
-expires_at: "2027-09-04T16:45:08Z"
+issued_at: "2026-09-04T16:51:56Z"
+expires_at: "2027-09-04T16:51:56Z"
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: 68bd77db8c4db5dcc54bfc3e68091f9090febf3b
-  release: 2.5.7
+  commit: 7c4059a467fbabb64cf55f1790974188887c9ba1
+  release: 2.5.8
   artifacts:
     - path: .github/workflows/protocol-validation.yml
       sha256: d737588c32eb97b98129fc176a9a6430d4b34c0c9457b986eb6302a1a43af58b
     - path: CHANGELOG.md
-      sha256: 2632f266f899157c90f7a0242681c7f2c3a4df6ba53212e8580c2b105db7d130
+      sha256: 291cf4af096b251b9fce246a735cef604b4dcd1a8c0a68428d59e05b8a6a98b4
     - path: README.md
       sha256: b2ec83a5bbb26dcb29ab0318f01662bca624135e6f0ce54ad4d693eb281994c5
     - path: docs/protocol-configuration.md
@@ -59,14 +59,14 @@ publisher:
   identity: Emmanuel
   identity_type: human
   authentication_ref: E0695C669AF8BD1ED298EF6EB2EECCB9F7AA535D
-  workflow: Factory Droid 2.5.7 release workflow
+  workflow: Factory Droid 2.5.8 release workflow
   signing_system: gpg
-  signature_ref: gpg:tag:v2.5.7:E0695C669AF8BD1ED298EF6EB2EECCB9F7AA535D
+  signature_ref: gpg:tag:v2.5.8:E0695C669AF8BD1ED298EF6EB2EECCB9F7AA535D
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:68bd77db8c4db5dcc54bfc3e68091f9090febf3b
+  builder_digest: git-tree:7c4059a467fbabb64cf55f1790974188887c9ba1
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: 68bd77db8c4db5dcc54bfc3e68091f9090febf3b
+  source_commit: 7c4059a467fbabb64cf55f1790974188887c9ba1
   dependencies:
     - "PyYAML 6.0.3, hash-pinned in requirements-ci.txt"
     - "gitleaks 8.24.3, SHA-256 pinned in secret-scanning workflow"
@@ -76,14 +76,14 @@ review:
   author: factory-droid
   independent_approver: user
   exception_ref: ""
-  approval_ref: USER-APPROVE-CORRECTIVE-V2.5.7-20260904
-  approved_at: "2026-09-04T16:45:08Z"
+  approval_ref: USER-APPROVE-CORRECTIVE-V2.5.8-20260904
+  approved_at: "2026-09-04T16:51:56Z"
 verification:
-  verified_at: "2026-09-04T16:45:08Z"
+  verified_at: "2026-09-04T16:51:56Z"
   verifier: factory-droid
   result: pass
-  transparency_ref: local-attestation-verification:68bd77db8c4db5dcc54bfc3e68091f9090febf3b
-  revocation_checked_at: "2026-09-04T16:45:08Z"
+  transparency_ref: local-attestation-verification:7c4059a467fbabb64cf55f1790974188887c9ba1
+  revocation_checked_at: "2026-09-04T16:51:56Z"
 revocation:
   status: active
   revocation_ref: CENG-T012-P002-EV001

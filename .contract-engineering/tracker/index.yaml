@@ -176,10 +176,10 @@ rows:
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P010"
-    state: "Claimed"
+    state: "Validation"
     owner: "droid"
     reviewer: "user"
     locks:
       - "child-packet-admission"
-    next_action: "Validate child packet DAG and tracker shard"
+    next_action: "Run final coordination validation and prepare P010 handoff"
     updated_at: "2026-09-15"

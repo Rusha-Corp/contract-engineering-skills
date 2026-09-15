@@ -6,7 +6,7 @@ packet_class: parent-coordination
 title: "Admit Contract Engineering child implementation packets"
 objective: "Register and validate the six bounded implementation packets from the accepted Superpowers-compatible plan."
 open_questions: []
-state: Claimed
+state: Validation
 scope:
   in:
     - ".contract-engineering/work-packets/CENG-T014-P010.yaml"

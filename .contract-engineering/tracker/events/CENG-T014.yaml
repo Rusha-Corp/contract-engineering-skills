@@ -253,3 +253,9 @@ events:
     actor: user
     occurred_at: "2026-09-16T00:00:00Z"
     summary: "User accepted P008 and released the consumer-migration-docs lock."
+  - event_id: CENG-T014-E043
+    packet_id: CENG-T014-P010
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-16T00:10:00Z"
+    summary: "Moved P010 to Validation after all child packets were accepted and final integrated checks passed."

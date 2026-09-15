@@ -156,3 +156,12 @@ rows:
     locks: []
     next_action: "Create the implementation-plan packet and child packets"
     updated_at: "2026-09-15"
+  - task_id: "CENG-T014"
+    packet_id: "CENG-T014-P002"
+    state: "Handoff"
+    owner: "droid"
+    reviewer: "user"
+    locks:
+      - "implementation-plan"
+    next_action: "User review of implementation plan and execution-mode selection"
+    updated_at: "2026-09-15"

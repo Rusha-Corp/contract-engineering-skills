@@ -6,7 +6,7 @@ packet_class: parent-coordination
 title: "Revise Contract Engineering for Superpowers composition"
 objective: "Record the approved Superpowers compatibility decision and produce superseding design and implementation-plan documents with root-level Factory packaging."
 open_questions: []
-state: Handoff
+state: Complete
 scope:
   in:
     - "docs/superpowers/specs/2026-09-15-design-contract-factory-plugin-superpowers-design.md"
@@ -43,7 +43,7 @@ cleanup_owner: droid
 dependencies:
   - CENG-T014-P001
 locks:
-  - superpowers-compatibility
+  []
 claim_timestamp: "2026-09-15T18:00:00Z"
 baseline_refs:
   - ".contract-engineering/protocol.lock.yaml"

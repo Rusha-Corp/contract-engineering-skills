@@ -53,7 +53,7 @@ events:
     packet_id: CENG-T014-P009
     type: claimed
     actor: droid
-    occurred_at: "2026-09-15T18:00:00Z"
+    occurred_at: "2026-09-15T18:01:00Z"
     summary: "Claimed the compatibility revision packet."
   - event_id: CENG-T014-E010
     packet_id: CENG-T014-P009
@@ -67,3 +67,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T18:35:00Z"
     summary: "Submitted CENG-T014-P009-HO001 for user review of the compatibility amendment."
+  - event_id: CENG-T014-E012
+    packet_id: CENG-T014-P009
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T18:40:00Z"
+    summary: "User accepted the Superpowers compatibility amendment and revised implementation plan."

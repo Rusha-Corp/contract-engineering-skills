@@ -16,8 +16,8 @@ receiver:
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ""
-  acceptance_ref: ""
+  accepted_at: "2026-09-15T18:40:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T014-P009-20260915
   signature_ref: ""
 base_revision: aaf6ae5bfa3218820ee19d31938ddb6065b9dc89
 head_revision: d0a0b2c023ff8e1c54884354bd887bc32cae0570
@@ -52,8 +52,9 @@ verification:
   result: pass
   revocation_checked_at: ""
   verification_ref: CENG-T014-P009-EV001
-receiver_status: pending
-receiver_notes: ""
+receiver_status: accepted
+receiver_notes: "User accepted the Superpowers compatibility amendment and revised implementation plan. Child implementation packets may now be created and admitted through the revised root-level composition model."
 accepted_revision: ""
 accepted_scope_digest: ""
-accepted_evidence_refs: []
+accepted_evidence_refs:
+  - CENG-T014-P009-EV001

@@ -151,9 +151,9 @@ rows:
     updated_at: "2026-09-03"
   - task_id: "CENG-T015"
     packet_id: "CENG-T015-P001"
-    state: "DataReview"
+    state: "Ready"
     owner: "droid"
     reviewer: "contract-driven-handoff-acceptance-reviewer"
     locks: ["release-candidate"]
-    next_action: "Confirm no data gate is required for release metadata preparation"
+    next_action: "Begin scoped release metadata preparation"
     updated_at: "2026-09-16"

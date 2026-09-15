@@ -19,3 +19,9 @@ events:
     actor: droid
     occurred_at: "2026-09-16T00:50:00Z"
     summary: "Release metadata preparation does not introduce or transform application data; no data correctness gate is required."
+  - event_id: CENG-T015-E004
+    packet_id: CENG-T015-P001
+    type: ready
+    actor: droid
+    occurred_at: "2026-09-16T00:55:00Z"
+    summary: "Release packet passed design, data, record, and control gates and is ready for scoped metadata preparation."

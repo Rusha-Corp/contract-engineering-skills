@@ -3,7 +3,7 @@ packet_id: CENG-T015-P001
 run_id: CENG-T015-P001-R001
 operation_id: release-preparation
 sequence: 1
-state: blocked
+state: awaiting_approval
 base_revision: 824f4970e3d583bf0558dcf40d8de3e0f883b501
 scope_digest: ""
 completed_steps:
@@ -11,14 +11,11 @@ completed_steps:
   - "Protocol and plugin release candidate metadata updated."
   - "Local validation and supplemental security checks passed."
   - "Hash-pinned CI dependency resolution passed in dry-run mode."
+  - "Hosted protocol validation, secret scanning, and security workflows passed."
 pending_steps:
-  - "Rerun draft-PR CI after the requirements correction."
-  - "Version and changelog update."
-  - "CI secret scan, dependency review, SAST, and Scorecard verification."
-  - "Independent review."
+  - "Independent review of corrected content and release candidate."
   - "Attestation and signing."
   - "Final user publication approval."
-  - "User authorization to push the release-candidate branch for CI-only verification."
 side_effects:
   - effect_id: CENG-T015-P001-EXT001
     status: planned

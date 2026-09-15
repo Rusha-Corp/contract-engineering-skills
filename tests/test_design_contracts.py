@@ -582,6 +582,194 @@ class AdmissionValidationTests(unittest.TestCase):
         }
         self._write_packet(packet)
 
+    def test_admission_fails_with_invalid_criterion_ref(self):
+        """Packet with criterion validation_ref not tracing to design should fail."""
+        design = valid_design(
+            task_id="CENG-T014",
+            status="approved",
+            acceptance_contract={
+                "version": 1,
+                "criteria": [
+                    {
+                        "id": "CENG-T014-AC001",
+                        "statement": "Design validates.",
+                        "expected_result": "pass",
+                        "verification_method": "execute",
+                        "evidence_refs": ["CENG-T014-EV001"],
+                    }
+                ],
+            },
+        )
+        self._write_design("CENG-T014", design)
+
+        packet = {
+            "packet_id": "CENG-T014-P003",
+            "task_id": "CENG-T014",
+            "state": "Ready",
+            "design_decision_ref": "CENG-T014-DC001",
+            "scope": {"in": ["schemas/design-contract.schema.json"], "out": []},
+            "owner": "agent",
+            "reviewer": "user",
+            "cleanup_owner": "agent",
+            "dependencies": [],
+            "locks": [],
+            "baseline_refs": [".contract-engineering/protocol.lock.yaml", "a" * 40],
+            "acceptance_criteria": ["Tests pass"],
+            "acceptance_contract": {
+                "version": 1,
+                "criteria": [
+                    {
+                        "id": "CENG-T014-P003-AC001",
+                        "statement": "Schema validates.",
+                        "expected_result": "pass",
+                        "verification_method": "execute",
+                        "evidence_refs": ["CENG-T014-P003-EV001"],
+                        "validation_ref": "NONEXISTENT-AC999",  # Does not trace to design
+                    }
+                ],
+            },
+            "validation_plan": [{"id": "CENG-T014-P003-VAL001", "kind": "tests", "expected": "pass"}],
+        }
+        self._write_packet(packet)
+
+    def test_admission_fails_with_missing_dependency(self):
+        """Packet with non-existent dependency should fail."""
+        design = valid_design(task_id="CENG-T014", status="approved")
+        self._write_design("CENG-T014", design)
+
+        packet = {
+            "packet_id": "CENG-T014-P003",
+            "task_id": "CENG-T014",
+            "state": "Ready",
+            "design_decision_ref": "CENG-T014-DC001",
+            "scope": {"in": ["schemas/design-contract.schema.json"], "out": []},
+            "owner": "agent",
+            "reviewer": "user",
+            "cleanup_owner": "agent",
+            "dependencies": ["CENG-T014-P001"],  # Does not exist
+            "locks": [],
+            "baseline_refs": [".contract-engineering/protocol.lock.yaml", "a" * 40],
+            "acceptance_criteria": ["Tests pass"],
+            "validation_plan": [{"id": "CENG-T014-P003-VAL001", "kind": "tests", "expected": "pass"}],
+        }
+        self._write_packet(packet)
+
+    def test_admission_fails_with_incomplete_dependency(self):
+        """Packet with non-Complete dependency should fail."""
+        design = valid_design(task_id="CENG-T014", status="approved")
+        self._write_design("CENG-T014", design)
+
+        # Create incomplete dependency
+        dep_packet = {
+            "packet_id": "CENG-T014-P001",
+            "task_id": "CENG-T014",
+            "state": "Implementing",  # Not Complete
+            "owner": "agent",
+            "reviewer": "user",
+            "cleanup_owner": "agent",
+            "dependencies": [],
+            "locks": [],
+            "baseline_refs": [".contract-engineering/protocol.lock.yaml", "a" * 40],
+            "acceptance_criteria": ["Tests pass"],
+            "validation_plan": [],
+        }
+        self._write_packet(dep_packet)
+
+        packet = {
+            "packet_id": "CENG-T014-P003",
+            "task_id": "CENG-T014",
+            "state": "Ready",
+            "design_decision_ref": "CENG-T014-DC001",
+            "scope": {"in": ["schemas/design-contract.schema.json"], "out": []},
+            "owner": "agent",
+            "reviewer": "user",
+            "cleanup_owner": "agent",
+            "dependencies": ["CENG-T014-P001"],
+            "locks": [],
+            "baseline_refs": [".contract-engineering/protocol.lock.yaml", "a" * 40],
+            "acceptance_criteria": ["Tests pass"],
+            "validation_plan": [{"id": "CENG-T014-P003-VAL001", "kind": "tests", "expected": "pass"}],
+        }
+        self._write_packet(packet)
+
+    def test_admission_fails_with_lock_conflict(self):
+        """Packet with conflicting lock should fail."""
+        design = valid_design(task_id="CENG-T014", status="approved")
+        self._write_design("CENG-T014", design)
+
+        # Create active packet holding the same lock
+        conflicting_packet = {
+            "packet_id": "CENG-T014-P002",
+            "task_id": "CENG-T014",
+            "state": "Implementing",
+            "owner": "agent",
+            "reviewer": "user",
+            "cleanup_owner": "agent",
+            "dependencies": [],
+            "locks": ["design-contract-schema"],  # Same lock
+            "baseline_refs": [".contract-engineering/protocol.lock.yaml", "a" * 40],
+            "acceptance_criteria": ["Tests pass"],
+            "validation_plan": [],
+        }
+        self._write_packet(conflicting_packet)
+
+        packet = {
+            "packet_id": "CENG-T014-P003",
+            "task_id": "CENG-T014",
+            "state": "Ready",
+            "design_decision_ref": "CENG-T014-DC001",
+            "scope": {"in": ["schemas/design-contract.schema.json"], "out": []},
+            "owner": "agent",
+            "reviewer": "user",
+            "cleanup_owner": "agent",
+            "dependencies": [],
+            "locks": ["design-contract-schema"],  # Conflicting lock
+            "baseline_refs": [".contract-engineering/protocol.lock.yaml", "a" * 40],
+            "acceptance_criteria": ["Tests pass"],
+            "validation_plan": [{"id": "CENG-T014-P003-VAL001", "kind": "tests", "expected": "pass"}],
+        }
+        self._write_packet(packet)
+
+    def test_admission_passes_with_valid_dependency_and_locks(self):
+        """Packet with Complete dependency and non-conflicting locks should pass."""
+        design = valid_design(task_id="CENG-T014", status="approved")
+        self._write_design("CENG-T014", design)
+
+        # Create Complete dependency
+        dep_packet = {
+            "packet_id": "CENG-T014-P001",
+            "task_id": "CENG-T014",
+            "state": "Complete",
+            "owner": "agent",
+            "reviewer": "user",
+            "cleanup_owner": "agent",
+            "dependencies": [],
+            "locks": [],
+            "baseline_refs": [".contract-engineering/protocol.lock.yaml", "a" * 40],
+            "acceptance_criteria": ["Tests pass"],
+            "validation_plan": [],
+            "handoff_ref": "CENG-T014-P001-H001",
+        }
+        self._write_packet(dep_packet)
+
+        packet = {
+            "packet_id": "CENG-T014-P003",
+            "task_id": "CENG-T014",
+            "state": "Ready",
+            "design_decision_ref": "CENG-T014-DC001",
+            "scope": {"in": ["schemas/design-contract.schema.json"], "out": []},
+            "owner": "agent",
+            "reviewer": "user",
+            "cleanup_owner": "agent",
+            "dependencies": ["CENG-T014-P001"],
+            "locks": ["design-contract-schema"],
+            "baseline_refs": [".contract-engineering/protocol.lock.yaml", "a" * 40],
+            "acceptance_criteria": ["Tests pass"],
+            "validation_plan": [{"id": "CENG-T014-P003-VAL001", "kind": "tests", "expected": "pass"}],
+        }
+        self._write_packet(packet)
+        # Should pass admission
+
 
 if __name__ == "__main__":
     unittest.main()

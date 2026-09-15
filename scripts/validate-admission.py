@@ -157,34 +157,66 @@ def validate_scope_coverage(design: dict[str, Any], packet: dict[str, Any]) -> N
             )
 
 
-def validate_criterion_traceability(design: dict[str, Any], packet: dict[str, Any]) -> None:
-    """Validate packet criteria trace to design criteria."""
+def validate_criterion_traceability(design: dict[str, Any], packet: dict[str, Any], all_packets: dict[str, Any]) -> None:
+    """Validate packet criteria trace to design criteria through validation_ref.
+    
+    Every structured packet criterion must trace through validation_ref to a 
+    design acceptance criterion. Invalid refs fail closed.
+    """
     design_criteria = {
         c["id"]: c
         for c in design.get("acceptance_contract", {}).get("criteria", [])
     }
     
-    packet_criteria = packet.get("acceptance_criteria", [])
     packet_contract = packet.get("acceptance_contract", {})
     
     # If packet has structured contract, check validation_ref traceability
     if packet_contract.get("criteria"):
         for criterion in packet_contract["criteria"]:
             validation_ref = criterion.get("validation_ref")
-            if validation_ref and validation_ref not in design_criteria:
-                # Check if it traces through validation plan
-                pass  # Allow for now, stricter checking can be added
+            if validation_ref:
+                # validation_ref must reference a design acceptance criterion ID
+                if validation_ref not in design_criteria:
+                    raise ValueError(
+                        f"{packet['packet_id']}: criterion {criterion.get('id', 'unknown')} "
+                        f"validation_ref {validation_ref} does not trace to any design criterion "
+                        f"(valid: {sorted(design_criteria.keys())})"
+                    )
 
 
-def validate_packet_gates(packet: dict[str, Any]) -> None:
-    """Validate packet gates, dependencies, and resources."""
-    # Check dependencies are satisfied (simplified - would check dependency states)
-    dependencies = packet.get("dependencies", [])
-    # In full implementation, would verify each dependency is Complete
+def validate_packet_gates(packet: dict[str, Any], all_packets: dict[str, Any]) -> None:
+    """Validate packet gates, dependencies, and resources.
     
-    # Check locks are held
+    - Dependencies must exist and be Complete
+    - Active locks must be present and conflict-free/owned
+    - Packet must have owner when Ready
+    """
+    # Check dependencies are satisfied
+    dependencies = packet.get("dependencies", [])
+    for dep_id in dependencies:
+        if dep_id not in all_packets:
+            raise ValueError(
+                f"{packet['packet_id']}: dependency {dep_id} does not exist"
+            )
+        dep_packet = all_packets[dep_id]
+        if dep_packet["state"] != "Complete":
+            raise ValueError(
+                f"{packet['packet_id']}: dependency {dep_id} is not Complete (state: {dep_packet['state']})"
+            )
+    
+    # Check locks are held and conflict-free
     locks = packet.get("locks", [])
-    # In full implementation, would verify locks are held by packet owner
+    if locks and packet["state"] in {"Ready", "Implementing", "Validation", "Handoff"}:
+        # Verify no other active packet holds the same lock
+        for lock in locks:
+            for other_id, other_packet in all_packets.items():
+                if other_id == packet["packet_id"]:
+                    continue
+                if other_packet["state"] not in {"Complete", "Cancelled"}:
+                    if lock in other_packet.get("locks", []):
+                        raise ValueError(
+                            f"{packet['packet_id']}: lock {lock} is also held by active packet {other_id}"
+                        )
     
     # Check authorization
     if packet["state"] == "Ready":
@@ -192,7 +224,7 @@ def validate_packet_gates(packet: dict[str, Any]) -> None:
             raise ValueError(f"{packet['packet_id']}: packet must have an owner to be Ready")
 
 
-def validate_admission(packet: dict[str, Any], designs: dict[str, Any]) -> None:
+def validate_admission(packet: dict[str, Any], designs: dict[str, Any], all_packets: dict[str, Any]) -> None:
     """Validate a packet is admissible for implementation."""
     if packet["state"] not in {"Ready", "Implementing", "Validation", "Handoff"}:
         return  # Only validate Ready or active packets
@@ -215,10 +247,10 @@ def validate_admission(packet: dict[str, Any], designs: dict[str, Any]) -> None:
             validate_approval_revision(design, packet)
             validate_required_reviews(design, packet)
             validate_scope_coverage(design, packet)
-            validate_criterion_traceability(design, packet)
+            validate_criterion_traceability(design, packet, all_packets)
     
     # Packet gates
-    validate_packet_gates(packet)
+    validate_packet_gates(packet, all_packets)
 
 
 def validate_all_admission(root: Path = Path(".contract-engineering")) -> int:
@@ -233,7 +265,7 @@ def validate_all_admission(root: Path = Path(".contract-engineering")) -> int:
         if packet["state"] == "Ready":
             ready_count += 1
             try:
-                validate_admission(packet, designs)
+                validate_admission(packet, designs, packets)
             except ValueError as exc:
                 errors.append(str(exc))
     
@@ -260,8 +292,9 @@ def main() -> int:
     if args.packet:
         packet = load_yaml(args.packet)
         designs = load_designs(args.root / "designs")
+        packets = load_packets(args.root / "work-packets")
         try:
-            validate_admission(packet, designs)
+            validate_admission(packet, designs, packets)
             print(f"packet admission valid: {args.packet}")
             return 0
         except ValueError as exc:

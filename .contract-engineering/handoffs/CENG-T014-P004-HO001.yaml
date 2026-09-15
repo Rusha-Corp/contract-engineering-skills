@@ -1,0 +1,75 @@
+handoff_version: 3
+handoff_id: CENG-T014-P004-HO001
+packet_id: CENG-T014-P004
+transition:
+  from: Validation
+  to: Handoff
+  reason: "Offline preview serving, manifest validation, HTML/SVG safety filters, Mermaid fallback, fixtures, and security checks are complete; receiver acceptance is required."
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ""
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: ""
+  acceptance_ref: ""
+  signature_ref: ""
+base_revision: 3060afdcd60bc468482362c3520a5c55dca59592
+head_revision: 589c90d1ed1e55fbde258e86a6e5b0e1cfd49742
+scope_digest: 257bf5e4fee1fc342394f4c2ac2b0821e47a17438a6a239bd5e4453d7d5cd904
+changed_resources:
+  - path: .contract-engineering/decisions/CENG-T014-P004-DEC001.yaml
+    sha256: c10845f1dfdd94dea03c8c070573996ca03c5aacac2028c0972f80637e080386
+  - path: .contract-engineering/evidence/CENG-T014-P004-EV001.md
+    sha256: 3f968c94fe05cbd9a9e7da3f9a0e316d0e1f2216ceb8bf44404c7927164da923
+  - path: .contract-engineering/execution-tracker.md
+    sha256: baca97d5902b1c96fd9a01755146681097068109560cb30b8338b59356f15960
+  - path: .contract-engineering/tracker/events/CENG-T014.yaml
+    sha256: 7ab67a5cdae7b0d06583355dde2c38e402ca6b6633e714e2f1f17ebaab8e01a5
+  - path: .contract-engineering/tracker/shards/CENG-T014.yaml
+    sha256: f803d791bdc694d77bba37974b317edee3792632f9e4c21f1caa8307a28e5066
+  - path: .contract-engineering/work-packets/CENG-T014-P004.yaml
+    sha256: 4627e7adc79c637471d791ffff183a91ee805045fefa3ee6ae42484e0468816b
+  - path: runtime/mermaid.min.js
+    sha256: 77cecc708ce243b07ad0cf7bea9e151968aaa77c94cad4d970ab5d4ba2c1e2c8
+  - path: scripts/preview-design.py
+    sha256: c559f932713678e93b6bb7b536384bd63d36b105882cef422a835a4a6fa0ae6b
+  - path: scripts/render-mermaid.py
+    sha256: 65b860a907a1178e2927d23e46763d4d3b672be0c9740120a9f89727abf7986c
+  - path: scripts/sanitize-svg.py
+    sha256: 75b4960ea85cdf030c2a486fdf6cb19ec039fee3045fdea7e64676f5c132c6ac
+  - path: tests/fixtures/designs/architecture-basic/design.yaml
+    sha256: eec0d66ccbae3f4b46444cec3d3f28ef78885c83f14f44802fcb0fc3703114be
+  - path: tests/fixtures/designs/architecture-basic/system.mmd
+    sha256: 6c7579833f44cee734b7706c0fabbcaafc0b73d038c7afe824e01aba5cdbe038
+  - path: tests/fixtures/designs/architecture-basic/system.svg
+    sha256: b4cfa0392a2100b43ceb1aad27969bec5571036142af22977388d97f66f9139d
+  - path: tests/fixtures/designs/ui-basic/design.yaml
+    sha256: 75155f8f5544412c9b097d1a5763813fb072c4bf1f31570d4255b883fbc72775
+  - path: tests/fixtures/designs/ui-basic/index.html
+    sha256: 4cb35045c1d60325151e3200304df7ae9c16d7a4432e855274bcdd402287e676
+  - path: tests/fixtures/designs/unsafe/remote.html
+    sha256: 4b6b6b45d828f76663cf65bcd83671ba19c3e1f089677ec49406f7fd19e9e9bb
+  - path: tests/fixtures/designs/unsafe/scripted.svg
+    sha256: d48d56955781d2729bd1c4d13cbcbe4673bd06262e7c63c37fa48d76fb907ee9
+  - path: tests/test_design_preview.py
+    sha256: 18a8ac9c8e4290a68c677e9d6ae58449c1dcfd7a7524ad9c426cf5128742117a
+created_at: "2026-09-15T21:05:00Z"
+expires_at: ""
+approval_ref: CENG-T014-P004-DEC001
+verification:
+  verified_at: "2026-09-15T21:00:00Z"
+  verifier: droid
+  result: pass
+  revocation_checked_at: ""
+  verification_ref: CENG-T014-P004-EV001
+receiver_status: pending
+receiver_notes: "Receiver must review the preview runtime, safety behavior, evidence, scope, and limitation that Mermaid CLI rendering remains fail-closed when unavailable."
+accepted_revision: ""
+accepted_scope_digest: ""
+accepted_evidence_refs: []

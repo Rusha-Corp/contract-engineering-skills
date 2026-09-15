@@ -145,3 +145,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T21:00:00Z"
     summary: "Moved P004 to Validation after preview safety implementation and test validation."
+  - event_id: CENG-T014-E025
+    packet_id: CENG-T014-P004
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T21:05:00Z"
+    summary: "Moved P004 to Handoff after complete preview runtime validation; receiver acceptance is pending."

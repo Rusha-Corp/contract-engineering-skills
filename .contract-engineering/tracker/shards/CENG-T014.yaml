@@ -14,11 +14,11 @@ rows:
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P004"
-    state: "Validation"
+    state: "Handoff"
     owner: "droid"
     reviewer: "user"
     locks: ["design-preview-runtime"]
-    next_action: "Run final packet validation and prepare the P004 handoff"
+    next_action: "Review P004 handoff and accept or reject the preview runtime"
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P005"

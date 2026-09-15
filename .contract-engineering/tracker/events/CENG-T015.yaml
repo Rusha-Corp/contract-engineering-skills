@@ -31,3 +31,9 @@ events:
     actor: droid
     occurred_at: "2026-09-16T01:00:00Z"
     summary: "Started scoped release metadata preparation with no remote or signing side effects."
+  - event_id: CENG-T015-E006
+    packet_id: CENG-T015-P001
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-16T01:10:00Z"
+    summary: "Local release metadata, repository, packaging, workflow-invariant, schema, and supplemental secret checks passed; CI security checks and independent review remain required."

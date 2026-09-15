@@ -6,7 +6,7 @@ packet_class: cross-cutting
 title: "Prepare signed Contract Engineering release"
 objective: "Prepare a reviewed, reproducible, attested release of the accepted Contract Engineering protocol and Factory plugin without publishing it until final user approval."
 open_questions: []
-state: Implementing
+state: Validation
 scope:
   in:
     - ".factory-plugin/plugin.json"

@@ -8,9 +8,11 @@ base_revision: 824f4970e3d583bf0558dcf40d8de3e0f883b501
 scope_digest: ""
 completed_steps:
   - "P002 superseded-plan lock resolved before release iteration."
+  - "Protocol and plugin release candidate metadata updated."
+  - "Local validation and supplemental security checks passed."
 pending_steps:
   - "Version and changelog update."
-  - "Security and reproducibility verification."
+  - "CI secret scan, dependency review, SAST, and Scorecard verification."
   - "Independent review."
   - "Attestation and signing."
   - "Final user publication approval."

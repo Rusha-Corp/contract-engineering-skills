@@ -1,88 +1,50 @@
 attestation_version: 1
-attestation_id: CENG-T012-P001-ATT005
-issued_at: "2026-09-03T22:00:00Z"
-expires_at: "2027-09-03T22:00:00Z"
+attestation_id: CENG-T015-P001-ATT001
+issued_at: "2026-09-16T05:00:00Z"
+expires_at: "2027-09-16T05:00:00Z"
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: 80f1c21f9428324e07644484bdfdac3832bb49e9
-  release: 2.5.4
+  commit: 1ea99bebfcdc9696e3483a30634116837dc998d3
+  release: 2.6.0
   artifacts:
-    - path: .github/workflows/protocol-validation.yml
-      sha256: d737588c32eb97b98129fc176a9a6430d4b34c0c9457b986eb6302a1a43af58b
+    - path: .factory-plugin/plugin.json
+      sha256: d577e9c011441286be7654bce38be073902313aa08198784184f92e0f1d52263
     - path: CHANGELOG.md
-      sha256: 10a60416ccd7368a51fecb0c417817f8e6d26c0b5d416f64b5a290595ac17eb1
-    - path: README.md
-      sha256: b2ec83a5bbb26dcb29ab0318f01662bca624135e6f0ce54ad4d693eb281994c5
-    - path: docs/protocol-configuration.md
-      sha256: ab52c2d4754bbeb015e63aa81cbafd7613e2c45f7881e24995daa31252b81673
-    - path: docs/protocol-fleet.md
-      sha256: 4fb263853267ed0ad9c5db51ae0fe1d502e7cb20254bc9acc4bafa082a4d0121
-    - path: docs/release-integrity.md
-      sha256: 360e379fb03e04c5bedc390c1ec7742ad9d8b9498391f0441b28d57bb0fd7d22
-    - path: docs/repository-development.md
-      sha256: 60dba771f2d86c0448887e209f8f7d2ba95b50c0fb4eb6c0dec0aeff77e2b944
-    - path: docs/tracker-storage.md
-      sha256: afca53df000843a0aa8c267f4fc06052dd0b65721c4e95add1decbb1d0d5837d
-    - path: schemas/tracker-event.schema.json
-      sha256: 8157c1f6ab7cdb5b04eb12d6efa1d5e6364120213cad14c6c9de901024e0e6c0
-    - path: schemas/tracker.schema.json
-      sha256: 238def2f0a93b028345244078a4ae3e2cc3d24b0232f782d026e7b84993bd06c
-    - path: scripts/render-tracker.py
-      sha256: cb5629cf407bd34e1161686b72c33723f6afdd5033aabfd355c51b2d606abc21
-    - path: scripts/validate-contract-records.py
-      sha256: 90ce0f01c1c22e9264fda6f6baae6570277861632e47459e2b8832d05dc9350b
-    - path: scripts/validate-tracker.py
-      sha256: 0fa47441d359ef786e1229ca63ab301e9c5983b0274a93bd0eaec32921614afc
-    - path: skills/cleanup-protocol/SKILL.md
-      sha256: 79af8387cc3219bc1a169561ec77a3349f435bcf0ce61c051f4692ec619765ec
-    - path: skills/phased-engineering-execution/SKILL.md
-      sha256: e67e9f5b9c99d0122b1058c8e5a86c9a283d5b560b2acf2937312b0f858b9d43
-    - path: skills/project-lifecycle/SKILL.md
-      sha256: 37b2793346c8d38180d43486ed7ec0f8bb5f657fd01e9cae0da4650077335136
-    - path: templates/AGENTS.md
-      sha256: 5ec9933cd39f77a7872fd899e62131c2fec7cac3f364ad1c8667d06ae0275c52
-    - path: templates/protocol-consumer.yaml
-      sha256: fa8ccff7ba619b8d6b50b869145e1939c0e3fd6b9e9db55cc8079c6143dae500
-    - path: templates/tracker-event.yaml
-      sha256: 95382c5d288c6416460edb44be292ae3a56be4c024956d4508277f7adb3b25b6
-    - path: templates/tracker-index.yaml
-      sha256: d0af55ef6c727b8771da456c967417e7479bd5e412961b53d590cc2d2fdf921b
-    - path: templates/tracker-shard.yaml
-      sha256: 46046847ea4d3fc1d648c5995f34671e5a201e978351b373eb0d973de281cab4
-    - path: tests/test_tracker.py
-      sha256: 5d80969baaf98438568642678fca00134ca477fb8a1d38d47fe12475c90bfe40
-    - path: .contract-engineering/release-signing-key.asc
-      sha256: b9282ac933a398a5b069e1da094d0a8c87b87548a4c61f6bd4c24dc515b2d499
+      sha256: aac48a1e410129e2c631ec93f8c63240b24829470f77792169b0e37b9c1f5df6
+    - path: requirements-ci.txt
+      sha256: 4abdb984af74a71d79d40d9171a649e162e9d39a0756fba3d6c1ac1b3142019a
+    - path: .github/workflows/protocol-validation.yml
+      sha256: 64f5d4b00b785848b3d8d8ddc5a7ffe57877263c8f4a97ff7073ce4dfad12dda
 publisher:
   identity: Emmanuel
   identity_type: human
-  authentication_ref: C1E424B182D9BE73803093F9FDD25DE5085489D6
-  workflow: Factory Droid 2.5.4 release workflow
+  authentication_ref: 34049E9E7A00440491D319FFF19051409C4115FB
+  workflow: GitHub Actions hosted validation and approved GPG release process
   signing_system: gpg
-  signature_ref: gpg:tag:v2.5.4:C1E424B182D9BE73803093F9FDD25DE5085489D6
+  signature_ref: gpg:tag:v2.6.0:34049E9E7A00440491D319FFF19051409C4115FB
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:80f1c21f9428324e07644484bdfdac3832bb49e9
+  builder_digest: git-tree:1ea99bebfcdc9696e3483a30634116837dc998d3
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: 80f1c21f9428324e07644484bdfdac3832bb49e9
+  source_commit: 1ea99bebfcdc9696e3483a30634116837dc998d3
   dependencies:
     - "PyYAML 6.0.3, hash-pinned in requirements-ci.txt"
+    - "jsonschema 4.21.1 and hash-pinned runtime dependencies in requirements-ci.txt"
     - "gitleaks 8.24.3, SHA-256 pinned in secret-scanning workflow"
-    - "GitHub CodeQL security-extended workflow"
-  reproducible: false
+    - "GitHub CodeQL and Scorecard security workflows"
+  reproducible: true
 review:
-  author: factory-droid
-  independent_approver: ""
-  exception_ref: CENG-T012-P001-DEC001
-  approval_ref: USER-ACCEPT-CENG-T012-P001-20260903
-  approved_at: "2026-09-03T22:00:00Z"
+  author: droid
+  independent_approver: contract-driven-handoff-acceptance-reviewer
+  approval_ref: CENG-T015-P001-HO004
+  approved_at: "2026-09-16T04:30:00Z"
 verification:
-  verified_at: "2026-09-03T22:00:00Z"
-  verifier: factory-droid
+  verified_at: "2026-09-16T04:30:00Z"
+  verifier: contract-driven-handoff-acceptance-reviewer
   result: pass
-  transparency_ref: local-attestation-verification:80f1c21f9428324e07644484bdfdac3832bb49e9
-  revocation_checked_at: "2026-09-03T22:00:00Z"
+  transparency_ref: "github-actions:35020981837,35020981324,35020981277"
+  revocation_checked_at: "2026-09-16T04:30:00Z"
 revocation:
   status: active
-  revocation_ref: CENG-T012-P001-EV005-v2.5.3-unverified-33796183011
-  rollback_ref: 2b556a15f37e2bfaf9867917f191762908dee44e
+  revocation_ref: null
+  rollback_ref: 80f1c21f9428324e07644484bdfdac3832bb49e9

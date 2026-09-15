@@ -9,7 +9,7 @@ events:
     summary: "Claimed the design-contract, visualization, admission-enforcement, and Factory plugin architecture packet after user approval."
   - event_id: CENG-T014-E002
     packet_id: CENG-T014-P001
-    type: validation
+    type: handoff
     actor: droid
     occurred_at: "2026-09-15T00:30:00Z"
     summary: "Wrote and self-reviewed the architecture specification; baseline records, tracker validation, generated projections, and specification checks passed."
@@ -90,4 +90,4 @@ events:
     type: handoff
     actor: droid
     occurred_at: "2026-09-15T20:00:00Z"
-    summary: "Moved P003 to Validation after implementation; final packet validation is in progress."
+    summary: "Moved P003 to Handoff after implementation and validation; receiver review is pending."

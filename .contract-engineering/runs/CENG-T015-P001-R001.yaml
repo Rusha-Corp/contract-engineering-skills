@@ -1,0 +1,35 @@
+run_record_version: 1
+run_id: CENG-T015-P001-R001
+packet_id: CENG-T015-P001
+actor_ref: droid
+started_at: "2026-09-16T00:45:00Z"
+ended_at: ""
+model:
+  provider: Factory
+  name: GPT-5.6 Luna
+  version: current
+  endpoint: local-harness
+  settings_hash: ""
+prompt_policy:
+  system_policy_ref: current-session
+  prompt_template_ref: governed-release-workflow
+  policy_hash: ""
+tools:
+  - name: repository-tools
+    provider: Factory
+    version: current
+    schema_hash: ""
+    capabilities: [repository-read, repository-write, local-test]
+dependencies:
+  - "PyYAML 6.0.3 from requirements-ci.txt"
+data_snapshots: []
+environment:
+  os: "linux"
+  runtime: "Python 3"
+  repository_revision: 824f4970e3d583bf0558dcf40d8de3e0f883b501
+  configuration_hash: ""
+result:
+  outcome: partial
+  evidence_refs: [CENG-T015-P001-EV001]
+  limitations:
+    - "Release publication, tag creation, and remote verification are not yet authorized."

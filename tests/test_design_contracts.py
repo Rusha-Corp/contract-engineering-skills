@@ -2,6 +2,7 @@
 """Tests for design contract validation and admission checks."""
 
 import json
+import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
@@ -419,6 +420,47 @@ class AdmissionValidationTests(unittest.TestCase):
         path.write_text(yaml.dump(packet, default_flow_style=False))
         return path
 
+    @staticmethod
+    def _admission_module():
+        spec = importlib.util.spec_from_file_location("validate_admission", ADMISSION_SCRIPT)
+        module = importlib.util.module_from_spec(spec)
+        assert spec.loader is not None
+        spec.loader.exec_module(module)
+        return module
+
+    def test_design_criterion_refs_are_required_and_validated(self):
+        design = valid_design()
+        packet = {
+            "packet_id": "CENG-T014-P003",
+            "acceptance_contract": {
+                "criteria": [
+                    {
+                        "id": "CENG-T014-P003-AC001",
+                        "design_criterion_refs": ["CENG-T014-AC001"],
+                    }
+                ]
+            },
+        }
+        self._admission_module().validate_criterion_traceability(design, packet, {})
+
+        packet["acceptance_contract"]["criteria"][0]["design_criterion_refs"] = [
+            "CENG-T014-AC999"
+        ]
+        with self.assertRaises(ValueError):
+            self._admission_module().validate_criterion_traceability(design, packet, {})
+
+    def test_design_criterion_refs_cannot_be_omitted_for_designed_packet(self):
+        packet = {
+            "packet_id": "CENG-T014-P003",
+            "acceptance_contract": {
+                "criteria": [{"id": "CENG-T014-P003-AC001"}]
+            },
+        }
+        with self.assertRaises(ValueError):
+            self._admission_module().validate_criterion_traceability(
+                valid_design(), packet, {}
+            )
+
     def test_admission_passes_with_approved_design(self):
         """Ready packet with approved design should pass admission."""
         design = valid_design(task_id="CENG-T014", status="approved")
@@ -624,7 +666,7 @@ class AdmissionValidationTests(unittest.TestCase):
                         "expected_result": "pass",
                         "verification_method": "execute",
                         "evidence_refs": ["CENG-T014-P003-EV001"],
-                        "validation_ref": "NONEXISTENT-AC999",  # Does not trace to design
+                        "design_criterion_refs": ["NONEXISTENT-AC999"],
                     }
                 ],
             },

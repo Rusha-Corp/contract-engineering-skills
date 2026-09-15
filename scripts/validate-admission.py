@@ -157,12 +157,12 @@ def validate_scope_coverage(design: dict[str, Any], packet: dict[str, Any]) -> N
             )
 
 
-def validate_criterion_traceability(design: dict[str, Any], packet: dict[str, Any], all_packets: dict[str, Any]) -> None:
-    """Validate packet criteria trace to design criteria through validation_ref.
-    
-    Every structured packet criterion must trace through validation_ref to a 
-    design acceptance criterion. Invalid refs fail closed.
-    """
+def validate_criterion_traceability(
+    design: dict[str, Any],
+    packet: dict[str, Any],
+    all_packets: dict[str, Any],
+) -> None:
+    """Validate packet criteria against design criteria and local validation."""
     design_criteria = {
         c["id"]: c
         for c in design.get("acceptance_contract", {}).get("criteria", [])
@@ -170,18 +170,22 @@ def validate_criterion_traceability(design: dict[str, Any], packet: dict[str, An
     
     packet_contract = packet.get("acceptance_contract", {})
     
-    # If packet has structured contract, check validation_ref traceability
+    # A packet validation_ref names its own validation plan. Design
+    # traceability uses the explicit design_criterion_refs field.
     if packet_contract.get("criteria"):
         for criterion in packet_contract["criteria"]:
-            validation_ref = criterion.get("validation_ref")
-            if validation_ref:
-                # validation_ref must reference a design acceptance criterion ID
-                if validation_ref not in design_criteria:
-                    raise ValueError(
-                        f"{packet['packet_id']}: criterion {criterion.get('id', 'unknown')} "
-                        f"validation_ref {validation_ref} does not trace to any design criterion "
-                        f"(valid: {sorted(design_criteria.keys())})"
-                    )
+            design_refs = criterion.get("design_criterion_refs")
+            if not isinstance(design_refs, list) or not design_refs:
+                raise ValueError(
+                    f"{packet['packet_id']}: criterion {criterion.get('id', 'unknown')} "
+                    "must reference at least one design criterion"
+                )
+            missing = set(design_refs) - set(design_criteria)
+            if missing:
+                raise ValueError(
+                    f"{packet['packet_id']}: criterion {criterion.get('id', 'unknown')} "
+                    f"references unknown design criteria: {sorted(missing)}"
+                )
 
 
 def validate_packet_gates(packet: dict[str, Any], all_packets: dict[str, Any]) -> None:

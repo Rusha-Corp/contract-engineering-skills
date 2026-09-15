@@ -169,3 +169,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T21:35:00Z"
     summary: "Moved P005 to Validation after governance interface implementation and tests."
+  - event_id: CENG-T014-E029
+    packet_id: CENG-T014-P005
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T21:40:00Z"
+    summary: "Moved P005 to Handoff after governance interface validation; receiver acceptance is pending."

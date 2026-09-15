@@ -112,7 +112,7 @@ validation_plan:
     command: "validate exact content commit, artifact hashes, attestation, signature, and final approval gate"
     expected: "release is publication-ready but unpublished"
 evidence_refs: [CENG-T015-P001-EV001]
-handoff_ref: CENG-T015-P001-HO003
+handoff_ref: CENG-T015-P001-HO004
 skill_gaps: []
 cleanup_scope: {dead_refs: [], stale_refs: [], temp_refs: []}
 stability: beta

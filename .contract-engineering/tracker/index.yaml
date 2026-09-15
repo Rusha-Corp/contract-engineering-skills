@@ -155,5 +155,5 @@ rows:
     owner: "droid"
     reviewer: "contract-driven-handoff-acceptance-reviewer"
     locks: ["release-candidate"]
-    next_action: "Await independent acceptance of CENG-T015-P001-HO003"
+    next_action: "Await independent acceptance of CENG-T015-P001-HO004"
     updated_at: "2026-09-16"

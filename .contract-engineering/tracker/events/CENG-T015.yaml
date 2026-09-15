@@ -97,3 +97,15 @@ events:
     actor: droid
     occurred_at: "2026-09-16T03:40:00Z"
     summary: "Submitted final exact-head release candidate HO003 after all hosted workflows passed for 1ea99be."
+  - event_id: CENG-T015-E017
+    packet_id: CENG-T015-P001
+    type: rework
+    actor: contract-driven-handoff-acceptance-reviewer
+    occurred_at: "2026-09-16T04:00:00Z"
+    summary: "Rejected HO003 because evidence file CENG-T015-P001-EV001.md does not contain the claimed head revision 1ea99be or CI runs 35020981837/35020981324/35020981277. Evidence shows bd561da with runs 35020697090/35020697150/35020697060. Criterion AC002 fails: evidence mismatch between handoff and evidence file."
+  - event_id: CENG-T015-E018
+    packet_id: CENG-T015-P001
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-16T04:20:00Z"
+    summary: "Submitted HO004 after adding the exact 1ea99be hosted CI runs to EV001 and preserving HO003 rejection history."

@@ -1,0 +1,72 @@
+design_contract_version: 1
+design_id: CENG-T014-DC002
+task_id: CENG-T014
+status: proposed
+design_type: ui
+title: "Invalid UI Design - Missing Visual Review"
+
+problem:
+  statement: "Test fixture for missing visual review."
+  users:
+    - "test"
+  impact: "Test."
+  urgency: low
+  constraints: []
+
+open_questions: []
+
+scope:
+  in:
+    - "test"
+  out: []
+
+architecture:
+  proposal: "Test"
+  components: []
+  data_flows: []
+  trust_boundaries: []
+
+alternatives:
+  - id: ALT001
+    proposal: "Test alternative."
+    benefits:
+      - "Test benefit"
+    costs:
+      - "Test cost"
+    rejected_reason: "Test rejection."
+
+decisions:
+  security: []
+  data: []
+  compatibility: []
+  observability: []
+  rollback: []
+
+artifacts:
+  - path: "test.html"
+    kind: html
+    sha256: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    required: true
+
+reviews:
+  - review_id: CENG-T014-DC002-R001
+    kind: design
+    reviewer: "user"
+    status: accepted
+    notes: "Design review only, missing visual review."
+
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T014-AC001
+      statement: "Test."
+      expected_result: "Test."
+      verification_method: execute
+      evidence_refs:
+        - "CENG-T014-EV001"
+
+approval:
+  approver: "user"
+  authenticated: true
+  approved_at: "2026-09-15T19:00:00Z"
+  approved_revision: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"

@@ -1,0 +1,29 @@
+decision_version: 1
+decision_id: CENG-T014-P001-DEC001
+packet_id: CENG-T014-P001
+status: approved
+title: "Design contracts, visual review artifacts, and installable Factory plugin"
+proposal: "Add a user-led design-contract phase before packet decomposition, require visual artifacts for UI, UX, architecture, workflow, and data-flow work, and package the protocol as a nested installable Factory Droid plugin with deterministic hooks and validators."
+alternatives_considered:
+  - "Rely on SKILL.md guidance without deterministic admission enforcement."
+  - "Use optional external design tools without repository-local, reviewable artifacts."
+  - "Keep the current plugin manifest without a marketplace wrapper and nested plugin package."
+decision: "Use repository-local design contracts and hashed HTML, Mermaid, and SVG artifacts as approval-bound inputs to packet decomposition. Enforce admission through repository validators, Factory hooks, CI, and an optional host supervisor. Vendor a pinned Mermaid runtime for offline previews and package the plugin under plugins/contract-engineering-skills."
+scope:
+  - "User-led design and architecture contract workflow"
+  - "Visual design and architecture preview artifacts under .contract-engineering/designs/"
+  - "Factory Droid plugin commands, droids, hooks, and nested marketplace packaging"
+  - "Admission enforcement and child-packet decomposition contract"
+controls:
+  - "No implementation packet is admitted before user approval of the design contract."
+  - "Required design artifacts depend on the design type; text-only work remains supported."
+  - "Canonical Mermaid source, generated SVG, HTML previews, and artifact hashes are reviewable and offline-capable."
+  - "Factory hooks and CI fail closed on missing packet admission, out-of-scope edits, invalid transitions, and incomplete handoffs."
+  - "Project records remain in the consuming repository; the plugin supplies reusable protocol behavior."
+approved_by: user
+approved_at: "2026-09-15"
+expires_at: ""
+success_measure: "A reviewed design spec decomposes into bounded child packets and the repository installs as a clean Factory plugin with deterministic admission enforcement."
+rollback_ref: "1be220f2691194a8e69f330ebc85fff9fd6c0172"
+review_owner: user
+review_at: ""

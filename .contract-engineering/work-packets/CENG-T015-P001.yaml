@@ -1,0 +1,123 @@
+packet_id: CENG-T015-P001
+task_id: CENG-T015
+phase: P0_FOUNDATIONS
+domain: security
+packet_class: cross-cutting
+title: "Prepare signed Contract Engineering release"
+objective: "Prepare a reviewed, reproducible, attested release of the accepted Contract Engineering protocol and Factory plugin without publishing it until final user approval."
+open_questions: []
+state: Rework
+scope:
+  in:
+    - ".factory-plugin/plugin.json"
+    - "CHANGELOG.md"
+    - "requirements-ci.txt"
+    - ".contract-engineering/decisions/CENG-T015-P001-DEC002.yaml"
+    - ".contract-engineering/decisions/CENG-T015-P001-DEC001.yaml"
+    - ".contract-engineering/threat-models/CENG-T015-P001.yaml"
+    - ".contract-engineering/work-packets/CENG-T015-P001.yaml"
+    - ".contract-engineering/evidence/CENG-T015-P001-EV001.md"
+    - ".contract-engineering/handoffs/CENG-T015-P001-HO001.yaml"
+    - ".contract-engineering/tracker/index.yaml"
+    - ".contract-engineering/tracker/events/CENG-T015.yaml"
+    - ".contract-engineering/execution-tracker.md"
+    - ".contract-engineering/release-attestation.yaml"
+  out:
+    - "Pushing commits or tags."
+    - "Creating a remote release."
+    - "Updating consumer protocol locks."
+    - "Publishing signing credentials or authentication material."
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities: [repository-read, repository-write, local-test]
+risk_tier: high
+approval_policy: two_person
+external_effects:
+  - effect_id: CENG-T015-P001-EXT001
+    target: origin GitHub repository
+    operation: "Potential publication of the attested release commit, immutable tag, and release metadata; currently not authorized."
+    data_classification: public
+    declared: true
+    approval_ref: CENG-T015-P001-DEC001
+    reversible: true
+    rollback: "Do not publish; if published, revoke the attestation and roll back consumers to protocol 2.5.4 at 80f1c21f9428324e07644484bdfdac3832bb49e9."
+owner: droid
+reviewer: contract-driven-handoff-acceptance-reviewer
+cleanup_owner: droid
+dependencies: [CENG-T014-P010]
+locks: [release-candidate]
+claim_timestamp: "2026-09-16T00:45:00Z"
+baseline_refs:
+  - ".contract-engineering/protocol.lock.yaml"
+  - "824f4970e3d583bf0558dcf40d8de3e0f883b501"
+  - "80f1c21f9428324e07644484bdfdac3832bb49e9"
+design_decision_ref: CENG-T015-P001-DEC001
+data_gate_ref: null
+trust_boundary_ref: CENG-T015-P001
+execution_budget_ref: CENG-T015-P001
+checkpoint_ref: CENG-T015-P001
+evaluation_ref: CENG-T015-P001
+agent_run_ref: CENG-T015-P001-R001
+observability_refs: [CENG-T015-P001-EV001]
+incident_refs: [CENG-T015-P001-INC001]
+acceptance_criteria:
+  - "The release version and migration notes match the accepted implementation."
+  - "All local validation and security checks pass with no blocking findings."
+  - "An independent reviewer approves the exact content commit and attestation."
+  - "The release is ready for publication but remains unpublished until user approval."
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T015-P001-AC001
+      statement: "Release metadata identifies the accepted implementation."
+      expected_result: "Protocol and plugin versions, changelog, rollback, and migration notes are internally consistent."
+      verification_method: inspect
+      evidence_refs: [CENG-T015-P001-EV001]
+      failure_result: "Consumers could receive mismatched or undocumented release bytes."
+      validation_ref: CENG-T015-P001-VAL001
+    - id: CENG-T015-P001-AC002
+      statement: "Release integrity and security gates pass."
+      expected_result: "Local tests, secret scan, dependency review, SAST, workflow checks, and reproducibility checks pass or have approved bounded exceptions."
+      verification_method: execute
+      evidence_refs: [CENG-T015-P001-EV001]
+      failure_result: "A release could contain unverified or tampered content."
+      validation_ref: CENG-T015-P001-VAL002
+    - id: CENG-T015-P001-AC003
+      statement: "Publication remains explicitly authorized."
+      expected_result: "The release is not pushed or tagged until the user records final publication approval."
+      verification_method: inspect
+      evidence_refs: [CENG-T015-P001-EV001]
+      failure_result: "The agent publishes an external release without final approval."
+      validation_ref: CENG-T015-P001-VAL003
+validation_plan:
+  - id: CENG-T015-P001-VAL001
+    kind: release-metadata
+    command: "inspect plugin version, CHANGELOG, attestation, rollback reference, and migration notes"
+    expected: "release metadata is internally consistent"
+  - id: CENG-T015-P001-VAL002
+    kind: security
+    skill: security-assurance
+    checks:
+      - "Secret scan passes on history and working tree"
+      - "Dependency and license review passes"
+      - "SAST and workflow security checks pass"
+      - "Threat model mitigations are verified"
+      - "No unresolved critical or high findings remain"
+    expected: "no unresolved blocking security findings"
+  - id: CENG-T015-P001-VAL003
+    kind: release-integrity
+    command: "validate exact content commit, artifact hashes, attestation, signature, and final approval gate"
+    expected: "release is publication-ready but unpublished"
+evidence_refs: [CENG-T015-P001-EV001]
+handoff_ref: CENG-T015-P001-HO001
+skill_gaps: []
+cleanup_scope: {dead_refs: [], stale_refs: [], temp_refs: []}
+stability: beta
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""

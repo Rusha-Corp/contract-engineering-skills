@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+cat <<'EOF'
+Contract Engineering bootstrap is additive to Superpowers.
+Before writes, check the project lock, design contract, packet claim, admission, scope, evidence, and handoff gates.
+Repository validators and CI are authoritative; Superpowers remains responsible for general workflow skills.
+EOF

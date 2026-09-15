@@ -1,0 +1,56 @@
+handoff_version: 3
+handoff_id: CENG-T014-P011-HO001
+packet_id: CENG-T014-P011
+transition:
+  from: Validation
+  to: Handoff
+  reason: "The CENG-T014 design contract, canonical Mermaid source, sanitized SVG, required reviews, and validation evidence are complete; receiver acceptance is required."
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ""
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: "2026-09-15T20:35:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T014-P011-20260915
+  signature_ref: ""
+base_revision: 8f03a7a0ecc6631325a3b189d0d6ed47378c123b
+head_revision: 41fbca56c94c18554f377360959f6a4622f2b155
+scope_digest: 4984890227eecbd30ea7914c9e643c51bd4a1b8a7e6a1a3024689366d4fe9ef5
+changed_resources:
+  - path: .contract-engineering/designs/CENG-T014/architecture.mmd
+    sha256: 3ebdbe9722465ace63b6b58198fc6847a1c71c062bc4162bb9a2d6df1f7dab6b
+  - path: .contract-engineering/designs/CENG-T014/architecture.svg
+    sha256: 5a84e9ff8acf49c9462bf4dfecf0d4be813fddcd400f2c82ddbac6590f8bbfd4
+  - path: .contract-engineering/designs/CENG-T014/design.yaml
+    sha256: 5558b7af3ba7e6eeec2000cdaea896d1c66b5b62fc3c3688286a02b1c8bb3e92
+  - path: .contract-engineering/evidence/CENG-T014-P011-EV001.md
+    sha256: 60971247c44396ac6be9fa5ae6ec9fff4c27a9734e259f542014bf0f08e7af01
+  - path: .contract-engineering/execution-tracker.md
+    sha256: 0101dcc21584838a70642718851aedfb00c9ccd8d6703dda2e00f8ce11eb455b
+  - path: .contract-engineering/tracker/events/CENG-T014.yaml
+    sha256: c9cff0cfa7cd31d1f4c323841a8b8e77c5c55c5c132fac870f3a5d242a36a98d
+  - path: .contract-engineering/tracker/shards/CENG-T014.yaml
+    sha256: 319fe3988e306311d732bc9fa0461868d004b11d5e184e0cad5fb3da112b53c9
+  - path: .contract-engineering/work-packets/CENG-T014-P011.yaml
+    sha256: d0df8107abd42783df67d44e0bb208a6de71de86f2e139e53bf032e8dd772a89
+created_at: "2026-09-15T20:30:00Z"
+expires_at: ""
+approval_ref: CENG-T014-P010-DEC001
+verification:
+  verified_at: "2026-09-15T20:29:00Z"
+  verifier: droid
+  result: pass
+  revocation_checked_at: ""
+  verification_ref: CENG-T014-P011-EV001
+receiver_status: accepted
+receiver_notes: "User reviewed the P011 design contract, canonical Mermaid source, sanitized SVG, validation output, and handoff bindings and accepted the packet. P004 is unblocked."
+accepted_revision: b113ec5bfe4e2f2d9c721d037dd869f4ff6d27b9
+accepted_scope_digest: 4984890227eecbd30ea7914c9e643c51bd4a1b8a7e6a1a3024689366d4fe9ef5
+accepted_evidence_refs:
+  - CENG-T014-P011-EV001

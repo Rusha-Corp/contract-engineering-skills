@@ -1,0 +1,26 @@
+decision_version: 1
+decision_id: CENG-T014-P010-DEC001
+packet_id: CENG-T014-P010
+status: approved
+title: "Create a concrete design contract before P004"
+proposal: "Register a scoped design-contract packet that materializes the approved CENG-T014 architecture and data-flow contract with Mermaid and sanitized SVG artifacts before admitting P004."
+alternatives_considered:
+  - "Null child packet design references and continue under legacy admission."
+decision: "Create and review CENG-T014-DC001 before P004. Child implementation packets remain blocked until the design contract is approved and their acceptance criteria trace to its criteria."
+scope:
+  - ".contract-engineering/work-packets/CENG-T014-P011.yaml"
+  - ".contract-engineering/designs/CENG-T014/design.yaml"
+  - ".contract-engineering/designs/CENG-T014/architecture.mmd"
+  - ".contract-engineering/designs/CENG-T014/architecture.svg"
+  - "P004 admission remains blocked until CENG-T014-DC001 is approved."
+controls:
+  - "Mermaid source is canonical and the SVG is sanitized before approval."
+  - "The design contract uses revision-bound approval and required design/architecture reviews."
+  - "P004 and downstream packets remain Planned until the design contract is approved."
+approved_by: user
+approved_at: "2026-09-15T20:15:00Z"
+expires_at: ""
+success_measure: "CENG-T014-DC001 validates, receives the required reviews, and is referenced by P004 before P004 enters Ready."
+rollback_ref: e65484ff1266ba09d996520d55db4986ff7eaa56
+review_owner: user
+review_at: ""

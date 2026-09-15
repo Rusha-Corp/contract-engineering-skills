@@ -1,0 +1,11 @@
+artifact_manifest_version: 1
+design_id: "<PROJECT>-<TASK-ID>-DC001"
+artifacts:
+  - path: ".contract-engineering/designs/<TASK-ID>/architecture.mmd"
+    kind: "mermaid"
+    sha256: "<64-character-sha256>"
+    required: true
+  - path: ".contract-engineering/designs/<TASK-ID>/architecture.svg"
+    kind: "svg"
+    sha256: "<64-character-sha256>"
+    required: true

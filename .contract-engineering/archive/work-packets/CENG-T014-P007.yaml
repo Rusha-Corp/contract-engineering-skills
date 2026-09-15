@@ -1,0 +1,77 @@
+packet_id: CENG-T014-P007
+task_id: CENG-T014
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: child-implementation
+title: "Package Contract Engineering as a root-level Factory plugin"
+objective: "Add root-level marketplace metadata and reproducible clean-install validation for the Contract Engineering plugin."
+open_questions: []
+state: Complete
+scope:
+  in:
+    - ".factory-plugin/marketplace.json"
+    - ".factory-plugin/plugin.json"
+    - "scripts/build-factory-plugin.py"
+    - "scripts/validate-factory-plugin.py"
+    - "tests/test_factory_plugin_package.py"
+    - ".github/workflows/protocol-validation.yml"
+  out:
+    - "Nested plugin duplication."
+    - "Modifying the Superpowers repository."
+    - "Publishing a release or updating consumer locks."
+actor: {agent_id: droid, harness: Factory Droid, model: GPT-5.6 Luna, session_id: current-session}
+capabilities: [repository-read, repository-write, local-test]
+risk_tier: medium
+approval_policy: reviewer
+external_effects: []
+owner: droid
+reviewer: user
+cleanup_owner: droid
+dependencies: [CENG-T014-P004, CENG-T014-P005, CENG-T014-P006]
+locks: []
+claim_timestamp: "2026-09-15T22:40:00Z"
+baseline_refs:
+  - ".contract-engineering/protocol.lock.yaml"
+  - "5829d5420108f9803831ca5b25ed59b39c2f276f"
+  - "docs/superpowers/specs/2026-09-15-design-contract-factory-plugin-superpowers-design.md"
+  - "docs/superpowers/plans/2026-09-15-design-contract-factory-plugin-superpowers-plan.md"
+  - ".contract-engineering/decisions/CENG-T014-P009-DEC001.yaml"
+design_decision_ref: CENG-T014-DC001
+data_gate_ref: null
+acceptance_criteria:
+  - "The root marketplace points to the root plugin and both manifests are valid."
+  - "Clean-install validation checks unique skills, commands, droids, hooks, runtime, and safe paths."
+  - "Documentation shows separate installation and coexistence with Superpowers."
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T014-P007-AC001
+      statement: "Contract Engineering installs as a root-level Factory marketplace/plugin."
+      expected_result: "Manifest and clean-install tests pass without copying or overwriting Superpowers."
+      verification_method: execute
+      verification_command: "python3 -m unittest tests.test_factory_plugin_package -v"
+      evidence_refs: [CENG-T014-P007-EV001]
+      failure_result: "The marketplace cannot resolve the plugin or paths escape its root."
+      validation_ref: CENG-T014-P007-VAL001
+      design_criterion_refs: [CENG-T014-DC001-AC001, CENG-T014-DC001-AC002]
+validation_plan:
+  - id: CENG-T014-P007-VAL001
+    kind: packaging
+    command: "python3 scripts/validate-factory-plugin.py --root . && python3 -m unittest tests.test_factory_plugin_package -v"
+    expected: "root-level plugin metadata and clean-package checks pass"
+evidence_refs: [CENG-T014-P007-EV001]
+handoff_ref: CENG-T014-P007-HO001
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+observability_refs: []
+incident_refs: []
+skill_gaps: []
+cleanup_scope: {dead_refs: [], stale_refs: [], temp_refs: []}
+stability: beta
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""

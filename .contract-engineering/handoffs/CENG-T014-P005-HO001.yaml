@@ -1,0 +1,78 @@
+handoff_version: 3
+handoff_id: CENG-T014-P005-HO001
+packet_id: CENG-T014-P005
+transition:
+  from: Validation
+  to: Handoff
+  reason: "Governance skills, commands, droids, ownership tests, composition boundaries, and security checks are complete; receiver acceptance is required."
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ""
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: "2026-09-15T21:45:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T014-P005-20260915
+  signature_ref: ""
+base_revision: 34d38aed20b8c8fb0f8a1c2ccf094e7318f59182
+head_revision: 8320c024b4eab88896ab66b9c360cd22de0c84bc
+scope_digest: 1c798b6455eff42c50ff351172a9645c4c3c0767e0c833c1d6a7921e6e45842b
+changed_resources:
+  - path: .contract-engineering/decisions/CENG-T014-P005-DEC001.yaml
+    sha256: 13e8ba88950d135dd80a5630001a02939cef0090c0586be8334f916d315216c6
+  - path: .contract-engineering/evidence/CENG-T014-P005-EV001.md
+    sha256: db0acbf5cba653efc306d27039d87625d4ce3309132b270c10919972a1b74dcf
+  - path: .contract-engineering/execution-tracker.md
+    sha256: d59f591e08e5db25fd27d33c2ee078e54a5c5217bb231e201f0176ed1eca327e
+  - path: .contract-engineering/tracker/events/CENG-T014.yaml
+    sha256: b913984a8a25bd0926c079feccd99ddb47a54aa4c7b81a1240f3aec04576f0b5
+  - path: .contract-engineering/tracker/shards/CENG-T014.yaml
+    sha256: ca49aba1caffda025a496504af5555a35aa3d2cb8f7c5c097265ed49086b53ef
+  - path: .contract-engineering/work-packets/CENG-T014-P005.yaml
+    sha256: 0a1ec85b05e97851c3b1ed3b38538fbb634417c4be73dabbf5b0f97974947f6e
+  - path: commands/contract-admit.md
+    sha256: 008fd405ac551abe7beccc30a9cde1c9b84cc1816db782e8ad22f3b25b059713
+  - path: commands/contract-plan.md
+    sha256: 150aa6548da4335b0754aaca8bcd6609774805d033bc31c6e19f9390800cf21b
+  - path: commands/contract-review.md
+    sha256: a9ebc60aeef01008b5b3e8ff21d06a2f8242b2f11f4c7aae125454d62eb0ebdc
+  - path: commands/design-preview.md
+    sha256: 7ee61ea04f9c144cb354155cffe42343cc4c9b1cea8a617e15b0dc808d116a2f
+  - path: droids/contract-designer.md
+    sha256: b3d8b2b3346cdbb936926a90fb6d3e9d6d2363b632e4261005c6e586f6586ae7
+  - path: droids/contract-reviewer.md
+    sha256: fc9a4aba0bae55e1c21136c15652ae70c652d5a3179b796dce048af16a98aaf0
+  - path: droids/contract-supervisor.md
+    sha256: d277d9d4277b50be125ebbf8625a1af9202319538506a3a79db3b03d3e39c98f
+  - path: skills/contract-admission/SKILL.md
+    sha256: 3fed50ffbd6fda770cf5bf1ff6fd40fb16b7e9fd9d19dfc3960d37f054ad380c
+  - path: skills/contract-design/SKILL.md
+    sha256: f6d3aacd270ec0382ca7d7681e2e1b404214db10424b861035b3c89262865eee
+  - path: skills/contract-handoff-acceptance/SKILL.md
+    sha256: 0d1b2dbef071e0a31e3e403d3b1d54d75280e9b32f45ca410883bfd59a425800
+  - path: skills/contract-review/SKILL.md
+    sha256: 115af38d7aa13b805e63c2bd0361828e262f7a65ea8bf4bfe684df09dcb40f28
+  - path: skills/contract-visual-review/SKILL.md
+    sha256: 8cec73e9dcbdbe5559170158a817441acebed30e43145247dcc2625c8aebe3dc
+  - path: tests/test_factory_interfaces.py
+    sha256: 2e7caa169970d09e27778b6fff44a50cf2ca1f316e995aa18fc3e2d80b1ae687
+created_at: "2026-09-15T21:40:00Z"
+expires_at: ""
+approval_ref: CENG-T014-P005-DEC001
+verification:
+  verified_at: "2026-09-15T21:35:00Z"
+  verifier: droid
+  result: pass
+  revocation_checked_at: ""
+  verification_ref: CENG-T014-P005-EV001
+receiver_status: accepted
+receiver_notes: "User reviewed skill ownership, command stop points, droid boundaries, evidence, and security decision and accepted P005."
+accepted_revision: af87f5d6603d25bad446fcb1525c29616217059a
+accepted_scope_digest: 1c798b6455eff42c50ff351172a9645c4c3c0767e0c833c1d6a7921e6e45842b
+accepted_evidence_refs:
+  - CENG-T014-P005-EV001

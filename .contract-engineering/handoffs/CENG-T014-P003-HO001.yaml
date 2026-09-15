@@ -1,0 +1,72 @@
+handoff_version: 3
+handoff_id: CENG-T014-P003-HO001
+packet_id: CENG-T014-P003
+transition:
+  from: Validation
+  to: Handoff
+  reason: "Design-contract schema and admission validation are implemented and the complete packet validation plan passed; receiver review is required."
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ""
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: "2026-09-15T20:10:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T014-P003-20260915
+  signature_ref: ""
+base_revision: e65484ff1266ba09d996520d55db4986ff7eaa56
+head_revision: 5dadcd67df9fe06f015abb16eb11bef530ca0977
+scope_digest: f6f1d9d662ce39b74a25de744672378c8a2816273ba02a14435375e68e2a7e25
+changed_resources:
+  - path: .contract-engineering/evidence/CENG-T014-P003-EV001.md
+    sha256: 1d64ad794eb2f8b8518aa39fdc7cec7fc7eeecad26dbadaa1bff14b3488ec7d8
+  - path: .contract-engineering/execution-tracker.md
+    sha256: da8449e2e224458eab6b5b68bdc395a0ce4567e906b12cd8c9d78887e94aeb16
+  - path: .contract-engineering/tracker/events/CENG-T014.yaml
+    sha256: b6a41dfeec6cd31c21ddf09cebe2b4381ab8685ae2c7025f9e4ab92a1b43cd98
+  - path: .contract-engineering/tracker/shards/CENG-T014.yaml
+    sha256: 7094f313f926b4403b8c96fb93b084610ceb5576204c2b920ed5720a24b1ffe0
+  - path: .contract-engineering/work-packets/CENG-T014-P003.yaml
+    sha256: abbcc77ee09cbd81602afb5b0a175d38a68a51242f960149af769a53da6a23f6
+  - path: .github/workflows/protocol-validation.yml
+    sha256: 7d5d16f8b5eea7a5e13a070d48783d780976f7af1e61687387cdab1405353cc4
+  - path: schemas/design-contract.schema.json
+    sha256: 17f1c604529232060d995ef7616e3347c953d190d001bfdaccf476398683c22e
+  - path: schemas/work-packet.schema.json
+    sha256: cefff091d182cc21f4eab8349cfa9c2246b4e70fd03c93548130f034d7eed4b7
+  - path: scripts/validate-admission.py
+    sha256: 724bd5cc01ee90a8546d403e164a025544ee6a9dcd729dfe59b40ceec5cc5a35
+  - path: scripts/validate-contract-records.py
+    sha256: 71ee7d64ced49d94bef396f9770334207d4a250f7e4744af8c071ab961ce61f5
+  - path: scripts/validate-design-contracts.py
+    sha256: 85b77c1491eda67b09b470d77ee836c0074a06270d2e62fac501505a2c9073cb
+  - path: templates/design-contract.yaml
+    sha256: ae9729024dc4a08b70e55f9c99e8fcc61e5dd9519e1ff933635037f637237a2b
+  - path: tests/fixtures/design-contracts/invalid-missing-visual-review.yaml
+    sha256: e7c4625faf83e7b032ecb68c1e108b6b06f281d478e8d1ac21c8bb8d9aedcd98
+  - path: tests/fixtures/design-contracts/invalid-stale-approval.yaml
+    sha256: 3f27ab5dff51c4c26ba1a3a1e6855902f7c5e72b20f805c46853e7db89aa63f3
+  - path: tests/fixtures/design-contracts/valid-text-design.yaml
+    sha256: a44a7ac2b5c446132159e83b56ba1f35fcf2a020ef7bd4c34f554981cfffd70d
+  - path: tests/test_design_contracts.py
+    sha256: 1939f3698eae743e864df451e45837914b5f84ce67af40a7f95c0dd05e988a6e
+created_at: "2026-09-15T20:05:00Z"
+expires_at: ""
+approval_ref: ""
+verification:
+  verified_at: "2026-09-15T20:00:00Z"
+  verifier: droid
+  result: pass
+  revocation_checked_at: ""
+  verification_ref: CENG-T014-P003-EV001
+receiver_status: accepted
+receiver_notes: "User reviewed the P003 diff, evidence, validation output, scope, and handoff bindings and accepted the implementation. Independent reviewer dispatches had been rate-limited, which remains recorded in the evidence."
+accepted_revision: e3c37cadf269b4f53506da26ecc1347ed6a942b8
+accepted_scope_digest: f6f1d9d662ce39b74a25de744672378c8a2816273ba02a14435375e68e2a7e25
+accepted_evidence_refs:
+  - CENG-T014-P003-EV001

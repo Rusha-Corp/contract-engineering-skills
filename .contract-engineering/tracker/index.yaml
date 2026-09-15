@@ -1,8 +1,9 @@
 tracker_schema_version: 1
 partition: active
 max_rows: 25
-updated_at: "2026-09-03"
-shards: []
+updated_at: "2026-09-15"
+shards:
+  - tracker/shards/CENG-T014.yaml
 rows:
   - task_id: "CENG-T011"
     packet_id: "CENG-T011-P001"
@@ -148,3 +149,11 @@ rows:
     locks: []
     next_action: "Retain in active index until iteration closure"
     updated_at: "2026-09-03"
+  - task_id: "CENG-T015"
+    packet_id: "CENG-T015-P001"
+    state: "Rework"
+    owner: "droid"
+    reviewer: "contract-driven-handoff-acceptance-reviewer"
+    locks: ["release-candidate"]
+    next_action: "Obtain authorization to push the release-candidate branch for CI security checks"
+    updated_at: "2026-09-16"

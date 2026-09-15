@@ -1,0 +1,28 @@
+decision_version: 1
+decision_id: CENG-T015-P001-DEC001
+packet_id: CENG-T015-P001
+status: approved
+title: "Prepare the first Contract Engineering feature release"
+proposal: "Prepare a signed protocol release containing the accepted Contract Engineering implementation, Superpowers compatibility documentation, root Factory plugin metadata, and corresponding migration notes."
+alternatives_considered:
+  - "Publish the unreleased coordination branch without an independent release review or attestation."
+  - "Defer release and continue using the previously verified 2.5.4 protocol release."
+decision: "Prepare release 2.6.0 for the protocol and 2.3.0 for the Factory plugin, but require independent review, complete security validation, attestation, signing, and a final user publication approval before any push or tag."
+scope:
+  - ".factory-plugin/plugin.json"
+  - "CHANGELOG.md"
+  - ".contract-engineering/release-attestation.yaml"
+  - ".contract-engineering/work-packets/CENG-T015-P001.yaml"
+  - ".contract-engineering/threat-models/CENG-T015-P001.yaml"
+controls:
+  - "The release source is an exact clean content commit."
+  - "The attestation is created only after content hashes are final."
+  - "Independent approval is separate from the release author."
+  - "No push, tag, or consumer lock update occurs without final user approval."
+approved_by: user
+approved_at: "2026-09-16T00:45:00Z"
+expires_at: ""
+success_measure: "A signed, independently reviewed, reproducibly validated release candidate is ready for final user publication approval."
+rollback_ref: 80f1c21f9428324e07644484bdfdac3832bb49e9
+review_owner: contract-driven-handoff-acceptance-reviewer
+review_at: ""

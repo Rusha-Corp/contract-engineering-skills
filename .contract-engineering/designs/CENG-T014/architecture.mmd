@@ -1,0 +1,18 @@
+flowchart LR
+    A[Superpowers brainstorming and plan] --> B[Contract design record]
+    B --> C[Mermaid source and sanitized SVG]
+    C --> D[Design and architecture review]
+    D --> E[User approval bound to artifact manifest]
+    E --> F[Packet admission]
+    F --> G[Bounded worker packet]
+    G --> H[Evidence and handoff]
+    H --> I[CI and tracker audit]
+    subgraph ApprovalBoundary[Approval boundary]
+      D
+      E
+    end
+    subgraph ExecutionBoundary[Execution boundary]
+      F
+      G
+      H
+    end

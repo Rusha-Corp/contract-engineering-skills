@@ -1,0 +1,92 @@
+packet_id: CENG-T014-P003
+task_id: CENG-T014
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: child-implementation
+title: "Implement design-contract schema and admission validation"
+objective: "Add machine-checked design contracts, artifact requirements, and cross-record packet admission validation."
+open_questions: []
+state: Complete
+scope:
+  in:
+    - "schemas/design-contract.schema.json"
+    - "schemas/work-packet.schema.json"
+    - "templates/design-contract.yaml"
+    - "scripts/validate-design-contracts.py"
+    - "scripts/validate-admission.py"
+    - "scripts/validate-contract-records.py"
+    - "tests/test_design_contracts.py"
+    - "tests/fixtures/design-contracts/"
+    - ".github/workflows/protocol-validation.yml"
+  out:
+    - "Visual preview runtime or Mermaid renderer."
+    - "Factory commands, droids, hooks, or plugin packaging."
+    - "Consumer migration documentation."
+actor: {agent_id: droid, harness: Factory Droid, model: GPT-5.6 Luna, session_id: current-session}
+capabilities: [repository-read, repository-write, local-test]
+risk_tier: medium
+approval_policy: reviewer
+external_effects: []
+owner: droid
+reviewer: user
+cleanup_owner: droid
+dependencies: [CENG-T014-P001]
+locks: []
+claim_timestamp: "2026-09-15T19:15:00Z"
+baseline_refs:
+  - ".contract-engineering/protocol.lock.yaml"
+  - "5829d5420108f9803831ca5b25ed59b39c2f276f"
+  - "docs/superpowers/specs/2026-09-15-design-contract-factory-plugin-superpowers-design.md"
+  - "docs/superpowers/plans/2026-09-15-design-contract-factory-plugin-superpowers-plan.md"
+  - ".contract-engineering/decisions/CENG-T014-P009-DEC001.yaml"
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+  - "Design contracts validate by design type, artifact manifest, approval revision, review status, and acceptance criteria."
+  - "Ready packet admission fails closed when design approval, scope coverage, criteria traceability, or required gates are missing."
+  - "Legacy projects without design contracts remain compatible until migration."
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T014-P003-AC001
+      statement: "Design contract records are schema-valid and type-aware."
+      expected_result: "Valid text, UI, architecture, workflow, and data-flow fixtures pass; invalid artifacts and approvals fail."
+      verification_method: execute
+      verification_command: "python3 -m unittest tests.test_design_contracts -v"
+      evidence_refs: [CENG-T014-P003-EV001]
+      failure_result: "An invalid design contract passes validation."
+      validation_ref: CENG-T014-P003-VAL001
+    - id: CENG-T014-P003-AC002
+      statement: "Packet admission is bound to approved design scope and criteria."
+      expected_result: "Admission rejects missing approval, stale artifacts, out-of-scope packets, and missing review gates."
+      verification_method: execute
+      verification_command: "python3 scripts/validate-admission.py --root .contract-engineering --all-ready"
+      evidence_refs: [CENG-T014-P003-EV001]
+      failure_result: "A packet can reach admission without an approved design contract."
+      validation_ref: CENG-T014-P003-VAL002
+validation_plan:
+  - id: CENG-T014-P003-VAL001
+    kind: tests
+    command: "python3 -m unittest tests.test_design_contracts -v"
+    expected: "design contract fixtures pass and boundary fixtures fail"
+  - id: CENG-T014-P003-VAL002
+    kind: validation
+    command: "python3 scripts/validate-contract-records.py && python3 scripts/validate-admission.py --root .contract-engineering --all-ready"
+    expected: "repository records and ready packet admission pass"
+evidence_refs: [CENG-T014-P003-EV001]
+handoff_ref: CENG-T014-P003-HO001
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+skill_gaps: []
+cleanup_scope: {dead_refs: [], stale_refs: [], temp_refs: []}
+stability: beta
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""

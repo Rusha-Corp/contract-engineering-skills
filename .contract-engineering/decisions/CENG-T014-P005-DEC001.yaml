@@ -1,0 +1,25 @@
+decision_version: 1
+decision_id: CENG-T014-P005-DEC001
+packet_id: CENG-T014-P005
+status: approved
+title: "Keep governance interfaces additive and non-authoritative"
+proposal: "Add uniquely named Contract Engineering skills, commands, and droids that compose with Superpowers while leaving repository validators and user approval authoritative."
+alternatives_considered:
+  - "Duplicate Superpowers workflow skills under Contract Engineering names."
+  - "Allow commands or droids to approve records directly."
+decision: "Use additive interfaces with explicit stop points. Planning proposes, review records findings, admission invokes validators, and handoff acceptance remains a separate receiver gate."
+scope:
+  - "skills/contract-*"
+  - "commands/"
+  - "droids/"
+controls:
+  - "No duplicate Superpowers-owned skill names are added."
+  - "No interface self-approves a design, packet, or handoff."
+  - "Droids receive minimum capabilities and cannot perform external writes."
+approved_by: user
+approved_at: "2026-09-15T21:20:00Z"
+expires_at: ""
+success_measure: "Interface tests prove unique ownership, explicit stop points, and no self-approval path."
+rollback_ref: 3f459bf
+review_owner: user
+review_at: ""

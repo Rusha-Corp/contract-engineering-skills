@@ -1,0 +1,28 @@
+decision_version: 1
+decision_id: CENG-T014-P009-DEC001
+packet_id: CENG-T014-P009
+status: approved
+title: "Compose with Superpowers as a companion plugin"
+proposal: "Keep Contract Engineering as a separate root-level Factory plugin and compose it with obra/superpowers. Reuse Superpowers for general agent workflow skills while Contract Engineering owns design contracts, visual review, admission, packet governance, evidence, and handoffs."
+alternatives_considered:
+  - "Fork Superpowers and merge Contract Engineering into the fork."
+  - "Maintain two unrelated plugins without explicit compatibility or ownership boundaries."
+decision: "Use composition. Do not fork Superpowers. Match its root-level marketplace/plugin packaging pattern, avoid duplicate skill names, add a session bootstrap that complements rather than replaces using-superpowers, and define explicit ownership and ordering between the two plugins."
+scope:
+  - "Superseding compatibility design and implementation plan for CENG-T014"
+  - "Root-level Factory marketplace and plugin layout"
+  - "Superpowers skill ownership, invocation order, and compatibility contract"
+  - "Revision of P002 implementation plan before execution"
+controls:
+  - "Superpowers owns general workflow skills such as brainstorming, TDD, plans, worktrees, review, and subagent execution."
+  - "Contract Engineering owns design contracts, visual artifacts, admission, packet scope, resources, handoffs, and audit records."
+  - "No duplicate using-superpowers, brainstorming, writing-plans, or subagent-driven-development skills are created."
+  - "The Contract Engineering bootstrap does not suppress or replace Superpowers bootstrap behavior."
+  - "The root plugin marketplace points to the repository root and is validated from a clean checkout."
+approved_by: user
+approved_at: "2026-09-15"
+expires_at: ""
+success_measure: "The revised design and plan compose cleanly with Superpowers, preserve skill ownership boundaries, and install from a root-level Factory marketplace."
+rollback_ref: "aaf6ae5"
+review_owner: user
+review_at: ""

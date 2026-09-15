@@ -1,0 +1,36 @@
+checkpoint_version: 1
+packet_id: CENG-T015-P001
+run_id: CENG-T015-P001-R001
+operation_id: release-preparation
+sequence: 1
+state: blocked
+base_revision: 824f4970e3d583bf0558dcf40d8de3e0f883b501
+scope_digest: ""
+completed_steps:
+  - "P002 superseded-plan lock resolved before release iteration."
+  - "Protocol and plugin release candidate metadata updated."
+  - "Local validation and supplemental security checks passed."
+  - "Hash-pinned CI dependency resolution passed in dry-run mode."
+pending_steps:
+  - "Rerun draft-PR CI after the requirements correction."
+  - "Version and changelog update."
+  - "CI secret scan, dependency review, SAST, and Scorecard verification."
+  - "Independent review."
+  - "Attestation and signing."
+  - "Final user publication approval."
+  - "User authorization to push the release-candidate branch for CI-only verification."
+side_effects:
+  - effect_id: CENG-T015-P001-EXT001
+    status: planned
+    idempotency_key: CENG-T015-P001-release-preparation
+    compensation_ref: null
+retry:
+  attempt: 0
+  max_attempts: 3
+  replay_of: null
+failure:
+  class: ""
+  message_ref: ""
+  recovery_action: stop
+recorded_at: "2026-09-16T00:45:00Z"
+recorded_by: droid

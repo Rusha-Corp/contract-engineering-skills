@@ -33,6 +33,9 @@ protocol skills and linked project documents; do not duplicate them here.
   skills or another packet's worktree.
 - Record design, data, authorization, trust-boundary, and security decisions
   in the project records rather than relying on chat.
+- Contract Engineering composes with Superpowers. Superpowers owns general
+  workflow skills; Contract Engineering owns design contracts, visual review,
+  admission, packet scope, evidence, and handoffs.
 - Review active packets every 14 days. Resume, interrupt with a recovery note,
   cancel, or hand off them; never create a `Stale` state or archive active
   work.

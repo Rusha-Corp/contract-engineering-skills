@@ -1,0 +1,66 @@
+handoff_version: 3
+handoff_id: CENG-T014-P006-HO001
+packet_id: CENG-T014-P006
+transition:
+  from: Validation
+  to: Handoff
+  reason: "Fail-closed packet scope and admission hooks, additive session bootstrap, CI checks, and high-risk security validation are complete; receiver acceptance is required."
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ""
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: "2026-09-15T22:30:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T014-P006-20260915
+  signature_ref: ""
+base_revision: 38eeaf922628a90df6ef065b56947574fcab3734
+head_revision: 3b1fb5b60b2c54241e14422b1966b349402c68b9
+scope_digest: 9784c85768a35ba39414f8bc5c6269c5d6fda67b25c41afc52ee4ed835291ac1
+changed_resources:
+  - path: .contract-engineering/evidence/CENG-T014-P006-EV001.md
+    sha256: ba634623b3d60f00f9a4646e3a7011d28acab2f569a1764b5a7a852358731d2a
+  - path: .contract-engineering/execution-tracker.md
+    sha256: 97093694b2e25831b2e88a3c691efa47b9f51e6c0159f28966eb5b619a790ddf
+  - path: .contract-engineering/tracker/events/CENG-T014.yaml
+    sha256: 5321d36a03854b02d925f517003afa872a71396f9e0a246eda33ad72d25f5af9
+  - path: .contract-engineering/tracker/shards/CENG-T014.yaml
+    sha256: 1ca6be94fd6a361d2e35516777573c79471cd2c877cf2cc87aff74fcb7019ea9
+  - path: .contract-engineering/work-packets/CENG-T014-P006.yaml
+    sha256: 0d429f1f51db2abc74378ab43e3af05d8ee98fc0d538a10251e7b1d2bbcb1594
+  - path: .github/workflows/protocol-validation.yml
+    sha256: bc670aafe1e6f10d011fd8119727b85c015a67a46d0234bfa1e5b9dd6d0a8fe0
+  - path: .github/workflows/security.yml
+    sha256: 383c40c171e2f604891d6a10b5d9562b091290958624df9000ac99031a837366
+  - path: hooks/enforce-admission.py
+    sha256: 8e413fc5a6fe869a7495c9b904048b94d38565801b343dfc183c18a5de3766af
+  - path: hooks/enforce-packet-scope.py
+    sha256: bec72cdefcdf08f41c63ea09fa6270cf0861b33714f3c3f3eba10fed383ed87a
+  - path: hooks/hooks.json
+    sha256: 9728521cf82b5c231bb46acbefdc5a69fede83b824d636b5fb3c255d1892d1ed
+  - path: hooks/session-start
+    sha256: c28205b185435018ce0bc26a204bb581516c183496ebe46c81499cbdc18072c7
+  - path: runtime/contract_policy.py
+    sha256: 158d6b080a3c1ebacdd17ea5e9cae67effcfe4c9d1955187aaabf343d19e9e23
+  - path: tests/test_factory_hooks.py
+    sha256: eec6355cfb9f7d343fd085d2d61486014e4a0a631a8aed7114d01078c89ac6c7
+created_at: "2026-09-15T22:25:00Z"
+expires_at: ""
+approval_ref: CENG-T014-P006
+verification:
+  verified_at: "2026-09-15T22:20:00Z"
+  verifier: droid
+  result: pass
+  revocation_checked_at: ""
+  verification_ref: CENG-T014-P006-EV001
+receiver_status: accepted
+receiver_notes: "User reviewed the high-risk hook fail-closed behavior, CI enforcement, security controls, evidence, and rollback bindings and accepted P006."
+accepted_revision: d30552695f763ee41d2618416ce7e5765f147f2a
+accepted_scope_digest: 9784c85768a35ba39414f8bc5c6269c5d6fda67b25c41afc52ee4ed835291ac1
+accepted_evidence_refs:
+  - CENG-T014-P006-EV001

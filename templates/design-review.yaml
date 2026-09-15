@@ -1,0 +1,8 @@
+design_review_version: 1
+review_id: "<PROJECT>-<TASK-ID>-DC001-R001"
+design_id: "<PROJECT>-<TASK-ID>-DC001"
+kind: "design"
+reviewer: "<authenticated-reviewer>"
+status: "pending"
+findings: []
+notes: ""

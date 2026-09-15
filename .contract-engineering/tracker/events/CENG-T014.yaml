@@ -235,3 +235,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T23:30:00Z"
     summary: "Admitted P008 against approved design CENG-T014-DC001 after P003 through P007 completed."
+  - event_id: CENG-T014-E040
+    packet_id: CENG-T014-P008
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-15T23:45:00Z"
+    summary: "Moved P008 to Validation after migration documentation and cross-reference tests passed."

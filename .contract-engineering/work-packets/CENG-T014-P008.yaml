@@ -6,7 +6,7 @@ packet_class: child-implementation
 title: "Document Superpowers compatibility and consumer migration"
 objective: "Document installation, skill ownership, design-contract migration, rollout, rollback, and operational boundaries for consumers."
 open_questions: []
-state: Ready
+state: Validation
 scope:
   in:
     - "templates/design-review.yaml"

@@ -1,0 +1,16 @@
+consumer_configuration_version: 1
+repository: "<consumer-repository>"
+protocol_root: ".contract-engineering"
+factory_plugin:
+  marketplace: "https://github.com/Rusha-Corp/contract-engineering-skills"
+  install: "droid plugin install contract-engineering-skills@contract-engineering-skills --scope user"
+superpowers_plugin:
+  marketplace: "https://github.com/obra/superpowers"
+  install: "droid plugin install superpowers@superpowers --scope user"
+composition:
+  order: "brainstorming -> contract-design -> writing-plans -> contract-admission -> subagent-driven-development -> handoff acceptance"
+  ownership: "Superpowers owns general workflow; Contract Engineering owns design, admission, evidence, and handoffs."
+migration:
+  legacy_records_allowed: true
+  mandatory_designs_for_new_visual_work: true
+  rollback: "Revert to the last accepted handoff and preserve the audit records."

@@ -46,11 +46,11 @@ rows:
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P008"
-    state: "Ready"
+    state: "Validation"
     owner: "droid"
     reviewer: "user"
     locks: ["consumer-migration-docs"]
-    next_action: "Claim P008 in an isolated worktree and implement migration documentation"
+    next_action: "Run final packet validation and prepare the P008 handoff"
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P011"

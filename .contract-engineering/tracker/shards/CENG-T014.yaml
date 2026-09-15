@@ -54,9 +54,9 @@ rows:
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P011"
-    state: "Handoff"
+    state: "Complete"
     owner: "droid"
     reviewer: "user"
-    locks: ["design-contract-record"]
-    next_action: "Review P011 handoff and accept or reject the design contract"
+    locks: []
+    next_action: "Retain completed packet in active task shard until task closure"
     updated_at: "2026-09-15"

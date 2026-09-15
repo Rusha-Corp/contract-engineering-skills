@@ -121,3 +121,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T20:30:00Z"
     summary: "Moved P011 to Handoff after design validation; receiver acceptance is pending."
+  - event_id: CENG-T014-E021
+    packet_id: CENG-T014-P011
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T20:35:00Z"
+    summary: "User accepted P011 and released the design-contract-record lock, unblocking P004."

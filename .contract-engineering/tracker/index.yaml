@@ -149,12 +149,3 @@ rows:
     locks: []
     next_action: "Retain in active index until iteration closure"
     updated_at: "2026-09-03"
-  - task_id: "CENG-T014"
-    packet_id: "CENG-T014-P002"
-    state: "Rework"
-    owner: "droid"
-    reviewer: "user"
-    locks:
-      - "implementation-plan"
-    next_action: "Use CENG-T014-P009 superseding compatibility decision and plan"
-    updated_at: "2026-09-15"

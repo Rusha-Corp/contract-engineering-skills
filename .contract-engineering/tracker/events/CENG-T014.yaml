@@ -271,3 +271,9 @@ events:
     actor: user
     occurred_at: "2026-09-16T00:20:00Z"
     summary: "User accepted P010 and released the child-packet-admission lock."
+  - event_id: CENG-T014-E046
+    packet_id: CENG-T014-P002
+    type: cancellation
+    actor: user
+    occurred_at: "2026-09-16T00:40:00Z"
+    summary: "User authorized cancellation of superseded P002 after accepted P009 replaced its implementation plan; released the implementation-plan lock."

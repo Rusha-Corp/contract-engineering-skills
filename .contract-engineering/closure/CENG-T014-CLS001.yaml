@@ -8,6 +8,7 @@ goal_achievement:
     - "All accepted child packets P003 through P008 and P011 are complete."
     - "Parent coordination packet P010 is complete and accepted."
     - "Final integrated validation passed."
+    - "Superseded P002 was cancelled and its implementation-plan lock was released."
   criteria_missed:
     - "Publishing or pushing a release was explicitly out of scope."
   evidence_refs:
@@ -21,7 +22,6 @@ user_confirmation:
   confirmed_at: "2026-09-16T00:20:00Z"
 next_actions:
   - "Complete a separate release review before publishing any protocol/plugin release."
-  - "Resolve or explicitly disposition superseded P002 Rework before any future T014 iteration."
 observability:
   event_schema_version: 1
   event_refs:

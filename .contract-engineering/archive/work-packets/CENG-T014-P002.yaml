@@ -6,7 +6,7 @@ packet_class: parent-coordination
 title: "Plan design-contract enforcement and Factory plugin implementation"
 objective: "Create a bite-sized implementation plan that maps the approved design contract to independently testable child packets."
 open_questions: []
-state: Rework
+state: Cancelled
 scope:
   in:
     - "docs/superpowers/plans/2026-09-15-design-contract-factory-plugin-plan.md"
@@ -38,8 +38,7 @@ reviewer: user
 cleanup_owner: droid
 dependencies:
   - CENG-T014-P001
-locks:
-  - implementation-plan
+locks: []
 claim_timestamp: "2026-09-15T17:00:00Z"
 baseline_refs:
   - ".contract-engineering/protocol.lock.yaml"

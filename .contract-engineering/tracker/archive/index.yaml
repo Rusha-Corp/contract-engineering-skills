@@ -37,3 +37,4 @@ rows:
   - { task_id: "CENG-T014", packet_id: "CENG-T014-P009", state: "Complete", owner: "droid", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-16" }
   - { task_id: "CENG-T014", packet_id: "CENG-T014-P010", state: "Complete", owner: "droid", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-16" }
   - { task_id: "CENG-T014", packet_id: "CENG-T014-P011", state: "Complete", owner: "droid", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-16" }
+  - { task_id: "CENG-T014", packet_id: "CENG-T014-P002", state: "Cancelled", owner: "droid", reviewer: "user", locks: [], next_action: "Retained in archive with supersession disposition", updated_at: "2026-09-16" }

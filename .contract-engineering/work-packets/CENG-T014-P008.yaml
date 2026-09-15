@@ -6,7 +6,7 @@ packet_class: child-implementation
 title: "Document Superpowers compatibility and consumer migration"
 objective: "Document installation, skill ownership, design-contract migration, rollout, rollback, and operational boundaries for consumers."
 open_questions: []
-state: Handoff
+state: Complete
 scope:
   in:
     - "templates/design-review.yaml"
@@ -30,7 +30,7 @@ owner: droid
 reviewer: user
 cleanup_owner: droid
 dependencies: [CENG-T014-P003, CENG-T014-P004, CENG-T014-P005, CENG-T014-P006, CENG-T014-P007]
-locks: [consumer-migration-docs]
+locks: []
 claim_timestamp: "2026-09-15T23:30:00Z"
 baseline_refs:
   - ".contract-engineering/protocol.lock.yaml"

@@ -16,8 +16,8 @@ receiver:
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ""
-  acceptance_ref: ""
+  accepted_at: "2026-09-16T00:00:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T014-P008-20260916
   signature_ref: ""
 base_revision: 0436f94803e9761781b069a0d6db4fb65f37c916
 head_revision: 180b43e612529608301c68aa429f8e89021c98cc
@@ -48,8 +48,8 @@ verification:
   result: pass
   revocation_checked_at: ""
   verification_ref: CENG-T014-P008-EV001
-receiver_status: pending
-receiver_notes: "Please review the consumer templates, Superpowers ownership boundaries, migration compatibility, rollback guidance, and validation evidence."
-accepted_revision: ""
-accepted_scope_digest: ""
+receiver_status: accepted
+receiver_notes: "User accepted P008 after reviewing the consumer templates, Superpowers ownership boundaries, migration compatibility, rollback guidance, and validation evidence."
+accepted_revision: b660465
+accepted_scope_digest: 724aa50e00cd2651be93577c95f6cb362ba579db230efbe23e86f3249d892044
 accepted_evidence_refs: []

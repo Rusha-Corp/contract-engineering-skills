@@ -46,11 +46,11 @@ rows:
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P008"
-    state: "Handoff"
+    state: "Complete"
     owner: "droid"
     reviewer: "user"
-    locks: ["consumer-migration-docs"]
-    next_action: "Await receiver acceptance of CENG-T014-P008-HO001"
+    locks: []
+    next_action: "Archive P008 at iteration closure while preserving handoff and evidence references"
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P011"

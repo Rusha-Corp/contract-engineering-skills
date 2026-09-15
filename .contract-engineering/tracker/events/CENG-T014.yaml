@@ -247,3 +247,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T23:50:00Z"
     summary: "Moved P008 to Handoff with validated migration documentation and evidence; receiver acceptance is pending."
+  - event_id: CENG-T014-E042
+    packet_id: CENG-T014-P008
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-16T00:00:00Z"
+    summary: "User accepted P008 and released the consumer-migration-docs lock."

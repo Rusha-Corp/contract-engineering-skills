@@ -10,7 +10,9 @@ completed_steps:
   - "P002 superseded-plan lock resolved before release iteration."
   - "Protocol and plugin release candidate metadata updated."
   - "Local validation and supplemental security checks passed."
+  - "Hash-pinned CI dependency resolution passed in dry-run mode."
 pending_steps:
+  - "Rerun draft-PR CI after the requirements correction."
   - "Version and changelog update."
   - "CI secret scan, dependency review, SAST, and Scorecard verification."
   - "Independent review."

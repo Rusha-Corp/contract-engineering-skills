@@ -11,6 +11,8 @@ scope:
   in:
     - ".factory-plugin/plugin.json"
     - "CHANGELOG.md"
+    - "requirements-ci.txt"
+    - ".contract-engineering/decisions/CENG-T015-P001-DEC002.yaml"
     - ".contract-engineering/decisions/CENG-T015-P001-DEC001.yaml"
     - ".contract-engineering/threat-models/CENG-T015-P001.yaml"
     - ".contract-engineering/work-packets/CENG-T015-P001.yaml"

@@ -43,3 +43,9 @@ events:
     actor: contract-driven-handoff-acceptance-reviewer
     occurred_at: "2026-09-16T01:20:00Z"
     summary: "Rejected the release candidate because CI security workflows, 2.6.0 attestation, and two-person approval are incomplete."
+  - event_id: CENG-T015-E008
+    packet_id: CENG-T015-P001
+    type: rework
+    actor: droid
+    occurred_at: "2026-09-16T01:35:00Z"
+    summary: "Added hash-pinned jsonschema CI dependencies after protocol-validation exposed the missing import; dry-run dependency resolution passed."

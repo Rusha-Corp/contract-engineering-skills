@@ -6,7 +6,7 @@ packet_class: cross-cutting
 title: "Prepare signed Contract Engineering release"
 objective: "Prepare a reviewed, reproducible, attested release of the accepted Contract Engineering protocol and Factory plugin without publishing it until final user approval."
 open_questions: []
-state: Handoff
+state: Complete
 scope:
   in:
     - ".factory-plugin/plugin.json"
@@ -48,7 +48,7 @@ owner: droid
 reviewer: contract-driven-handoff-acceptance-reviewer
 cleanup_owner: droid
 dependencies: [CENG-T014-P010]
-locks: [release-candidate]
+locks: []
 claim_timestamp: "2026-09-16T00:45:00Z"
 baseline_refs:
   - ".contract-engineering/protocol.lock.yaml"

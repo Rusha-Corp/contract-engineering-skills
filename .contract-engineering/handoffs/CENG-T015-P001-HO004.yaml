@@ -16,8 +16,8 @@ receiver:
   identity_type: agent
   authenticated: true
   authentication_ref: REDACTED-REVIEWER-REF
-  accepted_at: ""
-  acceptance_ref: ""
+  accepted_at: "2026-09-16T04:30:00Z"
+  acceptance_ref: "CENG-T015-P001-HO004-ACCEPT-001"
   signature_ref: ""
 base_revision: 824f4970e3d583bf0558dcf40d8de3e0f883b501
 head_revision: 1ea99bebfcdc9696e3483a30634116837dc998d3
@@ -62,8 +62,8 @@ verification:
   result: pass
   revocation_checked_at: ""
   verification_ref: CENG-T015-P001-EV001
-receiver_status: pending
+receiver_status: accepted
 receiver_notes: "Review exact candidate head 1ea99be, CI runs 35020981837, 35020981324, and 35020981277, changed-resource bindings, verified threat-model mitigations, rollback, release metadata, and the no-publication boundary. Acceptance permits attestation/signing preparation only; publication still requires final user approval."
-accepted_revision: ""
-accepted_scope_digest: ""
-accepted_evidence_refs: []
+accepted_revision: 1ea99bebfcdc9696e3483a30634116837dc998d3
+accepted_scope_digest: ecf3b3eec1695804844e83a4c9ca0b2638566fef808b9bddf95968eaef7b39a2
+accepted_evidence_refs: [CENG-T015-P001-EV001]

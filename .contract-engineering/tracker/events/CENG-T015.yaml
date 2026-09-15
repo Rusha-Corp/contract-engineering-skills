@@ -109,3 +109,9 @@ events:
     actor: droid
     occurred_at: "2026-09-16T04:20:00Z"
     summary: "Submitted HO004 after adding the exact 1ea99be hosted CI runs to EV001 and preserving HO003 rejection history."
+  - event_id: CENG-T015-E019
+    packet_id: CENG-T015-P001
+    type: accepted
+    actor: contract-driven-handoff-acceptance-reviewer
+    occurred_at: "2026-09-16T04:30:00Z"
+    summary: "Accepted HO004 after verifying exact head 1ea99be, CI runs 35020981837/35020981324/35020981277, changed-resource bindings, verified threat-model mitigations, and no-publication boundary."

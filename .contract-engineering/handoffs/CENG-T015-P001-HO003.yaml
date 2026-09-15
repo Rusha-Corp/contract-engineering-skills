@@ -62,8 +62,8 @@ verification:
   result: pass
   revocation_checked_at: ""
   verification_ref: CENG-T015-P001-EV001
-receiver_status: pending
-receiver_notes: "Review exact content head 1ea99be, hosted CI runs 35020981837, 35020981324, and 35020981277, verified threat-model mitigations, release metadata, rollback, and the no-publish boundary. Acceptance permits attestation/signing preparation only; publication still requires final user approval."
+receiver_status: rejected
+receiver_notes: "Evidence mismatch: HO003 claims head_revision 1ea99bebfcdc9696e3483a30634116837dc998d3 with CI runs 35020981837, 35020981324, 35020981277, but evidence file CENG-T015-P001-EV001.md records final commit bd561da697418ec5fbbdfbc8b20f12ec5c23c31d with CI runs 35020697090, 35020697150, 35020697060. Criterion AC002 fails: evidence does not substantiate the claimed head revision or CI verification. Update EV001 to record the correct final head 1ea99be and CI runs 35020981837/35020981324/35020981277, or correct HO003 to match the evidence. Acceptance requires evidence-backed verification, not asserted claims."
 accepted_revision: ""
 accepted_scope_digest: ""
 accepted_evidence_refs: []

@@ -1,0 +1,26 @@
+decision_version: 1
+decision_id: CENG-T014-P004-DEC001
+packet_id: CENG-T014-P004
+status: approved
+title: "Treat preview artifacts as untrusted local input"
+proposal: "Keep P004 in the design domain while recording its security surface and mitigations in a packet-scoped decision."
+alternatives_considered:
+  - "Classify P004 as a security-domain packet and add a separate threat-model record."
+decision: "Use the approved CENG-T014-DC001 trust boundaries and enforce path confinement, manifest hashes, localhost-only serving, offline HTML policy, SVG sanitization, and fail-closed Mermaid rendering."
+scope:
+  - "scripts/preview-design.py"
+  - "scripts/render-mermaid.py"
+  - "scripts/sanitize-svg.py"
+  - "runtime/mermaid.min.js"
+controls:
+  - "Reject traversal and symlink escape before reading an artifact."
+  - "Reject remote URLs, scripts, forms, browser storage, network APIs, SVG handlers, and external references."
+  - "Bind only to 127.0.0.1 and serve only manifest-approved paths."
+  - "Do not claim visual rendering success when the Mermaid renderer is unavailable."
+approved_by: user
+approved_at: "2026-09-15T20:40:00Z"
+expires_at: ""
+success_measure: "Focused safety tests and the security verification checklist pass with no blocking findings."
+rollback_ref: 3060afd
+review_owner: user
+review_at: ""

@@ -1,0 +1,51 @@
+handoff_version: 3
+handoff_id: CENG-T014-P002-HO001
+packet_id: CENG-T014-P002
+transition:
+  from: Validation
+  to: Handoff
+  reason: "Implementation plan and self-review are complete; user review and execution-mode selection are required."
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ""
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: ""
+  acceptance_ref: ""
+  signature_ref: ""
+base_revision: 93bfac1422ce2fd656639dfce51c9fb3d9d237a0
+head_revision: a3e566b4b348e19a372312bb52aff7093f1ce738
+scope_digest: a1d099d8356b10a240b5ffed683b094e2c6351f1e55adad4077a234a861ca7ec
+changed_resources:
+  - path: .contract-engineering/evidence/CENG-T014-P002-EV001.md
+    sha256: b693681a01b22ff8760bf527e51aa0b73ca86bc7722fc9ed3835c4542ba93365
+  - path: .contract-engineering/execution-tracker.md
+    sha256: c3f566154f1124aad7064eefe45be919ed182aa0682a8d6782870a5fdad8844b
+  - path: .contract-engineering/tracker/events/CENG-T014.yaml
+    sha256: 14aacb8aea9ca8a7da4d39eebeee14771bc3267cc07fc5028fa4a6e4781816cc
+  - path: .contract-engineering/tracker/index.yaml
+    sha256: 1ad47015be584b4b85c7f5bc15303769e3feb3228a89cf760c92448869bcc866
+  - path: .contract-engineering/work-packets/CENG-T014-P002.yaml
+    sha256: 0af408480399d1f050cba6c46baa19d5f7e7640526d57805328500912075b52c
+  - path: docs/superpowers/plans/2026-09-15-design-contract-factory-plugin-plan.md
+    sha256: 99d21a97680a6aa9f26882fa1df48b813cc3d0d043d13f0d13bd1ebeed28bcc1
+created_at: "2026-09-15T17:35:00Z"
+expires_at: ""
+approval_ref: CENG-T014-P001-DEC001
+verification:
+  verified_at: "2026-09-15T17:35:00Z"
+  verifier: droid
+  result: pass
+  revocation_checked_at: ""
+  verification_ref: CENG-T014-P002-EV001
+receiver_status: rejected
+receiver_notes: "User requested a compatibility revision so the implementation must compose with obra/superpowers, use root-level marketplace/plugin packaging, and avoid duplicate Superpowers-owned skills. See CENG-T014-P009-DEC001."
+accepted_revision: ""
+accepted_scope_digest: ""
+accepted_evidence_refs: []

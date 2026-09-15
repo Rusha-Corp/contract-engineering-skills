@@ -1,0 +1,115 @@
+packet_id: CENG-T014-P010
+task_id: CENG-T014
+phase: P0_FOUNDATIONS
+domain: documentation
+packet_class: parent-coordination
+title: "Admit Contract Engineering child implementation packets"
+objective: "Register and validate the six bounded implementation packets from the accepted Superpowers-compatible plan."
+open_questions: []
+state: Complete
+scope:
+  in:
+    - ".contract-engineering/work-packets/CENG-T014-P010.yaml"
+    - ".contract-engineering/work-packets/CENG-T014-P003.yaml"
+    - ".contract-engineering/work-packets/CENG-T014-P004.yaml"
+    - ".contract-engineering/work-packets/CENG-T014-P005.yaml"
+    - ".contract-engineering/work-packets/CENG-T014-P006.yaml"
+    - ".contract-engineering/work-packets/CENG-T014-P007.yaml"
+    - ".contract-engineering/work-packets/CENG-T014-P008.yaml"
+    - ".contract-engineering/work-packets/CENG-T014-P011.yaml"
+    - ".contract-engineering/decisions/CENG-T014-P010-DEC001.yaml"
+    - ".contract-engineering/tracker/index.yaml"
+    - ".contract-engineering/tracker/shards/CENG-T014.yaml"
+    - ".contract-engineering/tracker/events/CENG-T014.yaml"
+    - ".contract-engineering/execution-tracker.md"
+    - ".contract-engineering/evidence/CENG-T014-P010-EV001.md"
+    - ".contract-engineering/evidence/CENG-T014-P003-EV001.md"
+    - ".contract-engineering/evidence/CENG-T014-P004-EV001.md"
+    - ".contract-engineering/evidence/CENG-T014-P005-EV001.md"
+    - ".contract-engineering/evidence/CENG-T014-P006-EV001.md"
+    - ".contract-engineering/evidence/CENG-T014-P007-EV001.md"
+    - ".contract-engineering/evidence/CENG-T014-P008-EV001.md"
+    - ".contract-engineering/evidence/CENG-T014-P011-EV001.md"
+  out:
+    - "Implementing any child packet source files."
+    - "Changing the accepted design or implementation plan."
+    - "Publishing, pushing, or merging."
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities:
+  - repository-read
+  - repository-write
+  - local-test
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: droid
+reviewer: user
+cleanup_owner: droid
+dependencies:
+  - CENG-T014-P009
+locks: []
+claim_timestamp: "2026-09-15T19:00:00Z"
+baseline_refs:
+  - ".contract-engineering/protocol.lock.yaml"
+  - "5829d5420108f9803831ca5b25ed59b39c2f276f"
+  - "docs/superpowers/specs/2026-09-15-design-contract-factory-plugin-superpowers-design.md"
+  - "docs/superpowers/plans/2026-09-15-design-contract-factory-plugin-superpowers-plan.md"
+  - ".contract-engineering/decisions/CENG-T014-P009-DEC001.yaml"
+design_decision_ref: CENG-T014-P009-DEC001
+data_gate_ref: null
+acceptance_criteria:
+  - "Child packets P003-P008 are registered with unique scopes, dependencies, owners, reviewers, gates, and validation plans."
+  - "The tracker index remains within its bound and the declared task shard is valid."
+  - "No child packet is admitted before its dependency packets are complete."
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T014-P010-AC001
+      statement: "The accepted implementation plan is represented by bounded child packets."
+      expected_result: "P003 through P008 exist with the planned scopes and dependency DAG."
+      verification_method: inspect
+      evidence_refs: [CENG-T014-P010-EV001]
+      failure_result: "A child packet is missing, overlaps another packet, or lacks a dependency."
+      validation_ref: CENG-T014-P010-VAL001
+    - id: CENG-T014-P010-AC002
+      statement: "Tracker partitions remain bounded and aligned."
+      expected_result: "The active index is at most 25 rows and the CENG-T014 shard is declared and valid."
+      verification_method: execute
+      verification_command: "python3 scripts/validate-tracker.py --root .contract-engineering"
+      evidence_refs: [CENG-T014-P010-EV001]
+      failure_result: "Rows are duplicated, orphaned, over the limit, or state-misaligned."
+      validation_ref: CENG-T014-P010-VAL002
+validation_plan:
+  - id: CENG-T014-P010-VAL001
+    kind: records
+    command: "python3 scripts/validate-contract-records.py"
+    expected: "all child packets and dependency references are valid"
+  - id: CENG-T014-P010-VAL002
+    kind: tracker
+    command: "python3 scripts/validate-tracker.py --root .contract-engineering && python3 scripts/render-tracker.py --root .contract-engineering --check"
+    expected: "active index, task shard, events, and projection are valid"
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+evidence_refs:
+  - CENG-T014-P010-EV001
+handoff_ref: CENG-T014-P010-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""

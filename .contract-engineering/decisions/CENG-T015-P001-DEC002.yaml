@@ -1,0 +1,24 @@
+decision_version: 1
+decision_id: CENG-T015-P001-DEC002
+packet_id: CENG-T015-P001
+status: approved
+title: "Pin missing JSON Schema CI dependencies"
+proposal: "Add jsonschema 4.21.1 and its immutable, hash-pinned runtime dependencies to requirements-ci.txt because protocol validation imports jsonschema."
+alternatives_considered:
+  - "Leave CI failing and request a release exception for a missing validator dependency."
+  - "Install an unpinned dependency in CI."
+decision: "Add the exact hash-pinned dependency set required by the existing validator and rerun local and CI validation."
+scope:
+  - "requirements-ci.txt"
+  - ".contract-engineering/decisions/CENG-T015-P001-DEC002.yaml"
+controls:
+  - "Every added package is version-pinned and hash-pinned."
+  - "The dependency source is PyPI and the CI install continues to use --require-hashes."
+  - "The release remains blocked until CI and independent review pass."
+approved_by: user
+approved_at: "2026-09-16T01:35:00Z"
+expires_at: ""
+success_measure: "protocol-validation records job imports jsonschema successfully and all release gates remain green."
+rollback_ref: 80f1c21f9428324e07644484bdfdac3832bb49e9
+review_owner: contract-driven-handoff-acceptance-reviewer
+review_at: ""

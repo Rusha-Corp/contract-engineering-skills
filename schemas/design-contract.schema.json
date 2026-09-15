@@ -1,0 +1,343 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Rusha-Corp/contract-engineering-skills/schemas/design-contract.schema.json",
+  "title": "Contract Engineering Design Contract",
+  "description": "Machine-checked design contract for task-level design approval before packet admission.",
+  "type": "object",
+  "required": [
+    "design_contract_version",
+    "design_id",
+    "task_id",
+    "status",
+    "design_type",
+    "title",
+    "problem",
+    "open_questions",
+    "scope",
+    "architecture",
+    "alternatives",
+    "decisions",
+    "artifacts",
+    "reviews",
+    "acceptance_contract",
+    "approval"
+  ],
+  "properties": {
+    "design_contract_version": {
+      "type": "integer",
+      "const": 1,
+      "description": "Schema version, must be 1."
+    },
+    "design_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9-]+-DC[0-9]{3}$",
+      "description": "Unique design contract identifier."
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9-]+-T[0-9]{3}$",
+      "description": "Parent task identifier."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "in_review", "approved", "rejected", "superseded"],
+      "description": "Design contract lifecycle status."
+    },
+    "design_type": {
+      "type": "string",
+      "enum": ["ui", "ux", "architecture", "workflow", "data-flow", "mixed", "text"],
+      "description": "Design type determines required artifact types."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable design title."
+    },
+    "problem": {
+      "type": "object",
+      "required": ["statement", "users", "impact", "urgency", "constraints"],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Problem statement."
+        },
+        "users": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1,
+          "description": "Affected users."
+        },
+        "impact": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Impact if not solved."
+        },
+        "urgency": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "critical"],
+          "description": "Urgency level."
+        },
+        "constraints": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Technical or business constraints."
+        }
+      },
+      "additionalProperties": false
+    },
+    "open_questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["question_id", "question", "status"],
+        "properties": {
+          "question_id": {"type": "string", "pattern": "^[A-Z0-9-]+-Q[0-9]{3}$"},
+          "question": {"type": "string", "minLength": 1},
+          "status": {"type": "string", "enum": ["open", "resolved", "deferred"]},
+          "resolution": {"type": "string"}
+        },
+        "additionalProperties": false
+      },
+      "description": "Unresolved design questions."
+    },
+    "scope": {
+      "type": "object",
+      "required": ["in", "out"],
+      "properties": {
+        "in": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string"},
+          "description": "In-scope components, files, or behaviors."
+        },
+        "out": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Explicitly out-of-scope items."
+        }
+      },
+      "additionalProperties": false
+    },
+    "architecture": {
+      "type": "object",
+      "required": ["proposal", "components", "data_flows", "trust_boundaries"],
+      "properties": {
+        "proposal": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Architecture proposal narrative."
+        },
+        "components": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Key architecture components."
+        },
+        "data_flows": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Key data flows."
+        },
+        "trust_boundaries": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Trust boundary descriptions."
+        }
+      },
+      "additionalProperties": false
+    },
+    "alternatives": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "proposal", "benefits", "costs", "rejected_reason"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^ALT[0-9]{3}$"},
+          "proposal": {"type": "string", "minLength": 1},
+          "benefits": {"type": "array", "items": {"type": "string"}},
+          "costs": {"type": "array", "items": {"type": "string"}},
+          "rejected_reason": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "description": "Rejected alternatives with tradeoffs."
+    },
+    "decisions": {
+      "type": "object",
+      "required": ["security", "data", "compatibility", "observability", "rollback"],
+      "properties": {
+        "security": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Security decisions."
+        },
+        "data": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Data handling decisions."
+        },
+        "compatibility": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Compatibility decisions."
+        },
+        "observability": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Observability decisions."
+        },
+        "rollback": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Rollback strategy."
+        }
+      },
+      "additionalProperties": false
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "kind", "sha256", "required"],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Relative path to artifact."
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["requirements", "architecture", "tradeoffs", "html", "mermaid", "svg"],
+            "description": "Artifact kind."
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "description": "SHA-256 hash of artifact content."
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether artifact is required for this design type."
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Design artifact manifest with hashes."
+    },
+    "reviews": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["review_id", "kind", "reviewer", "status"],
+        "properties": {
+          "review_id": {
+            "type": "string",
+            "pattern": "^[A-Z0-9-]+-R[0-9]{3}$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["design", "architecture", "security", "data", "compatibility", "operations", "visual"]
+          },
+          "reviewer": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "accepted", "rejected"]
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Design review records."
+    },
+    "acceptance_contract": {
+      "type": "object",
+      "required": ["version", "criteria"],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "const": 1
+        },
+        "criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "statement", "expected_result", "verification_method", "evidence_refs"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Z0-9-]+-AC[0-9]{3}$"
+              },
+              "statement": {
+                "type": "string",
+                "minLength": 1
+              },
+              "expected_result": {
+                "type": "string",
+                "minLength": 1
+              },
+              "verification_method": {
+                "type": "string",
+                "enum": ["execute", "inspect", "compare"]
+              },
+              "verification_command": {
+                "type": "string"
+              },
+              "evidence_refs": {
+                "type": "array",
+                "minItems": 1,
+                "items": {"type": "string", "minLength": 1}
+              },
+              "failure_result": {
+                "type": "string"
+              },
+              "validation_ref": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false,
+      "description": "Task-level acceptance criteria."
+    },
+    "approval": {
+      "type": "object",
+      "required": ["approver", "authenticated", "approved_at", "approved_revision"],
+      "properties": {
+        "approver": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Approver identity."
+        },
+        "authenticated": {
+          "type": "boolean",
+          "const": true,
+          "description": "Must be true for valid approval."
+        },
+        "approved_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of approval."
+        },
+        "approved_revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 hash of approved artifact manifest."
+        }
+      },
+      "additionalProperties": false,
+      "description": "User approval record binding to artifact revision."
+    }
+  },
+  "additionalProperties": false
+}

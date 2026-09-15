@@ -1,0 +1,70 @@
+handoff_version: 3
+handoff_id: CENG-T015-P001-HO002
+packet_id: CENG-T015-P001
+transition:
+  from: Validation
+  to: Handoff
+  reason: "Corrected release metadata and CI dependency hashes passed local and hosted validation; independent approval is required before attestation and signing."
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ""
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-REVIEWER-REF
+  accepted_at: "2026-09-16T02:30:00Z"
+  acceptance_ref: REVIEW-REJECT-CENG-T015-P001-HO002-20260916
+  signature_ref: ""
+base_revision: 824f4970e3d583bf0558dcf40d8de3e0f883b501
+head_revision: 0c1bcbd3b3a78c8781057b1f7d73a565262c5bb2
+scope_digest: 98735ee58f77fc9cc33febefadde8c417bd52525d035d6113f874215b51800b0
+changed_resources:
+  - path: .contract-engineering/checkpoints/CENG-T015-P001.yaml
+    sha256: c0dda8906f845053b301b9e613a4243e87ddb1aac7fb97f58d0cfe07e6bc1930
+  - path: .contract-engineering/decisions/CENG-T015-P001-DEC001.yaml
+    sha256: 7aaf84898aeee10c1cd5b2ebccfcfd05a187e73867a650408efb8cd046f92972
+  - path: .contract-engineering/decisions/CENG-T015-P001-DEC002.yaml
+    sha256: 9686551305852ef6427310b2c5525fb8e8a68d962c2ef10dc68cca8e0b7f3792
+  - path: .contract-engineering/evaluations/CENG-T015-P001.yaml
+    sha256: bd3b3effb135a5ce8c1e59f9799b234b528e2ddb096ea0c3f34d5dea5e763180
+  - path: .contract-engineering/evidence/CENG-T015-P001-EV001.md
+    sha256: e1cb1b5319a2935e8438415c490efa3055356c04d5fd22f7c264f9e60042eb63
+  - path: .contract-engineering/execution-budgets/CENG-T015-P001.yaml
+    sha256: 42f9a26d49ce0c39e0d6ef6aaaf2fe10e5ff2307ef58bf1ef11b646ba97b21f2
+  - path: .contract-engineering/incidents/CENG-T015-P001-INC001.yaml
+    sha256: 6b511a3f94bfe24153b67ade67fe2a239ce7c817c5bca0cf2063221a588c9c48
+  - path: .contract-engineering/runs/CENG-T015-P001-R001.yaml
+    sha256: f89038e62c974bfa21c0fb895e37cdc2ee53fe165caa435c7d21b4e411ed3313
+  - path: .contract-engineering/threat-models/CENG-T015-P001.yaml
+    sha256: 656aecdcb08f817096c502c8a99fc90bd2134c91327bd35a2b060125a7eee899
+  - path: .contract-engineering/tracker/events/CENG-T015.yaml
+    sha256: 39a1803915f8c48366cff522fd1ebea6bd4f077b8092b5e3b18b9aaee850d205
+  - path: .contract-engineering/tracker/index.yaml
+    sha256: cac099e522d3aa0ebffcdf3af7873731fd7680df4cde0ab50174b1563142a617
+  - path: .contract-engineering/work-packets/CENG-T015-P001.yaml
+    sha256: 6303465382b2b04674236b8220c2035338a4287239ee807ca24b975ca00bf9ff
+  - path: .factory-plugin/plugin.json
+    sha256: d577e9c011441286be7654bce38be073902313aa08198784184f92e0f1d52263
+  - path: CHANGELOG.md
+    sha256: aac48a1e410129e2c631ec93f8c63240b24829470f77792169b0e37b9c1f5df6
+  - path: requirements-ci.txt
+    sha256: 4abdb984af74a71d79d40d9171a649e162e9d39a0756fba3d6c1ac1b3142019a
+created_at: "2026-09-16T02:20:00Z"
+expires_at: ""
+approval_ref: CENG-T015-P001-DEC001
+verification:
+  verified_at: "2026-09-16T02:10:00Z"
+  verifier: droid
+  result: pass
+  revocation_checked_at: ""
+  verification_ref: CENG-T015-P001-EV001
+receiver_status: rejected
+receiver_notes: "Hosted CI passed for aef665a, but the submitted head 0c1bcbd was not covered by those runs; threat-model mitigations and exact-head evidence binding were incomplete."
+accepted_revision: ""
+accepted_scope_digest: ""
+accepted_evidence_refs:
+  - CENG-T015-P001-EV001

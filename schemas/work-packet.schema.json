@@ -139,7 +139,16 @@
                 "items": {"type": "string", "minLength": 1}
               },
               "failure_result": {"type": "string"},
-              "validation_ref": {"type": "string"}
+              "validation_ref": {"type": "string"},
+              "design_criterion_refs": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Z0-9-]+-AC[0-9]{3}$"
+                },
+                "description": "References to design acceptance criterion IDs. Required when packet has design_decision_ref."
+              }
             },
             "additionalProperties": false
           }

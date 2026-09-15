@@ -1,0 +1,36 @@
+checkpoint_version: 1
+packet_id: CENG-T015-P001
+run_id: CENG-T015-P001-R001
+operation_id: release-preparation
+sequence: 1
+state: awaiting_approval
+base_revision: 824f4970e3d583bf0558dcf40d8de3e0f883b501
+scope_digest: ""
+completed_steps:
+  - "P002 superseded-plan lock resolved before release iteration."
+  - "Protocol and plugin release candidate metadata updated."
+  - "Local validation and supplemental security checks passed."
+  - "Hash-pinned CI dependency resolution passed in dry-run mode."
+  - "Hosted protocol validation, secret scanning, and security workflows passed."
+  - "Threat-model mitigations verified against the hosted workflow results."
+  - "Final validation-record commit passed all hosted workflows."
+  - "Final exact-head workflow runs passed for bd561da."
+pending_steps:
+  - "Independent review of corrected content and release candidate."
+  - "Attestation and signing."
+  - "Final user publication approval."
+side_effects:
+  - effect_id: CENG-T015-P001-EXT001
+    status: planned
+    idempotency_key: CENG-T015-P001-release-preparation
+    compensation_ref: null
+retry:
+  attempt: 0
+  max_attempts: 3
+  replay_of: null
+failure:
+  class: ""
+  message_ref: ""
+  recovery_action: stop
+recorded_at: "2026-09-16T00:45:00Z"
+recorded_by: droid

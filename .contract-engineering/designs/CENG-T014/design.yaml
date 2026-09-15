@@ -1,0 +1,139 @@
+design_contract_version: 1
+design_id: CENG-T014-DC001
+task_id: CENG-T014
+status: approved
+design_type: architecture
+title: "Contract Engineering root plugin and governed execution flow"
+problem:
+  statement: "Contract Engineering needs a machine-readable architecture and data-flow contract before visual runtime, governance, hooks, packaging, and migration packets can be admitted."
+  users:
+    - "Users approving engineering designs and packet scope"
+    - "Factory Droid workers executing bounded packets"
+    - "Superpowers users composing planning and implementation workflows"
+  impact: "Implementation packets could bypass the approved architecture, visual review, or Superpowers ownership boundaries."
+  urgency: high
+  constraints:
+    - "Compose with Superpowers without duplicating its workflow skills."
+    - "Keep previews offline and localhost-only."
+    - "Treat repository validators and CI as the authoritative admission boundary."
+    - "Bind approval to the exact artifact manifest revision."
+open_questions: []
+scope:
+  in:
+    - ".factory-plugin/"
+    - "skills/contract-design/"
+    - "skills/contract-review/"
+    - "skills/contract-admission/"
+    - "skills/contract-visual-review/"
+    - "skills/contract-handoff-acceptance/"
+    - "commands/"
+    - "droids/"
+    - "hooks/"
+    - "scripts/"
+    - "runtime/"
+    - "schemas/"
+    - "templates/"
+    - "tests/"
+    - ".github/workflows/"
+    - "docs/"
+  out:
+    - "Changes to the Superpowers plugin or its installed global skills."
+    - "Remote design services, telemetry, or network-loaded preview assets."
+    - "Production deployment or external platform writes."
+architecture:
+  proposal: "Use a root-level Factory plugin that composes with Superpowers. Superpowers owns brainstorming, plans, worktrees, TDD, debugging, subagents, reviews, and branch finishing. Contract Engineering owns design contracts, visual artifacts, packet admission, evidence, handoffs, and audit records."
+  components:
+    - "Root-level Factory marketplace and plugin manifests."
+    - "Machine-readable design contracts and artifact manifests."
+    - "Offline Mermaid source and sanitized SVG artifacts."
+    - "Localhost-only preview runtime."
+    - "Governance skills, commands, droids, hooks, and CI validators."
+    - "Packet-scoped evidence, handoffs, and tracker records."
+  data_flows:
+    - "Superpowers brainstorming and plan -> design contract -> visual and architecture review -> user approval."
+    - "Approved design contract -> packet scope and criterion traceability -> admission gate."
+    - "Admitted packet -> bounded worker execution -> evidence and handoff -> CI and tracker audit."
+  trust_boundaries:
+    - "User approval boundary between proposed design artifacts and approved design contract."
+    - "Repository admission boundary between approved records and worker execution."
+    - "Local preview boundary between untrusted artifact content and localhost rendering."
+alternatives:
+  - id: ALT001
+    proposal: "Fork Superpowers and merge Contract Engineering into the fork."
+    benefits:
+      - "Single installation surface."
+    costs:
+      - "Duplicate workflow ownership."
+      - "Upstream synchronization and skill-name conflicts."
+    rejected_reason: "The approved compatibility decision requires composition rather than forking."
+  - id: ALT002
+    proposal: "Allow workers to infer design and packet gates from prose."
+    benefits:
+      - "Less record maintenance."
+    costs:
+      - "Non-deterministic admission."
+      - "No revision-bound approval or evidence."
+    rejected_reason: "The project requires fail-closed repository validation and auditable handoffs."
+decisions:
+  security:
+    - "Preview inputs are treated as untrusted; path traversal, remote assets, scripts, and unsafe SVG content are rejected."
+    - "No credentials, session material, or telemetry are loaded by the offline runtime."
+  data:
+    - "Design records, artifact manifests, packet records, evidence, handoffs, and tracker events remain canonical repository records."
+  compatibility:
+    - "Superpowers owns general workflow skills; Contract Engineering uses unique skill names and additive bootstrap behavior."
+  observability:
+    - "Validators emit deterministic failures and CI records validation, admission, tracker, and artifact results."
+  rollback:
+    - "Revert the packet or plugin revision to the last accepted handoff; preserve prior records and release locks through governed transitions."
+artifacts:
+  - path: ".contract-engineering/designs/CENG-T014/architecture.mmd"
+    kind: mermaid
+    sha256: 3ebdbe9722465ace63b6b58198fc6847a1c71c062bc4162bb9a2d6df1f7dab6b
+    required: true
+  - path: ".contract-engineering/designs/CENG-T014/architecture.svg"
+    kind: svg
+    sha256: 5a84e9ff8acf49c9462bf4dfecf0d4be813fddcd400f2c82ddbac6590f8bbfd4
+    required: true
+reviews:
+  - review_id: CENG-T014-DC001-R001
+    kind: design
+    reviewer: user
+    status: accepted
+    notes: "User approved the proposed root plugin ownership and governed lifecycle."
+  - review_id: CENG-T014-DC001-R002
+    kind: architecture
+    reviewer: user
+    status: accepted
+    notes: "User approved the Mermaid architecture and sanitized SVG data-flow artifact."
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T014-DC001-AC001
+      statement: "The root plugin composes with Superpowers without duplicate workflow ownership."
+      expected_result: "Plugin packaging and skill routing preserve the approved ownership boundary."
+      verification_method: inspect
+      evidence_refs: [CENG-T014-P011-EV001]
+      failure_result: "Contract Engineering duplicates or overrides a Superpowers-owned workflow skill."
+      validation_ref: CENG-T014-P011-VAL001
+    - id: CENG-T014-DC001-AC002
+      statement: "Design and packet admission are revision-bound and fail closed."
+      expected_result: "Only approved design revisions with required reviews, scope, criteria, and packet gates reach workers."
+      verification_method: execute
+      verification_command: "python3 scripts/validate-design-contracts.py --root .contract-engineering/designs && python3 scripts/validate-admission.py --root .contract-engineering --all-ready"
+      evidence_refs: [CENG-T014-P011-EV001]
+      failure_result: "A worker packet can be admitted without the required design or governance evidence."
+      validation_ref: CENG-T014-P011-VAL002
+    - id: CENG-T014-DC001-AC003
+      statement: "Visual architecture artifacts are canonical, offline, and sanitized."
+      expected_result: "Mermaid source and derived SVG contain no remote loads, scripts, or unsafe event handlers."
+      verification_method: execute
+      verification_command: "python3 scripts/validate-design-contracts.py --root .contract-engineering/designs"
+      evidence_refs: [CENG-T014-P011-EV001]
+      failure_result: "Visual artifacts load remote content or contain executable SVG behavior."
+      validation_ref: CENG-T014-P011-VAL003
+approval:
+  approver: user
+  authenticated: true
+  approved_at: "2026-09-15T20:25:00Z"
+  approved_revision: e806dcc1a88029b64fb0c6bb528979eafd182b3a7a996ae253f3fdba1f015096

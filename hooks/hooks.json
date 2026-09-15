@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "sh ${DROID_PLUGIN_ROOT}/hooks/session-start"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Create|Edit|ApplyPatch|Write|Delete|Move",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${DROID_PLUGIN_ROOT}/hooks/enforce-packet-scope.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Execute",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${DROID_PLUGIN_ROOT}/hooks/enforce-admission.py"
+          }
+        ]
+      }
+    ]
+  }
+}

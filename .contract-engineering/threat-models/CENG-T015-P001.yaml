@@ -1,0 +1,65 @@
+threat_model:
+  packet_id: CENG-T015-P001
+  model_version: 1
+  created_at: "2026-09-16T00:45:00Z"
+  created_by: droid
+  scope: "Protocol and Factory plugin release preparation, attestation, signing, and publication."
+  data_classification: public
+  trust_boundaries:
+    - boundary_id: TB-001
+      description: "Release worktree to content commit and generated artifact boundary."
+      trust_level: semi-trusted
+      assets: ["source bytes", "artifact hashes", "version metadata"]
+      entry_points: ["git commit", "plugin validator", "build reproducibility check"]
+    - boundary_id: TB-002
+      description: "Release repository to tag, attestation, and consumer boundary."
+      trust_level: semi-trusted
+      assets: ["signed tag", "release attestation", "consumer lock references"]
+      entry_points: ["release workflow", "GPG verification", "immutable tag"]
+  threats:
+    - threat_id: THR-001
+      category: tampering
+      description: "Release artifacts or version metadata could differ from the reviewed content commit."
+      affected_asset: "source bytes and artifact hashes"
+      likelihood: medium
+      impact: high
+      risk: high
+      mitigation: "Bind the attestation to the exact content commit, enumerate artifact hashes, run reproducibility validation, and require a clean release worktree."
+      mitigation_status: verified
+      evidence_ref: CENG-T015-P001-EV001
+    - threat_id: THR-002
+      category: supply-chain
+      description: "A compromised or unverified builder, dependency, or workflow could produce a malicious release."
+      affected_asset: "release artifact and build provenance"
+      likelihood: medium
+      impact: high
+      risk: high
+      mitigation: "Run pinned CI security workflows, verify dependency and action provenance, record builder identity, and require independent release review."
+      mitigation_status: verified
+      evidence_ref: CENG-T015-P001-EV001
+    - threat_id: THR-003
+      category: repudiation
+      description: "A release action could lack an auditable authorized publisher and independent approver."
+      affected_asset: "release authorization and attestation"
+      likelihood: low
+      impact: high
+      risk: high
+      mitigation: "Use authenticated user approval, a separate independent reviewer, signed release metadata, and the two-commit attestation model."
+      mitigation_status: verified
+      evidence_ref: CENG-T015-P001-EV001
+    - threat_id: THR-004
+      category: elevation-of-privilege
+      description: "A release workflow could publish or update consumer locks without final authorization."
+      affected_asset: "remote repository and consumer protocol locks"
+      likelihood: low
+      impact: high
+      risk: high
+      mitigation: "Keep push, tag, release publication, and consumer lock updates behind an explicit final user gate."
+      mitigation_status: verified
+      evidence_ref: CENG-T015-P001-EV001
+  ai_agent_risks:
+    prompt_injection_surface: "Repository and tool output could attempt to authorize publication or alter release scope."
+    tool_poisoning_surface: "Release scripts and CI configuration could produce misleading validation or artifact results."
+    excessive_agency: "The agent must not push, tag, publish, or update consumer locks without final user approval."
+    secret_exposure_surface: "Signing credentials and authentication material must remain outside repository content and logs."
+  approval_ref: CENG-T015-P001-DEC001

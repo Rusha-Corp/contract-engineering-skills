@@ -1,0 +1,10 @@
+design_id: TEST-T001-DC002
+artifacts:
+  - path: system.mmd
+    kind: mermaid
+    sha256: 6c7579833f44cee734b7706c0fabbcaafc0b73d038c7afe824e01aba5cdbe038
+    required: true
+  - path: system.svg
+    kind: svg
+    sha256: b4cfa0392a2100b43ceb1aad27969bec5571036142af22977388d97f66f9139d
+    required: true

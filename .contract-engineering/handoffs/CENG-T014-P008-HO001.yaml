@@ -1,0 +1,55 @@
+handoff_version: 3
+handoff_id: CENG-T014-P008-HO001
+packet_id: CENG-T014-P008
+transition:
+  from: Validation
+  to: Handoff
+  reason: "Consumer migration documentation, Superpowers composition guidance, templates, and cross-reference validation are complete; receiver acceptance is required."
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ""
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: "2026-09-16T00:00:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T014-P008-20260916
+  signature_ref: ""
+base_revision: 0436f94803e9761781b069a0d6db4fb65f37c916
+head_revision: 180b43e612529608301c68aa429f8e89021c98cc
+scope_digest: 724aa50e00cd2651be93577c95f6cb362ba579db230efbe23e86f3249d892044
+changed_resources:
+  - path: .contract-engineering/evidence/CENG-T014-P008-EV001.md
+    sha256: a90a2a23043d8522f96e56b841107fdadb5057d8ceaea82984952cf16aadff7b
+  - path: docs/protocol-configuration.md
+    sha256: f29488a2579bcb14c41db5a0c797866cab94fa4f30cbb2516808f287814ada3d
+  - path: docs/supervisor-workflow.md
+    sha256: 291878bce4cbe1235bfdcab33895f243d2444920d49b233a0a03f51c60e89390
+  - path: templates/AGENTS.md
+    sha256: 67936d501a1ced44e2fd85892e762e499d20d82a5050bd08f7e539f7afd8cdb9
+  - path: templates/design-artifact-manifest.yaml
+    sha256: c2c51086ea78424c4188c51c15e4656190a34bfa1ca10c0048dd5288c98dfc48
+  - path: templates/design-review.yaml
+    sha256: 6d08981da1fe758d8bfa2de087b38824bc1bfb1c254e3d60253c9471f3daee71
+  - path: templates/factory-consumer.yaml
+    sha256: 13e44e5a8c04ce4b868e43a1986a5a8fd30aaf707ca7ccb9701b4882793870ff
+  - path: tests/test_design_documentation.py
+    sha256: 1c03129e8be088ce5dd717aa4c1219cd8b7932ce79bf96d17cb9a8326e1c236a
+created_at: "2026-09-15T23:50:00Z"
+expires_at: ""
+approval_ref: CENG-T014-P008
+verification:
+  verified_at: "2026-09-15T23:45:00Z"
+  verifier: droid
+  result: pass
+  revocation_checked_at: ""
+  verification_ref: CENG-T014-P008-EV001
+receiver_status: accepted
+receiver_notes: "User accepted P008 after reviewing the consumer templates, Superpowers ownership boundaries, migration compatibility, rollback guidance, and validation evidence."
+accepted_revision: b660465
+accepted_scope_digest: 724aa50e00cd2651be93577c95f6cb362ba579db230efbe23e86f3249d892044
+accepted_evidence_refs: []

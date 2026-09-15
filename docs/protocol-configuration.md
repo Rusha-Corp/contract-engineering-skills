@@ -14,6 +14,24 @@ Use three separate layers:
 3. **Project configuration and records:** the consuming repository's committed
    `.contract-engineering/` directory.
 
+## Superpowers composition
+
+Contract Engineering composes with the separately installed
+[Superpowers plugin](https://github.com/obra/superpowers). Superpowers owns
+brainstorming, writing plans, worktrees, TDD, debugging, subagents, reviews,
+and branch finishing. Contract Engineering owns design contracts, visual
+review, admission, packet scope, evidence, handoffs, and audit records.
+
+The normal order is:
+
+```text
+brainstorming → contract-design → writing-plans → contract-admission
+→ subagent-driven-development → validation → handoff acceptance
+```
+
+Do not copy or rename Superpowers-owned skills. Repository validators and CI
+remain authoritative when a host does not invoke a skill or hook.
+
 Global installations provide instructions. They do not own project decisions,
 packet state, evidence, or version selection.
 

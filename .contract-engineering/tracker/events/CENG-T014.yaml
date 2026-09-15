@@ -1,0 +1,279 @@
+task_id: CENG-T014
+schema_version: 1
+events:
+  - event_id: CENG-T014-E001
+    packet_id: CENG-T014-P001
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-15T00:00:00Z"
+    summary: "Claimed the design-contract, visualization, admission-enforcement, and Factory plugin architecture packet after user approval."
+  - event_id: CENG-T014-E002
+    packet_id: CENG-T014-P001
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T00:30:00Z"
+    summary: "Wrote and self-reviewed the architecture specification; baseline records, tracker validation, generated projections, and specification checks passed."
+  - event_id: CENG-T014-E003
+    packet_id: CENG-T014-P001
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-15T00:35:00Z"
+    summary: "Submitted CENG-T014-P001-HO001 for user review of the written specification before implementation planning."
+  - event_id: CENG-T014-E004
+    packet_id: CENG-T014-P001
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T16:45:00Z"
+    summary: "User approved the written design specification and authorized creation of the implementation plan."
+  - event_id: CENG-T014-E005
+    packet_id: CENG-T014-P002
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-15T17:00:00Z"
+    summary: "Claimed the implementation-plan packet after the design specification handoff was accepted."
+  - event_id: CENG-T014-E006
+    packet_id: CENG-T014-P002
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-15T17:30:00Z"
+    summary: "Wrote and self-reviewed the implementation plan; required task coverage, interfaces, validation commands, placeholder scan, and structure checks passed."
+  - event_id: CENG-T014-E007
+    packet_id: CENG-T014-P002
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T17:35:00Z"
+    summary: "Submitted CENG-T014-P002-HO001 for user plan review and execution-mode selection."
+  - event_id: CENG-T014-E008
+    packet_id: CENG-T014-P002
+    type: rework
+    actor: user
+    occurred_at: "2026-09-15T18:00:00Z"
+    summary: "User requested Superpowers composition, root-level plugin packaging, and explicit skill-ownership compatibility; P002 is superseded by CENG-T014-P009."
+  - event_id: CENG-T014-E009
+    packet_id: CENG-T014-P009
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-15T18:01:00Z"
+    summary: "Claimed the compatibility revision packet."
+  - event_id: CENG-T014-E010
+    packet_id: CENG-T014-P009
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-15T18:30:00Z"
+    summary: "Wrote and self-reviewed the Superpowers compatibility design and revised implementation plan; placeholder, record, tracker, and projection checks passed."
+  - event_id: CENG-T014-E011
+    packet_id: CENG-T014-P009
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T18:35:00Z"
+    summary: "Submitted CENG-T014-P009-HO001 for user review of the compatibility amendment."
+  - event_id: CENG-T014-E012
+    packet_id: CENG-T014-P009
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T18:40:00Z"
+    summary: "User accepted the Superpowers compatibility amendment and revised implementation plan."
+  - event_id: CENG-T014-E013
+    packet_id: CENG-T014-P010
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-15T19:00:00Z"
+    summary: "Claimed the child-packet admission coordination packet."
+  - event_id: CENG-T014-E014
+    packet_id: CENG-T014-P003
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-15T19:15:00Z"
+    summary: "Claimed dependency-ready child packet P003 for design-contract schema and admission validation."
+  - event_id: CENG-T014-E015
+    packet_id: CENG-T014-P003
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T20:00:00Z"
+    summary: "Moved P003 to Handoff after implementation and validation; receiver review is pending."
+  - event_id: CENG-T014-E016
+    packet_id: CENG-T014-P003
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T20:10:00Z"
+    summary: "User accepted the validated P003 handoff and released the design-contract-schema lock."
+  - event_id: CENG-T014-E017
+    packet_id: CENG-T014-P011
+    type: registered
+    actor: user
+    occurred_at: "2026-09-15T20:15:00Z"
+    summary: "User approved registering a scoped design-contract packet with Mermaid/SVG artifacts before P004."
+  - event_id: CENG-T014-E018
+    packet_id: CENG-T014-P011
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-15T20:20:00Z"
+    summary: "Claimed P011 to materialize the CENG-T014 design contract and canonical visual artifacts."
+  - event_id: CENG-T014-E019
+    packet_id: CENG-T014-P011
+    type: approval
+    actor: user
+    occurred_at: "2026-09-15T20:25:00Z"
+    summary: "User approved the CENG-T014 architecture/data-flow design and Mermaid/SVG artifacts."
+  - event_id: CENG-T014-E020
+    packet_id: CENG-T014-P011
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T20:30:00Z"
+    summary: "Moved P011 to Handoff after design validation; receiver acceptance is pending."
+  - event_id: CENG-T014-E021
+    packet_id: CENG-T014-P011
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T20:35:00Z"
+    summary: "User accepted P011 and released the design-contract-record lock, unblocking P004."
+  - event_id: CENG-T014-E022
+    packet_id: CENG-T014-P004
+    type: admission
+    actor: droid
+    occurred_at: "2026-09-15T20:40:00Z"
+    summary: "Admitted P004 against approved design CENG-T014-DC001 after P003 and P011 completed."
+  - event_id: CENG-T014-E023
+    packet_id: CENG-T014-P004
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-15T20:45:00Z"
+    summary: "Claimed P004 in its isolated worktree to implement the offline preview runtime."
+  - event_id: CENG-T014-E024
+    packet_id: CENG-T014-P004
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-15T21:00:00Z"
+    summary: "Moved P004 to Validation after preview safety implementation and test validation."
+  - event_id: CENG-T014-E025
+    packet_id: CENG-T014-P004
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T21:05:00Z"
+    summary: "Moved P004 to Handoff after complete preview runtime validation; receiver acceptance is pending."
+  - event_id: CENG-T014-E026
+    packet_id: CENG-T014-P004
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T21:10:00Z"
+    summary: "User accepted P004 and released the design-preview-runtime lock."
+  - event_id: CENG-T014-E027
+    packet_id: CENG-T014-P005
+    type: admission
+    actor: droid
+    occurred_at: "2026-09-15T21:20:00Z"
+    summary: "Admitted P005 against approved design CENG-T014-DC001 after P003 and P004 completed."
+  - event_id: CENG-T014-E028
+    packet_id: CENG-T014-P005
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-15T21:35:00Z"
+    summary: "Moved P005 to Validation after governance interface implementation and tests."
+  - event_id: CENG-T014-E029
+    packet_id: CENG-T014-P005
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T21:40:00Z"
+    summary: "Moved P005 to Handoff after governance interface validation; receiver acceptance is pending."
+  - event_id: CENG-T014-E030
+    packet_id: CENG-T014-P005
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T21:45:00Z"
+    summary: "User accepted P005 and released the contract-governance-skills lock."
+  - event_id: CENG-T014-E031
+    packet_id: CENG-T014-P006
+    type: admission
+    actor: droid
+    occurred_at: "2026-09-15T22:00:00Z"
+    summary: "Admitted high-risk P006 against approved design CENG-T014-DC001 after P003 and P005 completed."
+  - event_id: CENG-T014-E032
+    packet_id: CENG-T014-P006
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-15T22:20:00Z"
+    summary: "Moved P006 to Validation after hook policy, CI, and security tests passed."
+  - event_id: CENG-T014-E033
+    packet_id: CENG-T014-P006
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T22:25:00Z"
+    summary: "Moved high-risk P006 to Handoff after security validation; receiver acceptance is pending."
+  - event_id: CENG-T014-E034
+    packet_id: CENG-T014-P006
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T22:30:00Z"
+    summary: "User accepted high-risk P006 and released the factory-admission-hooks lock."
+  - event_id: CENG-T014-E035
+    packet_id: CENG-T014-P007
+    type: admission
+    actor: droid
+    occurred_at: "2026-09-15T22:40:00Z"
+    summary: "Admitted P007 against approved design CENG-T014-DC001 after P004, P005, and P006 completed."
+  - event_id: CENG-T014-E036
+    packet_id: CENG-T014-P007
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-15T23:00:00Z"
+    summary: "Moved P007 to Validation after root plugin packaging and clean-install checks passed."
+  - event_id: CENG-T014-E037
+    packet_id: CENG-T014-P007
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T23:05:00Z"
+    summary: "Moved P007 to Handoff after packaging validation; receiver acceptance is pending."
+  - event_id: CENG-T014-E038
+    packet_id: CENG-T014-P007
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T23:10:00Z"
+    summary: "User accepted P007 and released the factory-plugin-packaging lock."
+  - event_id: CENG-T014-E039
+    packet_id: CENG-T014-P008
+    type: admission
+    actor: droid
+    occurred_at: "2026-09-15T23:30:00Z"
+    summary: "Admitted P008 against approved design CENG-T014-DC001 after P003 through P007 completed."
+  - event_id: CENG-T014-E040
+    packet_id: CENG-T014-P008
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-15T23:45:00Z"
+    summary: "Moved P008 to Validation after migration documentation and cross-reference tests passed."
+  - event_id: CENG-T014-E041
+    packet_id: CENG-T014-P008
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T23:50:00Z"
+    summary: "Moved P008 to Handoff with validated migration documentation and evidence; receiver acceptance is pending."
+  - event_id: CENG-T014-E042
+    packet_id: CENG-T014-P008
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-16T00:00:00Z"
+    summary: "User accepted P008 and released the consumer-migration-docs lock."
+  - event_id: CENG-T014-E043
+    packet_id: CENG-T014-P010
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-16T00:10:00Z"
+    summary: "Moved P010 to Validation after all child packets were accepted and final integrated checks passed."
+  - event_id: CENG-T014-E044
+    packet_id: CENG-T014-P010
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-16T00:15:00Z"
+    summary: "Moved P010 to Handoff with final coordination evidence; receiver acceptance is pending."
+  - event_id: CENG-T014-E045
+    packet_id: CENG-T014-P010
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-16T00:20:00Z"
+    summary: "User accepted P010 and released the child-packet-admission lock."
+  - event_id: CENG-T014-E046
+    packet_id: CENG-T014-P002
+    type: cancellation
+    actor: user
+    occurred_at: "2026-09-16T00:40:00Z"
+    summary: "User authorized cancellation of superseded P002 after accepted P009 replaced its implementation plan; released the implementation-plan lock."

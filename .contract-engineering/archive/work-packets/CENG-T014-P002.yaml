@@ -1,0 +1,113 @@
+packet_id: CENG-T014-P002
+task_id: CENG-T014
+phase: P0_FOUNDATIONS
+domain: coding
+packet_class: parent-coordination
+title: "Plan design-contract enforcement and Factory plugin implementation"
+objective: "Create a bite-sized implementation plan that maps the approved design contract to independently testable child packets."
+open_questions: []
+state: Cancelled
+scope:
+  in:
+    - "docs/superpowers/plans/2026-09-15-design-contract-factory-plugin-plan.md"
+    - ".contract-engineering/work-packets/CENG-T014-P002.yaml"
+    - ".contract-engineering/tracker/index.yaml"
+    - ".contract-engineering/tracker/events/CENG-T014.yaml"
+    - ".contract-engineering/execution-tracker.md"
+    - ".contract-engineering/evidence/CENG-T014-P002-EV001.md"
+    - ".contract-engineering/handoffs/CENG-T014-P002-HO001.yaml"
+  out:
+    - "Implementing design-contract schemas, validators, preview runtime, commands, droids, hooks, CI, or plugin packaging."
+    - "Changing the approved design specification without a new design review."
+    - "Changing the six published protocol SKILL.md files."
+    - "Publishing or pushing a release."
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities:
+  - repository-read
+  - repository-write
+  - local-test
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: droid
+reviewer: user
+cleanup_owner: droid
+dependencies:
+  - CENG-T014-P001
+locks: []
+claim_timestamp: "2026-09-15T17:00:00Z"
+baseline_refs:
+  - ".contract-engineering/protocol.lock.yaml"
+  - "93bfac1422ce2fd656639dfce51c9fb3d9d237a0"
+  - "docs/superpowers/specs/2026-09-15-design-contract-factory-plugin-design.md"
+  - ".contract-engineering/decisions/CENG-T014-P001-DEC001.yaml"
+design_decision_ref: CENG-T014-P001-DEC001
+data_gate_ref: null
+acceptance_criteria:
+  - "The plan maps every design specification section to one or more bounded implementation tasks."
+  - "Each task names exact files, interfaces, tests, dependencies, and validation commands."
+  - "The plan defines the child packet order and does not assign implementation scope to this coordination packet."
+  - "The plan includes clean-install, offline-preview, security, and failure-path validation."
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T014-P002-AC001
+      statement: "The approved design is fully covered by the implementation plan."
+      expected_result: "Every design requirement maps to a named implementation task and validation check."
+      verification_method: inspect
+      evidence_refs: [CENG-T014-P002-EV001]
+      failure_result: "A design requirement has no implementation owner or validation path."
+      validation_ref: CENG-T014-P002-VAL001
+    - id: CENG-T014-P002-AC002
+      statement: "Implementation tasks have bounded interfaces and packet boundaries."
+      expected_result: "Each child task has exact files, produces named interfaces, and declares dependencies and non-overlap scope."
+      verification_method: inspect
+      evidence_refs: [CENG-T014-P002-EV001]
+      failure_result: "The plan requires an unbounded or overlapping implementation packet."
+      validation_ref: CENG-T014-P002-VAL001
+    - id: CENG-T014-P002-AC003
+      statement: "The plan includes deterministic validation and safe rollout."
+      expected_result: "Tests cover records, hooks, visual artifacts, offline preview, clean installation, CI, migration, and failure behavior."
+      verification_method: inspect
+      evidence_refs: [CENG-T014-P002-EV001]
+      failure_result: "The plan depends on manual claims or an untestable external environment."
+      validation_ref: CENG-T014-P002-VAL001
+validation_plan:
+  - id: CENG-T014-P002-VAL001
+    kind: plan-review
+    command: "inspect docs/superpowers/plans/2026-09-15-design-contract-factory-plugin-plan.md against docs/superpowers/specs/2026-09-15-design-contract-factory-plugin-design.md"
+    expected: "the plan is complete, internally consistent, bite-sized, and directly executable by child packets"
+  - id: CENG-T014-P002-VAL002
+    kind: records
+    command: "python3 scripts/validate-contract-records.py"
+    expected: "exit 0 for repository records"
+  - id: CENG-T014-P002-VAL003
+    kind: tracker
+    command: "python3 scripts/validate-tracker.py --root .contract-engineering && python3 scripts/render-tracker.py --root .contract-engineering --check"
+    expected: "canonical tracker and generated projection are current"
+evidence_refs:
+  - CENG-T014-P002-EV001
+handoff_ref: CENG-T014-P002-HO001
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+evidence_refs: []
+handoff_ref: null
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""

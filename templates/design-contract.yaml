@@ -1,0 +1,112 @@
+# Design Contract Template
+# Copy to .contract-engineering/designs/<TASK-ID>/design.yaml and fill in all fields.
+
+design_contract_version: 1
+design_id: "<PROJECT>-<TASK-ID>-DC001"
+task_id: "<PROJECT>-<TASK-ID>"
+status: "proposed"  # proposed | in_review | approved | rejected | superseded
+design_type: "text"  # ui | ux | architecture | workflow | data-flow | mixed | text
+title: "Design Contract for <TASK-ID>"
+
+problem:
+  statement: "Describe the problem this design solves."
+  users:
+    - "User type 1"
+    - "User type 2"
+  impact: "Describe impact if not solved."
+  urgency: "high"  # low | medium | high | critical
+  constraints:
+    - "Constraint 1"
+    - "Constraint 2"
+
+open_questions: []
+# - question_id: "<PROJECT>-<TASK-ID>-Q001"
+#   question: "What is the unresolved question?"
+#   status: "open"  # open | resolved | deferred
+#   resolution: "Resolution text if resolved or deferred"
+
+scope:
+  in:
+    - "In-scope component, file, or behavior 1"
+    - "In-scope component, file, or behavior 2"
+  out:
+    - "Explicitly out-of-scope item 1"
+    - "Explicitly out-of-scope item 2"
+
+architecture:
+  proposal: "Describe the proposed architecture."
+  components:
+    - "Component 1"
+    - "Component 2"
+  data_flows:
+    - "Data flow 1"
+    - "Data flow 2"
+  trust_boundaries:
+    - "Trust boundary 1"
+    - "Trust boundary 2"
+
+alternatives:
+  - id: "ALT001"
+    proposal: "Describe the alternative approach."
+    benefits:
+      - "Benefit 1"
+      - "Benefit 2"
+    costs:
+      - "Cost 1"
+      - "Cost 2"
+    rejected_reason: "Why this alternative was rejected."
+
+decisions:
+  security:
+    - "Security decision 1"
+  data:
+    - "Data handling decision 1"
+  compatibility:
+    - "Compatibility decision 1"
+  observability:
+    - "Observability decision 1"
+  rollback:
+    - "Rollback strategy 1"
+
+artifacts:
+  # For design_type: text - minimum one architecture artifact
+  # For design_type: ui/ux - at least one HTML prototype
+  # For design_type: architecture - Mermaid source + rendered SVG
+  # For design_type: workflow - Mermaid source or equivalent SVG
+  # For design_type: data-flow - Mermaid source + rendered SVG with trust boundaries
+  # For design_type: mixed - union of each applicable type's requirements
+  - path: "docs/superpowers/specs/<DATE>-<SPEC-NAME>.md"
+    kind: "architecture"  # requirements | architecture | tradeoffs | html | mermaid | svg
+    sha256: "<64-character-sha256-hash-of-artifact>"
+    required: true
+
+reviews:
+  # Required reviews depend on design_type and risk
+  # - design review (always required)
+  # - architecture review (for architecture/data-flow types)
+  # - visual review (for ui/ux types)
+  # - security review (for high/critical risk)
+  - review_id: "<PROJECT>-<TASK-ID>-DC001-R001"
+    kind: "design"  # design | architecture | security | data | compatibility | operations | visual
+    reviewer: "<reviewer-identity>"
+    status: "pending"  # pending | accepted | rejected
+    notes: "Review notes."
+
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: "<PROJECT>-<TASK-ID>-AC001"
+      statement: "Clear acceptance criterion statement."
+      expected_result: "What passing looks like."
+      verification_method: "execute"  # execute | inspect | compare
+      verification_command: "python3 -m pytest tests/test_example.py"
+      evidence_refs:
+        - "<PROJECT>-<TASK-ID>-EV001"
+      failure_result: "What failure looks like."
+      validation_ref: "<PROJECT>-<TASK-ID>-VAL001"
+
+approval:
+  approver: "<user-identity>"
+  authenticated: true  # Must be true
+  approved_at: "2026-09-15T19:00:00Z"  # ISO 8601 format
+  approved_revision: "<64-character-sha256-hash-of-artifact-manifest>"

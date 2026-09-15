@@ -22,11 +22,11 @@ rows:
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P005"
-    state: "Planned"
+    state: "Ready"
     owner: "droid"
     reviewer: "user"
     locks: ["contract-governance-skills"]
-    next_action: "Wait for dependencies CENG-T014-P003 and CENG-T014-P004"
+    next_action: "Claim P005 in an isolated worktree and implement governance interfaces"
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P006"

@@ -157,3 +157,9 @@ events:
     actor: user
     occurred_at: "2026-09-15T21:10:00Z"
     summary: "User accepted P004 and released the design-preview-runtime lock."
+  - event_id: CENG-T014-E027
+    packet_id: CENG-T014-P005
+    type: admission
+    actor: droid
+    occurred_at: "2026-09-15T21:20:00Z"
+    summary: "Admitted P005 against approved design CENG-T014-DC001 after P003 and P004 completed."

@@ -6,7 +6,7 @@ packet_class: child-implementation
 title: "Document Superpowers compatibility and consumer migration"
 objective: "Document installation, skill ownership, design-contract migration, rollout, rollback, and operational boundaries for consumers."
 open_questions: []
-state: Planned
+state: Ready
 scope:
   in:
     - "templates/design-review.yaml"
@@ -17,8 +17,6 @@ scope:
     - "docs/supervisor-workflow.md"
     - "docs/repository-development.md"
     - "templates/AGENTS.md"
-    - "README.md"
-    - "CHANGELOG.md"
   out:
     - "Implementing validators, hooks, preview runtime, commands, or packaging."
     - "Changing Superpowers."
@@ -33,14 +31,14 @@ reviewer: user
 cleanup_owner: droid
 dependencies: [CENG-T014-P003, CENG-T014-P004, CENG-T014-P005, CENG-T014-P006, CENG-T014-P007]
 locks: [consumer-migration-docs]
-claim_timestamp: ""
+claim_timestamp: "2026-09-15T23:30:00Z"
 baseline_refs:
   - ".contract-engineering/protocol.lock.yaml"
   - "5829d5420108f9803831ca5b25ed59b39c2f276f"
   - "docs/superpowers/specs/2026-09-15-design-contract-factory-plugin-superpowers-design.md"
   - "docs/superpowers/plans/2026-09-15-design-contract-factory-plugin-superpowers-plan.md"
   - ".contract-engineering/decisions/CENG-T014-P009-DEC001.yaml"
-design_decision_ref: CENG-T014-P009-DEC001
+design_decision_ref: CENG-T014-DC001
 data_gate_ref: null
 acceptance_criteria:
   - "Consumers can install both plugins and understand their ownership and invocation order."
@@ -57,6 +55,7 @@ acceptance_contract:
       evidence_refs: [CENG-T014-P008-EV001]
       failure_result: "Consumers must infer compatibility or risk overwriting another plugin."
       validation_ref: CENG-T014-P008-VAL001
+      design_criterion_refs: [CENG-T014-DC001-AC001, CENG-T014-DC001-AC002]
 validation_plan:
   - id: CENG-T014-P008-VAL001
     kind: documentation

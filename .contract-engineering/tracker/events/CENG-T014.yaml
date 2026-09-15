@@ -229,3 +229,9 @@ events:
     actor: user
     occurred_at: "2026-09-15T23:10:00Z"
     summary: "User accepted P007 and released the factory-plugin-packaging lock."
+  - event_id: CENG-T014-E039
+    packet_id: CENG-T014-P008
+    type: admission
+    actor: droid
+    occurred_at: "2026-09-15T23:30:00Z"
+    summary: "Admitted P008 against approved design CENG-T014-DC001 after P003 through P007 completed."

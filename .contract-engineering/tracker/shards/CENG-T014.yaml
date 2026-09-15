@@ -46,11 +46,11 @@ rows:
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P008"
-    state: "Planned"
+    state: "Ready"
     owner: "droid"
     reviewer: "user"
     locks: ["consumer-migration-docs"]
-    next_action: "Wait for dependencies CENG-T014-P003 through P007"
+    next_action: "Claim P008 in an isolated worktree and implement migration documentation"
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P011"

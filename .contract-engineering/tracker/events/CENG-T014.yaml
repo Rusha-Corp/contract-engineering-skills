@@ -199,3 +199,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T22:25:00Z"
     summary: "Moved high-risk P006 to Handoff after security validation; receiver acceptance is pending."
+  - event_id: CENG-T014-E034
+    packet_id: CENG-T014-P006
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T22:30:00Z"
+    summary: "User accepted high-risk P006 and released the factory-admission-hooks lock."

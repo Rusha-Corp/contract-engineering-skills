@@ -29,7 +29,7 @@ Canonical state: `tracker/index.yaml` and its declared task shards.
 | CENG-T014 | CENG-T014-P003 | Complete | droid | user | released |
 | CENG-T014 | CENG-T014-P004 | Complete | droid | user | released |
 | CENG-T014 | CENG-T014-P005 | Complete | droid | user | released |
-| CENG-T014 | CENG-T014-P006 | Handoff | droid | user | factory-admission-hooks |
+| CENG-T014 | CENG-T014-P006 | Complete | droid | user | released |
 | CENG-T014 | CENG-T014-P007 | Planned | droid | user | factory-plugin-packaging |
 | CENG-T014 | CENG-T014-P008 | Planned | droid | user | consumer-migration-docs |
 | CENG-T014 | CENG-T014-P011 | Complete | droid | user | released |

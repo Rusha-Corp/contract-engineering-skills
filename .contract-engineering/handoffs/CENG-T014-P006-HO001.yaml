@@ -16,8 +16,8 @@ receiver:
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ""
-  acceptance_ref: ""
+  accepted_at: "2026-09-15T22:30:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T014-P006-20260915
   signature_ref: ""
 base_revision: 38eeaf922628a90df6ef065b56947574fcab3734
 head_revision: 3b1fb5b60b2c54241e14422b1966b349402c68b9
@@ -58,8 +58,9 @@ verification:
   result: pass
   revocation_checked_at: ""
   verification_ref: CENG-T014-P006-EV001
-receiver_status: pending
-receiver_notes: "High-risk receiver review must verify hook fail-closed behavior, CI enforcement, security controls, evidence, and rollback before acceptance."
-accepted_revision: ""
-accepted_scope_digest: ""
-accepted_evidence_refs: []
+receiver_status: accepted
+receiver_notes: "User reviewed the high-risk hook fail-closed behavior, CI enforcement, security controls, evidence, and rollback bindings and accepted P006."
+accepted_revision: d30552695f763ee41d2618416ce7e5765f147f2a
+accepted_scope_digest: 9784c85768a35ba39414f8bc5c6269c5d6fda67b25c41afc52ee4ed835291ac1
+accepted_evidence_refs:
+  - CENG-T014-P006-EV001

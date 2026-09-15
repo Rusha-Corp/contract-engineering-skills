@@ -6,7 +6,7 @@ packet_class: child-implementation
 title: "Additive Factory hooks and CI admission enforcement"
 objective: "Block out-of-scope or inadmissible writes through additive Factory hooks and repository CI gates."
 open_questions: []
-state: Handoff
+state: Complete
 scope:
   in:
     - "hooks/hooks.json"
@@ -30,7 +30,7 @@ owner: droid
 reviewer: user
 cleanup_owner: droid
 dependencies: [CENG-T014-P003, CENG-T014-P005]
-locks: [factory-admission-hooks]
+locks: []
 claim_timestamp: "2026-09-15T22:00:00Z"
 baseline_refs:
   - ".contract-engineering/protocol.lock.yaml"

@@ -16,8 +16,8 @@ receiver:
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ""
-  acceptance_ref: ""
+  accepted_at: "2026-09-15T21:45:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T014-P005-20260915
   signature_ref: ""
 base_revision: 34d38aed20b8c8fb0f8a1c2ccf094e7318f59182
 head_revision: 8320c024b4eab88896ab66b9c360cd22de0c84bc
@@ -70,8 +70,9 @@ verification:
   result: pass
   revocation_checked_at: ""
   verification_ref: CENG-T014-P005-EV001
-receiver_status: pending
-receiver_notes: "Receiver must verify skill ownership, command stop points, droid boundaries, evidence, and security decision before acceptance."
-accepted_revision: ""
-accepted_scope_digest: ""
-accepted_evidence_refs: []
+receiver_status: accepted
+receiver_notes: "User reviewed skill ownership, command stop points, droid boundaries, evidence, and security decision and accepted P005."
+accepted_revision: af87f5d6603d25bad446fcb1525c29616217059a
+accepted_scope_digest: 1c798b6455eff42c50ff351172a9645c4c3c0767e0c833c1d6a7921e6e45842b
+accepted_evidence_refs:
+  - CENG-T014-P005-EV001

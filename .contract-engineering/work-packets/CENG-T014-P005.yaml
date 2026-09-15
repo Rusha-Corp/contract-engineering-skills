@@ -6,7 +6,7 @@ packet_class: child-implementation
 title: "Add Contract Engineering governance skills and Factory commands"
 objective: "Add uniquely named governance skills, commands, and droids that compose with Superpowers without duplicating its workflow skills."
 open_questions: []
-state: Handoff
+state: Complete
 scope:
   in:
     - "skills/contract-design/SKILL.md"
@@ -35,7 +35,7 @@ owner: droid
 reviewer: user
 cleanup_owner: droid
 dependencies: [CENG-T014-P003, CENG-T014-P004]
-locks: [contract-governance-skills]
+locks: []
 claim_timestamp: "2026-09-15T21:20:00Z"
 baseline_refs:
   - ".contract-engineering/protocol.lock.yaml"

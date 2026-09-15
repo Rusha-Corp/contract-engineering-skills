@@ -175,3 +175,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T21:40:00Z"
     summary: "Moved P005 to Handoff after governance interface validation; receiver acceptance is pending."
+  - event_id: CENG-T014-E030
+    packet_id: CENG-T014-P005
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T21:45:00Z"
+    summary: "User accepted P005 and released the contract-governance-skills lock."

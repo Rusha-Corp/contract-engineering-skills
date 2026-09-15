@@ -13,8 +13,8 @@ completed_steps:
   - "Hash-pinned CI dependency resolution passed in dry-run mode."
   - "Hosted protocol validation, secret scanning, and security workflows passed."
   - "Threat-model mitigations verified against the hosted workflow results."
+  - "Final validation-record commit passed all hosted workflows."
 pending_steps:
-  - "Rerun hosted CI after final validation-record updates."
   - "Independent review of corrected content and release candidate."
   - "Attestation and signing."
   - "Final user publication approval."

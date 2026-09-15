@@ -1,0 +1,61 @@
+handoff_version: 3
+handoff_id: CENG-T014-P007-HO001
+packet_id: CENG-T014-P007
+transition:
+  from: Validation
+  to: Handoff
+  reason: "Root Factory marketplace/plugin metadata and deterministic clean-install validation are complete; receiver acceptance is required."
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ""
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: ""
+  acceptance_ref: ""
+  signature_ref: ""
+base_revision: 43b3985233567c066b2c5f8e956da20575da6452
+head_revision: fc60fa970d6252eb5e3b1618ca8bbf743104b3ab
+scope_digest: e8f300dc285c85293aaec4053061ce270a8595ac1b28e04cafc3fcac87c66326
+changed_resources:
+  - path: .contract-engineering/evidence/CENG-T014-P007-EV001.md
+    sha256: cea31a7d2a91dc2013eb512737599117ad592f73eb3cea6644a33b11a707fc5e
+  - path: .contract-engineering/execution-tracker.md
+    sha256: fe7e694e1372247f985244a5c49e279e011e5cbb9c5ecac27dc67e24f79f0c71
+  - path: .contract-engineering/tracker/events/CENG-T014.yaml
+    sha256: 618e699743057c3899358ed3e62f2ee40e69c8bdfa3e0669cefef7f91606c9af
+  - path: .contract-engineering/tracker/shards/CENG-T014.yaml
+    sha256: b68ff73b2a95f4f951b8fdd701feb9397a23983c2766db90e3ab6db783e5809b
+  - path: .contract-engineering/work-packets/CENG-T014-P007.yaml
+    sha256: 4f1d65c9b75009d6117933cc90d90aa4d2bfd24b8dcf0465c869c3cb84424de0
+  - path: .factory-plugin/marketplace.json
+    sha256: fe0549fc87a9c8e2633bc97a339662498222b943375a5f52e150502f25f3f328
+  - path: .factory-plugin/plugin.json
+    sha256: e28300ed65018dc615b29c2884291ab988b2def274a2bc1d30a83536e7306473
+  - path: .github/workflows/protocol-validation.yml
+    sha256: 64f5d4b00b785848b3d8d8ddc5a7ffe57877263c8f4a97ff7073ce4dfad12dda
+  - path: scripts/build-factory-plugin.py
+    sha256: 2fa5a16759b0424d021ec19257c030c5299cca788d2a91ddb09e71792c747e7c
+  - path: scripts/validate-factory-plugin.py
+    sha256: 6015d566d78e4d27aeb6212b3db39cb84a64819b705a5ecb35796a07eee7f321
+  - path: tests/test_factory_plugin_package.py
+    sha256: 9cafcae542f2747f9120e15a9a6330d7dc8b0c044de603d80757ce06ef7e159f
+created_at: "2026-09-15T23:05:00Z"
+expires_at: ""
+approval_ref: CENG-T014-P007
+verification:
+  verified_at: "2026-09-15T23:00:00Z"
+  verifier: droid
+  result: pass
+  revocation_checked_at: ""
+  verification_ref: CENG-T014-P007-EV001
+receiver_status: pending
+receiver_notes: "Receiver must verify root-level marketplace source, plugin paths, clean-install checks, and scope note before acceptance."
+accepted_revision: ""
+accepted_scope_digest: ""
+accepted_evidence_refs: []

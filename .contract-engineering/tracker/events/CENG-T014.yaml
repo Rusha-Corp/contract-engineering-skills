@@ -217,3 +217,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T23:00:00Z"
     summary: "Moved P007 to Validation after root plugin packaging and clean-install checks passed."
+  - event_id: CENG-T014-E037
+    packet_id: CENG-T014-P007
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T23:05:00Z"
+    summary: "Moved P007 to Handoff after packaging validation; receiver acceptance is pending."

@@ -20,9 +20,23 @@ receiver:
   acceptance_ref: ""
   signature_ref: ""
 base_revision: 1be220f2691194a8e69f330ebc85fff9fd6c0172
-head_revision: ""
-scope_digest: ""
-changed_resources: []
+head_revision: 8d5f7678cb36614c4afbdb64289bcf6b30ce4e75
+scope_digest: 0ffda07134cac3b9bc4f5cb13bbf6f8099fbdef0a803a48d33b6c1d2ce875074
+changed_resources:
+  - path: .contract-engineering/decisions/CENG-T014-P001-DEC001.yaml
+    sha256: 36821a65a3885aa9eca23b38375d2bb81d46561fc69f298678332ca608c6e42e
+  - path: .contract-engineering/evidence/CENG-T014-P001-EV001.md
+    sha256: 8c10369f52a9903139adbedf9163e84f6ca8e9cd61bee631d001a6d86cc4bf4c
+  - path: .contract-engineering/execution-tracker.md
+    sha256: da20bf62d9d65a7bff26c205a95ddc441548b15a89cf5b625da7b92199194f3b
+  - path: .contract-engineering/tracker/events/CENG-T014.yaml
+    sha256: fe7e1b05cfba7c64911e994ed9f3a0a4eb8724be8384389a4e4607d7c3203b7c
+  - path: .contract-engineering/tracker/index.yaml
+    sha256: a38c3de370d5c3b09b216302cc11f7733c58ee90fe282c74c92579afc49eac99
+  - path: .contract-engineering/work-packets/CENG-T014-P001.yaml
+    sha256: 0ac4505a470b4fd9dc7ed86735c636675d115c576b17d536135663399e7b039d
+  - path: docs/superpowers/specs/2026-09-15-design-contract-factory-plugin-design.md
+    sha256: 9239d5e3fc7811c29cac5a1f89a8ddda702a471b0a9153fb1e5f20d19ef3297d
 created_at: "2026-09-15T00:35:00Z"
 expires_at: ""
 approval_ref: CENG-T014-P001-DEC001

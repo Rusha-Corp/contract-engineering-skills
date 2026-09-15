@@ -6,7 +6,7 @@ packet_class: child-implementation
 title: "Additive Factory hooks and CI admission enforcement"
 objective: "Block out-of-scope or inadmissible writes through additive Factory hooks and repository CI gates."
 open_questions: []
-state: Ready
+state: Validation
 scope:
   in:
     - "hooks/hooks.json"

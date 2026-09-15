@@ -66,6 +66,8 @@ jobs:
                   raise SystemExit("negative workflow test unexpectedly passed")
           print("workflow security invariants valid")
           PY
+      - name: Validate hook policy boundaries
+        run: python3 -m unittest tests.test_factory_hooks -v
 
   dependency-review:
     name: Dependency and license review

@@ -187,3 +187,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T22:00:00Z"
     summary: "Admitted high-risk P006 against approved design CENG-T014-DC001 after P003 and P005 completed."
+  - event_id: CENG-T014-E032
+    packet_id: CENG-T014-P006
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-15T22:20:00Z"
+    summary: "Moved P006 to Validation after hook policy, CI, and security tests passed."

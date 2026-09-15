@@ -85,3 +85,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T19:15:00Z"
     summary: "Claimed dependency-ready child packet P003 for design-contract schema and admission validation."
+  - event_id: CENG-T014-E015
+    packet_id: CENG-T014-P003
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T20:00:00Z"
+    summary: "Moved P003 to Handoff after implementation and validation; receiver review is pending."

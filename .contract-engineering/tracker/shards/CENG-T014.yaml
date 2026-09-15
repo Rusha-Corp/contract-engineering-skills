@@ -6,11 +6,11 @@ updated_at: "2026-09-15"
 rows:
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P003"
-    state: "Claimed"
+    state: "Handoff"
     owner: "droid"
     reviewer: "user"
     locks: ["design-contract-schema"]
-    next_action: "Implement design-contract schema and admission validation"
+    next_action: "Review P003 handoff and accept or reject the implementation"
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P004"

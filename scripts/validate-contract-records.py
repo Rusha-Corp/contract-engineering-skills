@@ -636,6 +636,33 @@ def validate_canonical_tracker(root: Path) -> None:
     renderer.render_projections(root, check=True)
 
 
+def validate_design_contracts_integration(designs_root: Path) -> None:
+    """Integrate design contract validation with record validation."""
+    script = Path(__file__).with_name("validate-design-contracts.py")
+    if not script.is_file():
+        return  # Design contracts not yet implemented
+    spec = importlib.util.spec_from_file_location("validate_design_contracts", script)
+    if spec is None or spec.loader is None:
+        fail(f"{script}: cannot load design contract validator")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    
+    designs = module.load_designs(designs_root)
+    if not designs:
+        return  # No designs yet, legacy mode
+    
+    errors = []
+    for task_id, design in designs.items():
+        try:
+            module.validate_design(design, f"{task_id}/design.yaml")
+        except ValueError as exc:
+            errors.append(str(exc))
+    
+    if errors:
+        for error in errors:
+            fail(f"design contract validation failed: {error}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", default=".contract-engineering", type=Path)
@@ -682,6 +709,10 @@ def main() -> int:
     validate_dependency_graph(packets)
     validate_locks(packets)
     validate_references(root, packets)
+    # Validate design contracts if designs directory exists
+    designs_root = root / "designs"
+    if designs_root.is_dir():
+        validate_design_contracts_integration(designs_root)
     if args.packet:
         packet = packets.get(args.packet.stem)
         if packet is None:

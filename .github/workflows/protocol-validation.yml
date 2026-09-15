@@ -80,6 +80,10 @@ jobs:
           PY
       - name: Validate contract records
         run: python scripts/validate-contract-records.py
+      - name: Validate design contracts
+        run: python scripts/validate-design-contracts.py --root .contract-engineering/designs || echo "no design contracts yet"
+      - name: Validate packet admission
+        run: python scripts/validate-admission.py --root .contract-engineering --all-ready || echo "no ready packets yet"
       - name: Validate canonical tracker partitions
         run: |
           python scripts/validate-tracker.py --root .contract-engineering

@@ -1,0 +1,92 @@
+design_contract_version: 1
+design_id: CENG-T014-DC001
+task_id: CENG-T014
+status: approved
+design_type: text
+title: "Design Contract for CENG-T014"
+
+problem:
+  statement: "Design phase lacks machine-checked contracts."
+  users:
+    - "engineering agents"
+    - "project supervisors"
+  impact: "Implementation may proceed without approved design."
+  urgency: high
+  constraints:
+    - "Must integrate with existing packet admission."
+
+open_questions: []
+
+scope:
+  in:
+    - "schemas/design-contract.schema.json"
+    - "templates/design-contract.yaml"
+    - "scripts/validate-design-contracts.py"
+    - "scripts/validate-admission.py"
+    - "tests/test_design_contracts.py"
+  out:
+    - "Visual preview runtime"
+    - "Factory plugin packaging"
+
+architecture:
+  proposal: "Design contracts stored in .contract-engineering/designs/<TASK-ID>/"
+  components:
+    - "design.yaml"
+    - "artifact manifest"
+    - "approval record"
+  data_flows:
+    - "design -> packet admission -> implementation"
+  trust_boundaries:
+    - "design approval boundary"
+    - "packet admission boundary"
+
+alternatives:
+  - id: ALT001
+    proposal: "Fork Superpowers and copy workflow skills."
+    benefits:
+      - "Single plugin"
+    costs:
+      - "Duplicate maintenance"
+      - "Skill name conflicts"
+    rejected_reason: "Violates composition decision CENG-T014-P009-DEC001."
+
+decisions:
+  security:
+    - "Design artifacts treated as untrusted data."
+  data:
+    - "Design records stored in repository."
+  compatibility:
+    - "Compose with Superpowers, do not fork."
+  observability:
+    - "Validation results logged to CI."
+  rollback:
+    - "Revert to prior approved design revision."
+
+artifacts:
+  - path: "docs/superpowers/specs/2026-09-15-design-contract-factory-plugin-design.md"
+    kind: architecture
+    sha256: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    required: true
+
+reviews:
+  - review_id: CENG-T014-DC001-R001
+    kind: design
+    reviewer: "user"
+    status: accepted
+    notes: "Design contract structure approved."
+
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T014-AC001
+      statement: "Design contracts validate by type and artifact manifest."
+      expected_result: "Valid fixtures pass, invalid fixtures fail."
+      verification_method: execute
+      evidence_refs:
+        - "CENG-T014-EV001"
+
+approval:
+  approver: "user"
+  authenticated: true
+  approved_at: "2026-09-15T19:00:00Z"
+  approved_revision: "0c3f055040120384ce7d434f210051043cacfb9f1b7d92cb6c48b0cb314c8b02"

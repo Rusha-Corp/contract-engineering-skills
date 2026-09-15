@@ -91,3 +91,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T20:00:00Z"
     summary: "Moved P003 to Handoff after implementation and validation; receiver review is pending."
+  - event_id: CENG-T014-E016
+    packet_id: CENG-T014-P003
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T20:10:00Z"
+    summary: "User accepted the validated P003 handoff and released the design-contract-schema lock."

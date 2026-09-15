@@ -16,8 +16,8 @@ receiver:
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ""
-  acceptance_ref: ""
+  accepted_at: "2026-09-15T20:10:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T014-P003-20260915
   signature_ref: ""
 base_revision: e65484ff1266ba09d996520d55db4986ff7eaa56
 head_revision: 5dadcd67df9fe06f015abb16eb11bef530ca0977
@@ -64,8 +64,9 @@ verification:
   result: pass
   revocation_checked_at: ""
   verification_ref: CENG-T014-P003-EV001
-receiver_status: pending
-receiver_notes: "Independent final review dispatches were rate-limited. Receiver must review the diff, evidence, and validation output before acceptance."
-accepted_revision: ""
-accepted_scope_digest: ""
-accepted_evidence_refs: []
+receiver_status: accepted
+receiver_notes: "User reviewed the P003 diff, evidence, validation output, scope, and handoff bindings and accepted the implementation. Independent reviewer dispatches had been rate-limited, which remains recorded in the evidence."
+accepted_revision: e3c37cadf269b4f53506da26ecc1347ed6a942b8
+accepted_scope_digest: f6f1d9d662ce39b74a25de744672378c8a2816273ba02a14435375e68e2a7e25
+accepted_evidence_refs:
+  - CENG-T014-P003-EV001

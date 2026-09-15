@@ -67,3 +67,9 @@ events:
     actor: droid
     occurred_at: "2026-09-16T02:10:00Z"
     summary: "Hosted protocol validation, secret scanning, and security checks passed for corrected commit aef665a; independent approval remains required."
+  - event_id: CENG-T015-E012
+    packet_id: CENG-T015-P001
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-16T02:20:00Z"
+    summary: "Submitted corrected release candidate CENG-T015-P001-HO002 for independent acceptance after hosted CI passed."

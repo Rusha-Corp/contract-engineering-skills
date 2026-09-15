@@ -91,3 +91,9 @@ events:
     actor: droid
     occurred_at: "2026-09-16T03:20:00Z"
     summary: "Exact final candidate bd561da passed protocol validation, secret scanning, and security checks; the candidate is ready for final independent review."
+  - event_id: CENG-T015-E016
+    packet_id: CENG-T015-P001
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-16T03:40:00Z"
+    summary: "Submitted final exact-head release candidate HO003 after all hosted workflows passed for 1ea99be."

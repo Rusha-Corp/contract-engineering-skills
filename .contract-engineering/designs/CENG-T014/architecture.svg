@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Contract Engineering approval and execution flow</title>
+  <desc id="desc">A bounded flow from Superpowers planning through contract review, user approval, packet admission, worker execution, evidence, and CI audit.</desc>
+  <rect width="1200" height="420" fill="#ffffff"/>
+  <g fill="none" stroke="#334155" stroke-width="2">
+    <rect x="40" y="70" width="150" height="70" rx="8" fill="#e0f2fe"/>
+    <rect x="220" y="70" width="150" height="70" rx="8" fill="#e0f2fe"/>
+    <rect x="400" y="70" width="150" height="70" rx="8" fill="#e0f2fe"/>
+    <rect x="580" y="70" width="150" height="70" rx="8" fill="#fef3c7"/>
+    <rect x="760" y="70" width="150" height="70" rx="8" fill="#fef3c7"/>
+    <rect x="940" y="70" width="150" height="70" rx="8" fill="#dcfce7"/>
+    <rect x="310" y="250" width="150" height="70" rx="8" fill="#dcfce7"/>
+    <rect x="500" y="250" width="150" height="70" rx="8" fill="#dcfce7"/>
+    <rect x="690" y="250" width="150" height="70" rx="8" fill="#e2e8f0"/>
+    <path d="M190 105h30M370 105h30M550 105h30M730 105h30M910 105h30"/>
+    <path d="M1015 140v75M1015 215H385v35M460 285h40M650 285h40"/>
+    <path d="M580 55V30H755v40M755 70V30"/>
+  </g>
+  <g fill="#0f172a" font-family="sans-serif" font-size="16" text-anchor="middle">
+    <text x="115" y="98">Superpowers</text><text x="115" y="120">plan</text>
+    <text x="295" y="98">Design</text><text x="295" y="120">contract</text>
+    <text x="475" y="98">Canonical</text><text x="475" y="120">visual artifacts</text>
+    <text x="655" y="98">Design</text><text x="655" y="120">review</text>
+    <text x="835" y="98">User</text><text x="835" y="120">approval</text>
+    <text x="1015" y="98">Admission</text><text x="1015" y="120">gate</text>
+    <text x="385" y="278">Bounded</text><text x="385" y="300">worker</text>
+    <text x="575" y="278">Evidence and</text><text x="575" y="300">handoff</text>
+    <text x="765" y="278">CI and tracker</text><text x="765" y="300">audit</text>
+    <text x="667" y="24" font-size="14">approval boundary</text>
+  </g>
+</svg>

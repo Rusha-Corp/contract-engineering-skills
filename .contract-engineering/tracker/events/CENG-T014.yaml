@@ -103,3 +103,15 @@ events:
     actor: user
     occurred_at: "2026-09-15T20:15:00Z"
     summary: "User approved registering a scoped design-contract packet with Mermaid/SVG artifacts before P004."
+  - event_id: CENG-T014-E018
+    packet_id: CENG-T014-P011
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-15T20:20:00Z"
+    summary: "Claimed P011 to materialize the CENG-T014 design contract and canonical visual artifacts."
+  - event_id: CENG-T014-E019
+    packet_id: CENG-T014-P011
+    type: approval
+    actor: user
+    occurred_at: "2026-09-15T20:25:00Z"
+    summary: "User approved the CENG-T014 architecture/data-flow design and Mermaid/SVG artifacts."

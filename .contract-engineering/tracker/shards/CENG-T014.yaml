@@ -54,9 +54,9 @@ rows:
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P011"
-    state: "Planned"
+    state: "Validation"
     owner: "droid"
     reviewer: "user"
     locks: ["design-contract-record"]
-    next_action: "Create and review the approved CENG-T014 design contract"
+    next_action: "Run P011 validation and prepare the design-contract handoff"
     updated_at: "2026-09-15"

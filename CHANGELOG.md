@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+## 2.6.0 - 2026-09-16
+
+- Added contract-driven design schemas, admission validation, visual preview
+  safety, governance interfaces, Factory hooks, root plugin packaging, and
+  Superpowers-compatible consumer migration guidance.
+- Added the approved `CENG-T014-DC001` architecture/data-flow contract and
+  fail-closed validation for design traceability, packet scope, and release
+  records.
+- Migration: install the root Factory plugin separately from Superpowers,
+  preserve existing `.contract-engineering/` records, and require design
+  contracts for new visual and architectural work. See
+  `docs/supervisor-workflow.md`.
+
 ## 2.5.4 - 2026-09-03
 
 - Corrective release for the unverified `v2.5.3` tag. Accepts ISO dates loaded

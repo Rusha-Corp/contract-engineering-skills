@@ -37,3 +37,9 @@ events:
     actor: droid
     occurred_at: "2026-09-16T01:10:00Z"
     summary: "Local release metadata, repository, packaging, workflow-invariant, schema, and supplemental secret checks passed; CI security checks and independent review remain required."
+  - event_id: CENG-T015-E007
+    packet_id: CENG-T015-P001
+    type: rework
+    actor: contract-driven-handoff-acceptance-reviewer
+    occurred_at: "2026-09-16T01:20:00Z"
+    summary: "Rejected the release candidate because CI security workflows, 2.6.0 attestation, and two-person approval are incomplete."

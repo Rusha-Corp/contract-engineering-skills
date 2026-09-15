@@ -56,6 +56,6 @@ reproducibility:
   run_id: CENG-T015-P001-R001
   seed: null
   evidence_refs: [CENG-T015-P001-EV001]
-decision: pass
+decision: fail
 exception_ref: null
-reviewed_at: ""
+reviewed_at: "2026-09-16T01:20:00Z"

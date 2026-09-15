@@ -1,0 +1,40 @@
+handoff_version: 3
+handoff_id: CENG-T015-P001-HO001
+packet_id: CENG-T015-P001
+transition:
+  from: Validation
+  to: Handoff
+  reason: "Independent release review evaluated the candidate and rejected it for incomplete CI security, attestation, and two-person approval gates."
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ""
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-REVIEWER-REF
+  accepted_at: "2026-09-16T01:20:00Z"
+  acceptance_ref: REVIEW-REJECT-CENG-T015-P001-20260916
+  signature_ref: ""
+base_revision: 824f4970e3d583bf0558dcf40d8de3e0f883b501
+head_revision: c90e01b
+scope_digest: ""
+changed_resources: []
+created_at: "2026-09-16T01:20:00Z"
+expires_at: ""
+approval_ref: CENG-T015-P001-DEC001
+verification:
+  verified_at: "2026-09-16T01:20:00Z"
+  verifier: contract-driven-handoff-acceptance-reviewer
+  result: fail
+  revocation_checked_at: ""
+  verification_ref: CENG-T015-P001-EV001
+receiver_status: rejected
+receiver_notes: "CI security workflows, 2.6.0 attestation, and independent two-person approval are incomplete. Do not publish, tag, sign, or update consumer locks. Obtain authorization to push the candidate for CI-only verification."
+accepted_revision: ""
+accepted_scope_digest: ""
+accepted_evidence_refs:
+  - CENG-T015-P001-EV001

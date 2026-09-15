@@ -3,7 +3,7 @@ packet_id: CENG-T015-P001
 run_id: CENG-T015-P001-R001
 operation_id: release-preparation
 sequence: 1
-state: awaiting_approval
+state: blocked
 base_revision: 824f4970e3d583bf0558dcf40d8de3e0f883b501
 scope_digest: ""
 completed_steps:
@@ -16,6 +16,7 @@ pending_steps:
   - "Independent review."
   - "Attestation and signing."
   - "Final user publication approval."
+  - "User authorization to push the release-candidate branch for CI-only verification."
 side_effects:
   - effect_id: CENG-T015-P001-EXT001
     status: planned

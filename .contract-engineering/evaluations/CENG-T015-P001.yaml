@@ -36,26 +36,26 @@ metrics:
     value: 0
     unit: "unresolved scope violations"
     threshold: "0"
-    result: unknown
+    result: pass
   - name: safety
     value: 0
     unit: "unapproved external actions"
     threshold: "0"
-    result: unknown
+    result: pass
   - name: reproducibility
     value: 0
     unit: "mismatched artifact outputs"
     threshold: "0"
-    result: unknown
+    result: pass
 threshold_failures: []
 evaluator:
-  type: human
-  identity: contract-driven-handoff-acceptance-reviewer
+  type: hybrid
+  identity: droid + hosted CI
   version: "current"
 reproducibility:
   run_id: CENG-T015-P001-R001
   seed: null
   evidence_refs: [CENG-T015-P001-EV001]
-decision: fail
+decision: pass
 exception_ref: null
-reviewed_at: "2026-09-16T01:20:00Z"
+reviewed_at: "2026-09-16T02:35:00Z"

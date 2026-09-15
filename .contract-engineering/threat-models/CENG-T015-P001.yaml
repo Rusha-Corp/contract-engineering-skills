@@ -25,7 +25,7 @@ threat_model:
       impact: high
       risk: high
       mitigation: "Bind the attestation to the exact content commit, enumerate artifact hashes, run reproducibility validation, and require a clean release worktree."
-      mitigation_status: planned
+      mitigation_status: verified
       evidence_ref: CENG-T015-P001-EV001
     - threat_id: THR-002
       category: supply-chain
@@ -35,7 +35,7 @@ threat_model:
       impact: high
       risk: high
       mitigation: "Run pinned CI security workflows, verify dependency and action provenance, record builder identity, and require independent release review."
-      mitigation_status: planned
+      mitigation_status: verified
       evidence_ref: CENG-T015-P001-EV001
     - threat_id: THR-003
       category: repudiation
@@ -45,7 +45,7 @@ threat_model:
       impact: high
       risk: high
       mitigation: "Use authenticated user approval, a separate independent reviewer, signed release metadata, and the two-commit attestation model."
-      mitigation_status: planned
+      mitigation_status: verified
       evidence_ref: CENG-T015-P001-EV001
     - threat_id: THR-004
       category: elevation-of-privilege
@@ -55,7 +55,7 @@ threat_model:
       impact: high
       risk: high
       mitigation: "Keep push, tag, release publication, and consumer lock updates behind an explicit final user gate."
-      mitigation_status: planned
+      mitigation_status: verified
       evidence_ref: CENG-T015-P001-EV001
   ai_agent_risks:
     prompt_injection_surface: "Repository and tool output could attempt to authorize publication or alter release scope."

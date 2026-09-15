@@ -16,8 +16,8 @@ receiver:
   identity_type: agent
   authenticated: true
   authentication_ref: REDACTED-REVIEWER-REF
-  accepted_at: ""
-  acceptance_ref: ""
+  accepted_at: "2026-09-16T02:30:00Z"
+  acceptance_ref: REVIEW-REJECT-CENG-T015-P001-HO002-20260916
   signature_ref: ""
 base_revision: 824f4970e3d583bf0558dcf40d8de3e0f883b501
 head_revision: 0c1bcbd3b3a78c8781057b1f7d73a565262c5bb2
@@ -62,8 +62,9 @@ verification:
   result: pass
   revocation_checked_at: ""
   verification_ref: CENG-T015-P001-EV001
-receiver_status: pending
-receiver_notes: "Review corrected commit 0c1bcbd, hosted CI results, threat-model mitigations, release metadata, and no-publish boundary. Acceptance permits attestation/signing preparation only; publication still requires final user approval."
+receiver_status: rejected
+receiver_notes: "Hosted CI passed for aef665a, but the submitted head 0c1bcbd was not covered by those runs; threat-model mitigations and exact-head evidence binding were incomplete."
 accepted_revision: ""
 accepted_scope_digest: ""
-accepted_evidence_refs: []
+accepted_evidence_refs:
+  - CENG-T015-P001-EV001

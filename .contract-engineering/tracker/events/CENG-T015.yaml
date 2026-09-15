@@ -73,3 +73,9 @@ events:
     actor: droid
     occurred_at: "2026-09-16T02:20:00Z"
     summary: "Submitted corrected release candidate CENG-T015-P001-HO002 for independent acceptance after hosted CI passed."
+  - event_id: CENG-T015-E013
+    packet_id: CENG-T015-P001
+    type: rework
+    actor: contract-driven-handoff-acceptance-reviewer
+    occurred_at: "2026-09-16T02:30:00Z"
+    summary: "Rejected HO002 because its recorded handoff head did not match the hosted CI head and threat-model mitigations were not yet verified."

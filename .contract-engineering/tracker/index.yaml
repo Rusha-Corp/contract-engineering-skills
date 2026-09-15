@@ -151,9 +151,9 @@ rows:
     updated_at: "2026-09-03"
   - task_id: "CENG-T015"
     packet_id: "CENG-T015-P001"
-    state: "Handoff"
+    state: "Rework"
     owner: "droid"
     reviewer: "contract-driven-handoff-acceptance-reviewer"
     locks: ["release-candidate"]
-    next_action: "Await independent acceptance of CENG-T015-P001-HO002"
+    next_action: "Bind hosted CI evidence to finalized validation records"
     updated_at: "2026-09-16"

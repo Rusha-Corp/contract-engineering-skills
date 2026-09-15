@@ -133,3 +133,15 @@ events:
     actor: droid
     occurred_at: "2026-09-15T20:40:00Z"
     summary: "Admitted P004 against approved design CENG-T014-DC001 after P003 and P011 completed."
+  - event_id: CENG-T014-E023
+    packet_id: CENG-T014-P004
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-15T20:45:00Z"
+    summary: "Claimed P004 in its isolated worktree to implement the offline preview runtime."
+  - event_id: CENG-T014-E024
+    packet_id: CENG-T014-P004
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-15T21:00:00Z"
+    summary: "Moved P004 to Validation after preview safety implementation and test validation."

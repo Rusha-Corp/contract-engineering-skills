@@ -1,0 +1,6 @@
+design_id: TEST-T001-DC001
+artifacts:
+  - path: index.html
+    kind: html
+    sha256: 4cb35045c1d60325151e3200304df7ae9c16d7a4432e855274bcdd402287e676
+    required: true

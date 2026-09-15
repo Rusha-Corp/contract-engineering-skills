@@ -49,3 +49,9 @@ events:
     actor: droid
     occurred_at: "2026-09-16T01:35:00Z"
     summary: "Added hash-pinned jsonschema CI dependencies after protocol-validation exposed the missing import; dry-run dependency resolution passed."
+  - event_id: CENG-T015-E009
+    packet_id: CENG-T015-P001
+    type: rework
+    actor: droid
+    occurred_at: "2026-09-16T01:50:00Z"
+    summary: "Added the CPython 3.12 rpds-py wheel hash after the second CI run rejected the local-compatible wheel hash."

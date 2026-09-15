@@ -1,0 +1,132 @@
+packet_id: CENG-T014-P001
+task_id: CENG-T014
+phase: P0_FOUNDATIONS
+domain: design
+packet_class: parent-coordination
+title: "Specify design-contract and installable Factory plugin workflow"
+objective: "Produce an approved, reviewable architecture specification for user-led design contracts, visual design artifacts, deterministic admission enforcement, and nested Factory Droid plugin packaging."
+open_questions:
+  - "Define the exact Factory command, droid, and hook interfaces in the implementation plan."
+state: Handoff
+scope:
+  in:
+    - "docs/superpowers/specs/2026-09-15-design-contract-factory-plugin-design.md"
+    - ".contract-engineering/decisions/CENG-T014-P001-DEC001.yaml"
+    - ".contract-engineering/work-packets/CENG-T014-P001.yaml"
+    - ".contract-engineering/tracker/index.yaml"
+    - ".contract-engineering/tracker/events/CENG-T014.yaml"
+    - ".contract-engineering/execution-tracker.md"
+    - ".contract-engineering/evidence/CENG-T014-P001-EV001.md"
+    - ".contract-engineering/handoffs/CENG-T014-P001-HO001.yaml"
+  out:
+    - "Implementing design-contract schemas or validators."
+    - "Implementing Factory commands, droids, hooks, runtime files, or marketplace packaging."
+    - "Changing the six published protocol SKILL.md files."
+    - "Publishing or pushing a release."
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities:
+  - repository-read
+  - repository-write
+  - local-test
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: droid
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks:
+  - design-contracts
+  - factory-plugin-packaging
+claim_timestamp: "2026-09-15T00:00:00Z"
+baseline_refs:
+  - ".contract-engineering/protocol.lock.yaml"
+  - "1be220f2691194a8e69f330ebc85fff9fd6c0172"
+  - "docs/repository-development.md"
+  - "docs/protocol-configuration.md"
+  - ".contract-engineering/decisions/CENG-T014-P001-DEC001.yaml"
+design_decision_ref: CENG-T014-P001-DEC001
+data_gate_ref: null
+acceptance_criteria:
+  - "The written design specifies the user-led task, design, review, packet decomposition, admission, execution, and acceptance lifecycle."
+  - "The written design specifies conditional HTML, Mermaid, SVG, tradeoff, local-server, offline-rendering, artifact-hash, and accessibility requirements."
+  - "The written design specifies deterministic enforcement across repository validators, Factory hooks, CI, and the optional host supervisor."
+  - "The written design specifies the nested Factory plugin layout, marketplace manifest, installation path, and clean-install validation."
+  - "The written design decomposes implementation into bounded child packets with dependencies, gates, acceptance criteria, and validation plans."
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T014-P001-AC001
+      statement: "The approved architecture is captured in a versioned design specification."
+      expected_result: "The specification covers lifecycle, contracts, reviews, admission, enforcement, visualization, plugin packaging, and rollback."
+      verification_method: inspect
+      evidence_refs: [CENG-T014-P001-EV001]
+      failure_result: "Any required lifecycle or enforcement boundary is left to undocumented convention."
+      validation_ref: CENG-T014-P001-VAL001
+    - id: CENG-T014-P001-AC002
+      statement: "Visual design artifacts are governed and offline-reviewable."
+      expected_result: "The specification defines artifact types, canonical sources, hashes, local preview behavior, Mermaid runtime pinning, SVG export, and fallback behavior."
+      verification_method: inspect
+      evidence_refs: [CENG-T014-P001-EV001]
+      failure_result: "A visual approval depends on an unpinned external service or unreviewable generated output."
+      validation_ref: CENG-T014-P001-VAL001
+    - id: CENG-T014-P001-AC003
+      statement: "Factory installation and enforcement boundaries are explicit."
+      expected_result: "The specification defines plugin layout, marketplace installation, commands, droids, hooks, CI, and host-supervisor responsibilities."
+      verification_method: inspect
+      evidence_refs: [CENG-T014-P001-EV001]
+      failure_result: "The plugin cannot be installed from a clean checkout or enforcement depends only on model instructions."
+      validation_ref: CENG-T014-P001-VAL001
+    - id: CENG-T014-P001-AC004
+      statement: "The implementation is decomposed into contract-bound child packets."
+      expected_result: "Child packets have non-overlapping scope, dependencies, gates, acceptance contracts, and validation plans."
+      verification_method: inspect
+      evidence_refs: [CENG-T014-P001-EV001]
+      failure_result: "The plan requires one unbounded implementation packet or silently expands this packet."
+      validation_ref: CENG-T014-P001-VAL001
+validation_plan:
+  - id: CENG-T014-P001-VAL001
+    kind: design-review
+    command: "inspect docs/superpowers/specs/2026-09-15-design-contract-factory-plugin-design.md against CENG-T014-P001-DEC001"
+    expected: "the written specification is complete, internally consistent, within scope, and ready for user review"
+  - id: CENG-T014-P001-VAL002
+    kind: records
+    command: "python3 scripts/validate-contract-records.py"
+    expected: "exit 0 for packet, decision, and repository records"
+  - id: CENG-T014-P001-VAL003
+    kind: tracker
+    command: "python3 scripts/validate-tracker.py --root .contract-engineering && python3 scripts/render-tracker.py --root .contract-engineering --check"
+    expected: "canonical tracker and generated projection are valid and current"
+  - id: CENG-T014-P001-VAL004
+    kind: principles
+    skill: coding-principles
+    checks:
+      - "The design contract is separated from implementation packet execution."
+      - "Factory host enforcement and repository contract ownership have clear boundaries."
+      - "Visual artifacts have canonical sources, deterministic hashes, offline-safe rendering, and reviewable fallbacks."
+    expected: "no unresolved principle violations"
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+evidence_refs:
+  - CENG-T014-P001-EV001
+handoff_ref: CENG-T014-P001-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: beta
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""

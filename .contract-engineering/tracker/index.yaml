@@ -1,7 +1,7 @@
 tracker_schema_version: 1
 partition: active
 max_rows: 25
-updated_at: "2026-09-03"
+updated_at: "2026-09-15"
 shards: []
 rows:
   - task_id: "CENG-T011"
@@ -148,3 +148,13 @@ rows:
     locks: []
     next_action: "Retain in active index until iteration closure"
     updated_at: "2026-09-03"
+  - task_id: "CENG-T014"
+    packet_id: "CENG-T014-P001"
+    state: "Handoff"
+    owner: "droid"
+    reviewer: "user"
+    locks:
+      - "design-contracts"
+      - "factory-plugin-packaging"
+    next_action: "User review of the written architecture specification"
+    updated_at: "2026-09-15"

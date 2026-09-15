@@ -6,7 +6,7 @@ packet_class: child-implementation
 title: "Package Contract Engineering as a root-level Factory plugin"
 objective: "Add root-level marketplace metadata and reproducible clean-install validation for the Contract Engineering plugin."
 open_questions: []
-state: Planned
+state: Ready
 scope:
   in:
     - ".factory-plugin/marketplace.json"
@@ -14,8 +14,6 @@ scope:
     - "scripts/build-factory-plugin.py"
     - "scripts/validate-factory-plugin.py"
     - "tests/test_factory_plugin_package.py"
-    - "README.md"
-    - "adapters/factory-droid/README.md"
     - ".github/workflows/protocol-validation.yml"
   out:
     - "Nested plugin duplication."
@@ -31,14 +29,14 @@ reviewer: user
 cleanup_owner: droid
 dependencies: [CENG-T014-P004, CENG-T014-P005, CENG-T014-P006]
 locks: [factory-plugin-packaging]
-claim_timestamp: ""
+claim_timestamp: "2026-09-15T22:40:00Z"
 baseline_refs:
   - ".contract-engineering/protocol.lock.yaml"
   - "5829d5420108f9803831ca5b25ed59b39c2f276f"
   - "docs/superpowers/specs/2026-09-15-design-contract-factory-plugin-superpowers-design.md"
   - "docs/superpowers/plans/2026-09-15-design-contract-factory-plugin-superpowers-plan.md"
   - ".contract-engineering/decisions/CENG-T014-P009-DEC001.yaml"
-design_decision_ref: CENG-T014-P009-DEC001
+design_decision_ref: CENG-T014-DC001
 data_gate_ref: null
 acceptance_criteria:
   - "The root marketplace points to the root plugin and both manifests are valid."
@@ -55,6 +53,7 @@ acceptance_contract:
       evidence_refs: [CENG-T014-P007-EV001]
       failure_result: "The marketplace cannot resolve the plugin or paths escape its root."
       validation_ref: CENG-T014-P007-VAL001
+      design_criterion_refs: [CENG-T014-DC001-AC001, CENG-T014-DC001-AC002]
 validation_plan:
   - id: CENG-T014-P007-VAL001
     kind: packaging

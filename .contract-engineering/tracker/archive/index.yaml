@@ -1,7 +1,7 @@
 tracker_schema_version: 1
 partition: archive
 max_rows: 50
-updated_at: "2026-09-03"
+updated_at: "2026-09-16"
 rows:
   - { task_id: "CENG-T008", packet_id: "CENG-T008-P001", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
   - { task_id: "CENG-T003", packet_id: "CENG-T003-P001", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
@@ -27,3 +27,13 @@ rows:
   - { task_id: "CENG-T005", packet_id: "CENG-T005-P005", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
   - { task_id: "CENG-T005", packet_id: "CENG-T005-P006", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
   - { task_id: "CENG-T006", packet_id: "CENG-T006-P001", state: "Complete", owner: "agent", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-03" }
+  - { task_id: "CENG-T014", packet_id: "CENG-T014-P001", state: "Complete", owner: "droid", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-16" }
+  - { task_id: "CENG-T014", packet_id: "CENG-T014-P003", state: "Complete", owner: "droid", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-16" }
+  - { task_id: "CENG-T014", packet_id: "CENG-T014-P004", state: "Complete", owner: "droid", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-16" }
+  - { task_id: "CENG-T014", packet_id: "CENG-T014-P005", state: "Complete", owner: "droid", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-16" }
+  - { task_id: "CENG-T014", packet_id: "CENG-T014-P006", state: "Complete", owner: "droid", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-16" }
+  - { task_id: "CENG-T014", packet_id: "CENG-T014-P007", state: "Complete", owner: "droid", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-16" }
+  - { task_id: "CENG-T014", packet_id: "CENG-T014-P008", state: "Complete", owner: "droid", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-16" }
+  - { task_id: "CENG-T014", packet_id: "CENG-T014-P009", state: "Complete", owner: "droid", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-16" }
+  - { task_id: "CENG-T014", packet_id: "CENG-T014-P010", state: "Complete", owner: "droid", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-16" }
+  - { task_id: "CENG-T014", packet_id: "CENG-T014-P011", state: "Complete", owner: "droid", reviewer: "user", locks: [], next_action: "Retained in archive at iteration closure", updated_at: "2026-09-16" }

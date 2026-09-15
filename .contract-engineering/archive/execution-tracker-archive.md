@@ -28,3 +28,13 @@ Canonical state: `tracker/archive/index.yaml` and its declared archive shards.
 | CENG-T005 | CENG-T005-P005 | Complete | agent | user | released |
 | CENG-T005 | CENG-T005-P006 | Complete | agent | user | released |
 | CENG-T006 | CENG-T006-P001 | Complete | agent | user | released |
+| CENG-T014 | CENG-T014-P001 | Complete | droid | user | released |
+| CENG-T014 | CENG-T014-P003 | Complete | droid | user | released |
+| CENG-T014 | CENG-T014-P004 | Complete | droid | user | released |
+| CENG-T014 | CENG-T014-P005 | Complete | droid | user | released |
+| CENG-T014 | CENG-T014-P006 | Complete | droid | user | released |
+| CENG-T014 | CENG-T014-P007 | Complete | droid | user | released |
+| CENG-T014 | CENG-T014-P008 | Complete | droid | user | released |
+| CENG-T014 | CENG-T014-P009 | Complete | droid | user | released |
+| CENG-T014 | CENG-T014-P010 | Complete | droid | user | released |
+| CENG-T014 | CENG-T014-P011 | Complete | droid | user | released |

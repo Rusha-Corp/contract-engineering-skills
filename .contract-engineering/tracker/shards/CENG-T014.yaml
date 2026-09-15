@@ -1,0 +1,54 @@
+tracker_schema_version: 1
+partition: active
+task_id: CENG-T014
+max_rows: 50
+updated_at: "2026-09-15"
+rows:
+  - task_id: "CENG-T014"
+    packet_id: "CENG-T014-P003"
+    state: "Claimed"
+    owner: "droid"
+    reviewer: "user"
+    locks: ["design-contract-schema"]
+    next_action: "Implement design-contract schema and admission validation"
+    updated_at: "2026-09-15"
+  - task_id: "CENG-T014"
+    packet_id: "CENG-T014-P004"
+    state: "Planned"
+    owner: "droid"
+    reviewer: "user"
+    locks: ["design-preview-runtime"]
+    next_action: "Wait for dependency CENG-T014-P003"
+    updated_at: "2026-09-15"
+  - task_id: "CENG-T014"
+    packet_id: "CENG-T014-P005"
+    state: "Planned"
+    owner: "droid"
+    reviewer: "user"
+    locks: ["contract-governance-skills"]
+    next_action: "Wait for dependencies CENG-T014-P003 and CENG-T014-P004"
+    updated_at: "2026-09-15"
+  - task_id: "CENG-T014"
+    packet_id: "CENG-T014-P006"
+    state: "Planned"
+    owner: "droid"
+    reviewer: "user"
+    locks: ["factory-admission-hooks"]
+    next_action: "Wait for dependencies CENG-T014-P003 and CENG-T014-P005"
+    updated_at: "2026-09-15"
+  - task_id: "CENG-T014"
+    packet_id: "CENG-T014-P007"
+    state: "Planned"
+    owner: "droid"
+    reviewer: "user"
+    locks: ["factory-plugin-packaging"]
+    next_action: "Wait for dependencies CENG-T014-P004, P005, and P006"
+    updated_at: "2026-09-15"
+  - task_id: "CENG-T014"
+    packet_id: "CENG-T014-P008"
+    state: "Planned"
+    owner: "droid"
+    reviewer: "user"
+    locks: ["consumer-migration-docs"]
+    next_action: "Wait for dependencies CENG-T014-P003 through P007"
+    updated_at: "2026-09-15"

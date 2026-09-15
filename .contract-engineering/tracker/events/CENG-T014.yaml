@@ -73,3 +73,15 @@ events:
     actor: user
     occurred_at: "2026-09-15T18:40:00Z"
     summary: "User accepted the Superpowers compatibility amendment and revised implementation plan."
+  - event_id: CENG-T014-E013
+    packet_id: CENG-T014-P010
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-15T19:00:00Z"
+    summary: "Claimed the child-packet admission coordination packet."
+  - event_id: CENG-T014-E014
+    packet_id: CENG-T014-P003
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-15T19:15:00Z"
+    summary: "Claimed dependency-ready child packet P003 for design-contract schema and admission validation."

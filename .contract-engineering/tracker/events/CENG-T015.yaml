@@ -13,3 +13,9 @@ events:
     actor: user
     occurred_at: "2026-09-16T00:45:00Z"
     summary: "User authorized preparation of protocol 2.6.0 and Factory plugin 2.3.0, subject to independent review and final publication approval."
+  - event_id: CENG-T015-E003
+    packet_id: CENG-T015-P001
+    type: data_review
+    actor: droid
+    occurred_at: "2026-09-16T00:50:00Z"
+    summary: "Release metadata preparation does not introduce or transform application data; no data correctness gate is required."

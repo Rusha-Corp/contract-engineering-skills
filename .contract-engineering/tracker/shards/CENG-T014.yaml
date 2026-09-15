@@ -14,11 +14,11 @@ rows:
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P004"
-    state: "Handoff"
+    state: "Complete"
     owner: "droid"
     reviewer: "user"
-    locks: ["design-preview-runtime"]
-    next_action: "Review P004 handoff and accept or reject the preview runtime"
+    locks: []
+    next_action: "Retain completed packet in active task shard until task closure"
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P005"

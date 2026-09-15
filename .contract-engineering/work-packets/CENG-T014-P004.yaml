@@ -6,7 +6,7 @@ packet_class: child-implementation
 title: "Implement offline visual artifact preview"
 objective: "Add safe localhost previews for HTML, Mermaid, SVG, and tradeoff artifacts with offline rendering and hash validation."
 open_questions: []
-state: Handoff
+state: Complete
 scope:
   in:
     - "scripts/preview-design.py"
@@ -29,7 +29,7 @@ owner: droid
 reviewer: user
 cleanup_owner: droid
 dependencies: [CENG-T014-P003, CENG-T014-P011]
-locks: [design-preview-runtime]
+locks: []
 claim_timestamp: "2026-09-15T20:45:00Z"
 baseline_refs:
   - ".contract-engineering/protocol.lock.yaml"

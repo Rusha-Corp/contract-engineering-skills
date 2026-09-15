@@ -16,8 +16,8 @@ receiver:
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ""
-  acceptance_ref: ""
+  accepted_at: "2026-09-15T21:10:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T014-P004-20260915
   signature_ref: ""
 base_revision: 3060afdcd60bc468482362c3520a5c55dca59592
 head_revision: 589c90d1ed1e55fbde258e86a6e5b0e1cfd49742
@@ -68,8 +68,9 @@ verification:
   result: pass
   revocation_checked_at: ""
   verification_ref: CENG-T014-P004-EV001
-receiver_status: pending
-receiver_notes: "Receiver must review the preview runtime, safety behavior, evidence, scope, and limitation that Mermaid CLI rendering remains fail-closed when unavailable."
-accepted_revision: ""
-accepted_scope_digest: ""
-accepted_evidence_refs: []
+receiver_status: accepted
+receiver_notes: "User reviewed the preview runtime, safety behavior, evidence, scope, and Mermaid CLI limitation and accepted the implementation."
+accepted_revision: 5351fbdfc326d0edace232a6cd59b36c7bfcf66b
+accepted_scope_digest: 257bf5e4fee1fc342394f4c2ac2b0821e47a17438a6a239bd5e4453d7d5cd904
+accepted_evidence_refs:
+  - CENG-T014-P004-EV001

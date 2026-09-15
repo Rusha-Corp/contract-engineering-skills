@@ -151,3 +151,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T21:05:00Z"
     summary: "Moved P004 to Handoff after complete preview runtime validation; receiver acceptance is pending."
+  - event_id: CENG-T014-E026
+    packet_id: CENG-T014-P004
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T21:10:00Z"
+    summary: "User accepted P004 and released the design-preview-runtime lock."

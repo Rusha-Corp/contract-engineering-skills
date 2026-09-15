@@ -14,6 +14,7 @@ completed_steps:
   - "Hosted protocol validation, secret scanning, and security workflows passed."
   - "Threat-model mitigations verified against the hosted workflow results."
   - "Final validation-record commit passed all hosted workflows."
+  - "Final exact-head workflow runs passed for bd561da."
 pending_steps:
   - "Independent review of corrected content and release candidate."
   - "Attestation and signing."

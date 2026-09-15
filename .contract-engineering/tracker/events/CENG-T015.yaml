@@ -85,3 +85,9 @@ events:
     actor: droid
     occurred_at: "2026-09-16T03:00:00Z"
     summary: "Final validation-record commit a6fd145 passed protocol validation, secret scanning, and security checks; HO003 is ready for independent review."
+  - event_id: CENG-T015-E015
+    packet_id: CENG-T015-P001
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-16T03:20:00Z"
+    summary: "Exact final candidate bd561da passed protocol validation, secret scanning, and security checks; the candidate is ready for final independent review."

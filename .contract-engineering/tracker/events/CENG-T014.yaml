@@ -163,3 +163,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T21:20:00Z"
     summary: "Admitted P005 against approved design CENG-T014-DC001 after P003 and P004 completed."
+  - event_id: CENG-T014-E028
+    packet_id: CENG-T014-P005
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-15T21:35:00Z"
+    summary: "Moved P005 to Validation after governance interface implementation and tests."

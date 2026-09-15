@@ -6,7 +6,7 @@ packet_class: child-implementation
 title: "Add Contract Engineering governance skills and Factory commands"
 objective: "Add uniquely named governance skills, commands, and droids that compose with Superpowers without duplicating its workflow skills."
 open_questions: []
-state: Ready
+state: Validation
 scope:
   in:
     - "skills/contract-design/SKILL.md"

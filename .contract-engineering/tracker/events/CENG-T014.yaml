@@ -181,3 +181,9 @@ events:
     actor: user
     occurred_at: "2026-09-15T21:45:00Z"
     summary: "User accepted P005 and released the contract-governance-skills lock."
+  - event_id: CENG-T014-E031
+    packet_id: CENG-T014-P006
+    type: admission
+    actor: droid
+    occurred_at: "2026-09-15T22:00:00Z"
+    summary: "Admitted high-risk P006 against approved design CENG-T014-DC001 after P003 and P005 completed."

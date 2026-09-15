@@ -30,11 +30,11 @@ rows:
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P006"
-    state: "Planned"
+    state: "Ready"
     owner: "droid"
     reviewer: "user"
     locks: ["factory-admission-hooks"]
-    next_action: "Wait for dependencies CENG-T014-P003 and CENG-T014-P005"
+    next_action: "Claim P006 in an isolated worktree and implement admission hooks"
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P007"

@@ -28,7 +28,7 @@ external_effects: []
 owner: droid
 reviewer: user
 cleanup_owner: droid
-dependencies: [CENG-T014-P003]
+dependencies: [CENG-T014-P003, CENG-T014-P011]
 locks: [design-preview-runtime]
 claim_timestamp: ""
 baseline_refs:

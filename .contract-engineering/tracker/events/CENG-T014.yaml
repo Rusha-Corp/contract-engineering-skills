@@ -97,3 +97,9 @@ events:
     actor: user
     occurred_at: "2026-09-15T20:10:00Z"
     summary: "User accepted the validated P003 handoff and released the design-contract-schema lock."
+  - event_id: CENG-T014-E017
+    packet_id: CENG-T014-P011
+    type: registered
+    actor: user
+    occurred_at: "2026-09-15T20:15:00Z"
+    summary: "User approved registering a scoped design-contract packet with Mermaid/SVG artifacts before P004."

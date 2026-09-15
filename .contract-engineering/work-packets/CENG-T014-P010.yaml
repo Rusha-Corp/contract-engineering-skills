@@ -16,6 +16,8 @@ scope:
     - ".contract-engineering/work-packets/CENG-T014-P006.yaml"
     - ".contract-engineering/work-packets/CENG-T014-P007.yaml"
     - ".contract-engineering/work-packets/CENG-T014-P008.yaml"
+    - ".contract-engineering/work-packets/CENG-T014-P011.yaml"
+    - ".contract-engineering/decisions/CENG-T014-P010-DEC001.yaml"
     - ".contract-engineering/tracker/index.yaml"
     - ".contract-engineering/tracker/shards/CENG-T014.yaml"
     - ".contract-engineering/tracker/events/CENG-T014.yaml"
@@ -27,6 +29,7 @@ scope:
     - ".contract-engineering/evidence/CENG-T014-P006-EV001.md"
     - ".contract-engineering/evidence/CENG-T014-P007-EV001.md"
     - ".contract-engineering/evidence/CENG-T014-P008-EV001.md"
+    - ".contract-engineering/evidence/CENG-T014-P011-EV001.md"
   out:
     - "Implementing any child packet source files."
     - "Changing the accepted design or implementation plan."

@@ -22,4 +22,4 @@ Canonical state: `tracker/index.yaml` and its declared task shards.
 | CENG-T004 | CENG-T004-P022 | Complete | agent | contract-driven-handoff-acceptance-reviewer | released |
 | CENG-T004 | CENG-T004-P023 | Complete | agent | contract-driven-handoff-acceptance-reviewer | released |
 | CENG-T012 | CENG-T012-P001 | Complete | droid | worker | released |
-| CENG-T014 | CENG-T014-P001 | Handoff | droid | user | design-contracts, factory-plugin-packaging |
+| CENG-T014 | CENG-T014-P001 | Complete | droid | user | released |

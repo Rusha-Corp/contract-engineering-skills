@@ -19,3 +19,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T00:35:00Z"
     summary: "Submitted CENG-T014-P001-HO001 for user review of the written specification before implementation planning."
+  - event_id: CENG-T014-E004
+    packet_id: CENG-T014-P001
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T16:45:00Z"
+    summary: "User approved the written design specification and authorized creation of the implementation plan."

@@ -16,8 +16,8 @@ receiver:
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ""
-  acceptance_ref: ""
+  accepted_at: "2026-09-15T23:10:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T014-P007-20260915
   signature_ref: ""
 base_revision: 43b3985233567c066b2c5f8e956da20575da6452
 head_revision: fc60fa970d6252eb5e3b1618ca8bbf743104b3ab
@@ -54,8 +54,9 @@ verification:
   result: pass
   revocation_checked_at: ""
   verification_ref: CENG-T014-P007-EV001
-receiver_status: pending
-receiver_notes: "Receiver must verify root-level marketplace source, plugin paths, clean-install checks, and scope note before acceptance."
-accepted_revision: ""
-accepted_scope_digest: ""
-accepted_evidence_refs: []
+receiver_status: accepted
+receiver_notes: "User reviewed root-level marketplace source, plugin paths, clean-install checks, and scope note and accepted P007."
+accepted_revision: 47f2e4ad0f0d00c618d368fe5f316f9d67e1ad9b
+accepted_scope_digest: e8f300dc285c85293aaec4053061ce270a8595ac1b28e04cafc3fcac87c66326
+accepted_evidence_refs:
+  - CENG-T014-P007-EV001

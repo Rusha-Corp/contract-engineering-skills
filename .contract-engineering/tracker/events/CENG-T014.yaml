@@ -223,3 +223,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T23:05:00Z"
     summary: "Moved P007 to Handoff after packaging validation; receiver acceptance is pending."
+  - event_id: CENG-T014-E038
+    packet_id: CENG-T014-P007
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-15T23:10:00Z"
+    summary: "User accepted P007 and released the factory-plugin-packaging lock."

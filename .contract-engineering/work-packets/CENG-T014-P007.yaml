@@ -6,7 +6,7 @@ packet_class: child-implementation
 title: "Package Contract Engineering as a root-level Factory plugin"
 objective: "Add root-level marketplace metadata and reproducible clean-install validation for the Contract Engineering plugin."
 open_questions: []
-state: Handoff
+state: Complete
 scope:
   in:
     - ".factory-plugin/marketplace.json"
@@ -28,7 +28,7 @@ owner: droid
 reviewer: user
 cleanup_owner: droid
 dependencies: [CENG-T014-P004, CENG-T014-P005, CENG-T014-P006]
-locks: [factory-plugin-packaging]
+locks: []
 claim_timestamp: "2026-09-15T22:40:00Z"
 baseline_refs:
   - ".contract-engineering/protocol.lock.yaml"

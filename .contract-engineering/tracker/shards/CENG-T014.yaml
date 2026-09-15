@@ -14,11 +14,11 @@ rows:
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P004"
-    state: "Planned"
+    state: "Ready"
     owner: "droid"
     reviewer: "user"
     locks: ["design-preview-runtime"]
-    next_action: "Wait for dependencies CENG-T014-P003 and CENG-T014-P011"
+    next_action: "Claim P004 in an isolated worktree and implement the offline preview runtime"
     updated_at: "2026-09-15"
   - task_id: "CENG-T014"
     packet_id: "CENG-T014-P005"

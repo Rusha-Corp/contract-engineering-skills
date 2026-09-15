@@ -6,7 +6,7 @@ packet_class: child-implementation
 title: "Implement offline visual artifact preview"
 objective: "Add safe localhost previews for HTML, Mermaid, SVG, and tradeoff artifacts with offline rendering and hash validation."
 open_questions: []
-state: Planned
+state: Ready
 scope:
   in:
     - "scripts/preview-design.py"
@@ -30,14 +30,14 @@ reviewer: user
 cleanup_owner: droid
 dependencies: [CENG-T014-P003, CENG-T014-P011]
 locks: [design-preview-runtime]
-claim_timestamp: ""
+claim_timestamp: "2026-09-15T20:40:00Z"
 baseline_refs:
   - ".contract-engineering/protocol.lock.yaml"
   - "5829d5420108f9803831ca5b25ed59b39c2f276f"
   - "docs/superpowers/specs/2026-09-15-design-contract-factory-plugin-superpowers-design.md"
   - "docs/superpowers/plans/2026-09-15-design-contract-factory-plugin-superpowers-plan.md"
   - ".contract-engineering/decisions/CENG-T014-P009-DEC001.yaml"
-design_decision_ref: CENG-T014-P009-DEC001
+design_decision_ref: CENG-T014-DC001
 data_gate_ref: null
 acceptance_criteria:
   - "Preview serves only validated design files from localhost."
@@ -54,6 +54,7 @@ acceptance_contract:
       evidence_refs: [CENG-T014-P004-EV001]
       failure_result: "A preview can serve outside the design root or execute unsafe content."
       validation_ref: CENG-T014-P004-VAL001
+      design_criterion_refs: [CENG-T014-DC001-AC002, CENG-T014-DC001-AC003]
 validation_plan:
   - id: CENG-T014-P004-VAL001
     kind: tests

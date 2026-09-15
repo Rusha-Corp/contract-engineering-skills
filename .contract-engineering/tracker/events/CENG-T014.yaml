@@ -127,3 +127,9 @@ events:
     actor: user
     occurred_at: "2026-09-15T20:35:00Z"
     summary: "User accepted P011 and released the design-contract-record lock, unblocking P004."
+  - event_id: CENG-T014-E022
+    packet_id: CENG-T014-P004
+    type: admission
+    actor: droid
+    occurred_at: "2026-09-15T20:40:00Z"
+    summary: "Admitted P004 against approved design CENG-T014-DC001 after P003 and P011 completed."

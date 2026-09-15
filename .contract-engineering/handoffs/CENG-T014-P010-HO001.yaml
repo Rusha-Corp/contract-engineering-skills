@@ -16,8 +16,8 @@ receiver:
   identity_type: human
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ""
-  acceptance_ref: ""
+  accepted_at: "2026-09-16T00:20:00Z"
+  acceptance_ref: USER-ACCEPT-CENG-T014-P010-20260916
   signature_ref: ""
 base_revision: 0436f94803e9761781b069a0d6db4fb65f37c916
 head_revision: ddd5f3b5c230711dcc3121466d28334a5fb8545f
@@ -44,8 +44,9 @@ verification:
   result: pass
   revocation_checked_at: ""
   verification_ref: CENG-T014-P010-EV001
-receiver_status: pending
-receiver_notes: "Please review the final coordination evidence, accepted child packet set, dependency ordering, and explicit release exclusions."
-accepted_revision: ""
-accepted_scope_digest: ""
-accepted_evidence_refs: []
+receiver_status: accepted
+receiver_notes: "User accepted P010 after reviewing the final coordination evidence, accepted child packet set, dependency ordering, and explicit release exclusions."
+accepted_revision: f87ce3f
+accepted_scope_digest: ec1a0b3f62b1c451f2ddcf407fecc900185072d5dd8df19f67ca5cb7e16ca7f6
+accepted_evidence_refs:
+  - CENG-T014-P010-EV001

@@ -265,3 +265,9 @@ events:
     actor: droid
     occurred_at: "2026-09-16T00:15:00Z"
     summary: "Moved P010 to Handoff with final coordination evidence; receiver acceptance is pending."
+  - event_id: CENG-T014-E045
+    packet_id: CENG-T014-P010
+    type: acceptance
+    actor: user
+    occurred_at: "2026-09-16T00:20:00Z"
+    summary: "User accepted P010 and released the child-packet-admission lock."

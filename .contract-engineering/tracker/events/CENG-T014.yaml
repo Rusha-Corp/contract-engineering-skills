@@ -259,3 +259,9 @@ events:
     actor: droid
     occurred_at: "2026-09-16T00:10:00Z"
     summary: "Moved P010 to Validation after all child packets were accepted and final integrated checks passed."
+  - event_id: CENG-T014-E044
+    packet_id: CENG-T014-P010
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-16T00:15:00Z"
+    summary: "Moved P010 to Handoff with final coordination evidence; receiver acceptance is pending."

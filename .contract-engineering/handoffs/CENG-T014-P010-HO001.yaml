@@ -1,0 +1,51 @@
+handoff_version: 3
+handoff_id: CENG-T014-P010-HO001
+packet_id: CENG-T014-P010
+transition:
+  from: Validation
+  to: Handoff
+  reason: "All scoped child packets were registered, admitted in dependency order, accepted, and integrated; final coordination validation passed."
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ""
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: ""
+  acceptance_ref: ""
+  signature_ref: ""
+base_revision: 0436f94803e9761781b069a0d6db4fb65f37c916
+head_revision: ddd5f3b5c230711dcc3121466d28334a5fb8545f
+scope_digest: ec1a0b3f62b1c451f2ddcf407fecc900185072d5dd8df19f67ca5cb7e16ca7f6
+changed_resources:
+  - path: .contract-engineering/evidence/CENG-T014-P010-EV001.md
+    sha256: fd3420153e4f2d992ceb5d557d74cb9607dac63aaa41a7080dd14652d13e1153
+  - path: .contract-engineering/execution-tracker.md
+    sha256: e2b4ad698176a1dede05f9baf9c621d903107c96f79581cc9001ca2c6d7543e7
+  - path: .contract-engineering/tracker/events/CENG-T014.yaml
+    sha256: c26d9215a185d38374eca61640ac06dd42a990a229b2bc5706d3bde791ac9d95
+  - path: .contract-engineering/tracker/index.yaml
+    sha256: 1a3ad2c20c357c06ff4405b68c25faf7c19d80dbe349f9d313e11c84c0bc2b42
+  - path: .contract-engineering/tracker/shards/CENG-T014.yaml
+    sha256: 4ee2bfacd12a7317b092be37a6cf4720f9870cba7c50d882cc978fb6a81aefb5
+  - path: .contract-engineering/work-packets/CENG-T014-P010.yaml
+    sha256: 065bc9d23b8cd7924ea7fb9c733d1968c37c73d3896f8998d353f4a4a4b2eead
+created_at: "2026-09-16T00:15:00Z"
+expires_at: ""
+approval_ref: CENG-T014-P010-DEC001
+verification:
+  verified_at: "2026-09-16T00:10:00Z"
+  verifier: droid
+  result: pass
+  revocation_checked_at: ""
+  verification_ref: CENG-T014-P010-EV001
+receiver_status: pending
+receiver_notes: "Please review the final coordination evidence, accepted child packet set, dependency ordering, and explicit release exclusions."
+accepted_revision: ""
+accepted_scope_digest: ""
+accepted_evidence_refs: []

@@ -6,7 +6,7 @@ packet_class: child-implementation
 title: "Package Contract Engineering as a root-level Factory plugin"
 objective: "Add root-level marketplace metadata and reproducible clean-install validation for the Contract Engineering plugin."
 open_questions: []
-state: Ready
+state: Validation
 scope:
   in:
     - ".factory-plugin/marketplace.json"

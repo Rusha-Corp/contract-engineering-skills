@@ -211,3 +211,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T22:40:00Z"
     summary: "Admitted P007 against approved design CENG-T014-DC001 after P004, P005, and P006 completed."
+  - event_id: CENG-T014-E036
+    packet_id: CENG-T014-P007
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-15T23:00:00Z"
+    summary: "Moved P007 to Validation after root plugin packaging and clean-install checks passed."

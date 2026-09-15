@@ -1,0 +1,12 @@
+{
+  "name": "contract-engineering-skills",
+  "owner": {
+    "name": "Rusha-Corp"
+  },
+  "plugins": [
+    {
+      "name": "contract-engineering-skills",
+      "source": "./"
+    }
+  ]
+}

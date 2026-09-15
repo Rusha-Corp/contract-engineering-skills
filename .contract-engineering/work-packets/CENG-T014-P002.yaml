@@ -6,7 +6,7 @@ packet_class: parent-coordination
 title: "Plan design-contract enforcement and Factory plugin implementation"
 objective: "Create a bite-sized implementation plan that maps the approved design contract to independently testable child packets."
 open_questions: []
-state: Handoff
+state: Rework
 scope:
   in:
     - "docs/superpowers/plans/2026-09-15-design-contract-factory-plugin-plan.md"

@@ -44,8 +44,8 @@ verification:
   result: pass
   revocation_checked_at: ""
   verification_ref: CENG-T014-P002-EV001
-receiver_status: pending
-receiver_notes: ""
+receiver_status: rejected
+receiver_notes: "User requested a compatibility revision so the implementation must compose with obra/superpowers, use root-level marketplace/plugin packaging, and avoid duplicate Superpowers-owned skills. See CENG-T014-P009-DEC001."
 accepted_revision: ""
 accepted_scope_digest: ""
 accepted_evidence_refs: []

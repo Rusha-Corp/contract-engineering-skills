@@ -43,3 +43,27 @@ events:
     actor: droid
     occurred_at: "2026-09-15T17:35:00Z"
     summary: "Submitted CENG-T014-P002-HO001 for user plan review and execution-mode selection."
+  - event_id: CENG-T014-E008
+    packet_id: CENG-T014-P002
+    type: rework
+    actor: user
+    occurred_at: "2026-09-15T18:00:00Z"
+    summary: "User requested Superpowers composition, root-level plugin packaging, and explicit skill-ownership compatibility; P002 is superseded by CENG-T014-P009."
+  - event_id: CENG-T014-E009
+    packet_id: CENG-T014-P009
+    type: claimed
+    actor: droid
+    occurred_at: "2026-09-15T18:00:00Z"
+    summary: "Claimed the compatibility revision packet."
+  - event_id: CENG-T014-E010
+    packet_id: CENG-T014-P009
+    type: validation
+    actor: droid
+    occurred_at: "2026-09-15T18:30:00Z"
+    summary: "Wrote and self-reviewed the Superpowers compatibility design and revised implementation plan; placeholder, record, tracker, and projection checks passed."
+  - event_id: CENG-T014-E011
+    packet_id: CENG-T014-P009
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T18:35:00Z"
+    summary: "Submitted CENG-T014-P009-HO001 for user review of the compatibility amendment."

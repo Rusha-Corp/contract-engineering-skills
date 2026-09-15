@@ -205,3 +205,9 @@ events:
     actor: user
     occurred_at: "2026-09-15T22:30:00Z"
     summary: "User accepted high-risk P006 and released the factory-admission-hooks lock."
+  - event_id: CENG-T014-E035
+    packet_id: CENG-T014-P007
+    type: admission
+    actor: droid
+    occurred_at: "2026-09-15T22:40:00Z"
+    summary: "Admitted P007 against approved design CENG-T014-DC001 after P004, P005, and P006 completed."

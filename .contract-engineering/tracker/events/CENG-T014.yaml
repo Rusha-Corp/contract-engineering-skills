@@ -241,3 +241,9 @@ events:
     actor: droid
     occurred_at: "2026-09-15T23:45:00Z"
     summary: "Moved P008 to Validation after migration documentation and cross-reference tests passed."
+  - event_id: CENG-T014-E041
+    packet_id: CENG-T014-P008
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T23:50:00Z"
+    summary: "Moved P008 to Handoff with validated migration documentation and evidence; receiver acceptance is pending."

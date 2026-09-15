@@ -115,3 +115,9 @@ events:
     actor: user
     occurred_at: "2026-09-15T20:25:00Z"
     summary: "User approved the CENG-T014 architecture/data-flow design and Mermaid/SVG artifacts."
+  - event_id: CENG-T014-E020
+    packet_id: CENG-T014-P011
+    type: handoff
+    actor: droid
+    occurred_at: "2026-09-15T20:30:00Z"
+    summary: "Moved P011 to Handoff after design validation; receiver acceptance is pending."

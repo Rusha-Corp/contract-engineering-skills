@@ -6,7 +6,7 @@ packet_class: child-implementation
 title: "Materialize and review the CENG-T014 design contract"
 objective: "Create the machine-readable architecture and data-flow design contract required before implementation packets can enter admission."
 open_questions: []
-state: Validation
+state: Handoff
 scope:
   in:
     - ".contract-engineering/designs/CENG-T014/design.yaml"
@@ -67,7 +67,7 @@ validation_plan:
     command: "python3 scripts/validate-contract-records.py"
     expected: "design contract and packet records are valid"
 evidence_refs: [CENG-T014-P011-EV001]
-handoff_ref: null
+handoff_ref: CENG-T014-P011-HO001
 trust_boundary_ref: null
 execution_budget_ref: null
 checkpoint_ref: null

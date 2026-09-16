@@ -455,3 +455,35 @@ events:
   occurred_at: '2026-09-16T14:23:00Z'
   summary: Returned P003 to Handoff with receiver_status pending, reviewer
     contract-driven-handoff-acceptance-reviewer, and exact 1b9f45e head binding.
+- event_id: CENG-T013-E058
+  packet_id: CENG-T013-P002
+  type: rework
+  actor: worker
+  occurred_at: '2026-09-16T14:30:00Z'
+  summary: Rebound P002 lifecycle records to the exact committed content head
+    5f7e5a6 while preserving implementation, security evidence, and pending
+    independent receiver acceptance.
+- event_id: CENG-T013-E059
+  packet_id: CENG-T013-P002
+  type: validation
+  actor: worker
+  occurred_at: '2026-09-16T14:31:00Z'
+  summary: Recomputed P002 changed-resource hashes and scope digest against the
+    committed tree; contract-record, tracker, and projection validation remain
+    required before handoff.
+- event_id: CENG-T013-E060
+  packet_id: CENG-T013-P003
+  type: rework
+  actor: worker
+  occurred_at: '2026-09-16T14:30:00Z'
+  summary: Rebound P003 lifecycle records to the exact committed content head
+    5f7e5a6 while preserving implementation, validation evidence, and the
+    unrelated CENG-T004-P017 limitation.
+- event_id: CENG-T013-E061
+  packet_id: CENG-T013-P003
+  type: validation
+  actor: worker
+  occurred_at: '2026-09-16T14:31:00Z'
+  summary: Recomputed P003 changed-resource hashes and scope digest against the
+    committed tree; contract-record, tracker, and projection validation remain
+    required before handoff.

@@ -20,12 +20,12 @@ receiver:
   acceptance_ref: ''
   signature_ref: ''
 base_revision: c5bd7720fab284110f53f3bbc4bc310738012d83
-head_revision: 1b9f45ebbded578c62fc15ee9b5b88ee9fbe71a6
-scope_digest: be9b060216e15e19387a42bdf60603259653aa0bced09815f735ed6b93929457
+head_revision: 5f7e5a6f9d818da17a5b3e84836baf54b39685f0
+scope_digest: 2dfd82954bb2f345864e9895b2199ebbff3e146f90ed4b2837a51d5e45a89863
 changed_resources:
-  - {path: .contract-engineering/evidence/CENG-T013-P003-EV001.md, sha256: 69874e16788df6f8db21f2df6de7ef3e061f4cc31c94e7bd3cd3269a1ce66a20}
-  - {path: .contract-engineering/execution-tracker.md, sha256: ce3e978965b504c0ef295e54ce8d76a9fd9a4866f4ddd1e2f12b92a20458f131}
-  - {path: .contract-engineering/tracker/events/CENG-T013.yaml, sha256: 28dfa304f781d91418b350e4c095e951a686f0db7943646c96ce3cc5033a70e5}
+  - {path: .contract-engineering/evidence/CENG-T013-P003-EV001.md, sha256: 412e564be38bf3a0180497092b5ebc5c6b7ba2a80ae89e4025f0d645f079a58d}
+  - {path: .contract-engineering/execution-tracker.md, sha256: e596b11a5eae69a1490a59e1648c1f1a4dd22ff119961d64f46246f7ba92db3b}
+  - {path: .contract-engineering/tracker/events/CENG-T013.yaml, sha256: cdd84f1d994db079b8060fe276f76bbb2a8540aa1aa2150af122d62c4464a932}
   - {path: .contract-engineering/tracker/index.yaml, sha256: 51efc1c3e0c44deb60ba02f1a9c88a29be72517915403091beb87597098f5c98}
   - {path: .contract-engineering/work-packets/CENG-T013-P003.yaml, sha256: 618fda2f01638e63c6b7edae5ef289890fd1c257938a128fb320af88f3b76251}
   - {path: requirements-ci.txt, sha256: fb66c29010c902ebf89336cd9a94795504fe3d71f15869ae5b9b31f4e2cfcecf}
@@ -70,7 +70,7 @@ requested_next_action: Retain P003 in the active tracker until iteration closure
 receiver_status: pending
 receiver_notes: >-
   Resubmitted after E053 rejection. The handoff and evidence are rebound to the
-  exact committed content head 1b9f45ebbded578c62fc15ee9b5b88ee9fbe71a6;
+  exact committed content head 5f7e5a6f9d818da17a5b3e84836baf54b39685f0;
   changed-resource hashes and scope digest are recomputed. The corrected
   repository-authoritative unittest validation, pinned jsonschema evidence, and
   unrelated CENG-T004-P017 full-suite limitation are preserved. Reviewer

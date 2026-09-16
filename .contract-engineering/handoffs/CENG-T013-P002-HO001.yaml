@@ -21,13 +21,13 @@ receiver:
   acceptance_ref: null
   signature_ref: ''
 base_revision: 1be220f2691194a8e69f330ebc85fff9fd6c0172
-head_revision: 5233a5c51a47cd069dc6b74845822d5ff10f1e18
-scope_digest: 7bc66056fd760f39a88125502b4778f24966b2a5a55230160b5e1e45895a63e9
+head_revision: 5f7e5a6f9d818da17a5b3e84836baf54b39685f0
+scope_digest: d5d1e5f94c9717c122fad5cf12b09779beb7dab65b2d61fe0555428bf0a417c4
 changed_resources:
 - path: scripts/validate-contract-records.py
-  sha256: adccfb67b679122c792cedf2debe51d7db04f5a732323b74348167f2062f9859
+  sha256: 5a22c7949c752da422752af60a17982a8e47a8162ffa60d851154c3a569d641b
 - path: tests/test_contract_records.py
-  sha256: 57c0915f8d305854ccb570023153f750d6d22eff019cc979b91aef6e90a7d165
+  sha256: 77415d4e4174f3d58233b08b5138a9f3cf333173db57ee5a67d496f65bba307a
 - path: docs/protocol-configuration.md
   sha256: ae14568c67855a30a75d265eb766a699216f6aef1f5f34e6e0350396b7a3db36
 - path: adapters/generic/README.md
@@ -45,9 +45,9 @@ changed_resources:
 - path: .contract-engineering/evidence/CENG-T013-P002-SEC002.yaml
   sha256: 84c39f9b2bec456aaf476049497ff26ee4e9664f91f4831030013aa6395dbc87
 - path: .contract-engineering/tracker/events/CENG-T013.yaml
-  sha256: a281159b30a3ab1606a7866bbc8369e477669bf46668a6cfc58ca58752417c6b
+  sha256: cdd84f1d994db079b8060fe276f76bbb2a8540aa1aa2150af122d62c4464a932
 - path: .contract-engineering/tracker/index.yaml
-  sha256: cb10b0b2c26a7e3f06fb8730eb1d6477131db6de6338ece6c253c310481b9d21
+  sha256: 51efc1c3e0c44deb60ba02f1a9c88a29be72517915403091beb87597098f5c98
 - path: .contract-engineering/work-packets/CENG-T013-P002.yaml
   sha256: 4bb3fdd4f234510748299e355d743b1d5a73a32deef1542dc51fae1f1719bc44
 created_at: '2026-09-16T08:33:00Z'

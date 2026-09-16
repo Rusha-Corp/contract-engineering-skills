@@ -83,3 +83,29 @@ events:
   actor: worker
   occurred_at: '2026-09-16T08:33:00Z'
   summary: Resubmitted validator-root packet in Handoff with pending independent receiver acceptance and unittest validation evidence.
+- event_id: CENG-T013-E014
+  packet_id: CENG-T013-P001
+  type: rejection
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T10:15:00Z'
+  summary: Rejected the resubmitted parent coordination handoff because its declared head_revision f12abc07... does not match the committed head 7fb18f93... under which the governed records are checked out for review, so the exact head revision, changed-resource hashes, and scope digest cannot be bound to the committed state. No executable harness/shell was available to recompute hashes or rerun contract/tracker/render validators; validation is asserted rather than demonstrated with captured output. Dependency ordering, child independence, and Factory-hook exclusion are otherwise satisfied. The same head-binding defect as E009 remains despite the repair commits.
+
+
+- event_id: CENG-T013-E015
+  packet_id: CENG-T013-P001
+  type: rework
+  actor: worker
+  occurred_at: '2026-09-16T10:16:00Z'
+  summary: Reopened parent coordination metadata to bind the handoff to the actual committed head and replace asserted validation with captured local validator output.
+- event_id: CENG-T013-E016
+  packet_id: CENG-T013-P001
+  type: validation
+  actor: worker
+  occurred_at: '2026-09-16T10:17:00Z'
+  summary: Revalidated contract records, tracker records, and generated tracker projection successfully at committed head 7fb18f93; parent acceptance remains independent of child completion.
+- event_id: CENG-T013-E017
+  packet_id: CENG-T013-P001
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T10:18:00Z'
+  summary: Resubmitted parent coordination handoff with exact committed-head binding, recomputed resource hashes and scope digest, captured validation output, and pending independent receiver acceptance.

@@ -3,6 +3,8 @@
 !.factory/droids/
 !.factory/droids/*.md
 .DS_Store
+__pycache__/
+*.pyc
 
 # Local credentials and private key material must never enter the repository.
 .env

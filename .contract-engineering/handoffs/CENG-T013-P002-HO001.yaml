@@ -5,7 +5,7 @@ transition:
   from: Validation
   to: Handoff
   reason: Validator-root implementation and repository-authoritative unittest validation
-    are complete; independent receiver review is required.
+    plus governed security evidence are complete; independent receiver review is required.
 sender:
   identity: worker
   identity_type: agent
@@ -21,8 +21,8 @@ receiver:
   acceptance_ref: null
   signature_ref: ''
 base_revision: 1be220f2691194a8e69f330ebc85fff9fd6c0172
-head_revision: f12abc0
-scope_digest: 242a8dc009070c426a32300b7f36957f4ae1bd7734a4ab1f6c231f23537b62c6
+head_revision: 9ec4dd59425afb82127b10bea121993a1508dd18
+scope_digest: 2cd60f2e23d3d3a485556039e85485ccd68021a4d5848de7e2cdd9b3c0a7d47a
 changed_resources:
 - path: scripts/validate-contract-records.py
   sha256: adccfb67b679122c792cedf2debe51d7db04f5a732323b74348167f2062f9859
@@ -34,31 +34,47 @@ changed_resources:
   sha256: 9b4de28ca5b1b5a58985e4c29c611df15ee2b7c40197b693802c80a5372b2a73
 - path: adapters/factory-droid/README.md
   sha256: 695cfd3c8c485749b6b632b2c61fe9dd39f31e4ee0c00b434e23408a5e7ac0bf
+- path: .contract-engineering/decisions/CENG-T013-P002-SEC001.yaml
+  sha256: 441313130cfc5211d6215489bb2cbf3aaca6b926cb99a1cc334099ae39f17faa
 - path: .contract-engineering/evidence/CENG-T013-P002-EV001.md
-  sha256: c61ee3e77bd1ec7c715ba94a4ca64303c7b8e3f9de5b5eefc1021d8910a79568
+  sha256: 677caea9aa0f8fe1b536dee2ee51c74444312e79e3bb76902e6ac59bd81a29d8
+- path: .contract-engineering/evidence/CENG-T013-P002-SEC001.md
+  sha256: 7174b009d66a58a3cbb2670fac2fe382e4bfef116af431be8cf70b391854e268
+- path: .contract-engineering/evidence/CENG-T013-P002-SEC002.md
+  sha256: a3b8fb238b162f51505ab97d4b29d91b3d714dd0c8ab6c1b4531c9933b0a9503
+- path: .contract-engineering/evidence/CENG-T013-P002-SEC002.yaml
+  sha256: 84c39f9b2bec456aaf476049497ff26ee4e9664f91f4831030013aa6395dbc87
+- path: .contract-engineering/tracker/events/CENG-T013.yaml
+  sha256: 573586d347d3b9de7d77bd3a2420f3bbe66364a327e75ee48ad0e583d3f56eac
+- path: .contract-engineering/tracker/index.yaml
+  sha256: cb10b0b2c26a7e3f06fb8730eb1d6477131db6de6338ece6c253c310481b9d21
 - path: .contract-engineering/work-packets/CENG-T013-P002.yaml
-  sha256: 0406a50cbc98cdd7408dfbba57d95285d888b4494bc80dd5582f2ee1f943767f
+  sha256: 4bb3fdd4f234510748299e355d743b1d5a73a32deef1542dc51fae1f1719bc44
 created_at: '2026-09-16T08:33:00Z'
 expires_at: ''
 approval_ref: CENG-T013-P001-DEC001
 verification:
-  verified_at: '2026-09-16T08:33:00Z'
+  verified_at: '2026-09-16T12:22:00Z'
   verifier: worker
   result: pass
   revocation_checked_at: ''
-  verification_ref: CENG-T013-P002-EV001
+  verification_ref: CENG-T013-P002-SEC002
 validation_results:
+- command: python3 -m unittest tests.test_contract_records.ValidatorRootAndModeTests
+  result: "exit 0; 5 tests ran, OK; captured output in CENG-T013-P002-EV001"
 - command: python3 -m unittest discover -s tests -p 'test_*.py'
-  result: 54 tests passed
+  result: "exit 0; 54 tests ran, OK; captured output in CENG-T013-P002-EV001"
 - command: python3 scripts/validate-contract-records.py --root .contract-engineering
     --mode enforced
-  result: passed
+  result: "exit 0; contract validation valid (mode=enforced); captured output in CENG-T013-P002-EV001"
 - command: python3 scripts/validate-tracker.py --root .contract-engineering
-  result: passed
+  result: "exit 0; tracker valid: 23 active rows, 24 archive rows, 2 YAML partitions; captured output in CENG-T013-P002-EV001"
 - command: python3 scripts/render-tracker.py --root .contract-engineering --check
-  result: passed
+  result: "exit 0; generated projection check passed; captured output in CENG-T013-P002-EV001"
 evidence_refs:
 - CENG-T013-P002-EV001
+- CENG-T013-P002-SEC001
+- CENG-T013-P002-SEC002
 skill_gaps:
 - Authoritative design/admission helper scripts are absent from the locked checkout;
   pytest is not an installed dependency and was not used.
@@ -69,5 +85,9 @@ rollback_notes: Restore the packet-scoped implementation and documentation to th
 requested_next_action: Independently review and accept or reject CENG-T013-P002; do
   not self-accept or mark Complete.
 receiver_status: pending
-receiver_notes: Pending independent receiver review; authenticated receiver metadata
-  is provisioned but no acceptance has been recorded.
+receiver_notes: >-
+  Resubmitted after E030 rejection. Independent review must verify the exact
+  9ec4dd59425afb82127b10bea121993a1508dd18 content head, changed-resource
+  hashes, scope digest, captured command output, threat-model/design record,
+  security-verification record, and Factory-hook exclusion. No acceptance or
+  lock release is requested from the sender.

@@ -1,0 +1,83 @@
+decision_version: 1
+decision_id: CENG-T013-P002-SEC001
+packet_id: CENG-T013-P002
+record_type: threat-model-and-design-gate
+status: approved
+created_at: "2026-09-16T12:20:00Z"
+created_by: worker
+scope: "scripts/validate-contract-records.py, tests/test_contract_records.py, docs/protocol-configuration.md, adapters/"
+data_classification: internal
+actor_boundary:
+  actor: worker
+  capabilities:
+    - repository-read
+    - repository-write
+    - local-validation
+  approval_policy: user
+  external_effects: []
+  boundary: "The worker may modify only the declared packet scope; the validator reads local protocol records and never receives Factory-hook capabilities."
+trust_boundaries:
+  - boundary_id: TB-001
+    description: "Repository files and environment variables enter local root resolution."
+    trust_level: semi-trusted
+    assets:
+      - protocol-root-selection
+      - contract-records
+    entry_points:
+      - explicit --root
+      - CE_PROTOCOL_ROOT
+      - protocol.lock.yaml
+  - boundary_id: TB-002
+    description: "The local validator boundary is separate from the excluded Factory hook."
+    trust_level: untrusted
+    assets:
+      - validation-result
+    entry_points:
+      - validate-contract-records.py
+threats:
+  - threat_id: THR-001
+    category: tampering
+    description: "An unexpected root precedence change could validate the wrong contract records."
+    affected_asset: protocol-root-selection
+    likelihood: medium
+    impact: high
+    risk: high
+    mitigation: "Centralize explicit, environment, lock, and default precedence and cover it with unit tests and captured validation output."
+    mitigation_status: verified
+    evidence_ref: CENG-T013-P002-EV001
+  - threat_id: THR-002
+    category: denial-of-service
+    description: "A missing or malformed root could cause unsafe processing or an uncontrolled failure."
+    affected_asset: validation-result
+    likelihood: medium
+    impact: medium
+    risk: medium
+    mitigation: "Fail safely for missing roots; advisory returns a diagnostic and enforced raises without invoking hooks."
+    mitigation_status: verified
+    evidence_ref: CENG-T013-P002-EV001
+  - threat_id: THR-003
+    category: elevation-of-privilege
+    description: "A local validator could accidentally acquire or invoke Factory-hook capabilities."
+    affected_asset: validation-result
+    likelihood: low
+    impact: high
+    risk: medium
+    mitigation: "Keep .factory-plugin and Factory hook implementation outside scope and use only repository-read, repository-write, and local-validation capabilities."
+    mitigation_status: verified
+    evidence_ref: CENG-T013-P002-SEC002
+ai_agent_risks:
+  prompt_injection_surface: "Repository content is treated as data; it cannot rewrite packet scope, approvals, or validator mode."
+  tool_poisoning_surface: "No external tool, MCP server, or Factory hook is added or invoked."
+  excessive_agency: "No network, remote-system, credential, or out-of-scope write capability is granted."
+  secret_exposure_surface: "Validation handles local records only; no secrets are requested, emitted, or stored."
+approval_ref: CENG-T013-P001-DEC001
+factory_hook_exclusion: "Factory hook implementation and .factory-plugin remain explicitly out of scope."
+finding_summary:
+  critical: 0
+  high: 0
+  moderate: 0
+  low: 0
+disposition: pass
+evidence_refs:
+  - CENG-T013-P002-EV001
+  - CENG-T013-P002-SEC002

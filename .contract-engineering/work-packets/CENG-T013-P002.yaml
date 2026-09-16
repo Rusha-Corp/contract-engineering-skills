@@ -46,6 +46,8 @@ baseline_refs:
 - 1be220f2691194a8e69f330ebc85fff9fd6c0172
 - CENG-T013-P001-DEC001
 design_decision_ref: CENG-T013-P001-DEC001
+threat_model_ref: CENG-T013-P002-SEC001
+security_verification_ref: CENG-T013-P002-SEC002
 data_gate_ref: null
 acceptance_criteria:
 - Root resolution has one deterministic precedence order.
@@ -62,6 +64,7 @@ acceptance_contract:
     verification_command: "python3 -m unittest discover -s tests -p 'test_*.py'"
     evidence_refs:
     - CENG-T013-P002-EV001
+    - CENG-T013-P002-SEC002
     failure_result: A mode silently changes enforcement.
     validation_ref: CENG-T013-P002-VAL001
 validation_plan:
@@ -76,9 +79,19 @@ validation_plan:
     - mode policy is centralized
     - no duplicate root resolution
     expected: no unresolved principle violations
+  - id: CENG-T013-P002-VAL003
+    kind: security
+    skill: security-assurance
+    checks:
+    - threat model approved with explicit actor and capability boundary
+    - security verification checks passed with no critical or high findings
+    - Factory hook implementation remains excluded
+    expected: no unresolved blocking security findings
 state: Handoff
 evidence_refs:
 - CENG-T013-P002-EV001
+- CENG-T013-P002-SEC001
+- CENG-T013-P002-SEC002
 handoff_ref: CENG-T013-P002-HO001
 cleanup_scope:
   dead_refs: []

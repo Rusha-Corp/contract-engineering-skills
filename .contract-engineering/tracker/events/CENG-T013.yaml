@@ -228,3 +228,44 @@ events:
   summary: Resubmitted P001 in Handoff with pending independent receiver status,
     exact 85b0bcb content-head binding, recomputed resource hashes and scope digest,
     and captured validation evidence.
+- event_id: CENG-T013-E030
+  packet_id: CENG-T013-P002
+  type: rejection
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T12:00:00Z'
+  summary: Rejected P002 because EV001 and handoff validation results assert
+    outcomes without independently verifiable command output; root precedence,
+    explicit modes, and safe missing-root behavior are therefore unsupported.
+    Required security-domain threat-model and security-verification gate records
+    are absent, and the f12abc0 head, changed-resource hashes, and scope digest
+    could not be independently recomputed. Retained CENG-T013:validator-root.
+- event_id: CENG-T013-E031
+  packet_id: CENG-T013-P002
+  type: rework
+  actor: worker
+  occurred_at: '2026-09-16T12:20:00Z'
+  summary: Reopened P002 after E030; retained validator-root implementation and
+    added governed threat-model/design and security-verification records.
+- event_id: CENG-T013-E032
+  packet_id: CENG-T013-P002
+  type: implementation-start
+  actor: worker
+  occurred_at: '2026-09-16T12:21:00Z'
+  summary: Reworked packet-scoped evidence and security governance only; Factory
+    hook implementation remains explicitly excluded.
+- event_id: CENG-T013-E033
+  packet_id: CENG-T013-P002
+  type: validation
+  actor: worker
+  occurred_at: '2026-09-16T12:22:00Z'
+  summary: Captured independently reproducible root, mode, missing-root, unit,
+      contract-record, tracker, and projection command output; security verification
+      passed with no blocking findings.
+- event_id: CENG-T013-E034
+  packet_id: CENG-T013-P002
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T12:23:00Z'
+  summary: Resubmitted P002 in Handoff with pending independent receiver review,
+    exact committed content-head binding to follow, recomputed resource hashes
+      and scope digest, and Factory-hook exclusion preserved.

@@ -20,8 +20,8 @@ receiver:
   identity_type: agent
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ''
-  acceptance_ref: ''
+  accepted_at: '2026-09-16T17:00:00Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T013-P004-20260916-INDEPENDENT-REWORK
   signature_ref: ''
 base_revision: 1ce6d3e
 head_revision: fd0576b0c0aca30db6e2b83d4fb082b8b330837e
@@ -64,4 +64,16 @@ unresolved_items:
 rollback_notes: >-
   Restore P004-scoped files to base revision 1ce6d3e; no remote systems changed.
 requested_next_action: Independently review and accept or reject this rework handoff.
-receiver_status: pending
+receiver_status: accepted
+receiver_notes: >-
+  Independently accepted after verifying AC001 and all packet acceptance
+  criteria against EV001, the focused seven-test result, recover() behavior,
+  authenticated metadata, dependency completion, lifecycle transition,
+  Factory-hook exclusion, revision/scope/hash bindings, and the recorded
+  unrelated CENG-T004-P017 full-suite limitation. The full-suite and repository
+  validators remain blocked by that unrelated mismatch; this limitation is
+  preserved and does not invalidate the packet-scoped focused evidence.
+accepted_revision: fd0576b0c0aca30db6e2b83d4fb082b8b330837e
+accepted_scope_digest: 89d82877ccad1271d6343f52f456f8cef28c0de74eccb8b3862016d463cbf743
+accepted_evidence_refs:
+- CENG-T013-P004-EV001

@@ -560,3 +560,12 @@ events:
   summary: Returned P004 to Handoff after rework; 7 focused tests pass including
     crash fault-injection and idempotent replay. Full unittest suite remains
     blocked by the pre-existing unrelated CENG-T004-P017 tracker/packet mismatch.
+- event_id: CENG-T013-E070
+  packet_id: CENG-T013-P004
+  type: acceptance
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T17:00:00Z'
+  summary: Accepted P004 rework independently after verifying crash recovery,
+    reassignment recovery, idempotent replay, focused validation, dependencies,
+    authenticated metadata, revision/scope/hash bindings, and the recorded
+    unrelated P017 full-suite limitation. Released CENG-T013:transition-journal.

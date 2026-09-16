@@ -172,7 +172,7 @@ rows:
   packet_id: CENG-T013-P003
   state: Handoff
   owner: worker
-  reviewer: user
+  reviewer: contract-driven-handoff-acceptance-reviewer
   locks:
   - CENG-T013:identifiers-schema
   next_action: Independently review and accept or reject P003; receiver acceptance remains pending

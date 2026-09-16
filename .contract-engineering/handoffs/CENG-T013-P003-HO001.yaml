@@ -17,17 +17,17 @@ receiver:
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
   accepted_at: null
-  acceptance_ref: null
+  acceptance_ref: ''
   signature_ref: ''
 base_revision: c5bd7720fab284110f53f3bbc4bc310738012d83
-head_revision: 8394eb2b96476bf03facd82598bc46f4db5a895e
-scope_digest: 5fc63addb886147cd291a4d2361a5718bf32a7e120929bc69ab47e456000bec9
+head_revision: 1b9f45ebbded578c62fc15ee9b5b88ee9fbe71a6
+scope_digest: be9b060216e15e19387a42bdf60603259653aa0bced09815f735ed6b93929457
 changed_resources:
-  - {path: .contract-engineering/evidence/CENG-T013-P003-EV001.md, sha256: 8642299ac00ef3b6e9a1ac75390040c8de9eeb40e8683cadb28b658f837e23b0}
-  - {path: .contract-engineering/execution-tracker.md, sha256: bc504be892d02feb6916418461c1b91388c83f72c7e93a6705127ba4b424a2b9}
-  - {path: .contract-engineering/tracker/events/CENG-T013.yaml, sha256: e70403946f1684f31a61977bd5ceeb0687fc97a73a608b931da35525655a5b40}
-  - {path: .contract-engineering/tracker/index.yaml, sha256: ce133253c0ce332e281d08c1554198d01055117c7af7c097ca59d14ef523be44}
-  - {path: .contract-engineering/work-packets/CENG-T013-P003.yaml, sha256: d6f5f162d21a9aa9e6739d56769dc156fce9b50d647c6b09f5be601b43849cbb}
+  - {path: .contract-engineering/evidence/CENG-T013-P003-EV001.md, sha256: 69874e16788df6f8db21f2df6de7ef3e061f4cc31c94e7bd3cd3269a1ce66a20}
+  - {path: .contract-engineering/execution-tracker.md, sha256: ce3e978965b504c0ef295e54ce8d76a9fd9a4866f4ddd1e2f12b92a20458f131}
+  - {path: .contract-engineering/tracker/events/CENG-T013.yaml, sha256: 28dfa304f781d91418b350e4c095e951a686f0db7943646c96ce3cc5033a70e5}
+  - {path: .contract-engineering/tracker/index.yaml, sha256: 51efc1c3e0c44deb60ba02f1a9c88a29be72517915403091beb87597098f5c98}
+  - {path: .contract-engineering/work-packets/CENG-T013-P003.yaml, sha256: 618fda2f01638e63c6b7edae5ef289890fd1c257938a128fb320af88f3b76251}
   - {path: requirements-ci.txt, sha256: fb66c29010c902ebf89336cd9a94795504fe3d71f15869ae5b9b31f4e2cfcecf}
   - {path: schemas/evidence-policy.schema.json, sha256: d580a8b4784cfe8674ee1db688dfb414e8fe5bb52bfad11cb5d3af0965b8d622}
   - {path: schemas/identifiers.schema.json, sha256: 1c4564964d12bfa35ae3255a352fa0da38b41e682efd00326c02c01bf5f70815}
@@ -64,16 +64,16 @@ evidence_refs:
   - CENG-T013-P003-EV001
 skill_gaps: []
 unresolved_items:
-  - Independent receiver acceptance is pending.
+  - The unrelated CENG-T004-P017 full-suite limitation remains open outside P003 scope.
 rollback_notes: Restore the P003-scoped files to base revision c5bd772; no remote systems changed.
-requested_next_action: Independently review identifiers, schemas, tests, and evidence; accept or reject this handoff.
+requested_next_action: Retain P003 in the active tracker until iteration closure.
 receiver_status: pending
 receiver_notes: >-
-  Resubmitted after E047 with the corrected repository-authoritative unittest
-  validation plan and exact committed content-head binding. The unrelated
-  CENG-T004-P017 full-suite limitation remains explicitly recorded in EV001 and
-  is outside P003 scope; identifier/schema implementation and jsonschema evidence
-  are unchanged.
-accepted_revision: ''
-accepted_scope_digest: ''
-accepted_evidence_refs: []
+  Resubmitted after E053 rejection. The handoff and evidence are rebound to the
+  exact committed content head 1b9f45ebbded578c62fc15ee9b5b88ee9fbe71a6;
+  changed-resource hashes and scope digest are recomputed. The corrected
+  repository-authoritative unittest validation, pinned jsonschema evidence, and
+  unrelated CENG-T004-P017 full-suite limitation are preserved. Reviewer
+  metadata is contract-driven-handoff-acceptance-reviewer throughout the P003
+  records. The handoff record is excluded from changed_resources to preserve
+  non-circular binding. Lock CENG-T013:identifiers-schema is retained.

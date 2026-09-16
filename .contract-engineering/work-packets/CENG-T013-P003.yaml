@@ -15,10 +15,10 @@ risk_tier: medium
 approval_policy: user
 external_effects: []
 owner: worker
-reviewer: user
+reviewer: contract-driven-handoff-acceptance-reviewer
 cleanup_owner: worker
 dependencies: [CENG-T013-P001]
-locks: ["CENG-T013:identifiers-schema"]
+locks: [CENG-T013:identifiers-schema]
 claim_timestamp: "2026-09-15T23:40:00Z"
 baseline_refs: [".contract-engineering/protocol.lock.yaml", "1be220f2691194a8e69f330ebc85fff9fd6c0172", "CENG-T013-P001-DEC001"]
 design_decision_ref: CENG-T013-P001-DEC001

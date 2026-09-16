@@ -375,44 +375,83 @@ events:
   occurred_at: '2026-09-16T13:33:00Z'
   summary: Returned P003 to Handoff with receiver_status pending and exact
     repository-authoritative validation declarations; P003 lock remains retained.
-  - event_id: CENG-T013-E047
-    packet_id: CENG-T013-P003
-    type: rejection
-    actor: contract-driven-handoff-acceptance-reviewer
-    occurred_at: '2026-09-16T13:40:00Z'
-    summary: Rejected P003 because the handoff head_revision 3653d0d does not
-      match current committed HEAD 8394eb2. Changed-resource hashes, scope
-      digest, and validation evidence are not bound to the reviewed content
-      head. The unrelated CENG-T004-P017 full-suite limitation is adequately
-      recorded and outside P003 scope; identifier, schema, dependency, metadata,
-      and Factory-hook checks otherwise pass. Retained CENG-T013:identifiers-schema.
-  - event_id: CENG-T013-E048
-    packet_id: CENG-T013-P003
-    type: rework
-    actor: worker
-    occurred_at: '2026-09-16T13:50:00Z'
-    summary: Reopened P003 after E047; preserved the corrected unittest validation
-      plan, unrelated CENG-T004-P017 limitation, implementation, and jsonschema
-      evidence while repairing exact committed-head bindings.
-  - event_id: CENG-T013-E049
-    packet_id: CENG-T013-P003
-    type: implementation-start
-    actor: worker
-    occurred_at: '2026-09-16T13:51:00Z'
-    summary: Applied P003-only lifecycle and handoff binding repair; identifier and
-      schema implementation remains unchanged and unrelated packet scope is excluded.
-  - event_id: CENG-T013-E050
-    packet_id: CENG-T013-P003
-    type: validation
-    actor: worker
-    occurred_at: '2026-09-16T13:52:00Z'
-    summary: Revalidated the preserved unittest, contract-record, tracker, projection,
-      and pinned-dependency checks; the CENG-T004-P017 full-suite limitation remains
-      explicitly recorded outside P003 scope.
-  - event_id: CENG-T013-E051
-    packet_id: CENG-T013-P003
-    type: handoff
-    actor: worker
-    occurred_at: '2026-09-16T13:53:00Z'
-    summary: Returned P003 to Handoff with receiver_status pending and changed-resource
-      hashes and scope digest rebound to committed content head 8394eb2.
+
+- event_id: CENG-T013-E047
+  packet_id: CENG-T013-P003
+  type: rejection
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T13:40:00Z'
+  summary: Rejected P003 because the handoff head_revision 3653d0d did not match
+    committed HEAD 8394eb2; retained CENG-T013:identifiers-schema.
+- event_id: CENG-T013-E048
+  packet_id: CENG-T013-P003
+  type: rework
+  actor: worker
+  occurred_at: '2026-09-16T13:50:00Z'
+  summary: Reopened P003 after E047 while preserving corrected unittest validation,
+    the unrelated CENG-T004-P017 limitation, implementation, and jsonschema evidence.
+- event_id: CENG-T013-E049
+  packet_id: CENG-T013-P003
+  type: implementation-start
+  actor: worker
+  occurred_at: '2026-09-16T13:51:00Z'
+  summary: Applied P003-only lifecycle and handoff binding repair; implementation
+    and unrelated packet scope remain unchanged.
+- event_id: CENG-T013-E050
+  packet_id: CENG-T013-P003
+  type: validation
+  actor: worker
+  occurred_at: '2026-09-16T13:52:00Z'
+  summary: Revalidated the preserved unittest, contract-record, tracker, projection,
+    and pinned-dependency checks; the CENG-T004-P017 limitation remains explicit.
+- event_id: CENG-T013-E051
+  packet_id: CENG-T013-P003
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T13:53:00Z'
+  summary: Returned P003 to Handoff with receiver_status pending and hashes rebound
+    to committed content head 8394eb2.
+- event_id: CENG-T013-E052
+  packet_id: CENG-T013-P003
+  type: acceptance
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T14:00:00Z'
+  summary: Accepted P003 after independently verifying corrected unittest validation,
+    focused evidence, unrelated limitation, metadata, exact 8394eb2 binding, 15
+    hashes, scope digest, and Factory-hook exclusion; released only the P003 lock.
+- event_id: CENG-T013-E053
+  packet_id: CENG-T013-P003
+  type: rejection
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T14:10:00Z'
+  summary: Rejected P003 because the declared 8394eb2 head did not match committed
+    HEAD 1b9f45e; changed-resource hashes and scope evidence were not bound.
+    Reviewer metadata also needed to be consistent across P003 records.
+- event_id: CENG-T013-E054
+  packet_id: CENG-T013-P003
+  type: rework
+  actor: worker
+  occurred_at: '2026-09-16T14:20:00Z'
+  summary: Reopened P003 after E053 and rebound governed records to exact committed
+    content head 1b9f45e while preserving validation evidence and scope limits.
+- event_id: CENG-T013-E055
+  packet_id: CENG-T013-P003
+  type: implementation-start
+  actor: worker
+  occurred_at: '2026-09-16T14:21:00Z'
+  summary: Applied P003-only reviewer, lifecycle, hash, and handoff binding repair;
+    implementation and unrelated packet scope remain unchanged.
+- event_id: CENG-T013-E056
+  packet_id: CENG-T013-P003
+  type: validation
+  actor: worker
+  occurred_at: '2026-09-16T14:22:00Z'
+  summary: Revalidated unittest, contract-record, tracker, projection, and pinned
+    dependency checks; CENG-T004-P017 remains an unrelated full-suite limitation.
+- event_id: CENG-T013-E057
+  packet_id: CENG-T013-P003
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T14:23:00Z'
+  summary: Returned P003 to Handoff with receiver_status pending, reviewer
+    contract-driven-handoff-acceptance-reviewer, and exact 1b9f45e head binding.

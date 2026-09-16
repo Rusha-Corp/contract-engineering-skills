@@ -178,6 +178,22 @@ runtime evidence, or consumer migration records.
 
 ## Updating and rollback
 
+### Plugin updates (Factory Droid)
+
+When a new version is released, update the pinned ref in
+`~/.factory/settings.json` under `extraKnownMarketplaces`, then refresh:
+
+```bash
+droid plugin marketplace update contract-engineering-skills
+droid plugin update contract-engineering-skills@contract-engineering-skills --scope user
+```
+
+To roll back, change the ref back to the prior tag and run the same commands.
+The plugin ID (`contract-engineering-skills@contract-engineering-skills`) is
+stable across versions; only the pinned ref changes.
+
+### Manual updates (other harnesses)
+
 Prefer tagged releases. Review the release notes, copy the six protocol
 skill directories into the host's configured instruction location, and retain
 the previous version until validation succeeds. Roll back by restoring the

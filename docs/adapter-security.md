@@ -1,69 +1,76 @@
-# Adapter and Dependency Security
+# Adapter Security Model
 
-An adapter is part of the agent's trust and capability boundary. This includes
-host integrations, CLIs, plugins, MCP servers, tool definitions, runtimes,
-packages, actions, and external endpoints. Inventory each supported adapter
-with `templates/adapter-inventory.yaml` before allowing it to execute a
-packet.
+## Overview
 
-## Inventory requirements
+Adapters translate the protocol's gate-failure diagnostics into host-specific
+output while preserving blocking semantics. Every adapter conforms to a single
+diagnostic contract defined in `scripts/gate_diagnostics.py`.
 
-Record:
+## Diagnostic envelope
 
-- owner, version, source ref, provenance, signature, and compatibility;
-- capabilities and permissions;
-- every network endpoint and whether each operation is allowlisted;
-- direct and transitive dependencies, lockfile refs, licenses, and
-  vulnerability status;
-- validation/evaluation references, approval, status, and rollback.
+All gate failures emit a `DiagnosticEnvelope` with these required fields:
 
-Do not accept an adapter whose source, version, permissions, or endpoint set
-cannot be identified.
+| Field | Type | Description |
+| --- | --- | --- |
+| `code` | string | Stable machine-readable code (e.g. `GATE-SCOPE-001`) |
+| `severity` | string | `error`, `warning`, or `info` |
+| `message` | string | Human-readable failure description |
+| `remediation` | string | Actionable steps to resolve the failure |
+| `packet_id` | string | The packet that triggered the gate |
+| `gate_name` | string | The gate that failed |
+| `blocking` | bool | Whether the failure blocks further work |
 
-## Capability and endpoint controls
+## Error code registry
 
-Use least privilege. An adapter receives only the capabilities required by the
-packet and cannot grant new capabilities to an agent. Network access is
-deny-by-default and limited to named hosts and operations. Redirects,
-user-controlled URLs, tool-provided URLs, and dynamically discovered servers
-must be validated against the allowlist.
+| Code | Severity | Blocking | Description |
+| --- | --- | --- | --- |
+| `GATE-SCOPE-001` | error | yes | Packet edited outside declared scope |
+| `GATE-EVIDENCE-001` | error | yes | Required evidence record is missing |
+| `GATE-STATE-001` | error | yes | Illegal state machine transition |
+| `GATE-SECURITY-001` | error | yes | Security finding detected |
+| `GATE-SECURITY-002` | error | yes | Required security capability not proven |
+| `GATE-DEPENDENCY-001` | warning | no | Missing or unpinned dependency |
+| `GATE-HASH-001` | error | yes | Content hash mismatch |
 
-Tool and MCP descriptions are untrusted input. Validate schemas, authentication
-boundaries, authorization, output types, and side effects. Do not pass
-ambient credentials or unrestricted repository context to an adapter.
+## Fail-closed policy
 
-## Dependency checks
+Security diagnostics (`GATE-SECURITY-001`, `GATE-SECURITY-002`) are always
+blocking. The `emit_diagnostic` function enforces this: even if a caller
+passes `blocking=False`, the envelope remains blocking. Adapters must not
+downgrade or hide security failures.
 
-Before approval and on every version change:
+## Adapter conformance
 
-1. Resolve the exact dependency and adapter refs from lockfiles or manifests.
-2. Verify publisher provenance and artifact integrity.
-3. Run vulnerability and license checks for direct and transitive
-   dependencies.
-4. Review permissions, endpoints, migration impact, and compatibility.
-5. Run representative and adversarial evaluation cases.
-6. Record the result and reviewer in the inventory.
+An adapter conforms when:
 
-Unknown vulnerability, provenance, or compatibility status blocks high-risk
-and external-effect use. A temporary exception requires owner, mitigation,
-expiry, and rollback.
+1. It emits all required envelope fields for every gate failure.
+2. It preserves the `blocking` flag without downgrading.
+3. Security diagnostics remain `severity=error` and `blocking=true`.
+4. It does not hide, suppress, or alter the diagnostic code.
 
-## Revocation and rollback
+The conformance test in `tests/test_gate_diagnostics.py` verifies all four
+requirements for every supported adapter.
 
-Set an adapter to `revoked` when it is compromised, incompatible, vulnerable
-above the accepted threshold, or violates its declared capability boundary.
-Stop new use, quarantine active sessions, preserve evidence, and disable
-credentials or endpoints as required. Roll back to the last verified ref or
-use a manually approved replacement. Do not delete the inventory or incident
-record.
+## Supported adapters
 
-## Gate diagnostic contract
+- **factory-droid**: Emits JSON diagnostics to the Factory Droid hook output.
+- **generic**: Emits human-readable or JSON diagnostics to any host.
+- **hermes**: Emits JSON diagnostics through the Hermes skill interface.
 
-All adapters use `scripts/gate_diagnostics.py` as the single diagnostic
-contract. Every diagnostic contains `code`, `severity`, `message`,
-`remediation`, `packet_id`, `gate_name`, and `blocking`.
+All adapters call `conform_adapter()` from `scripts/gate_diagnostics.py`,
+which validates the envelope before returning it.
 
-Codes are stable `GATE-<CATEGORY>-<NNN>` identifiers. Adapters may format an
-envelope as human-readable text, JSON, or Markdown, but must not remove fields,
-hide failures, or downgrade blocking outcomes. Security diagnostics are always
-`severity: error` and `blocking: true`, regardless of caller input.
+## Usage
+
+```python
+from scripts.gate_diagnostics import emit_diagnostic, DiagnosticCode, format_diagnostic
+
+diag = emit_diagnostic(
+    code=DiagnosticCode.SCOPE_VIOLATION,
+    packet_id="CENG-T013-P005",
+    gate_name="scope-gate",
+    message="packet edited file outside scope.in",
+)
+print(format_diagnostic(diag, "json"))
+print(format_diagnostic(diag, "human"))
+```

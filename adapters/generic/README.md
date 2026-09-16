@@ -63,7 +63,7 @@ block the affected operation instead of silently skipping the control.
 Security routing must use packet domain, risk, declared effects, capabilities,
 and classified sensitive scope. It must not use historical task identifiers.
 
-Gate failures use the shared `adapters/generic/diagnostics.py` contract. Every
+Gate failures use the shared `scripts/gate_diagnostics.py` contract. Every
 adapter output includes `code`, `severity`, `message`, `remediation`,
 `packet_id`, `gate_name`, and `blocking`; security failures are always
 blocking and cannot be downgraded.

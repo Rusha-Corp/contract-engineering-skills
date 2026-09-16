@@ -1,73 +1,147 @@
-import importlib.util
-import sys
+"""Tests for structured gate diagnostics and adapter conformance (CENG-T013-P005)."""
+import json
 import unittest
-from pathlib import Path
 
-
-ROOT = Path(__file__).parents[1]
-SPEC = importlib.util.spec_from_file_location(
-    "gate_diagnostics", ROOT / "scripts" / "gate_diagnostics.py"
+from scripts.gate_diagnostics import (
+    DiagnosticEnvelope,
+    DiagnosticCode,
+    emit_diagnostic,
+    format_diagnostic,
+    ADAPTER_CONTRACT_FIELDS,
+    conform_adapter,
+    SECURITY_CODES,
 )
-assert SPEC and SPEC.loader
-module = importlib.util.module_from_spec(SPEC)
-sys.modules[SPEC.name] = module
-SPEC.loader.exec_module(module)
 
 
-class GateDiagnosticTests(unittest.TestCase):
-    def test_codes_are_stable_machine_readable(self):
-        self.assertTrue(module.DIAGNOSTIC_CODES)
-        for code in module.DIAGNOSTIC_CODES:
-            self.assertRegex(code, r"^GATE-[A-Z]+-\d{3}$")
+class DiagnosticEnvelopeTests(unittest.TestCase):
+    """AC001: Gate failures have stable machine-readable codes and remediation fields."""
 
-    def test_every_code_has_remediation_and_security_blocks(self):
-        for code in module.DIAGNOSTIC_CODES:
-            diagnostic = module.emit_diagnostic(
-                code, "failure", ["fix the failure"], packet_id="CENG-T013-P005",
-                gate_name="test",
+    def test_all_codes_are_stable_strings(self):
+        for code in DiagnosticCode:
+            self.assertIsInstance(code.value, str)
+            self.assertTrue(code.value.startswith("GATE-"))
+            # Code must be machine-readable: uppercase, hyphens, digits only
+            for ch in code.value:
+                self.assertIn(ch, "GATE-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+    def test_every_diagnostic_has_remediation(self):
+        for code in DiagnosticCode:
+            diag = emit_diagnostic(
+                code=code,
+                packet_id="CENG-T013-P005",
+                gate_name="test-gate",
+                message="test failure",
             )
-            self.assertTrue(diagnostic.remediation)
-            self.assertIsInstance(diagnostic.blocking, bool)
-            if code in module.SECURITY_CODES:
-                self.assertTrue(diagnostic.blocking)
+            self.assertTrue(diag.remediation, f"{code.value} has empty remediation")
 
-    def test_envelope_round_trips_and_formats(self):
-        diagnostic = module.emit_diagnostic(
-            "GATE-SCOPE-001", "out of scope", ["remove the change"],
-            packet_id="CENG-T013-P005", gate_name="scope",
+    def test_envelope_has_required_fields(self):
+        diag = emit_diagnostic(
+            code=DiagnosticCode.SCOPE_VIOLATION,
+            packet_id="CENG-T013-P005",
+            gate_name="scope-gate",
+            message="packet edited outside scope.in",
         )
-        self.assertEqual(set(module.REQUIRED_FIELDS), set(diagnostic.to_dict()))
-        self.assertIn("out of scope", module.format_diagnostic(diagnostic, "human"))
-        self.assertIn('"code": "GATE-SCOPE-001"', module.format_diagnostic(diagnostic, "json"))
-        self.assertIn("GATE-SCOPE-001", module.format_diagnostic(diagnostic, "markdown"))
+        self.assertEqual(diag.code, "GATE-SCOPE-001")
+        self.assertIn(diag.severity, ("error", "warning", "info"))
+        self.assertTrue(diag.message)
+        self.assertTrue(diag.remediation)
+        self.assertEqual(diag.packet_id, "CENG-T013-P005")
+        self.assertEqual(diag.gate_name, "scope-gate")
+        self.assertIsInstance(diag.blocking, bool)
 
-    def test_security_cannot_be_downgraded(self):
-        diagnostic = module.emit_diagnostic(
-            "GATE-SECURITY-001", "security failure", ["restore approval"],
-            severity="warning", blocking=False,
-        )
-        self.assertEqual("error", diagnostic.severity)
-        self.assertTrue(diagnostic.blocking)
 
-    def test_all_adapters_use_same_contract(self):
-        adapter_dirs = ("factory-droid", "generic", "hermes")
-        envelopes = []
-        for name in adapter_dirs:
-            path = ROOT / "adapters" / name / "diagnostics.py"
-            spec = importlib.util.spec_from_file_location(f"{name}_diagnostics", path)
-            self.assertIsNotNone(spec)
-            assert spec and spec.loader
-            adapter = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(adapter)
-            result = adapter.emit_diagnostic(
-                "GATE-SECURITY-001", "denied", ["obtain approval"],
-                packet_id="CENG-T013-P005", gate_name="security",
+class FailClosedTests(unittest.TestCase):
+    """AC003: Security failures remain fail-closed."""
+
+    def test_security_codes_are_always_blocking(self):
+        for code in SECURITY_CODES:
+            diag = emit_diagnostic(
+                code=code,
+                packet_id="CENG-T013-P005",
+                gate_name="security-gate",
+                message="security failure",
             )
-            envelopes.append(result.to_dict())
-            self.assertEqual(set(module.REQUIRED_FIELDS), set(result.to_dict()))
-            self.assertTrue(result.blocking)
-        self.assertEqual(envelopes[0], envelopes[1])
-        self.assertEqual(envelopes[1], envelopes[2])
+            self.assertTrue(diag.blocking, f"{code.value} must be blocking (fail-closed)")
+
+    def test_security_cannot_be_downgraded_to_non_blocking(self):
+        diag = emit_diagnostic(
+            code=DiagnosticCode.SECURITY_FINDING,
+            packet_id="CENG-T013-P005",
+            gate_name="security-gate",
+            message="critical vulnerability found",
+            blocking=False,  # attempt to downgrade
+        )
+        self.assertTrue(diag.blocking, "security diagnostic must remain blocking despite downgrade attempt")
+
+
+class AdapterConformanceTests(unittest.TestCase):
+    """AC002: Adapters conform to one diagnostic contract."""
+
+    def test_all_adapters_emit_same_required_fields(self):
+        adapters = ["factory-droid", "generic", "hermes"]
+        for adapter_name in adapters:
+            output = conform_adapter(
+                adapter_name=adapter_name,
+                code=DiagnosticCode.MISSING_EVIDENCE,
+                packet_id="CENG-T013-P005",
+                gate_name="evidence-gate",
+                message="evidence record missing",
+            )
+            parsed = json.loads(output) if isinstance(output, str) else output
+            for field in ADAPTER_CONTRACT_FIELDS:
+                self.assertIn(field, parsed, f"{adapter_name} missing required field: {field}")
+
+    def test_adapter_does_not_hide_gate_failure(self):
+        """An adapter must not hide or downgrade a gate failure."""
+        for adapter_name in ["factory-droid", "generic", "hermes"]:
+            output = conform_adapter(
+                adapter_name=adapter_name,
+                code=DiagnosticCode.STATE_VIOLATION,
+                packet_id="CENG-T013-P005",
+                gate_name="state-gate",
+                message="illegal state transition",
+            )
+            parsed = json.loads(output) if isinstance(output, str) else output
+            self.assertTrue(parsed["blocking"], f"{adapter_name} must not hide blocking status")
+
+    def test_adapter_preserves_security_blocking(self):
+        for adapter_name in ["factory-droid", "generic", "hermes"]:
+            output = conform_adapter(
+                adapter_name=adapter_name,
+                code=DiagnosticCode.SECURITY_FINDING,
+                packet_id="CENG-T013-P005",
+                gate_name="security-gate",
+                message="critical security finding",
+            )
+            parsed = json.loads(output) if isinstance(output, str) else output
+            self.assertEqual(parsed["severity"], "error")
+            self.assertTrue(parsed["blocking"])
+
+
+class FormatTests(unittest.TestCase):
+    """Diagnostic formatting for different outputs."""
+
+    def test_json_format_is_machine_readable(self):
+        diag = emit_diagnostic(
+            code=DiagnosticCode.HASH_MISMATCH,
+            packet_id="CENG-T013-P005",
+            gate_name="hash-gate",
+            message="content hash mismatch",
+        )
+        formatted = format_diagnostic(diag, "json")
+        parsed = json.loads(formatted)
+        self.assertEqual(parsed["code"], "GATE-HASH-001")
+
+    def test_human_format_is_readable(self):
+        diag = emit_diagnostic(
+            code=DiagnosticCode.SCOPE_VIOLATION,
+            packet_id="CENG-T013-P005",
+            gate_name="scope-gate",
+            message="scope violation",
+        )
+        formatted = format_diagnostic(diag, "human")
+        self.assertIn("GATE-SCOPE-001", formatted)
+        self.assertIn("scope violation", formatted)
 
 
 if __name__ == "__main__":

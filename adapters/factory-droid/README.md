@@ -53,7 +53,7 @@ Skills. The host-specific integration is:
   prompt or response content by default.
 - Record Factory lifecycle, approval, tool, mutation, validation, and handoff
   events with packet/run/operation correlation and redaction.
-- Emit gate failures through `diagnostics.py`, using the shared envelope fields
+- Emit gate failures through `scripts/gate_diagnostics.py`, using the shared envelope fields
   `code`, `severity`, `message`, `remediation`, `packet_id`, `gate_name`, and
   `blocking`. Security diagnostics must remain blocking.
 - Project execution records remain in the consuming project's configured

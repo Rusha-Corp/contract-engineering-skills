@@ -475,7 +475,7 @@ events:
   packet_id: CENG-T013-P003
   type: rework
   actor: worker
-  occurred_at: '2026-09-16T14:30:00Z'
+  occurred_at: '2026-09-16T14:32:00Z'
   summary: Rebound P003 lifecycle records to the exact committed content head
     5f7e5a6 while preserving implementation, validation evidence, and the
     unrelated CENG-T004-P017 limitation.
@@ -483,7 +483,7 @@ events:
   packet_id: CENG-T013-P003
   type: validation
   actor: worker
-  occurred_at: '2026-09-16T14:31:00Z'
+  occurred_at: '2026-09-16T14:33:00Z'
   summary: Recomputed P003 changed-resource hashes and scope digest against the
     committed tree; contract-record, tracker, and projection validation remain
     required before handoff.
@@ -513,7 +513,7 @@ events:
   packet_id: CENG-T013-P002
   type: acceptance
   actor: contract-driven-handoff-acceptance-reviewer
-  occurred_at: '2026-09-16T11:11:01Z'
+  occurred_at: '2026-09-16T15:11:01Z'
   summary: Independent acceptance confirmation passed all requested criteria;
     P002 is Complete, its validator-root lock is released, and the accepted
     5f7e5a6 content-head and scope binding remain unchanged.

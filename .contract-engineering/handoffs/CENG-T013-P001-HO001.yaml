@@ -22,7 +22,7 @@ receiver:
   acceptance_ref: null
   signature_ref: ''
 base_revision: 1be220f2691194a8e69f330ebc85fff9fd6c0172
-head_revision: b3ab920fc47561a710eac2e9aff45aff994b9f78
+head_revision: 52257a830c5c363e93824af0cc46d1e5972801c5
 scope_digest: 0d9ae99955d39f5d92f52f616bb2e70f04bf7889b4ca5b78f5dd463140d6031b
 changed_resources:
 - path: .contract-engineering/decisions/CENG-T013-P001-DEC001.yaml

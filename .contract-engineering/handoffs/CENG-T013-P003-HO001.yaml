@@ -20,13 +20,13 @@ receiver:
   acceptance_ref: null
   signature_ref: ''
 base_revision: c5bd7720fab284110f53f3bbc4bc310738012d83
-head_revision: 26b28b3338ecca731af61646c0c58974af294f87
-scope_digest: 618d48ce3d237911627ce4d621d9d6f43e2b256b2e8e42789429bec58bda6ddb
+head_revision: 3653d0d9a98ed89384680f8c445fa3c347b56a70
+scope_digest: bcbe63c7657e2f0afc70ee236e47681a17632d59ab91b78660c5d74e82900712
 changed_resources:
   - {path: .contract-engineering/evidence/CENG-T013-P003-EV001.md, sha256: 8642299ac00ef3b6e9a1ac75390040c8de9eeb40e8683cadb28b658f837e23b0}
   - {path: .contract-engineering/execution-tracker.md, sha256: bc504be892d02feb6916418461c1b91388c83f72c7e93a6705127ba4b424a2b9}
   - {path: .contract-engineering/tracker/events/CENG-T013.yaml, sha256: ea877bfabfe0eeaea21237f63073a77d81cf4b8aa20bd22f10c96b37fa2d110c}
-  - {path: .contract-engineering/tracker/index.yaml, sha256: 35d692d50a94d890ee4da4ab21a5ce57e05eac01a1976be1357aaa271ca7cfc2}
+  - {path: .contract-engineering/tracker/index.yaml, sha256: ce133253c0ce332e281d08c1554198d01055117c7af7c097ca59d14ef523be44}
   - {path: .contract-engineering/work-packets/CENG-T013-P003.yaml, sha256: d6f5f162d21a9aa9e6739d56769dc156fce9b50d647c6b09f5be601b43849cbb}
   - {path: requirements-ci.txt, sha256: fb66c29010c902ebf89336cd9a94795504fe3d71f15869ae5b9b31f4e2cfcecf}
   - {path: schemas/evidence-policy.schema.json, sha256: d580a8b4784cfe8674ee1db688dfb414e8fe5bb52bfad11cb5d3af0965b8d622}
@@ -68,7 +68,7 @@ unresolved_items:
 rollback_notes: Restore the P003-scoped files to base revision c5bd772; no remote systems changed.
 requested_next_action: Independently review identifiers, schemas, tests, and evidence; accept or reject this handoff.
 receiver_status: pending
-receiver_notes: Resubmitted after E042. The repository-authoritative unittest discovery command is declared consistently in AC001, VAL001, EV001, and this handoff; pytest is not installed and was not used.
+receiver_notes: Finalized after E042. The repository-authoritative unittest discovery command is declared consistently in AC001, VAL001, EV001, and this handoff; pytest is not installed and was not used. Binding is recomputed for content head 3653d0d9a98ed89384680f8c445fa3c347b56a70.
 accepted_revision: ''
 accepted_scope_digest: ''
 accepted_evidence_refs: []

@@ -19,10 +19,25 @@ receiver:
   accepted_at: ''
   acceptance_ref: ''
   signature_ref: ''
-base_revision: c5bd772
-head_revision: PENDING-CONTENT-HEAD
-scope_digest: PENDING-SCOPE-DIGEST
-changed_resources: []
+base_revision: c5bd7720fab284110f53f3bbc4bc310738012d83
+head_revision: d0b97f23f7ce4295ddce73b1ec184c4b8c462954
+scope_digest: fa36a3e005b225559593f7bc424d310f40c432ae80c0fc26d041852de8163021
+changed_resources:
+  - {path: .contract-engineering/evidence/CENG-T013-P003-EV001.md, sha256: 579f6f27a17a1f71c90ff6da969ded1d5b23b6e7c6919cf1420d182e484c5dc8}
+  - {path: .contract-engineering/execution-tracker.md, sha256: bc504be892d02feb6916418461c1b91388c83f72c7e93a6705127ba4b424a2b9}
+  - {path: .contract-engineering/tracker/events/CENG-T013.yaml, sha256: 025fc776943ac75bb72ea8fac2a1a9903e8c9ec967b44114d086fc531b562fc2}
+  - {path: .contract-engineering/tracker/index.yaml, sha256: e0831f9a628d1d02139b26b982bca2bf86166b1f42bfe3683f83f4ce84a1da39}
+  - {path: .contract-engineering/work-packets/CENG-T013-P003.yaml, sha256: 0c79fecd16fdae99746616b9a44faad6062c73cdd532539addcb85af0120b4cd}
+  - {path: requirements-ci.txt, sha256: fb66c29010c902ebf89336cd9a94795504fe3d71f15869ae5b9b31f4e2cfcecf}
+  - {path: schemas/evidence-policy.schema.json, sha256: d580a8b4784cfe8674ee1db688dfb414e8fe5bb52bfad11cb5d3af0965b8d622}
+  - {path: schemas/identifiers.schema.json, sha256: 1c4564964d12bfa35ae3255a352fa0da38b41e682efd00326c02c01bf5f70815}
+  - {path: schemas/tracker-event.schema.json, sha256: adc9429c17b63e3991bac7c2e0e0987006ad6bc4cc06c2b25e936250e617d53a}
+  - {path: schemas/tracker.schema.json, sha256: 65322a223982c997d0f449dfbfeb9ee430dfc372d1df17493a1ad72835c118d1}
+  - {path: schemas/work-packet.schema.json, sha256: bea5232c5068ce5fe58882fe40e83758cad85806205a5f6ed398d2f24ba4966d}
+  - {path: scripts/identifiers.py, sha256: 3de40150216e8c0f6051e65926586c056fd47fa18efb6070d3d108f6fba764e5}
+  - {path: scripts/validate-contract-records.py, sha256: 5a22c7949c752da422752af60a17982a8e47a8162ffa60d851154c3a569d641b}
+  - {path: scripts/validate-tracker.py, sha256: 2e3763f924856229465bf46249035add380788847ba9bcd99a09262e6c2cae4a}
+  - {path: tests/test_contract_records.py, sha256: 77415d4e4174f3d58233b08b5138a9f3cf333173db57ee5a67d496f65bba307a}
 created_at: '2026-09-16T13:01:00Z'
 expires_at: ''
 approval_ref: CENG-T013-P001-DEC001

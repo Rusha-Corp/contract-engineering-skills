@@ -33,7 +33,7 @@ risk_tier: medium
 approval_policy: user
 external_effects: []
 owner: worker
-reviewer: user
+reviewer: contract-driven-handoff-acceptance-reviewer
 cleanup_owner: worker
 dependencies:
 - CENG-T013-P002

@@ -20,9 +20,18 @@ receiver:
   acceptance_ref: ''
   signature_ref: ''
 base_revision: 1ce6d3e
-head_revision: 689ee35
-scope_digest: P004-content-bound-to-689ee35
-changed_resources: []
+head_revision: 689ee3500dcae47a7a0a84526cb277d59c5168b3
+scope_digest: 234b76ebc537aad00c3c49a4ca64af164ec993cc368a86ebaefc04b15dd03e09
+changed_resources:
+  - {path: .contract-engineering/evidence/CENG-T013-P004-EV001.md, sha256: cf67b1a6a10522475fbb8925f652ae7687b3f55f3168b16219dcd2371311efc7}
+  - {path: .contract-engineering/execution-tracker.md, sha256: be1c7d0d30af49bb538fffcea3f06eb813f6f4b337b40cb394798221d9caeb9a}
+  - {path: .contract-engineering/tracker/events/CENG-T013.yaml, sha256: 6c397ba98bf3e195a41c2efe9ef72beb495fd42cfdcc50d8e9ad6d0534da2610}
+  - {path: .contract-engineering/tracker/index.yaml, sha256: 1087d0cb25f8d31b3836bf152c8cdf4ab6d2213849765f0118c161766e70f5ae}
+  - {path: .contract-engineering/work-packets/CENG-T013-P004.yaml, sha256: 24ae4d39591e072eb64dfe037d47bc2d210dfb73fe545cd97b1a9bfb6a9e861a}
+  - {path: docs/coordination.md, sha256: 024060f3cfdb6be42d50d43331a4d5fcf60bbd67f91d29306ed7fa0a2780d89e}
+  - {path: docs/tracker-storage.md, sha256: 9d358bd9c8501bf4fafcc6a4fdc74e4ed38407901a2a125d15de864f9c24cf18}
+  - {path: scripts/contract_engineering.py, sha256: 81ea30ca685e96ca1f64e0055ca0f93605cd3e631cb3e6c748b7d8fabed2b46c}
+  - {path: tests/test_transitions.py, sha256: 2747bea1006efe182ef150aaf9ece22d2e8e80cd271123ca36293cdb8350c884}
 created_at: '2026-09-16T15:45:00Z'
 expires_at: ''
 approval_ref: CENG-T013-P001-DEC001

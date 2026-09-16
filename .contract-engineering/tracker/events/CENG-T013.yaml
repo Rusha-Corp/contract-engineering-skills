@@ -623,3 +623,21 @@ events:
     metadata, content-head binding, scope, and unrelated P017 limitation passed.
     Moved the packet and tracker row to Rework; retained
     CENG-T013:gate-diagnostics.
+- event_id: CENG-T013-E077
+  packet_id: CENG-T013-P005
+  type: implementation-start
+  actor: worker
+  occurred_at: '2026-09-16T18:40:00Z'
+  summary: Reworked P005 after E076; added threat-model (SEC001) and
+    security-verification (SEC002) records covering fail-closed enforcement,
+    adapter tampering, and information disclosure. Expanded test suite to 10
+    tests. Implementation scope unchanged.
+- event_id: CENG-T013-E078
+  packet_id: CENG-T013-P005
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T18:45:00Z'
+  summary: Returned P005 to Handoff after rework; 10 focused tests pass
+    including fail-closed security and adapter conformance. Security governance
+    records SEC001/SEC002 added. Full unittest suite remains blocked by the
+    pre-existing unrelated CENG-T004-P017 tracker/packet mismatch.

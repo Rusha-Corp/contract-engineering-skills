@@ -76,9 +76,11 @@ validation_plan:
   - diagnostic schema has one owner
   - adapter mapping is explicit
   expected: no unresolved principle violations
-state: Rework
+state: Handoff
 evidence_refs:
 - CENG-T013-P005-EV001
+- CENG-T013-P005-SEC001
+- CENG-T013-P005-SEC002
 handoff_ref: CENG-T013-P005-HO001
 cleanup_scope:
   dead_refs: []

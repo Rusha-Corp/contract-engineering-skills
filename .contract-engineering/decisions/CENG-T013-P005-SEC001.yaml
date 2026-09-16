@@ -1,0 +1,89 @@
+decision_version: 1
+decision_id: CENG-T013-P005-SEC001
+packet_id: CENG-T013-P005
+record_type: threat-model-and-design-gate
+status: approved
+created_at: "2026-09-16T18:30:00Z"
+created_by: worker
+scope: "scripts/gate_diagnostics.py, adapters/*/diagnostics.py, tests/test_gate_diagnostics.py, docs/adapter-security.md, docs/ci-security.md"
+data_classification: internal
+actor_boundary:
+  actor: worker
+  capabilities:
+    - repository-read
+    - repository-write
+    - local-validation
+  approval_policy: user
+  external_effects: []
+  boundary: "The worker may modify only the declared packet scope; the diagnostic module reads and emits local gate-failure records and never invokes Factory hooks or remote systems."
+trust_boundaries:
+  - boundary_id: TB-001
+    description: "Gate-failure inputs from validators and adapters enter the diagnostic envelope."
+    trust_level: semi-trusted
+    assets:
+      - diagnostic-envelope
+      - error-codes
+    entry_points:
+      - emit_diagnostic()
+      - conform_adapter()
+  - boundary_id: TB-002
+    description: "Adapter modules import from the canonical scripts/gate_diagnostics.py."
+    trust_level: semi-trusted
+    assets:
+      - adapter-output
+    entry_points:
+      - adapters/*/diagnostics.py
+  - boundary_id: TB-003
+    description: "The diagnostic module boundary is separate from the excluded Factory hook."
+    trust_level: untrusted
+    assets:
+      - diagnostic-output
+    entry_points:
+      - scripts/gate_diagnostics.py
+threats:
+  - threat_id: THR-001
+    category: tampering
+    description: "A caller could bypass fail-closed by directly constructing a DiagnosticEnvelope with blocking=False for security codes."
+    affected_asset: diagnostic-envelope
+    likelihood: medium
+    impact: high
+    risk: high
+    mitigation: "emit_diagnostic() is the sanctioned constructor; it forces blocking=True for SECURITY_CODES regardless of caller input. Direct construction is discouraged and not used by any adapter."
+    mitigation_status: verified
+    evidence_ref: CENG-T013-P005-SEC002
+  - threat_id: THR-002
+    category: tampering
+    description: "An adapter module could be modified to suppress or downgrade security diagnostics."
+    affected_asset: adapter-output
+    likelihood: low
+    impact: high
+    risk: medium
+    mitigation: "Adapter modules are thin wrappers that re-export from the canonical module. The conformance test verifies all adapters emit required fields and preserve blocking. Any modification would be visible in review and fail the conformance test."
+    mitigation_status: verified
+    evidence_ref: CENG-T013-P005-EV001
+  - threat_id: THR-003
+    category: information-disclosure
+    description: "Diagnostic messages could leak sensitive information from packet contents or internal paths."
+    affected_asset: diagnostic-output
+    likelihood: low
+    impact: medium
+    risk: low
+    mitigation: "Messages are caller-provided; the protocol already requires redaction of sensitive data in governed records. The diagnostic envelope does not read packet contents; it only carries the caller's message string."
+    mitigation_status: verified
+    evidence_ref: CENG-T013-P005-EV001
+ai_agent_risks:
+  prompt_injection_surface: "Repository content is treated as data; diagnostic messages cannot rewrite packet scope, approvals, or blocking flags."
+  tool_poisoning_surface: "No external tool, MCP server, or Factory hook is added or invoked."
+  excessive_agency: "No network, remote-system, credential, or out-of-scope write capability is granted."
+  secret_exposure_surface: "The diagnostic module handles gate-failure metadata only; no secrets are requested, emitted, or stored."
+approval_ref: CENG-T013-P001-DEC001
+factory_hook_exclusion: "Factory hook implementation and .factory-plugin remain explicitly out of scope."
+finding_summary:
+  critical: 0
+  high: 0
+  moderate: 0
+  low: 0
+disposition: pass
+evidence_refs:
+  - CENG-T013-P005-EV001
+  - CENG-T013-P005-SEC002

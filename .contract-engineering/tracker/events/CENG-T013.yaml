@@ -641,3 +641,14 @@ events:
     including fail-closed security and adapter conformance. Security governance
     records SEC001/SEC002 added. Full unittest suite remains blocked by the
     pre-existing unrelated CENG-T004-P017 tracker/packet mismatch.
+    
+- event_id: CENG-T013-E079
+  packet_id: CENG-T013-P005
+  type: acceptance
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T19:00:00Z'
+  summary: Accepted P005 rework after independently verifying all requested
+    diagnostic, adapter, fail-closed, security-governance, dependency,
+    lifecycle, scope, metadata, revision, hash, digest, and evidence gates.
+    Bound acceptance to the a6089c4 content head and released only the
+    CENG-T013:gate-diagnostics lock.

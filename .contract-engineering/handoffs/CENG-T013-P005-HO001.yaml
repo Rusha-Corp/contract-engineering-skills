@@ -20,8 +20,8 @@ receiver:
   identity_type: agent
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: ''
-  acceptance_ref: ''
+  accepted_at: '2026-09-16T19:00:00Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T013-P005-20260916-INDEPENDENT
   signature_ref: ''
 base_revision: 87dd9c6
 head_revision: a6089c4d1ea09b21b95e6362f8ad78472d2ec6fb
@@ -73,5 +73,25 @@ unresolved_items:
   - Unrelated CENG-T004-P017 tracker/packet mismatch remains outside P005 scope.
 rollback_notes: >-
   Restore P005-scoped files to base revision 87dd9c6; no remote systems changed.
-requested_next_action: Independently review and accept or reject this rework handoff.
-receiver_status: pending
+requested_next_action: Retain P005 in the active tracker until iteration closure.
+receiver_status: accepted
+receiver_notes: >-
+  Independent acceptance passed all eleven requested criteria and the structured
+  AC001 contract. scripts/gate_diagnostics.py defines seven stable codes,
+  remediation text, one adapter envelope, and forced blocking for security
+  codes; the ten focused tests substantiate these behaviors for all three
+  adapters. SEC001 is an approved threat model with three threats, three trust
+  boundaries, actor boundary, and AI-agent risk controls. SEC002 records six
+  security checks with zero findings and no unresolved mitigations. P002 and
+  P003 are Complete accepted dependencies. Factory-hook scope is excluded, and
+  the unrelated P017 full-suite limitation is explicitly recorded outside P005.
+  Sender and receiver metadata are authenticated, the Rework-to-Handoff
+  transition is valid, and the a6089c4 content-head convention, 19 changed
+  resource hashes, scope digest, approval, and evidence bindings match the
+  declared content tree. The CENG-T013:gate-diagnostics lock is released.
+accepted_revision: a6089c4d1ea09b21b95e6362f8ad78472d2ec6fb
+accepted_scope_digest: 18310c3a067b01f0954e0084221cc3e00d818fa7dad5c573699d53692558d6bc
+accepted_evidence_refs:
+  - CENG-T013-P005-EV001
+  - CENG-T013-P005-SEC001
+  - CENG-T013-P005-SEC002

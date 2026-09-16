@@ -38,8 +38,7 @@ cleanup_owner: worker
 dependencies:
 - CENG-T013-P002
 - CENG-T013-P003
-locks:
-- CENG-T013:gate-diagnostics
+locks: []
 claim_timestamp: '2026-09-15T23:40:00Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
@@ -76,7 +75,7 @@ validation_plan:
   - diagnostic schema has one owner
   - adapter mapping is explicit
   expected: no unresolved principle violations
-state: Handoff
+state: Complete
 evidence_refs:
 - CENG-T013-P005-EV001
 - CENG-T013-P005-SEC001
@@ -86,4 +85,4 @@ cleanup_scope:
   dead_refs: []
   stale_refs: []
   temp_refs: []
-updated_at: '2026-09-16T18:30:00+00:00'
+updated_at: '2026-09-16T19:00:00+00:00'

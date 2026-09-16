@@ -22,19 +22,19 @@ receiver:
   acceptance_ref: null
   signature_ref: ''
 base_revision: 1be220f2691194a8e69f330ebc85fff9fd6c0172
-head_revision: 52257a830c5c363e93824af0cc46d1e5972801c5
-scope_digest: 0d9ae99955d39f5d92f52f616bb2e70f04bf7889b4ca5b78f5dd463140d6031b
+head_revision: 85b0bcb98b2c647c2eb684b3ae1ff46664e96ff6
+scope_digest: 64bc1409c239e5f57981cd423edf05fca7dd0f5ecf305f814b9e4704de2fcf18
 changed_resources:
 - path: .contract-engineering/decisions/CENG-T013-P001-DEC001.yaml
   sha256: 908bc2980856afec53fb3859fb07da279749e2aacccb67e64d150df2ffca7783
 - path: .contract-engineering/evidence/CENG-T013-P001-EV001.md
   sha256: 0f3a81d6721a74496b66e11cac49812950b074c7c592331eb4313c5d2de720ca
 - path: .contract-engineering/evidence/CENG-T013-P001-EV002.md
-  sha256: fd19be5b01ffb9f1696a659b992b384a73495e956ada808ba3504c1f293e5a41
+  sha256: 2f7e3049ce11e669ebfbae1a17e0b93d8d62e49f0c7a85090029b0de21975ff7
 - path: .contract-engineering/execution-tracker.md
   sha256: e091544e27b42e007a82bfd3b706845d62a9ab8b9dd36a6ab8be2c88cc20ad83
 - path: .contract-engineering/tracker/events/CENG-T013.yaml
-  sha256: 64b577837c5ff771299870e0fafbde7594a970f2d1d9315bd830a5a827ce5b23
+  sha256: e7cf62b29bce39c4de41b0ac83e216a7041722822546db798053d59f26db085e
 - path: .contract-engineering/tracker/index.yaml
   sha256: d8dfd581e5ee5a0f9b8a65dabac0168d0e2fbbdbc110452e9cd50bff2ee67b16
 - path: .contract-engineering/work-packets/CENG-T013-P001.yaml
@@ -79,5 +79,5 @@ rollback_notes: Restore the governed coordination records to the base revision; 
 requested_next_action: Independently review and accept or reject CENG-T013-P001; do
   not self-accept or mark Complete.
 receiver_status: pending
-receiver_notes: Pending independent receiver review; authenticated receiver metadata
-  is provisioned but no acceptance has been recorded.
+receiver_notes: Independent receiver review is pending; the handoff record is
+  excluded from changed_resources to preserve the non-circular binding convention.

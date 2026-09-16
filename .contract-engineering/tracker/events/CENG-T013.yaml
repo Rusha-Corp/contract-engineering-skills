@@ -186,3 +186,45 @@ events:
   summary: Resubmitted P001 in Handoff with pending independent receiver status, b3ab920
     base/head binding, recomputed resource hashes and scope digest, and captured validation
     evidence.
+- event_id: CENG-T013-E024
+  packet_id: CENG-T013-P001
+  type: rejection
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T11:10:00Z'
+  summary: Rejected current P001 handoff because its declared head_revision 52257a8
+    does not match the current committed HEAD 85b0bcb. The scope digest, changed-resource
+    hashes, and EV002 validation evidence are therefore not bound to the committed
+    tree. Exclusion of the handoff record from changed_resources is retained as the
+    non-circular handoff binding convention. Lock CENG-T013:coordination retained;
+    rebind and resubmit.
+  # Rework and resubmission below bind the coordination records to the exact
+  # committed content head above; the handoff record remains non-self-referential.
+- event_id: CENG-T013-E025
+  packet_id: CENG-T013-P001
+  type: rework
+  actor: worker
+  occurred_at: '2026-09-16T11:20:00Z'
+  summary: Reopened P001 after E024 and rebound coordination evidence to committed
+    content head 85b0bcb; receiver status remains pending.
+- event_id: CENG-T013-E026
+  packet_id: CENG-T013-P001
+  type: implementation-start
+  actor: worker
+  occurred_at: '2026-09-16T11:21:00Z'
+  summary: Applied coordination-only binding repair; no P002-P005 implementation,
+    production behavior, or Factory hook scope was changed.
+- event_id: CENG-T013-E027
+  packet_id: CENG-T013-P001
+  type: validation
+  actor: worker
+  occurred_at: '2026-09-16T11:22:00Z'
+  summary: Revalidated contract records, tracker records, and generated tracker
+    projection against the exact content tree at 85b0bcb.
+- event_id: CENG-T013-E028
+  packet_id: CENG-T013-P001
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T11:23:00Z'
+  summary: Resubmitted P001 in Handoff with pending independent receiver status,
+    exact 85b0bcb content-head binding, recomputed resource hashes and scope digest,
+    and captured validation evidence.

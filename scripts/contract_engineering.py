@@ -121,6 +121,17 @@ class TransitionStore:
                 packet = self._load(record["packet_id"])
                 if packet.get("state") == record["source"]:
                     packet["state"] = record["destination"]
+                    packet["updated_at"] = datetime.now(timezone.utc).isoformat()
+                    self._write(self._path(record["packet_id"]), packet)
+                record["status"] = "committed"
+                path.write_text(json.dumps(record, indent=2), encoding="utf-8")
+                recovered.append(path.name)
+            elif record.get("kind") == "reassign":
+                packet = self._load(record["packet_id"])
+                if packet.get("owner") != record["owner"]:
+                    packet["owner"] = record["owner"]
+                    packet["fencing_token"] = record.get("fencing_token", "")
+                    packet["updated_at"] = datetime.now(timezone.utc).isoformat()
                     self._write(self._path(record["packet_id"]), packet)
                 record["status"] = "committed"
                 path.write_text(json.dumps(record, indent=2), encoding="utf-8")

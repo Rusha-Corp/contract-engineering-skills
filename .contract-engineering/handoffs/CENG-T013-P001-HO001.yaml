@@ -22,19 +22,19 @@ receiver:
   acceptance_ref: null
   signature_ref: ''
 base_revision: 1be220f2691194a8e69f330ebc85fff9fd6c0172
-head_revision: 7fb18f935d96e00bf8da42da7a21f1a6f35a5dd9
-scope_digest: d797fe4e1c04d6df7177b1248893c547675285484bf3fd74fb1c8728568201b9
+head_revision: b3ab920fc47561a710eac2e9aff45aff994b9f78
+scope_digest: 0d9ae99955d39f5d92f52f616bb2e70f04bf7889b4ca5b78f5dd463140d6031b
 changed_resources:
 - path: .contract-engineering/decisions/CENG-T013-P001-DEC001.yaml
   sha256: 908bc2980856afec53fb3859fb07da279749e2aacccb67e64d150df2ffca7783
 - path: .contract-engineering/evidence/CENG-T013-P001-EV001.md
   sha256: 0f3a81d6721a74496b66e11cac49812950b074c7c592331eb4313c5d2de720ca
 - path: .contract-engineering/evidence/CENG-T013-P001-EV002.md
-  sha256: 59bcc32b6ebe98b63d80a8782ea6c924b4bbfd2cf6aa16b9652f7967a56298d6
+  sha256: fd19be5b01ffb9f1696a659b992b384a73495e956ada808ba3504c1f293e5a41
 - path: .contract-engineering/execution-tracker.md
   sha256: e091544e27b42e007a82bfd3b706845d62a9ab8b9dd36a6ab8be2c88cc20ad83
 - path: .contract-engineering/tracker/events/CENG-T013.yaml
-  sha256: c484b2ab5f4b11e73171407726f2804cdcbdf16e6a2adffae95490b8214ef2a4
+  sha256: 64b577837c5ff771299870e0fafbde7594a970f2d1d9315bd830a5a827ce5b23
 - path: .contract-engineering/tracker/index.yaml
   sha256: d8dfd581e5ee5a0f9b8a65dabac0168d0e2fbbdbc110452e9cd50bff2ee67b16
 - path: .contract-engineering/work-packets/CENG-T013-P001.yaml
@@ -51,7 +51,7 @@ created_at: '2026-09-16T08:32:00Z'
 expires_at: ''
 approval_ref: CENG-T013-P001-DEC001
 verification:
-  verified_at: '2026-09-16T08:32:00Z'
+  verified_at: '2026-09-16T11:02:00Z'
   verifier: worker
   result: pass
   revocation_checked_at: ''

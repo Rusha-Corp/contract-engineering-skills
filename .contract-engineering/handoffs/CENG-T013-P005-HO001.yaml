@@ -68,4 +68,13 @@ unresolved_items:
 rollback_notes: >-
   Restore P005-scoped files to base revision 87dd9c6; no remote systems changed.
 requested_next_action: Independently review and accept or reject this handoff.
-receiver_status: pending
+receiver_status: rejected
+receiver_notes: >-
+  Independent acceptance review rejected this handoff because P005 is a
+  security-domain packet but provides no governed threat-model approval or
+  Security Verification Gate evidence/validation entry. The focused diagnostic
+  criteria, dependency completion, authenticated metadata, state, content-head
+  binding, scope digest, changed-resource hashes, Factory-hook exclusion, and
+  unrelated P017 limitation otherwise passed. Retain the implementation and
+  evidence, add the required security records and validation results, then
+  resubmit without releasing CENG-T013:gate-diagnostics.

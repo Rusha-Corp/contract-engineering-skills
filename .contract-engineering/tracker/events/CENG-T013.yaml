@@ -611,3 +611,15 @@ events:
   summary: Returned P005 to Handoff with pending receiver acceptance and exact
     339210e content-head binding; implementation scope and unittest evidence are
     unchanged.
+
+- event_id: CENG-T013-E076
+  packet_id: CENG-T013-P005
+  type: rejection
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T18:30:00Z'
+  summary: Rejected P005 because it is a security-domain packet without a
+    governed threat-model approval or Security Verification Gate evidence and
+    validation entry. Diagnostic criteria, dependency completion, authenticated
+    metadata, content-head binding, scope, and unrelated P017 limitation passed.
+    Moved the packet and tracker row to Rework; retained
+    CENG-T013:gate-diagnostics.

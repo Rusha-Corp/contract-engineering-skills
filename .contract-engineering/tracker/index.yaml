@@ -185,10 +185,10 @@ rows:
   updated_at: '2026-09-16'
 - task_id: CENG-T013
   packet_id: CENG-T013-P005
-  state: Handoff
+  state: Rework
   owner: worker
   reviewer: user
   locks:
   - CENG-T013:gate-diagnostics
-  next_action: User review and accept or reject handoff
+  next_action: Add required security gate records and resubmit handoff
   updated_at: '2026-09-16'

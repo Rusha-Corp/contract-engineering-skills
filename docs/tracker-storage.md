@@ -103,6 +103,12 @@ Each state transition should transactionally:
 4. update the current packet/tracker projection; and
 5. commit the new revision.
 
+For the repository's file-only fallback, the journal boundary is
+`.contract-engineering/journal/*.json`. Operations first persist a prepared
+record and then atomically replace the packet YAML; recovery replays only
+prepared records and marks them committed. Repeated transition or reassignment
+requests are no-ops when the desired state or owner is already present.
+
 Database-backed consumers must retain export/import compatibility with the
 YAML records, preserve evidence and handoff IDs, and support a full audit
 export. Replication, search indexes, UI caches, and analytics are derived

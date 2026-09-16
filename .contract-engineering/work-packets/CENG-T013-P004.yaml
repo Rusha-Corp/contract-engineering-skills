@@ -27,11 +27,11 @@ acceptance_criteria: ["Transitions and reassignment are atomic.", "Journal recov
 acceptance_contract:
   version: 1
   criteria:
-    - {id: CENG-T013-P004-AC001, statement: "Crash recovery preserves legal state.", expected_result: "Fault-injection and replay tests converge to one legal state.", verification_method: execute, verification_command: "python3 -m pytest tests", evidence_refs: [CENG-T013-P004-EV001], failure_result: "A retry duplicates or loses a transition.", validation_ref: CENG-T013-P004-VAL001}
+    - {id: CENG-T013-P004-AC001, statement: "Crash recovery preserves legal state.", expected_result: "Fault-injection and replay tests converge to one legal state.", verification_method: execute, verification_command: "python3 -m unittest discover -s tests -p 'test*.py'", evidence_refs: [CENG-T013-P004-EV001], failure_result: "A retry duplicates or loses a transition.", validation_ref: CENG-T013-P004-VAL001}
 validation_plan:
-  - {id: CENG-T013-P004-VAL001, kind: integration, command: "python3 -m pytest tests", expected: "atomicity and recovery tests pass"}
+  - {id: CENG-T013-P004-VAL001, kind: integration, command: "python3 -m unittest discover -s tests -p 'test*.py'", expected: "atomicity and recovery tests pass"}
   - {id: CENG-T013-P004-VAL002, kind: principles, skill: coding-principles, checks: ["journal boundary is explicit", "operations are idempotent"], expected: "no unresolved principle violations"}
-state: Ready
+state: Handoff
 evidence_refs: [CENG-T013-P004-EV001]
-handoff_ref: null
+handoff_ref: CENG-T013-P004-HO001
 cleanup_scope: {dead_refs: [], stale_refs: [], temp_refs: []}

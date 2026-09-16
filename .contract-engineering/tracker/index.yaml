@@ -177,13 +177,13 @@ rows:
   updated_at: '2026-09-16'
 - task_id: CENG-T013
   packet_id: CENG-T013-P004
-  state: Ready
+  state: Handoff
   owner: worker
   reviewer: user
   locks:
   - CENG-T013:transition-journal
-  next_action: Wait for P002 and P003, then implement transition journal API/CLI
-  updated_at: '2026-09-15'
+  next_action: Await independent receiver acceptance
+  updated_at: '2026-09-16'
 - task_id: CENG-T013
   packet_id: CENG-T013-P005
   state: Ready

@@ -517,3 +517,20 @@ events:
   summary: Independent acceptance confirmation passed all requested criteria;
     P002 is Complete, its validator-root lock is released, and the accepted
     5f7e5a6 content-head and scope binding remain unchanged.
+
+- event_id: CENG-T013-E065
+  packet_id: CENG-T013-P004
+  type: claim
+  actor: worker
+  occurred_at: '2026-09-16T15:20:00Z'
+  summary: Claimed P004 after P002 and P003 completion; implementation is limited
+    to the transition journal CLI, tests, and coordination/tracker documentation.
+
+- event_id: CENG-T013-E066
+  packet_id: CENG-T013-P004
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T15:45:00Z'
+  summary: Returned P004 to Handoff after focused transition tests passed; full
+    suite and repository validators remain blocked by the pre-existing
+    CENG-T004-P017 tracker/packet mismatch.

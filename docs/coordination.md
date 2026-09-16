@@ -75,6 +75,14 @@ The host must persist a redacted failure event for every blocked transition.
 Updating a Markdown row or YAML state without a native transition decision is
 not a valid lifecycle event.
 
+The repository file-only implementation is exposed by
+`scripts/contract_engineering.py`. Its `transition` and `reassign` commands
+write a prepared JSON record before changing a packet, then mark that record
+committed. Replaying prepared records is idempotent; `doctor` and
+`explain-block` are read-only diagnostics. Reassignment requires an explicit
+takeover authorization (`--force`) and issues a new fencing token. This local
+fallback is not split-brain safe and must not be used for external effects.
+
 ## Packet state integrity
 
 The coordination store or native harness must enforce the packet transition

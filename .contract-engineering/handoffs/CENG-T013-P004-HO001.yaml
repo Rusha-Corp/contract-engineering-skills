@@ -1,0 +1,52 @@
+handoff_version: 3
+handoff_id: CENG-T013-P004-HO001
+packet_id: CENG-T013-P004
+transition:
+  from: Implementing
+  to: Handoff
+  reason: Transition journal CLI and recovery operations implemented and focused tests pass.
+sender:
+  identity: worker
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: USER-REVIEW
+  accepted_at: ''
+  acceptance_ref: ''
+  signature_ref: ''
+base_revision: 1ce6d3e
+head_revision: PENDING-COMMIT
+scope_digest: PENDING-COMMIT
+changed_resources: []
+created_at: '2026-09-16T15:45:00Z'
+expires_at: ''
+approval_ref: CENG-T013-P001-DEC001
+verification:
+  verified_at: '2026-09-16T15:45:00Z'
+  verifier: worker
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T013-P004-EV001
+validation_results:
+  - command: python3 -m unittest tests.test_transitions
+    result: passed; 4 tests
+  - command: python3 -m unittest discover -s tests -p 'test*.py'
+    result: blocked by unrelated CENG-T004-P017 tracker/packet state mismatch
+  - command: python3 scripts/validate-contract-records.py --project-dir . --mode enforced
+    result: blocked by unrelated CENG-T004-P017 tracker/packet state mismatch
+  - command: python3 scripts/validate-tracker.py --root .contract-engineering
+    result: blocked by unrelated CENG-T004-P017 tracker/packet state mismatch
+evidence_refs:
+  - CENG-T013-P004-EV001
+skill_gaps: []
+unresolved_items:
+  - Receiver must bind the final committed content head and scope digest.
+  - Unrelated CENG-T004-P017 tracker/packet mismatch remains outside P004 scope.
+rollback_notes: Restore P004-scoped files to base revision 1ce6d3e; no remote systems changed.
+requested_next_action: Independently review and accept or reject this handoff.
+receiver_status: pending

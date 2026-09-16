@@ -534,3 +534,13 @@ events:
   summary: Returned P004 to Handoff after focused transition tests passed; full
     suite and repository validators remain blocked by the pre-existing
     CENG-T004-P017 tracker/packet mismatch.
+- event_id: CENG-T013-E067
+  packet_id: CENG-T013-P004
+  type: rejection
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T16:00:00Z'
+  summary: Rejected P004 because its declared full-suite validation is blocked,
+    the evidence does not demonstrate crash fault-injection or reassignment
+    recovery, and recover() handles prepared transition journals but not
+    prepared reassignment journals. Moved the packet and tracker row to Rework;
+    retained CENG-T013:transition-journal for repair and resubmission.

@@ -12,12 +12,12 @@ sender:
   authentication_ref: REDACTED-IDENTITY-REF
   signature_ref: ''
 receiver:
-  identity: user
-  identity_type: human
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
   authenticated: true
-  authentication_ref: USER-REVIEW
-  accepted_at: ''
-  acceptance_ref: ''
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: '2026-09-16T16:00:00Z'
+  acceptance_ref: REVIEWER-REJECT-CENG-T013-P004-20260916
   signature_ref: ''
 base_revision: 1ce6d3e
 head_revision: 689ee3500dcae47a7a0a84526cb277d59c5168b3
@@ -57,4 +57,15 @@ unresolved_items:
   - Unrelated CENG-T004-P017 tracker/packet mismatch remains outside P004 scope.
 rollback_notes: Restore P004-scoped files to base revision 1ce6d3e; no remote systems changed.
 requested_next_action: Independently review and accept or reject this handoff.
-receiver_status: pending
+receiver_status: rejected
+receiver_notes: >-
+  Independent review rejected this handoff. AC001 fails because the declared
+  validation command is recorded as blocked, so crash-recovery convergence is
+  not evidenced. The focused evidence records only four tests and does not
+  demonstrate crash fault injection, reassignment recovery, or the full
+  acceptance set. The implementation's recover() handles prepared transition
+  journals but does not recover prepared reassignment journals. Full-suite and
+  governed contract/tracker validations are also blocked by the unrelated
+  CENG-T004-P017 mismatch. Rework the validation/evidence and reassignment
+  recovery path, then resubmit with the same content-head convention and
+  recomputed bindings.

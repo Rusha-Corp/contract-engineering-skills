@@ -569,3 +569,36 @@ events:
     reassignment recovery, idempotent replay, focused validation, dependencies,
     authenticated metadata, revision/scope/hash bindings, and the recorded
     unrelated P017 full-suite limitation. Released CENG-T013:transition-journal.
+
+- event_id: CENG-T013-E071
+  packet_id: CENG-T013-P005
+  type: rework
+  actor: worker
+  occurred_at: '2026-09-16T18:10:00Z'
+  summary: Reopened P005 after the prior handoff was not bound to the committed
+    implementation head; retained the diagnostic implementation and focused
+    unittest evidence while repairing lifecycle and content-head bindings.
+
+- event_id: CENG-T013-E072
+  packet_id: CENG-T013-P005
+  type: claim
+  actor: worker
+  occurred_at: '2026-09-16T18:10:00Z'
+  summary: Claimed P005 rework for scoped gate-diagnostics lifecycle and
+    handoff-binding repair; no Factory-hook or remote-system scope is added.
+
+- event_id: CENG-T013-E073
+  packet_id: CENG-T013-P005
+  type: implementation-start
+  actor: worker
+  occurred_at: '2026-09-16T18:11:00Z'
+  summary: Rebound P005 lifecycle records after retry; diagnostic implementation,
+    adapter documentation, and scoped tests remain within the original packet.
+
+- event_id: CENG-T013-E074
+  packet_id: CENG-T013-P005
+  type: validation
+  actor: worker
+  occurred_at: '2026-09-16T18:12:00Z'
+  summary: Focused gate-diagnostics conformance validation passed with five
+    unittest cases; full-suite limitations remain outside P005 scope.

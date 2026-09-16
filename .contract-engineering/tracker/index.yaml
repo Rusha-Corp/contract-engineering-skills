@@ -86,7 +86,7 @@ rows:
   updated_at: '2026-09-03'
 - task_id: CENG-T004
   packet_id: CENG-T004-P017
-  state: Rework
+  state: Handoff
   owner: agent
   reviewer: contract-driven-handoff-acceptance-reviewer
   locks:
@@ -170,12 +170,12 @@ rows:
   updated_at: '2026-09-16'
 - task_id: CENG-T013
   packet_id: CENG-T013-P003
-  state: Handoff
+  state: Rework
   owner: worker
   reviewer: user
   locks:
   - CENG-T013:identifiers-schema
-  next_action: Implement shared identifier and schema alignment
+  next_action: Independently review and accept or reject P003; receiver acceptance remains pending
   updated_at: '2026-09-16'
 - task_id: CENG-T013
   packet_id: CENG-T013-P004

@@ -335,3 +335,43 @@ events:
   occurred_at: '2026-09-16T13:01:00Z'
   summary: Returned P003 to Handoff with receiver_status pending; Factory hooks,
     P002/P004/P005 implementation, and unrelated workspace changes remain excluded.
+- event_id: CENG-T013-E042
+  packet_id: CENG-T013-P003
+  type: rejection
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T13:20:00Z'
+  summary: Rejected P003 because AC001 and VAL001 require the exact
+    `python3 -m pytest tests` command, but EV001 and the handoff only record
+    unittest discovery output; no pytest output is available. Identifier,
+    schema, dependency, dependency-order, metadata, and current-head checks
+    otherwise passed. Retained CENG-T013:identifiers-schema.
+- event_id: CENG-T013-E043
+  packet_id: CENG-T013-P003
+  type: rework
+  actor: worker
+  occurred_at: '2026-09-16T13:30:00Z'
+  summary: Reopened P003 after E042 and replaced unavailable pytest declarations
+    with the repository-authoritative unittest discovery command; canonical
+    identifier behavior and pinned jsonschema requirements are unchanged.
+- event_id: CENG-T013-E044
+  packet_id: CENG-T013-P003
+  type: implementation-start
+  actor: worker
+  occurred_at: '2026-09-16T13:31:00Z'
+  summary: Updated only P003 acceptance, validation, evidence, and governed
+    lifecycle records; no implementation behavior or unrelated packet scope changed.
+- event_id: CENG-T013-E045
+  packet_id: CENG-T013-P003
+  type: validation
+  actor: worker
+  occurred_at: '2026-09-16T13:32:00Z'
+  summary: Revalidated P003 with repository-authoritative unittest, contract-record,
+    tracker, projection, and pinned-dependency commands; results are captured in
+    EV001 and the handoff.
+- event_id: CENG-T013-E046
+  packet_id: CENG-T013-P003
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T13:33:00Z'
+  summary: Returned P003 to Handoff with receiver_status pending and exact
+    repository-authoritative validation declarations; P003 lock remains retained.

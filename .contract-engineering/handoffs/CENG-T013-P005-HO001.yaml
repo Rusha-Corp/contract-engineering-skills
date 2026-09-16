@@ -4,8 +4,9 @@ packet_id: CENG-T013-P005
 transition:
   from: Validation
   to: Handoff
-  reason: Focused diagnostics and adapter conformance tests pass; full suite has a
-    documented unrelated tracker mismatch.
+  reason: Retry revalidated focused diagnostics and adapter conformance tests and
+    repaired the handoff content-head binding; full suite has a documented
+    unrelated tracker mismatch.
 sender:
   identity: worker
   identity_type: agent
@@ -20,18 +21,20 @@ receiver:
   accepted_at: ''
   acceptance_ref: ''
   signature_ref: ''
-base_revision: 87dd9c6
-head_revision: eaa438a
+base_revision: 3d36d59
+head_revision: 339210e9d8891cd9c72f9d408927fa64d79d9e0d
 scope_digest: 6c0007b04048fd9f6c51b679835bc42f644b40a1ec4f9ca5ccdc3e24f7cd9513
 changed_resources:
 - path: .contract-engineering/evidence/CENG-T013-P005-EV001.md
-  sha256: 9128b792e8c1130ac144f7f539ae879c4b774d93f2d95c87f7f7129a3480a48e
+  sha256: 5ab1f7d096e48c1d918e9d118cb574c650017029cf4bd92b0a66b654e53a2b3d
 - path: .contract-engineering/execution-tracker.md
   sha256: 8931c1c806d347c683eed58b84d5b73d0371a4ba0c8d4913c8ba85f2d41d0336
+- path: .contract-engineering/tracker/events/CENG-T013.yaml
+  sha256: 9419482fe369b12b8888760698547b66d987f61fdd53dd3db25b225345d5c40f
 - path: .contract-engineering/tracker/index.yaml
-  sha256: 277cd13ed296e95ad8bb380ccbfcee2d1eabd9ecbbad4121867717d150acf49f
+  sha256: 86cca394c3ed6ce7793a8d3f3cc352af14efd2ae50d0a3c21b5a96216eabcc42
 - path: .contract-engineering/work-packets/CENG-T013-P005.yaml
-  sha256: fceec806395033392e813f7cd6afc9da53b623781ffee94b58f8f4e2e29f09a9
+  sha256: 2276871c2694e23e04a3e9b8dde56b63075357033fe69d1d4ae5241ed36988d1
 - path: adapters/factory-droid/README.md
   sha256: 686f100f61255f18be8cd3098a9aa7667f721a57dc8e2eef06a352e34758d01b
 - path: adapters/factory-droid/diagnostics.py
@@ -63,7 +66,7 @@ verification:
   verification_ref: CENG-T013-P005-EV001
 validation_results:
 - command: python3 -m unittest tests.test_gate_diagnostics -v
-  result: passed; 5 tests
+  result: passed; 5 tests on retry
 - command: python3 -m unittest discover -s tests -p 'test_*.py'
   result: blocked by unrelated CENG-T004-P017 tracker/packet state mismatch
 evidence_refs:

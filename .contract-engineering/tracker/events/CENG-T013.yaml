@@ -602,3 +602,12 @@ events:
   occurred_at: '2026-09-16T18:12:00Z'
   summary: Focused gate-diagnostics conformance validation passed with five
     unittest cases; full-suite limitations remain outside P005 scope.
+
+- event_id: CENG-T013-E075
+  packet_id: CENG-T013-P005
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T18:15:00Z'
+  summary: Returned P005 to Handoff with pending receiver acceptance and exact
+    339210e content-head binding; implementation scope and unittest evidence are
+    unchanged.

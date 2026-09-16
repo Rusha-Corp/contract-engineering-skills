@@ -544,3 +544,19 @@ events:
     recovery, and recover() handles prepared transition journals but not
     prepared reassignment journals. Moved the packet and tracker row to Rework;
     retained CENG-T013:transition-journal for repair and resubmission.
+- event_id: CENG-T013-E068
+  packet_id: CENG-T013-P004
+  type: implementation-start
+  actor: worker
+  occurred_at: '2026-09-16T16:30:00Z'
+  summary: Reworked P004 after E067; extended recover() to handle prepared
+    reassignment journals and added three crash fault-injection tests proving
+    transition recovery, reassignment recovery, and idempotent replay.
+- event_id: CENG-T013-E069
+  packet_id: CENG-T013-P004
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T16:35:00Z'
+  summary: Returned P004 to Handoff after rework; 7 focused tests pass including
+    crash fault-injection and idempotent replay. Full unittest suite remains
+    blocked by the pre-existing unrelated CENG-T004-P017 tracker/packet mismatch.

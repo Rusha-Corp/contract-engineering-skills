@@ -32,7 +32,7 @@ owner: worker
 reviewer: contract-driven-handoff-acceptance-reviewer
 cleanup_owner: worker
 dependencies: [CENG-T012-P001]
-locks: ["CENG-T013:coordination"]
+locks: []
 claim_timestamp: "2026-09-15T23:40:00Z"
 baseline_refs:
   - ".contract-engineering/protocol.lock.yaml"
@@ -79,7 +79,7 @@ validation_plan:
     skill: coding-principles
     checks: ["packet boundaries are cohesive", "no production implementation is included"]
     expected: "no unresolved principle violations"
-state: Handoff
+state: Complete
 evidence_refs: [CENG-T013-P001-EV001, CENG-T013-P001-EV002]
 handoff_ref: CENG-T013-P001-HO001
 cleanup_scope: {dead_refs: [], stale_refs: [], temp_refs: []}

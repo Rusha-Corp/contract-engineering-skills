@@ -18,7 +18,7 @@ owner: worker
 reviewer: contract-driven-handoff-acceptance-reviewer
 cleanup_owner: worker
 dependencies: [CENG-T013-P001]
-locks: [CENG-T013:identifiers-schema]
+locks: []
 claim_timestamp: "2026-09-15T23:40:00Z"
 baseline_refs: [".contract-engineering/protocol.lock.yaml", "1be220f2691194a8e69f330ebc85fff9fd6c0172", "CENG-T013-P001-DEC001"]
 design_decision_ref: CENG-T013-P001-DEC001
@@ -31,7 +31,7 @@ acceptance_contract:
 validation_plan:
   - {id: CENG-T013-P003-VAL001, kind: schema, command: "python3 -m unittest discover -s tests -p 'test_*.py'", expected: "schema and compatibility tests pass"}
   - {id: CENG-T013-P003-VAL002, kind: principles, skill: coding-principles, checks: ["canonical mapping has one owner", "dependency is pinned"], expected: "no unresolved principle violations"}
-state: Handoff
+state: Complete
 handoff_ref: CENG-T013-P003-HO001
 evidence_refs: [CENG-T013-P003-EV001]
 cleanup_scope: {dead_refs: [], stale_refs: [], temp_refs: []}

@@ -16,8 +16,8 @@ receiver:
   identity_type: agent
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: null
-  acceptance_ref: ''
+  accepted_at: '2026-09-16T15:00:00Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T013-P003-20260916
   signature_ref: ''
 base_revision: c5bd7720fab284110f53f3bbc4bc310738012d83
 head_revision: 5f7e5a6f9d818da17a5b3e84836baf54b39685f0
@@ -67,13 +67,19 @@ unresolved_items:
   - The unrelated CENG-T004-P017 full-suite limitation remains open outside P003 scope.
 rollback_notes: Restore the P003-scoped files to base revision c5bd772; no remote systems changed.
 requested_next_action: Retain P003 in the active tracker until iteration closure.
-receiver_status: pending
+receiver_status: accepted
 receiver_notes: >-
-  Resubmitted after E053 rejection. The handoff and evidence are rebound to the
-  exact committed content head 5f7e5a6f9d818da17a5b3e84836baf54b39685f0;
-  changed-resource hashes and scope digest are recomputed. The corrected
-  repository-authoritative unittest validation, pinned jsonschema evidence, and
-  unrelated CENG-T004-P017 full-suite limitation are preserved. Reviewer
-  metadata is contract-driven-handoff-acceptance-reviewer throughout the P003
-  records. The handoff record is excluded from changed_resources to preserve
-  non-circular binding. Lock CENG-T013:identifiers-schema is retained.
+  Independent receiver review accepted. AC001 passes: EV001 records the
+  canonical legacy/RUSHA identifier grammar, schema and template alignment,
+  pinned jsonschema dependency evidence, focused compatibility tests, and
+  passing contract-record, tracker, and projection validation. The unrelated
+  CENG-T004-P017 full-suite limitation is explicit and outside P003 scope.
+  The handoff binds the reviewed content head, scope digest, changed-resource
+  hashes, and evidence; HO001 itself is excluded from changed_resources under
+  the non-circular binding convention. P001 is accepted, actor and receiver
+  metadata are authenticated, Factory-hook scope is excluded, and only the
+  CENG-T013:identifiers-schema lock is released.
+accepted_revision: 5f7e5a6f9d818da17a5b3e84836baf54b39685f0
+accepted_scope_digest: d6b9d114d294a827a3a480a57194a06bfbd2e31642353b467f66b9482b7ddd17
+accepted_evidence_refs:
+  - CENG-T013-P003-EV001

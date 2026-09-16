@@ -21,7 +21,7 @@ receiver:
   acceptance_ref: null
   signature_ref: ''
 base_revision: 1be220f2691194a8e69f330ebc85fff9fd6c0172
-head_revision: 1be220f2691194a8e69f330ebc85fff9fd6c0172
+head_revision: f12abc0
 scope_digest: 242a8dc009070c426a32300b7f36957f4ae1bd7734a4ab1f6c231f23537b62c6
 changed_resources:
 - path: scripts/validate-contract-records.py

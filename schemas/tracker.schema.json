@@ -16,8 +16,8 @@
         "type": "object",
         "required": ["task_id", "packet_id", "state", "owner", "reviewer", "locks", "next_action", "updated_at"],
         "properties": {
-          "task_id": {"type": "string", "pattern": "^[A-Z0-9-]+-T[0-9]{3}$"},
-          "packet_id": {"type": "string", "pattern": "^[A-Z0-9-]+-T[0-9]{3}-P[0-9]{3}$"},
+          "task_id": {"$ref": "identifiers.schema.json#/$defs/taskId"},
+          "packet_id": {"$ref": "identifiers.schema.json#/$defs/packetId"},
           "state": {"type": "string", "minLength": 1},
           "owner": {"type": "string", "minLength": 1},
           "reviewer": {"type": "string", "minLength": 1},

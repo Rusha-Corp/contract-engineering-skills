@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Rusha-Corp/contract-engineering-skills/schemas/identifiers.schema.json",
+  "title": "Contract Engineering Identifiers",
+  "$defs": {
+    "programComponent": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9]*$"
+    },
+    "taskId": {
+      "type": "string",
+      "pattern": "^(?:[A-Z][A-Z0-9]*-)+T[0-9]{3}$"
+    },
+    "packetId": {
+      "type": "string",
+      "pattern": "^(?:[A-Z][A-Z0-9]*-)+T[0-9]{3}-P[0-9]{3}$"
+    }
+  }
+}

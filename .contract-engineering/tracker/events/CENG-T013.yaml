@@ -228,6 +228,15 @@ events:
   summary: Resubmitted P001 in Handoff with pending independent receiver status,
     exact 85b0bcb content-head binding, recomputed resource hashes and scope digest,
     and captured validation evidence.
+- event_id: CENG-T013-E029
+  packet_id: CENG-T013-P001
+  type: acceptance
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T11:30:00Z'
+  summary: Accepted P001 after independently verifying all acceptance criteria,
+    exact 85b0bcb content-head binding, changed-resource hashes and scope digest,
+    captured validation, authenticated metadata, dependency ordering, and
+    Factory-hook exclusion; released only the CENG-T013:coordination lock.
 - event_id: CENG-T013-E030
   packet_id: CENG-T013-P002
   type: rejection
@@ -305,3 +314,24 @@ events:
   summary: Returned P002 to Handoff with receiver_status pending and the handoff
     prepared for exact non-self-referential binding to the resulting committed
     content tree; changed-resource hashes and scope digest are recomputed.
+- event_id: CENG-T013-E039
+  packet_id: CENG-T013-P003
+  type: claim
+  actor: worker
+  occurred_at: '2026-09-16T12:40:00Z'
+  summary: Claimed P003 after accepted P001 coordination; implementation is limited
+    to shared identifiers, schemas, validators, pinned dependencies, and scoped tests.
+- event_id: CENG-T013-E040
+  packet_id: CENG-T013-P003
+  type: validation
+  actor: worker
+  occurred_at: '2026-09-16T13:00:00Z'
+  summary: Validated identifier compatibility, pinned dependency hashes, unit tests,
+    contract records, tracker reconciliation, and generated projection locally.
+- event_id: CENG-T013-E041
+  packet_id: CENG-T013-P003
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T13:01:00Z'
+  summary: Returned P003 to Handoff with receiver_status pending; Factory hooks,
+    P002/P004/P005 implementation, and unrelated workspace changes remain excluded.

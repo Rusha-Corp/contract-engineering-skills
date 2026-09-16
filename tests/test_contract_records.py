@@ -194,6 +194,29 @@ class ValidatorRootAndModeTests(unittest.TestCase):
                 )
 
 
+class CanonicalIdentifierTests(unittest.TestCase):
+    def test_accepts_legacy_and_program_scoped_identifiers(self):
+        for value in (
+            "CENG-T001",
+            "CENG-T001-P001",
+            "RUSHA-PROGRAM-T001",
+            "RUSHA-PROGRAM-T001-P001",
+            "RUSHA-PLATFORM-CORE-T001-P001",
+        ):
+            self.assertTrue(validator.is_task_or_packet_identifier(value), value)
+
+    def test_rejects_noncanonical_identifier_shapes(self):
+        for value in (
+            "ceng-T001",
+            "RUSHA--T001",
+            "RUSHA-Platform-T001",
+            "RUSHA-T01",
+            "RUSHA-T001-P01",
+            "RUSHA-T001-P001-extra",
+        ):
+            self.assertFalse(validator.is_task_or_packet_identifier(value), value)
+
+
 def _packet(packet_id, state, owner="agent", reviewer="user", handoff_ref=None):
     return {
         "packet_id": packet_id,

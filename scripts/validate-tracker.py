@@ -4,12 +4,19 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import re
 from datetime import date, timedelta
 from pathlib import Path
 from typing import Any
 
 import yaml
+
+IDENTIFIER_SCRIPT = Path(__file__).with_name("identifiers.py")
+IDENTIFIER_SPEC = importlib.util.spec_from_file_location("identifiers", IDENTIFIER_SCRIPT)
+assert IDENTIFIER_SPEC and IDENTIFIER_SPEC.loader
+identifiers = importlib.util.module_from_spec(IDENTIFIER_SPEC)
+IDENTIFIER_SPEC.loader.exec_module(identifiers)
 
 
 STATES = {
@@ -28,8 +35,8 @@ STATES = {
     "Interrupted",
     "Cancelled",
 }
-TASK_ID = re.compile(r"^[A-Z0-9-]+-T[0-9]{3}$")
-PACKET_ID = re.compile(r"^[A-Z0-9-]+-T[0-9]{3}-P[0-9]{3}$")
+TASK_ID = identifiers.TASK_ID
+PACKET_ID = identifiers.PACKET_ID
 MAX_ACTIVE_AGE = timedelta(days=14)
 
 

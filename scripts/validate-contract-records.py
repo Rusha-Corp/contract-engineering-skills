@@ -10,9 +10,16 @@ import re
 import sys
 from collections import namedtuple
 from pathlib import Path
+
+IDENTIFIERS = Path(__file__).with_name("identifiers.py")
+IDENTIFIER_SPEC = importlib.util.spec_from_file_location("identifiers", IDENTIFIERS)
+assert IDENTIFIER_SPEC and IDENTIFIER_SPEC.loader
+identifiers = importlib.util.module_from_spec(IDENTIFIER_SPEC)
+IDENTIFIER_SPEC.loader.exec_module(identifiers)
 from typing import Any
 
 import yaml
+import jsonschema
 from yaml.events import (
     AliasEvent,
     MappingEndEvent,
@@ -42,7 +49,8 @@ STATES = {
     "Cancelled",
 }
 DOMAINS = {"coding", "browser", "design", "data", "documentation", "security"}
-PACKET_ID = re.compile(r"^[A-Z0-9-]+-T\d{3}-P\d{3}$")
+TASK_ID = identifiers.TASK_ID
+PACKET_ID = identifiers.PACKET_ID
 BASE_REVISION = re.compile(r"^[0-9a-f]{40}$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 MAX_YAML_BYTES = 1 * 1024 * 1024
@@ -155,6 +163,7 @@ def _validate_records(root: Path, packet_path: Path | None, changed_paths: list[
     if cross_dup:
         fail(f"duplicate packet IDs across partitions {sorted(cross_dup)}")
     packets = {**live_packets, **archive_packets}
+    validate_json_schemas(root, packets)
     for directory, partition in (
         (root / "work-packets", live_packets),
         (root / ARCHIVE_PACKET_DIR, archive_packets),
@@ -173,6 +182,54 @@ def _validate_records(root: Path, packet_path: Path | None, changed_paths: list[
         if packet is None:
             fail(f"unknown packet {packet_path}")
         enforce_scope(packet, changed_paths)
+
+
+def validate_json_schemas(root: Path, packets: dict[str, dict[str, Any]]) -> None:
+    """Validate canonical records with the pinned JSON Schema implementation."""
+    schema_dir = root.parent / "schemas"
+    schemas = {
+        "work-packet.schema.json": jsonschema.validators.validator_for(
+            load_json_schema(schema_dir / "work-packet.schema.json")
+        ),
+        "tracker.schema.json": jsonschema.validators.validator_for(
+            load_json_schema(schema_dir / "tracker.schema.json")
+        ),
+        "tracker-event.schema.json": jsonschema.validators.validator_for(
+            load_json_schema(schema_dir / "tracker-event.schema.json")
+        ),
+    }
+    for schema_name, validator in schemas.items():
+        validator.check_schema(
+            load_json_schema(schema_dir / schema_name)
+        )
+    identifier_schema = load_json_schema(schema_dir / "identifiers.schema.json")
+    task_validator = jsonschema.Draft202012Validator(
+        identifier_schema["$defs"]["taskId"]
+    )
+    packet_validator = jsonschema.Draft202012Validator(
+        identifier_schema["$defs"]["packetId"]
+    )
+    for packet_id, packet in packets.items():
+        validate_identifier(task_validator, packet.get("task_id"), f"{packet_id}.task_id")
+        validate_identifier(packet_validator, packet_id, f"{packet_id}.packet_id")
+        for dependency in packet.get("dependencies", []):
+            validate_identifier(packet_validator, dependency, f"{packet_id}.dependency")
+
+
+def load_json_schema(path: Path) -> dict[str, Any]:
+    import json
+
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        fail(f"{path}: cannot load JSON Schema: {exc}")
+
+
+def validate_identifier(validator: Any, value: object, label: str) -> None:
+    try:
+        validator.validate(value)
+    except jsonschema.ValidationError as exc:
+        fail(f"{label}: JSON Schema validation failed: {exc.message}")
 
 
 def run_validation(
@@ -515,9 +572,13 @@ MAX_INDEX_PACKET_ROWS = 25
 MAX_SHARD_PACKET_ROWS = 50
 TERMINAL_STATES = {"Complete", "Cancelled"}
 TRACKER_ROW_RE = re.compile(
-    r"^\| ([^|]+) \| ([A-Z0-9-]+-T\d{3}-P\d{3}) \| ([^|]+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \|$",
+    rf"^\| ([^|]+) \| ({identifiers.PACKET_PATTERN[1:-1]}) \| ([^|]+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \|$",
     re.MULTILINE,
 )
+
+
+def is_task_or_packet_identifier(value: object) -> bool:
+    return identifiers.is_task_or_packet_identifier(value)
 
 
 def _parse_tracker_rows(text: str) -> list[tuple[str, str, str, str, str, str]]:

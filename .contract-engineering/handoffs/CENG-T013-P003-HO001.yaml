@@ -1,0 +1,57 @@
+handoff_version: 3
+handoff_id: CENG-T013-P003-HO001
+packet_id: CENG-T013-P003
+transition:
+  from: Validation
+  to: Handoff
+  reason: Identifier compatibility and schema validation are implemented and locally verified.
+sender:
+  identity: worker
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: ''
+  acceptance_ref: ''
+  signature_ref: ''
+base_revision: c5bd772
+head_revision: PENDING-CONTENT-HEAD
+scope_digest: PENDING-SCOPE-DIGEST
+changed_resources: []
+created_at: '2026-09-16T13:01:00Z'
+expires_at: ''
+approval_ref: CENG-T013-P001-DEC001
+verification:
+  verified_at: '2026-09-16T13:01:00Z'
+  verifier: worker
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T013-P003-EV001
+validation_results:
+  - command: python3 -m unittest discover -s tests -v
+    result: passed; 56 tests
+  - command: python3 scripts/validate-contract-records.py --root .contract-engineering
+    result: passed
+  - command: python3 scripts/validate-tracker.py --root .contract-engineering
+    result: passed
+  - command: python3 scripts/render-tracker.py --root .contract-engineering --check
+    result: passed
+  - command: python3 -m pip download --require-hashes --no-deps -r requirements-ci.txt -d /tmp/ci-requirements-check
+    result: passed; all six pinned distributions downloaded with hashes
+evidence_refs:
+  - CENG-T013-P003-EV001
+skill_gaps: []
+unresolved_items:
+  - Receiver must independently recompute the final content-head binding and scope digest.
+rollback_notes: Restore the P003-scoped files to base revision c5bd772; no remote systems changed.
+requested_next_action: Independently review identifiers, schemas, tests, and evidence; accept or reject this handoff.
+receiver_status: pending
+receiver_notes: ''
+accepted_revision: ''
+accepted_scope_digest: ''
+accepted_evidence_refs: []

@@ -31,7 +31,8 @@ acceptance_contract:
 validation_plan:
   - {id: CENG-T013-P003-VAL001, kind: schema, command: "python3 -m pytest tests", expected: "schema and compatibility tests pass"}
   - {id: CENG-T013-P003-VAL002, kind: principles, skill: coding-principles, checks: ["canonical mapping has one owner", "dependency is pinned"], expected: "no unresolved principle violations"}
-state: Ready
+state: Handoff
+handoff_ref: CENG-T013-P003-HO001
 evidence_refs: [CENG-T013-P003-EV001]
 handoff_ref: null
 cleanup_scope: {dead_refs: [], stale_refs: [], temp_refs: []}

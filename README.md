@@ -40,6 +40,8 @@ adopt them by pinning an immutable release in a project-local lock file.
   [`docs/tracker-storage.md`](docs/tracker-storage.md) for the bounded storage
   contract and database-backed consumer model.
 - `.factory-plugin/plugin.json` is the Factory Droid plugin manifest.
+- `.factory-plugin/marketplace.json` is the Factory Droid marketplace manifest.
+- `droids/` contains the custom handoff-acceptance reviewer droid for Factory Droid.
 - `LICENSE` is the MIT license.
 
 ## Protocol configuration
@@ -82,13 +84,25 @@ through bounded practice experiments.
 
 ## Droid installation
 
-This repository includes a `.factory-plugin/plugin.json` manifest and can be
-installed as a Factory Droid plugin:
+This repository includes a `.factory-plugin/marketplace.json` marketplace
+manifest and a `.factory-plugin/plugin.json` plugin manifest. It is both a
+marketplace and a single plugin, so Droid can install it directly:
 
 ```bash
 droid plugin marketplace add https://github.com/Rusha-Corp/contract-engineering-skills
 droid plugin install contract-engineering-skills@contract-engineering-skills --scope user
 ```
+
+To pin a specific release, append `#v2.7.0` to the marketplace URL:
+
+```bash
+droid plugin marketplace add 'https://github.com/Rusha-Corp/contract-engineering-skills#v2.7.0'
+droid plugin install contract-engineering-skills@contract-engineering-skills --scope user
+```
+
+The plugin ships six governed skills (`skills/`), a custom handoff-acceptance
+droid (`droids/`), host adapters (`adapters/`), and a crash-recoverable
+transition journal CLI (`scripts/contract_engineering.py`).
 
 Alternatively, for a new or empty Droid Skill directory, first create a
 project lock using the

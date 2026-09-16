@@ -63,6 +63,11 @@ block the affected operation instead of silently skipping the control.
 Security routing must use packet domain, risk, declared effects, capabilities,
 and classified sensitive scope. It must not use historical task identifiers.
 
+Gate failures use the shared `adapters/generic/diagnostics.py` contract. Every
+adapter output includes `code`, `severity`, `message`, `remediation`,
+`packet_id`, `gate_name`, and `blocking`; security failures are always
+blocking and cannot be downgraded.
+
 The host's conformance test must cover the native enforcement sequence and
 the seven deterministic cases in `docs/agent-security.md`. A generic adapter
 must fail closed when it cannot prove capability or approval enforcement.

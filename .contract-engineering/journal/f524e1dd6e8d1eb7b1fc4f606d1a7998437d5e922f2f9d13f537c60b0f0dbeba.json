@@ -1,0 +1,9 @@
+{
+  "kind": "transition",
+  "packet_id": "CENG-T013-P005",
+  "source": "Ready",
+  "destination": "Claimed",
+  "actor": "worker",
+  "reason": "Claim P005 gate diagnostics implementation",
+  "status": "committed"
+}

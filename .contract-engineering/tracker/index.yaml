@@ -185,10 +185,10 @@ rows:
   updated_at: '2026-09-16'
 - task_id: CENG-T013
   packet_id: CENG-T013-P005
-  state: Ready
+  state: Handoff
   owner: worker
   reviewer: user
   locks:
   - CENG-T013:gate-diagnostics
-  next_action: Wait for P002 and P003, then implement diagnostics and conformance
-  updated_at: '2026-09-15'
+  next_action: User review and accept or reject handoff
+  updated_at: '2026-09-16'

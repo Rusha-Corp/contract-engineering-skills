@@ -56,3 +56,14 @@ Stop new use, quarantine active sessions, preserve evidence, and disable
 credentials or endpoints as required. Roll back to the last verified ref or
 use a manually approved replacement. Do not delete the inventory or incident
 record.
+
+## Gate diagnostic contract
+
+All adapters use `scripts/gate_diagnostics.py` as the single diagnostic
+contract. Every diagnostic contains `code`, `severity`, `message`,
+`remediation`, `packet_id`, `gate_name`, and `blocking`.
+
+Codes are stable `GATE-<CATEGORY>-<NNN>` identifiers. Adapters may format an
+envelope as human-readable text, JSON, or Markdown, but must not remove fields,
+hide failures, or downgrade blocking outcomes. Security diagnostics are always
+`severity: error` and `blocking: true`, regardless of caller input.

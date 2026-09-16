@@ -1,0 +1,79 @@
+handoff_version: 3
+handoff_id: CENG-T013-P005-HO001
+packet_id: CENG-T013-P005
+transition:
+  from: Validation
+  to: Handoff
+  reason: Focused diagnostics and adapter conformance tests pass; full suite has a
+    documented unrelated tracker mismatch.
+sender:
+  identity: worker
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  accepted_at: ''
+  acceptance_ref: ''
+  signature_ref: ''
+base_revision: 87dd9c6
+head_revision: eaa438a
+scope_digest: 6c0007b04048fd9f6c51b679835bc42f644b40a1ec4f9ca5ccdc3e24f7cd9513
+changed_resources:
+- path: .contract-engineering/evidence/CENG-T013-P005-EV001.md
+  sha256: 9128b792e8c1130ac144f7f539ae879c4b774d93f2d95c87f7f7129a3480a48e
+- path: .contract-engineering/execution-tracker.md
+  sha256: 8931c1c806d347c683eed58b84d5b73d0371a4ba0c8d4913c8ba85f2d41d0336
+- path: .contract-engineering/tracker/index.yaml
+  sha256: 277cd13ed296e95ad8bb380ccbfcee2d1eabd9ecbbad4121867717d150acf49f
+- path: .contract-engineering/work-packets/CENG-T013-P005.yaml
+  sha256: fceec806395033392e813f7cd6afc9da53b623781ffee94b58f8f4e2e29f09a9
+- path: adapters/factory-droid/README.md
+  sha256: 686f100f61255f18be8cd3098a9aa7667f721a57dc8e2eef06a352e34758d01b
+- path: adapters/factory-droid/diagnostics.py
+  sha256: f2c87ffdf50bd94e14a3847cc36729677c7acd6c3007944440309caaf8ceb1bf
+- path: adapters/generic/README.md
+  sha256: 5bd01d40f93198be99b78de899df4e0e69670a94d3a69067904ec97fb67af710
+- path: adapters/generic/diagnostics.py
+  sha256: 9f067b6271a3ac7e980957f095f6696fb2ec21f4038fed1807013cfc0274f532
+- path: adapters/hermes/README.md
+  sha256: 525dd169ceed2ff67c1887f630537bc5a723a278f353953cb825fa19787fb582
+- path: adapters/hermes/diagnostics.py
+  sha256: ef657a601fbd2062d715e16e4875da0282c263da631a0acd554227a0c0045b31
+- path: docs/adapter-security.md
+  sha256: 59f44c8cee38f47e9dd17a829ffc0720d34c65db991e5c56a06cf385bb25383a
+- path: docs/ci-security.md
+  sha256: 505a2f16b7a71748903e406d32fe6b008efbf13794b25e9d1c0f8cdac34f9165
+- path: scripts/gate_diagnostics.py
+  sha256: 3a80795cb9980fc617d5fbbe5f18ee7ae21c43326323dcecbc5d1420fe63afc7
+- path: tests/test_gate_diagnostics.py
+  sha256: b2a788752a71db0a924294379fdaf4a7c129c51eb1224e34d890778ccd05a5ef
+created_at: '2026-09-16T11:35:00Z'
+expires_at: ''
+approval_ref: CENG-T013-P001-DEC001
+verification:
+  verified_at: '2026-09-16T11:35:00Z'
+  verifier: worker
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T013-P005-EV001
+validation_results:
+- command: python3 -m unittest tests.test_gate_diagnostics -v
+  result: passed; 5 tests
+- command: python3 -m unittest discover -s tests -p 'test_*.py'
+  result: blocked by unrelated CENG-T004-P017 tracker/packet state mismatch
+evidence_refs:
+- CENG-T013-P005-EV001
+skill_gaps: []
+unresolved_items:
+- User must review and accept this handoff.
+- Unrelated CENG-T004-P017 tracker/packet mismatch remains outside P005 scope.
+rollback_notes: Restore P005-scoped files to base revision 87dd9c6; no remote systems
+  changed.
+requested_next_action: Review and accept or reject this handoff.
+receiver_status: pending
+receiver_notes: ''

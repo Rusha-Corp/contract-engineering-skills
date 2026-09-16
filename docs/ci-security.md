@@ -81,3 +81,15 @@ References:
 - https://docs.github.com/en/actions/concepts/security/script-injections
 - https://github.com/actions/checkout
 - https://scorecard.dev/
+
+## Gate diagnostic contract
+
+CI must run adapter conformance with:
+
+```bash
+python3 -m unittest discover -s tests -p 'test_*.py'
+```
+
+Gate failures retain stable codes and remediation steps. Security failures are
+blocking and must fail the job; CI must not convert them to warnings or
+continue after a failed security gate.

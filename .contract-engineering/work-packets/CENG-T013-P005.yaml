@@ -3,35 +3,85 @@ task_id: CENG-T013
 phase: P1_IMPLEMENTATION
 domain: security
 packet_class: child-implementation
-title: "Add structured gate diagnostics and adapter conformance"
-objective: "Emit structured, actionable repository gate-failure diagnostics and verify adapter conformance without weakening fail-closed behavior."
-open_questions: ["Which diagnostic envelope is shared by all adapters?"]
+title: Add structured gate diagnostics and adapter conformance
+objective: Emit structured, actionable repository gate-failure diagnostics and verify
+  adapter conformance without weakening fail-closed behavior.
+open_questions:
+- Which diagnostic envelope is shared by all adapters?
 scope:
-  in: ["adapters/", "scripts/", "tests/", "docs/adapter-security.md", "docs/ci-security.md"]
-  out: [".factory-plugin/", "Factory hook implementation", "transition journal ownership", "remote systems"]
-actor: {agent_id: worker, harness: Factory Droid, model: GPT-5.6 Luna, session_id: current-session}
-capabilities: [repository-read, repository-write, local-validation]
+  in:
+  - adapters/
+  - scripts/
+  - tests/
+  - docs/adapter-security.md
+  - docs/ci-security.md
+  out:
+  - .factory-plugin/
+  - Factory hook implementation
+  - transition journal ownership
+  - remote systems
+actor:
+  agent_id: worker
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities:
+- repository-read
+- repository-write
+- local-validation
 risk_tier: medium
 approval_policy: user
 external_effects: []
 owner: worker
 reviewer: user
 cleanup_owner: worker
-dependencies: [CENG-T013-P002, CENG-T013-P003]
-locks: ["CENG-T013:gate-diagnostics"]
-claim_timestamp: "2026-09-15T23:40:00Z"
-baseline_refs: [".contract-engineering/protocol.lock.yaml", "1be220f2691194a8e69f330ebc85fff9fd6c0172", "CENG-T013-P001-DEC001"]
+dependencies:
+- CENG-T013-P002
+- CENG-T013-P003
+locks:
+- CENG-T013:gate-diagnostics
+claim_timestamp: '2026-09-15T23:40:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 1be220f2691194a8e69f330ebc85fff9fd6c0172
+- CENG-T013-P001-DEC001
 design_decision_ref: CENG-T013-P001-DEC001
 data_gate_ref: null
-acceptance_criteria: ["Gate failures have stable machine-readable codes and remediation fields.", "Adapters conform to one diagnostic contract.", "Security failures remain fail-closed."]
+acceptance_criteria:
+- Gate failures have stable machine-readable codes and remediation fields.
+- Adapters conform to one diagnostic contract.
+- Security failures remain fail-closed.
 acceptance_contract:
   version: 1
   criteria:
-    - {id: CENG-T013-P005-AC001, statement: "Diagnostic and adapter contracts are conformance tested.", expected_result: "All supported adapters emit the same required envelope and preserve blocking outcomes.", verification_method: execute, verification_command: "python3 -m pytest tests", evidence_refs: [CENG-T013-P005-EV001], failure_result: "An adapter hides or downgrades a gate failure.", validation_ref: CENG-T013-P005-VAL001}
+  - id: CENG-T013-P005-AC001
+    statement: Diagnostic and adapter contracts are conformance tested.
+    expected_result: All supported adapters emit the same required envelope and preserve
+      blocking outcomes.
+    verification_method: execute
+    verification_command: python3 -m unittest discover -s tests -p 'test_*.py'
+    evidence_refs:
+    - CENG-T013-P005-EV001
+    failure_result: An adapter hides or downgrades a gate failure.
+    validation_ref: CENG-T013-P005-VAL001
 validation_plan:
-  - {id: CENG-T013-P005-VAL001, kind: adapter-conformance, command: "python3 -m pytest tests", expected: "diagnostic and adapter tests pass"}
-  - {id: CENG-T013-P005-VAL002, kind: principles, skill: coding-principles, checks: ["diagnostic schema has one owner", "adapter mapping is explicit"], expected: "no unresolved principle violations"}
-state: Ready
-evidence_refs: [CENG-T013-P005-EV001]
-handoff_ref: null
-cleanup_scope: {dead_refs: [], stale_refs: [], temp_refs: []}
+- id: CENG-T013-P005-VAL001
+  kind: adapter-conformance
+  command: python3 -m unittest discover -s tests -p 'test_*.py'
+  expected: diagnostic and adapter tests pass
+- id: CENG-T013-P005-VAL002
+  kind: principles
+  skill: coding-principles
+  checks:
+  - diagnostic schema has one owner
+  - adapter mapping is explicit
+  expected: no unresolved principle violations
+state: Handoff
+evidence_refs:
+- CENG-T013-P005-EV001
+handoff_ref: CENG-T013-P005-HO001
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+updated_at: '2026-09-16T11:30:47.650578+00:00'

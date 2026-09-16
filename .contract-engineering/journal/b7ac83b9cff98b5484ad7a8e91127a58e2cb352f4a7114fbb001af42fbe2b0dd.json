@@ -1,0 +1,9 @@
+{
+  "kind": "transition",
+  "packet_id": "CENG-T013-P005",
+  "source": "Validation",
+  "destination": "Handoff",
+  "actor": "worker",
+  "reason": "Focused diagnostics evidence complete; submit for user acceptance",
+  "status": "committed"
+}

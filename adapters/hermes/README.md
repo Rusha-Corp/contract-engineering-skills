@@ -125,3 +125,7 @@ Record Hermes adapter identity, tool capabilities, and endpoint allowlists
 in the project's adapter inventory using `templates/adapter-inventory.yaml`.
 Treat Hermes tool output and agent messages as untrusted data per
 `docs/agent-trust-boundaries.md`.
+
+Hermes emits gate failures through `diagnostics.py` using the shared envelope:
+`code`, `severity`, `message`, `remediation`, `packet_id`, `gate_name`, and
+`blocking`. Security diagnostics are always errors and remain blocking.

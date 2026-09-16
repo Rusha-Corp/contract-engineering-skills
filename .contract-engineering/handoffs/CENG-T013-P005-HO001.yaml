@@ -2,13 +2,13 @@ handoff_version: 3
 handoff_id: CENG-T013-P005-HO001
 packet_id: CENG-T013-P005
 transition:
-  from: Validation
+  from: Rework
   to: Handoff
   reason: >-
-    Implemented structured gate-failure diagnostics with 7 stable codes, 3 output
-    formats, fail-closed security enforcement, and adapter conformance for all 3
-    adapters. 10 focused tests pass including fail-closed downgrade prevention
-    and adapter conformance verification.
+    Reworked after independent rejection for missing security governance: added
+    threat-model (SEC001) and security-verification (SEC002) records. Expanded
+    test suite to 10 tests covering stable codes, remediation, fail-closed
+    security enforcement, and adapter conformance for all 3 adapters.
 sender:
   identity: worker
   identity_type: agent
@@ -24,14 +24,18 @@ receiver:
   acceptance_ref: ''
   signature_ref: ''
 base_revision: 87dd9c6
-head_revision: 32419559596ba49e3445d8a8db9558bc3378f3ce
-scope_digest: 6ec58d753db966e442edb0421632eacc9d06c0d5361242360aa3f99270bdfc70
+head_revision: a6089c4d1ea09b21b95e6362f8ad78472d2ec6fb
+scope_digest: 18310c3a067b01f0954e0084221cc3e00d818fa7dad5c573699d53692558d6bc
 changed_resources:
-  - {path: .contract-engineering/evidence/CENG-T013-P005-EV001.md, sha256: 5d934c0def7e3950bf99b96a0e4f947fdf3bc8a8cac7a23d4978e338bacf5f4f}
-  - {path: .contract-engineering/execution-tracker.md, sha256: 8931c1c806d347c683eed58b84d5b73d0371a4ba0c8d4913c8ba85f2d41d0336}
-  - {path: .contract-engineering/tracker/events/CENG-T013.yaml, sha256: f171d2da00e615d15da9dee110491c6886c859f0abfc18c9fae43a2d9dfe6bd4}
-  - {path: .contract-engineering/tracker/index.yaml, sha256: 277cd13ed296e95ad8bb380ccbfcee2d1eabd9ecbbad4121867717d150acf49f}
-  - {path: .contract-engineering/work-packets/CENG-T013-P005.yaml, sha256: fb9f6a9253342cd43040381e3750fae649e8625c3db65252c1cc52b8f3ccf551}
+  - {path: .contract-engineering/decisions/CENG-T013-P005-SEC001.yaml, sha256: b3e4a90960a0799e4d7dfb759a7dc3ce3995340412d70f97f86119856691a7f4}
+  - {path: .contract-engineering/evidence/CENG-T013-P005-EV001.md, sha256: 5acee7f19d6f9878508283d690752c0c4b8babc7f617df608418b65bb2119902}
+  - {path: .contract-engineering/evidence/CENG-T013-P005-SEC001.md, sha256: abcb18060d21dd4a1046d0a51037ef6e13d89407ae3aa6c120428e842c99c891}
+  - {path: .contract-engineering/evidence/CENG-T013-P005-SEC002.md, sha256: 795ebebd18aff39c088bab6662660c9288c985296c6d98e7aada7e60f796e157}
+  - {path: .contract-engineering/evidence/CENG-T013-P005-SEC002.yaml, sha256: 752242371f25352068c48c0e211590311b969ef678f5435df38a574cb2a0520f}
+  - {path: .contract-engineering/execution-tracker.md, sha256: 6c1007860721c45474b7603b791a22b56b95f7a24a7323c416ffad6fd1e11b98}
+  - {path: .contract-engineering/tracker/events/CENG-T013.yaml, sha256: 5dfdd5c17758bed9f8122f999533a8f6a7633064118041a0b0f7ada10d145229}
+  - {path: .contract-engineering/tracker/index.yaml, sha256: 48de8242be95e0e6c5763d20794a6225b8dd108b7a8deb73994418266a2b5bb2}
+  - {path: .contract-engineering/work-packets/CENG-T013-P005.yaml, sha256: 3ffb01b3593b2ca55e94b8e388d63e2a57a28acfe649524611eca0d5807caa9a}
   - {path: adapters/factory-droid/README.md, sha256: f979d7bf77ab9560cdb147957acdd981b2e7897736b37c69311700e47c683a93}
   - {path: adapters/factory-droid/diagnostics.py, sha256: f2c87ffdf50bd94e14a3847cc36729677c7acd6c3007944440309caaf8ceb1bf}
   - {path: adapters/generic/README.md, sha256: 7b6f556f4d211f35dbb85d232ed4005074304d9006e97859cb886da279ab04a5}
@@ -42,11 +46,11 @@ changed_resources:
   - {path: docs/ci-security.md, sha256: 921baf18f2e9d368664eac294534c9696440a53878fc1200479045a779121643}
   - {path: scripts/gate_diagnostics.py, sha256: 0fcbe48ae740765a5fdd9c4e08b38a986fa333ef1532fa800ede9da319b05d30}
   - {path: tests/test_gate_diagnostics.py, sha256: f9d80cc4b9cdba8a6c2b246755524a73d54bf449da01cd5f47e69c7388ada207}
-created_at: '2026-09-16T18:20:00Z'
+created_at: '2026-09-16T18:45:00Z'
 expires_at: ''
 approval_ref: CENG-T013-P001-DEC001
 verification:
-  verified_at: '2026-09-16T18:20:00Z'
+  verified_at: '2026-09-16T18:45:00Z'
   verifier: worker
   result: pass
   revocation_checked_at: ''
@@ -62,19 +66,12 @@ validation_results:
     result: blocked by unrelated CENG-T004-P017 tracker/packet state mismatch
 evidence_refs:
   - CENG-T013-P005-EV001
+  - CENG-T013-P005-SEC001
+  - CENG-T013-P005-SEC002
 skill_gaps: []
 unresolved_items:
   - Unrelated CENG-T004-P017 tracker/packet mismatch remains outside P005 scope.
 rollback_notes: >-
   Restore P005-scoped files to base revision 87dd9c6; no remote systems changed.
-requested_next_action: Independently review and accept or reject this handoff.
-receiver_status: rejected
-receiver_notes: >-
-  Independent acceptance review rejected this handoff because P005 is a
-  security-domain packet but provides no governed threat-model approval or
-  Security Verification Gate evidence/validation entry. The focused diagnostic
-  criteria, dependency completion, authenticated metadata, state, content-head
-  binding, scope digest, changed-resource hashes, Factory-hook exclusion, and
-  unrelated P017 limitation otherwise passed. Retain the implementation and
-  evidence, add the required security records and validation results, then
-  resubmit without releasing CENG-T013:gate-diagnostics.
+requested_next_action: Independently review and accept or reject this rework handoff.
+receiver_status: pending

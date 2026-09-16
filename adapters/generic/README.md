@@ -24,7 +24,10 @@ runtime.
    `templates/trust-boundary.yaml` when it can influence execution.
 8. Run the preflight from `docs/protocol-configuration.md` before work and
    the non-destructive checks in `templates/validation-guide.md`.
-9. Verify the selected release's attestation and publisher provenance before
+9. Resolve the validator root using explicit project root, environment, lock,
+   then default precedence. Select local `off`, `advisory`, or `enforced`
+   mode explicitly; do not infer enforcement from host hooks.
+10. Verify the selected release's attestation and publisher provenance before
    updating the project lock or global skill installation.
 10. Map host timeout, cancellation, process, network, and spend controls to
     `templates/execution-budget.yaml`; block packets when required controls

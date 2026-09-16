@@ -1,0 +1,86 @@
+packet_id: CENG-T013-P001
+task_id: CENG-T013
+phase: P0_FOUNDATIONS
+domain: documentation
+packet_class: parent-coordination
+title: "Coordinate governed integration repair"
+objective: "Sequence and govern four compatible repair packets without implementing production behavior or the separate Factory hook."
+open_questions:
+  - "Which native harness supplies the eventual design and admission commands?"
+scope:
+  in:
+    - ".contract-engineering/decisions/CENG-T013-P001-DEC001.yaml"
+    - ".contract-engineering/work-packets/CENG-T013-P*.yaml"
+    - ".contract-engineering/tracker/index.yaml"
+    - ".contract-engineering/tracker/events/CENG-T013.yaml"
+    - ".contract-engineering/evidence/CENG-T013-P001-EV001.md"
+  out:
+    - ".factory-plugin/"
+    - "Factory hook implementation"
+    - "Production implementation"
+    - "Remote systems"
+actor:
+  agent_id: worker
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities: [repository-read, repository-write, local-validation]
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: worker
+reviewer: contract-driven-handoff-acceptance-reviewer
+cleanup_owner: worker
+dependencies: [CENG-T012-P001]
+locks: ["CENG-T013:coordination"]
+claim_timestamp: "2026-09-15T23:40:00Z"
+baseline_refs:
+  - ".contract-engineering/protocol.lock.yaml"
+  - "1be220f2691194a8e69f330ebc85fff9fd6c0172"
+  - "CENG-T013-P001-DEC001"
+design_decision_ref: CENG-T013-P001-DEC001
+data_gate_ref: null
+acceptance_criteria:
+  - "The repair is split into dependency-ordered packets with disjoint ownership locks."
+  - "Factory hook work is explicitly excluded from every repository packet."
+  - "The absent helper-script limitation is recorded without fabricated substitutes."
+  - "Parent coordination acceptance validates packet registration and dependency ordering; it is not contingent on child implementation completion."
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T013-P001-AC001
+      statement: "Parent and child packet records are dependency ordered and scoped."
+      expected_result: "Five CENG-T013 packet files and one task event stream are registered."
+      verification_method: inspect
+      evidence_refs: [CENG-T013-P001-EV001]
+      failure_result: "A child has an unresolved or cyclic dependency."
+      validation_ref: CENG-T013-P001-VAL001
+    - id: CENG-T013-P001-AC003
+      statement: "Parent coordination acceptance is independent of child implementation completion."
+      expected_result: "The parent handoff validates registration and dependency ordering; children remain dependent on the accepted coordination record."
+      verification_method: inspect
+      evidence_refs: [CENG-T013-P001-EV001, CENG-T013-P001-EV002]
+      failure_result: "Parent acceptance is blocked by a child implementation state."
+      validation_ref: CENG-T013-P001-VAL001
+    - id: CENG-T013-P001-AC002
+      statement: "Excluded Factory hook scope is explicit."
+      expected_result: "Each packet excludes .factory-plugin and Factory hook implementation."
+      verification_method: inspect
+      evidence_refs: [CENG-T013-P001-EV001]
+      failure_result: "Repository packets claim Factory hook files."
+      validation_ref: CENG-T013-P001-VAL001
+validation_plan:
+  - id: CENG-T013-P001-VAL001
+    kind: records
+    command: "python3 scripts/validate-contract-records.py"
+    expected: "all records, dependencies, locks, and references pass"
+  - id: CENG-T013-P001-VAL002
+    kind: principles
+    skill: coding-principles
+    checks: ["packet boundaries are cohesive", "no production implementation is included"]
+    expected: "no unresolved principle violations"
+state: Handoff
+evidence_refs: [CENG-T013-P001-EV001, CENG-T013-P001-EV002]
+handoff_ref: CENG-T013-P001-HO001
+cleanup_scope: {dead_refs: [], stale_refs: [], temp_refs: []}
+skill_gaps: ["authoritative design/admission helper scripts absent from locked checkout"]

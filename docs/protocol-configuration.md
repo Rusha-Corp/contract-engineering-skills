@@ -168,6 +168,27 @@ identifiers, dependencies, references, tracker reconciliation, active-lock
 collisions, and optional changed-path scope. A packet with invalid records or
 an out-of-scope change must not advance to validation or handoff.
 
+### Local validator roots and modes
+
+The validator resolves its project root in one deterministic order:
+
+1. the explicit `--root`/`explicit_root` value;
+2. `CE_PROTOCOL_ROOT`;
+3. `project.protocol_root` in the lock at
+   `.contract-engineering/protocol.lock.yaml`;
+4. `.contract-engineering`.
+
+Relative roots are resolved from the supplied project directory, while
+absolute roots are preserved. Local enforcement is selected with
+`--mode` or `CE_VALIDATION_MODE` and must be one of:
+
+- `off`: skip validation without reading or mutating records;
+- `advisory`: report validation failures but return success;
+- `enforced`: report failures and return a non-zero result.
+
+The default is `enforced`. Missing roots are safe failures: advisory mode
+reports them and enforced mode blocks; neither mode executes Factory hooks.
+
 The following check uses Python and PyYAML. A harness may implement the same
 checks with its native YAML parser:
 

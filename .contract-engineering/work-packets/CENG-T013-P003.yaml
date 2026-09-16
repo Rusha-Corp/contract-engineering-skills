@@ -1,0 +1,37 @@
+packet_id: CENG-T013-P003
+task_id: CENG-T013
+phase: P0_FOUNDATIONS
+domain: coding
+packet_class: child-implementation
+title: "Align shared identifiers and schemas"
+objective: "Unify legacy and RUSHA identifiers, schema references, and pinned jsonschema validation without breaking compatibility."
+open_questions: ["Which legacy aliases require a deprecation window before removal?"]
+scope:
+  in: ["schemas/", "templates/", "scripts/", "tests/", "requirements-ci.txt", "docs/"]
+  out: [".factory-plugin/", "Factory hook implementation", "validator mode behavior", "transition API/CLI", "remote systems"]
+actor: {agent_id: worker, harness: Factory Droid, model: GPT-5.6 Luna, session_id: current-session}
+capabilities: [repository-read, repository-write, local-validation]
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: worker
+reviewer: user
+cleanup_owner: worker
+dependencies: [CENG-T013-P001]
+locks: ["CENG-T013:identifiers-schema"]
+claim_timestamp: "2026-09-15T23:40:00Z"
+baseline_refs: [".contract-engineering/protocol.lock.yaml", "1be220f2691194a8e69f330ebc85fff9fd6c0172", "CENG-T013-P001-DEC001"]
+design_decision_ref: CENG-T013-P001-DEC001
+data_gate_ref: null
+acceptance_criteria: ["Legacy and RUSHA identifiers have one canonical mapping.", "Schemas and templates agree.", "jsonschema is pinned and reproducibly invoked.", "Backward compatibility is tested."]
+acceptance_contract:
+  version: 1
+  criteria:
+    - {id: CENG-T013-P003-AC001, statement: "Identifier and schema compatibility is verified.", expected_result: "Positive and negative fixtures pass with the pinned dependency.", verification_method: execute, verification_command: "python3 -m pytest tests", evidence_refs: [CENG-T013-P003-EV001], failure_result: "A legacy record is accepted under a different meaning.", validation_ref: CENG-T013-P003-VAL001}
+validation_plan:
+  - {id: CENG-T013-P003-VAL001, kind: schema, command: "python3 -m pytest tests", expected: "schema and compatibility tests pass"}
+  - {id: CENG-T013-P003-VAL002, kind: principles, skill: coding-principles, checks: ["canonical mapping has one owner", "dependency is pinned"], expected: "no unresolved principle violations"}
+state: Ready
+evidence_refs: [CENG-T013-P003-EV001]
+handoff_ref: null
+cleanup_scope: {dead_refs: [], stale_refs: [], temp_refs: []}

@@ -132,6 +132,68 @@ class SecuritySemanticTests(unittest.TestCase):
             validator.validate_evidence_policy(policy, "synthetic-policy")
 
 
+class ValidatorRootAndModeTests(unittest.TestCase):
+    def test_root_precedence_is_explicit_then_environment_then_lock_then_default(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            (project / ".contract-engineering").mkdir()
+            (project / ".contract-engineering" / "protocol.lock.yaml").write_text(
+                "project:\n  protocol_root: locked-records\n"
+            )
+            self.assertEqual(
+                validator.resolve_protocol_root(project, explicit_root="explicit"),
+                project / "explicit",
+            )
+            self.assertEqual(
+                validator.resolve_protocol_root(
+                    project, environment={"CE_PROTOCOL_ROOT": "environment"}
+                ),
+                project / "environment",
+            )
+            self.assertEqual(
+                validator.resolve_protocol_root(project),
+                project / "locked-records",
+            )
+            (project / ".contract-engineering" / "protocol.lock.yaml").unlink()
+            self.assertEqual(
+                validator.resolve_protocol_root(project),
+                project / ".contract-engineering",
+            )
+
+    def test_absolute_explicit_root_is_preserved(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "records"
+            self.assertEqual(
+                validator.resolve_protocol_root(Path(directory), explicit_root=root),
+                root,
+            )
+
+    def test_off_mode_does_not_read_or_mutate_records(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            before = (project / "marker").write_text("unchanged")
+            result = validator.run_validation(project, mode="off")
+            self.assertEqual(result.mode, "off")
+            self.assertTrue(result.skipped)
+            self.assertEqual((project / "marker").read_text(), "unchanged")
+
+    def test_advisory_mode_reports_missing_root_without_raising(self):
+        with tempfile.TemporaryDirectory() as directory:
+            result = validator.run_validation(
+                Path(directory), explicit_root="missing", mode="advisory"
+            )
+            self.assertEqual(result.mode, "advisory")
+            self.assertFalse(result.valid)
+            self.assertIn("missing", result.messages[0])
+
+    def test_enforced_mode_reports_missing_root(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaises(ValueError):
+                validator.run_validation(
+                    Path(directory), explicit_root="missing", mode="enforced"
+                )
+
+
 def _packet(packet_id, state, owner="agent", reviewer="user", handoff_ref=None):
     return {
         "packet_id": packet_id,

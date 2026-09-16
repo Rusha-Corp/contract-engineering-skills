@@ -5,8 +5,10 @@ from __future__ import annotations
 
 import argparse
 import importlib.util
+import os
 import re
 import sys
+from collections import namedtuple
 from pathlib import Path
 from typing import Any
 
@@ -88,6 +90,118 @@ FORBIDDEN_CAPABILITIES = {
 
 def fail(message: str) -> None:
     raise ValueError(message)
+
+
+ValidationResult = namedtuple(
+    "ValidationResult", ("mode", "valid", "skipped", "messages"),
+    defaults=(False, ()),
+)
+
+
+def _configured_root(project_dir: Path) -> str | None:
+    lock_path = project_dir / ".contract-engineering" / "protocol.lock.yaml"
+    if not lock_path.is_file():
+        return None
+    lock = yaml.safe_load(lock_path.read_text(encoding="utf-8")) or {}
+    configured = lock.get("project", {}).get("protocol_root")
+    return configured if isinstance(configured, str) and configured else None
+
+
+def resolve_protocol_root(
+    project_dir: Path | str = ".",
+    *,
+    explicit_root: Path | str | None = None,
+    environment: dict[str, str] | None = None,
+) -> Path:
+    """Resolve records as explicit path, environment, lock, then default.
+
+    Relative roots are always relative to ``project_dir``; absolute roots are
+    retained.  This keeps adapter callers deterministic regardless of cwd.
+    """
+
+    project = Path(project_dir).expanduser().resolve()
+    values = environment if environment is not None else os.environ
+    configured = (
+        explicit_root
+        if explicit_root is not None
+        else values.get("CE_PROTOCOL_ROOT")
+        or _configured_root(project)
+        or ".contract-engineering"
+    )
+    root = Path(configured).expanduser()
+    return root if root.is_absolute() else project / root
+
+
+def _validate_records(root: Path, packet_path: Path | None, changed_paths: list[str]) -> None:
+    if not root.is_dir():
+        fail(f"protocol root does not exist: {root}")
+    configure_resource_limits()
+    def load_partition(directory: Path) -> dict[str, dict[str, Any]]:
+        partition: dict[str, dict[str, Any]] = {}
+        if not directory.is_dir():
+            return partition
+        for path in sorted(directory.glob("*.yaml")):
+            packet = load_yaml(path)
+            if not isinstance(packet, dict) or "packet_id" not in packet:
+                fail(f"{path}: packet must be a YAML mapping with packet_id")
+            packet_id = packet["packet_id"]
+            if packet_id in partition:
+                fail(f"duplicate packet ID in {directory}: {packet_id}")
+            partition[packet_id] = packet
+        return partition
+    live_packets = load_partition(root / "work-packets")
+    archive_packets = load_partition(root / ARCHIVE_PACKET_DIR)
+    cross_dup = set(live_packets) & set(archive_packets)
+    if cross_dup:
+        fail(f"duplicate packet IDs across partitions {sorted(cross_dup)}")
+    packets = {**live_packets, **archive_packets}
+    for directory, partition in (
+        (root / "work-packets", live_packets),
+        (root / ARCHIVE_PACKET_DIR, archive_packets),
+    ):
+        if directory.is_dir():
+            for path in sorted(directory.glob("*.yaml")):
+                validate_packet(path, packets[path.stem], packets)
+    validate_project_lock(root)
+    validate_canonical_tracker(root)
+    validate_tracker(root, live_packets, archive_packets)
+    validate_dependency_graph(packets)
+    validate_locks(packets)
+    validate_references(root, packets)
+    if packet_path:
+        packet = packets.get(packet_path.stem)
+        if packet is None:
+            fail(f"unknown packet {packet_path}")
+        enforce_scope(packet, changed_paths)
+
+
+def run_validation(
+    project_dir: Path | str = ".",
+    *,
+    explicit_root: Path | str | None = None,
+    mode: str | None = None,
+    environment: dict[str, str] | None = None,
+    packet_path: Path | None = None,
+    changed_paths: list[str] | None = None,
+) -> ValidationResult:
+    """Run local validation in explicit off, advisory, or enforced mode."""
+
+    values = environment if environment is not None else os.environ
+    selected = mode or values.get("CE_VALIDATION_MODE", "enforced")
+    if selected not in {"off", "advisory", "enforced"}:
+        raise ValueError(f"invalid validation mode: {selected}")
+    if selected == "off":
+        return ValidationResult(selected, valid=True, skipped=True)
+    root = resolve_protocol_root(
+        project_dir, explicit_root=explicit_root, environment=environment
+    )
+    try:
+        _validate_records(root, packet_path, changed_paths or [])
+    except ValueError as exc:
+        if selected == "enforced":
+            raise
+        return ValidationResult(selected, valid=False, messages=(str(exc),))
+    return ValidationResult(selected, valid=True)
 
 
 def load_yaml(path: Path) -> Any:
@@ -638,56 +752,25 @@ def validate_canonical_tracker(root: Path) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--root", default=".contract-engineering", type=Path)
+    parser.add_argument("--root", type=Path, help="explicit project protocol root")
+    parser.add_argument("--project-dir", default=".", type=Path)
+    parser.add_argument("--mode", choices=("off", "advisory", "enforced"))
     parser.add_argument("--packet", type=Path)
     parser.add_argument("--changed-path", action="append", default=[])
     args = parser.parse_args()
-    configure_resource_limits()
-    root = args.root
-
-    def load_partition(directory: Path) -> dict[str, dict[str, Any]]:
-        partition: dict[str, dict[str, Any]] = {}
-        if not directory.is_dir():
-            return partition
-        for path in sorted(directory.glob("*.yaml")):
-            packet = load_yaml(path)
-            if not isinstance(packet, dict) or "packet_id" not in packet:
-                fail(f"{path}: packet must be a YAML mapping with packet_id")
-            packet_id = packet["packet_id"]
-            if packet_id in partition:
-                fail(f"duplicate packet ID in {directory}: {packet_id}")
-            partition[packet_id] = packet
-        return partition
-
-    live_packets = load_partition(root / "work-packets")
-    archive_packets = load_partition(root / ARCHIVE_PACKET_DIR)
-    packets: dict[str, dict[str, Any]] = {}
-    cross_dup = set(live_packets) & set(archive_packets)
-    if cross_dup:
-        fail(f"duplicate packet ID across partitions {sorted(cross_dup)}")
-    packets.update(live_packets)
-    packets.update(archive_packets)
-    # Validate schema and references for every packet regardless of partition.
-    for directory, partition in (
-        (root / "work-packets", live_packets),
-        (root / ARCHIVE_PACKET_DIR, archive_packets),
-    ):
-        if not directory.is_dir():
-            continue
-        for path in sorted(directory.glob("*.yaml")):
-            validate_packet(path, packets[path.stem], packets)
-    validate_project_lock(root)
-    validate_canonical_tracker(root)
-    validate_tracker(root, live_packets, archive_packets)
-    validate_dependency_graph(packets)
-    validate_locks(packets)
-    validate_references(root, packets)
-    if args.packet:
-        packet = packets.get(args.packet.stem)
-        if packet is None:
-            fail(f"unknown packet {args.packet}")
-        enforce_scope(packet, args.changed_path)
-    print(f"contract records valid: {len(packets)} packets")
+    result = run_validation(
+        args.project_dir,
+        explicit_root=args.root,
+        mode=args.mode,
+        packet_path=args.packet,
+        changed_paths=args.changed_path,
+    )
+    for message in result.messages:
+        print(f"contract validation advisory: {message}", file=sys.stderr)
+    if result.skipped:
+        print("contract validation skipped (mode=off)")
+    elif result.valid:
+        print(f"contract validation valid (mode={result.mode})")
     return 0
 
 

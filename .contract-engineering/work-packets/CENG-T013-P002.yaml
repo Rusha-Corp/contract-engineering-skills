@@ -1,0 +1,86 @@
+packet_id: CENG-T013-P002
+task_id: CENG-T013
+phase: P0_FOUNDATIONS
+domain: security
+packet_class: child-implementation
+title: Resolve validator roots and local enforcement modes
+objective: Make project-root resolution deterministic and support explicit off, advisory,
+  and enforced local validation modes.
+open_questions:
+- Which host-native plugin root should be mapped by the adapter rather than repository
+  code?
+scope:
+  in:
+  - scripts/
+  - tests/
+  - docs/protocol-configuration.md
+  - adapters/
+  out:
+  - .factory-plugin/
+  - Factory hook implementation
+  - schema identifier redesign
+  - transition API/CLI
+  - remote systems
+actor:
+  agent_id: worker
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities:
+- repository-read
+- repository-write
+- local-validation
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: worker
+reviewer: contract-driven-handoff-acceptance-reviewer
+cleanup_owner: worker
+dependencies:
+- CENG-T013-P001
+locks:
+- CENG-T013:validator-root
+claim_timestamp: '2026-09-15T23:40:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 1be220f2691194a8e69f330ebc85fff9fd6c0172
+- CENG-T013-P001-DEC001
+design_decision_ref: CENG-T013-P001-DEC001
+data_gate_ref: null
+acceptance_criteria:
+- Root resolution has one deterministic precedence order.
+- Off, advisory, and enforced modes are explicit and testable.
+- Missing roots fail safely without executing Factory hooks.
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T013-P002-AC001
+    statement: Root and mode behavior is deterministic.
+    expected_result: Unit and integration cases cover all three modes and missing
+      roots.
+    verification_method: execute
+    verification_command: "python3 -m unittest discover -s tests -p 'test_*.py'"
+    evidence_refs:
+    - CENG-T013-P002-EV001
+    failure_result: A mode silently changes enforcement.
+    validation_ref: CENG-T013-P002-VAL001
+validation_plan:
+  - id: CENG-T013-P002-VAL001
+    kind: tests
+    command: "python3 -m unittest discover -s tests -p 'test_*.py'"
+    expected: root and mode cases pass
+  - id: CENG-T013-P002-VAL002
+    kind: principles
+    skill: coding-principles
+    checks:
+    - mode policy is centralized
+    - no duplicate root resolution
+    expected: no unresolved principle violations
+state: Handoff
+evidence_refs:
+- CENG-T013-P002-EV001
+handoff_ref: CENG-T013-P002-HO001
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []

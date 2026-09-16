@@ -1,0 +1,37 @@
+packet_id: CENG-T013-P004
+task_id: CENG-T013
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: child-implementation
+title: "Add atomic transition and recovery operations"
+objective: "Implement atomic transition and reassignment APIs/CLI plus doctor and explain-block commands backed by a crash-recoverable journal."
+open_questions: ["Which existing API/CLI module owns transition authorization and journal persistence?"]
+scope:
+  in: ["adapters/", "scripts/", "tests/", "docs/coordination.md", "docs/tracker-storage.md"]
+  out: [".factory-plugin/", "Factory hook implementation", "identifier/schema ownership", "remote systems"]
+actor: {agent_id: worker, harness: Factory Droid, model: GPT-5.6 Luna, session_id: current-session}
+capabilities: [repository-read, repository-write, local-validation]
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: worker
+reviewer: user
+cleanup_owner: worker
+dependencies: [CENG-T013-P002, CENG-T013-P003]
+locks: ["CENG-T013:transition-journal"]
+claim_timestamp: "2026-09-15T23:40:00Z"
+baseline_refs: [".contract-engineering/protocol.lock.yaml", "1be220f2691194a8e69f330ebc85fff9fd6c0172", "CENG-T013-P001-DEC001"]
+design_decision_ref: CENG-T013-P001-DEC001
+data_gate_ref: null
+acceptance_criteria: ["Transitions and reassignment are atomic.", "Journal recovery is idempotent after crash.", "doctor and explain-block expose actionable state without mutation unless authorized."]
+acceptance_contract:
+  version: 1
+  criteria:
+    - {id: CENG-T013-P004-AC001, statement: "Crash recovery preserves legal state.", expected_result: "Fault-injection and replay tests converge to one legal state.", verification_method: execute, verification_command: "python3 -m pytest tests", evidence_refs: [CENG-T013-P004-EV001], failure_result: "A retry duplicates or loses a transition.", validation_ref: CENG-T013-P004-VAL001}
+validation_plan:
+  - {id: CENG-T013-P004-VAL001, kind: integration, command: "python3 -m pytest tests", expected: "atomicity and recovery tests pass"}
+  - {id: CENG-T013-P004-VAL002, kind: principles, skill: coding-principles, checks: ["journal boundary is explicit", "operations are idempotent"], expected: "no unresolved principle violations"}
+state: Ready
+evidence_refs: [CENG-T013-P004-EV001]
+handoff_ref: null
+cleanup_scope: {dead_refs: [], stale_refs: [], temp_refs: []}

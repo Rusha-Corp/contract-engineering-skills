@@ -1,0 +1,28 @@
+decision_version: 1
+decision_id: CENG-T013-P001-DEC001
+packet_id: CENG-T013-P001
+status: approved
+title: "Admit governed integration repair packets without Factory hook scope"
+proposal: "Create a dependency-ordered parent packet and four implementation packets to repair local validator/plugin-root modes, identifier and schema compatibility, atomic transition APIs and CLI recovery, and structured gate diagnostics."
+alternatives_considered:
+  - "Continue with the deactivated blocking plugin and make unrecorded edits."
+  - "Include the separate Factory hook implementation in this repository repair."
+  - "Wait for absent design/admission helper scripts without recording the repair scope."
+decision: "Proceed with repository-scoped packets only. The separate Factory hook remains explicitly out of scope. Because authoritative design/admission helper scripts are absent from the locked checkout, record that limitation and use the available contract-record, tracker, and projection validators; no substitute helper is fabricated."
+scope:
+  - "CENG-T013 parent coordination and child packets P002-P005"
+  - "Local repository repair surfaces and their tests"
+  - "Factory hook implementation excluded"
+controls:
+  - "User explicitly authorized proceeding after deactivating the blocking plugin."
+  - "Each packet has explicit scope.in/scope.out, dependencies, locks, actor, capabilities, risk, approval, baseline, acceptance contract, and validation plan."
+  - "Packets remain Ready only after record, tracker, and projection validation passes."
+  - "Parent coordination acceptance validates registration and dependency ordering; it is not contingent on child implementation completion. Children depend on the accepted parent coordination record."
+  - "Absent design/admission helper scripts are a recorded limitation, not silently replaced."
+approved_by: user
+approved_at: "2026-09-15T23:40:00Z"
+expires_at: ""
+success_measure: "All admitted child packets implement only their declared repair scope, pass their acceptance contracts, and preserve compatibility and crash recovery."
+rollback_ref: 1be220f2691194a8e69f330ebc85fff9fd6c0172
+review_owner: worker
+review_at: "2026-09-15T23:40:00Z"

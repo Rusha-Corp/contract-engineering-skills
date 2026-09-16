@@ -1,0 +1,85 @@
+task_id: CENG-T013
+schema_version: 1
+events:
+- event_id: CENG-T013-E001
+  packet_id: CENG-T013-P001
+  type: design
+  actor: worker
+  occurred_at: '2026-09-15T23:40:00Z'
+  summary: Approved governed integration repair design; Factory hook explicitly excluded.
+- event_id: CENG-T013-E002
+  packet_id: CENG-T013-P001
+  type: admission
+  actor: worker
+  occurred_at: '2026-09-15T23:40:00Z'
+  summary: Registered and admitted parent plus four dependency-ordered child packets
+    after available record checks; absent helper scripts recorded as a limitation.
+- event_id: CENG-T013-E003
+  packet_id: CENG-T013-P001
+  type: validation
+  actor: worker
+  occurred_at: '2026-09-15T23:45:00Z'
+  summary: Contract records, canonical tracker, and generated Markdown projection
+    validators passed; authoritative design/admission helper commands are unavailable
+    in the locked checkout.
+- event_id: CENG-T013-E004
+  packet_id: CENG-T013-P002
+  type: implementation-start
+  actor: worker
+  occurred_at: '2026-09-15T23:50:00Z'
+  summary: Claimed validator-root packet and began scoped implementation.
+- event_id: CENG-T013-E005
+  packet_id: CENG-T013-P002
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-15T23:55:00Z'
+  summary: Completed validator root and mode implementation; handoff pending independent
+    acceptance.
+- event_id: CENG-T013-E006
+  packet_id: CENG-T013-P001
+  type: implementation-start
+  actor: worker
+  occurred_at: '2026-09-16T07:58:43Z'
+  summary: Resumed the Ready parent coordination packet and began scoped handoff preparation; no production behavior was changed.
+- event_id: CENG-T013-E007
+  packet_id: CENG-T013-P001
+  type: validation
+  actor: worker
+  occurred_at: '2026-09-16T07:58:43Z'
+  summary: Prepared parent coordination evidence and ran available contract-record, tracker, projection, and principles checks; helper-script limitation remains explicit.
+- event_id: CENG-T013-E008
+  packet_id: CENG-T013-P001
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T07:58:43Z'
+  summary: Parent coordination packet is in Handoff with authenticated sender and receiver bindings; independent receiver acceptance remains pending.
+- event_id: CENG-T013-E009
+  packet_id: CENG-T013-P001
+  type: rejection
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T08:00:00Z'
+  summary: Rejected parent handoff because its head revision does not bind the claimed uncommitted resources, receiver acceptance metadata is pending/misattributed, and dependency P002 remains in Rework.
+- event_id: CENG-T013-E010
+  packet_id: CENG-T013-P001
+  type: rework
+  actor: worker
+  occurred_at: '2026-09-16T08:30:00Z'
+  summary: Clarified that parent coordination acceptance validates registration and dependency ordering independently of child implementation completion.
+- event_id: CENG-T013-E011
+  packet_id: CENG-T013-P002
+  type: rework
+  actor: worker
+  occurred_at: '2026-09-16T08:31:00Z'
+  summary: Replaced unavailable pytest validation with the repository-authoritative unittest discovery command and refreshed evidence bindings.
+- event_id: CENG-T013-E012
+  packet_id: CENG-T013-P001
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T08:32:00Z'
+  summary: Resubmitted parent coordination packet in Handoff with pending independent receiver acceptance and committed-resource bindings.
+- event_id: CENG-T013-E013
+  packet_id: CENG-T013-P002
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T08:33:00Z'
+  summary: Resubmitted validator-root packet in Handoff with pending independent receiver acceptance and unittest validation evidence.

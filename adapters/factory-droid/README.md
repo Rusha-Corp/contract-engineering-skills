@@ -15,6 +15,9 @@ Skills. The host-specific integration is:
 - Read `docs/protocol-configuration.md` for the shared preflight and update
   contract. This adapter only supplies the Factory global skill path and
   approval behavior.
+- Resolve local validator roots and `off`, `advisory`, or `enforced` modes
+  through the shared validator policy; a missing root must fail safely and
+  must never trigger a Factory hook.
 - Record the Factory actor/session identity and map approval behavior to the
   packet's risk tier, capabilities, and external-effects fields.
 - Route the security gate from packet domain, risk, declared effects,

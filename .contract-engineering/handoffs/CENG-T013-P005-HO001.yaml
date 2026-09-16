@@ -4,9 +4,11 @@ packet_id: CENG-T013-P005
 transition:
   from: Validation
   to: Handoff
-  reason: Retry revalidated focused diagnostics and adapter conformance tests and
-    repaired the handoff content-head binding; full suite has a documented
-    unrelated tracker mismatch.
+  reason: >-
+    Implemented structured gate-failure diagnostics with 7 stable codes, 3 output
+    formats, fail-closed security enforcement, and adapter conformance for all 3
+    adapters. 10 focused tests pass including fail-closed downgrade prevention
+    and adapter conformance verification.
 sender:
   identity: worker
   identity_type: agent
@@ -14,69 +16,56 @@ sender:
   authentication_ref: REDACTED-IDENTITY-REF
   signature_ref: ''
 receiver:
-  identity: user
-  identity_type: human
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
   accepted_at: ''
   acceptance_ref: ''
   signature_ref: ''
-base_revision: 3d36d59
-head_revision: 339210e9d8891cd9c72f9d408927fa64d79d9e0d
-scope_digest: 6c0007b04048fd9f6c51b679835bc42f644b40a1ec4f9ca5ccdc3e24f7cd9513
+base_revision: 87dd9c6
+head_revision: 32419559596ba49e3445d8a8db9558bc3378f3ce
+scope_digest: 6ec58d753db966e442edb0421632eacc9d06c0d5361242360aa3f99270bdfc70
 changed_resources:
-- path: .contract-engineering/evidence/CENG-T013-P005-EV001.md
-  sha256: 5ab1f7d096e48c1d918e9d118cb574c650017029cf4bd92b0a66b654e53a2b3d
-- path: .contract-engineering/execution-tracker.md
-  sha256: 8931c1c806d347c683eed58b84d5b73d0371a4ba0c8d4913c8ba85f2d41d0336
-- path: .contract-engineering/tracker/events/CENG-T013.yaml
-  sha256: 9419482fe369b12b8888760698547b66d987f61fdd53dd3db25b225345d5c40f
-- path: .contract-engineering/tracker/index.yaml
-  sha256: 86cca394c3ed6ce7793a8d3f3cc352af14efd2ae50d0a3c21b5a96216eabcc42
-- path: .contract-engineering/work-packets/CENG-T013-P005.yaml
-  sha256: 2276871c2694e23e04a3e9b8dde56b63075357033fe69d1d4ae5241ed36988d1
-- path: adapters/factory-droid/README.md
-  sha256: 686f100f61255f18be8cd3098a9aa7667f721a57dc8e2eef06a352e34758d01b
-- path: adapters/factory-droid/diagnostics.py
-  sha256: f2c87ffdf50bd94e14a3847cc36729677c7acd6c3007944440309caaf8ceb1bf
-- path: adapters/generic/README.md
-  sha256: 5bd01d40f93198be99b78de899df4e0e69670a94d3a69067904ec97fb67af710
-- path: adapters/generic/diagnostics.py
-  sha256: 9f067b6271a3ac7e980957f095f6696fb2ec21f4038fed1807013cfc0274f532
-- path: adapters/hermes/README.md
-  sha256: 525dd169ceed2ff67c1887f630537bc5a723a278f353953cb825fa19787fb582
-- path: adapters/hermes/diagnostics.py
-  sha256: ef657a601fbd2062d715e16e4875da0282c263da631a0acd554227a0c0045b31
-- path: docs/adapter-security.md
-  sha256: 59f44c8cee38f47e9dd17a829ffc0720d34c65db991e5c56a06cf385bb25383a
-- path: docs/ci-security.md
-  sha256: 505a2f16b7a71748903e406d32fe6b008efbf13794b25e9d1c0f8cdac34f9165
-- path: scripts/gate_diagnostics.py
-  sha256: 3a80795cb9980fc617d5fbbe5f18ee7ae21c43326323dcecbc5d1420fe63afc7
-- path: tests/test_gate_diagnostics.py
-  sha256: b2a788752a71db0a924294379fdaf4a7c129c51eb1224e34d890778ccd05a5ef
-created_at: '2026-09-16T11:35:00Z'
+  - {path: .contract-engineering/evidence/CENG-T013-P005-EV001.md, sha256: 5d934c0def7e3950bf99b96a0e4f947fdf3bc8a8cac7a23d4978e338bacf5f4f}
+  - {path: .contract-engineering/execution-tracker.md, sha256: 8931c1c806d347c683eed58b84d5b73d0371a4ba0c8d4913c8ba85f2d41d0336}
+  - {path: .contract-engineering/tracker/events/CENG-T013.yaml, sha256: f171d2da00e615d15da9dee110491c6886c859f0abfc18c9fae43a2d9dfe6bd4}
+  - {path: .contract-engineering/tracker/index.yaml, sha256: 277cd13ed296e95ad8bb380ccbfcee2d1eabd9ecbbad4121867717d150acf49f}
+  - {path: .contract-engineering/work-packets/CENG-T013-P005.yaml, sha256: fb9f6a9253342cd43040381e3750fae649e8625c3db65252c1cc52b8f3ccf551}
+  - {path: adapters/factory-droid/README.md, sha256: f979d7bf77ab9560cdb147957acdd981b2e7897736b37c69311700e47c683a93}
+  - {path: adapters/factory-droid/diagnostics.py, sha256: f2c87ffdf50bd94e14a3847cc36729677c7acd6c3007944440309caaf8ceb1bf}
+  - {path: adapters/generic/README.md, sha256: 7b6f556f4d211f35dbb85d232ed4005074304d9006e97859cb886da279ab04a5}
+  - {path: adapters/generic/diagnostics.py, sha256: 9f067b6271a3ac7e980957f095f6696fb2ec21f4038fed1807013cfc0274f532}
+  - {path: adapters/hermes/README.md, sha256: af7d1def6eb885a08544b1b204c025be8d8ddbba6000f31ef3e31a2fce033b4e}
+  - {path: adapters/hermes/diagnostics.py, sha256: ef657a601fbd2062d715e16e4875da0282c263da631a0acd554227a0c0045b31}
+  - {path: docs/adapter-security.md, sha256: 188e112a9abf643ff058923856d155833d6c0ae384c7f2c81e6754fdbb78a947}
+  - {path: docs/ci-security.md, sha256: 921baf18f2e9d368664eac294534c9696440a53878fc1200479045a779121643}
+  - {path: scripts/gate_diagnostics.py, sha256: 0fcbe48ae740765a5fdd9c4e08b38a986fa333ef1532fa800ede9da319b05d30}
+  - {path: tests/test_gate_diagnostics.py, sha256: f9d80cc4b9cdba8a6c2b246755524a73d54bf449da01cd5f47e69c7388ada207}
+created_at: '2026-09-16T18:20:00Z'
 expires_at: ''
 approval_ref: CENG-T013-P001-DEC001
 verification:
-  verified_at: '2026-09-16T11:35:00Z'
+  verified_at: '2026-09-16T18:20:00Z'
   verifier: worker
   result: pass
   revocation_checked_at: ''
   verification_ref: CENG-T013-P005-EV001
 validation_results:
-- command: python3 -m unittest tests.test_gate_diagnostics -v
-  result: passed; 5 tests on retry
-- command: python3 -m unittest discover -s tests -p 'test_*.py'
-  result: blocked by unrelated CENG-T004-P017 tracker/packet state mismatch
+  - command: python3 -m unittest tests.test_gate_diagnostics -v
+    result: >-
+      passed; 10 tests including stable codes, remediation, fail-closed
+      security, adapter conformance, and format verification
+  - command: python3 -m unittest tests.test_transitions -v
+    result: passed; 7 tests (P004 regression check, unaffected by P005 changes)
+  - command: python3 -m unittest discover -s tests -p 'test*.py'
+    result: blocked by unrelated CENG-T004-P017 tracker/packet state mismatch
 evidence_refs:
-- CENG-T013-P005-EV001
+  - CENG-T013-P005-EV001
 skill_gaps: []
 unresolved_items:
-- User must review and accept this handoff.
-- Unrelated CENG-T004-P017 tracker/packet mismatch remains outside P005 scope.
-rollback_notes: Restore P005-scoped files to base revision 87dd9c6; no remote systems
-  changed.
-requested_next_action: Review and accept or reject this handoff.
+  - Unrelated CENG-T004-P017 tracker/packet mismatch remains outside P005 scope.
+rollback_notes: >-
+  Restore P005-scoped files to base revision 87dd9c6; no remote systems changed.
+requested_next_action: Independently review and accept or reject this handoff.
 receiver_status: pending
-receiver_notes: ''

@@ -17,8 +17,8 @@ receiver:
   identity_type: agent
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: null
-  acceptance_ref: null
+  accepted_at: '2026-09-16T11:11:01Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T013-P002-20260916-INDEPENDENT
   signature_ref: ''
 base_revision: 1be220f2691194a8e69f330ebc85fff9fd6c0172
 head_revision: 5f7e5a6f9d818da17a5b3e84836baf54b39685f0
@@ -79,15 +79,25 @@ evidence_refs:
 skill_gaps:
 - Authoritative design/admission helper scripts are absent from the locked checkout;
   pytest is not an installed dependency and was not used.
-unresolved_items:
-- Independent receiver acceptance is pending.
+unresolved_items: []
 rollback_notes: Restore the packet-scoped implementation and documentation to the
   base revision; no remote systems were changed.
-requested_next_action: Independently review and accept or reject CENG-T013-P002; do
-  not self-accept or mark Complete.
-receiver_notes: Resubmitted after E035 rejection. Independent review must verify the
-  exact b88bdf82970054810b76f67384b16b84b0d8318b committed content-head binding, changed-resource
-  hashes, scope digest, captured command output, threat-model/design record, security-verification
-  record, and Factory-hook exclusion. The handoff record is excluded from changed_resources
-  to preserve the non-circular binding convention.
-receiver_status: pending
+requested_next_action: Retain P002 in the active tracker until iteration closure.
+receiver_status: accepted
+receiver_notes: >-
+  Independent acceptance review passed all nine requested criteria. EV001 provides concrete
+  unittest and command output for explicit-root, CE_PROTOCOL_ROOT, lock-root,
+  default-root precedence, off/advisory/enforced modes, and safe missing-root
+  behavior; SEC001 and SEC002 provide the approved threat model and passed
+  security verification with explicit actor/capability boundaries, zero
+  critical/high findings, and Factory-hook exclusion. P001 is accepted, the
+  authenticated metadata and approval policy are
+  valid, and the exact 5f7e5a6 content-head binding, 13 changed-resource hashes,
+  and scope digest match the declared tree. Validation uses repository-authoritative
+  unittest rather than pytest. The CENG-T013:validator-root lock is released.
+accepted_revision: 5f7e5a6f9d818da17a5b3e84836baf54b39685f0
+accepted_scope_digest: d542a08f0aa4f2394eb1acc46cdc983c4436fb69b30eaf626845edce14488643
+accepted_evidence_refs:
+- CENG-T013-P002-EV001
+- CENG-T013-P002-SEC001
+- CENG-T013-P002-SEC002

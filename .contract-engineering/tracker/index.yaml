@@ -161,12 +161,11 @@ rows:
   updated_at: '2026-09-16'
 - task_id: CENG-T013
   packet_id: CENG-T013-P002
-  state: Handoff
+  state: Complete
   owner: worker
   reviewer: contract-driven-handoff-acceptance-reviewer
-  locks:
-  - CENG-T013:validator-root
-  next_action: Independently review and accept or reject P002; receiver acceptance remains pending
+  locks: []
+  next_action: Retain in active index until iteration closure
   updated_at: '2026-09-16'
 - task_id: CENG-T013
   packet_id: CENG-T013-P003

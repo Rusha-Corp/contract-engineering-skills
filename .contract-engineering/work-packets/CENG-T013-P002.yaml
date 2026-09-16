@@ -39,7 +39,7 @@ cleanup_owner: worker
 dependencies:
 - CENG-T013-P001
 locks:
-- CENG-T013:validator-root
+  []
 claim_timestamp: '2026-09-15T23:40:00Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
@@ -87,7 +87,7 @@ validation_plan:
     - security verification checks passed with no critical or high findings
     - Factory hook implementation remains excluded
     expected: no unresolved blocking security findings
-state: Handoff
+state: Complete
 evidence_refs:
 - CENG-T013-P002-EV001
 - CENG-T013-P002-SEC001

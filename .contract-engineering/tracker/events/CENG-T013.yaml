@@ -487,7 +487,6 @@ events:
   summary: Recomputed P003 changed-resource hashes and scope digest against the
     committed tree; contract-record, tracker, and projection validation remain
     required before handoff.
-
 - event_id: CENG-T013-E062
   packet_id: CENG-T013-P003
   type: acceptance
@@ -499,3 +498,22 @@ events:
     accepted P001 dependency, authenticated metadata, exact 5f7e5a6 content-head
     binding, 15 changed-resource hashes, scope digest, and Factory-hook
     exclusion; released only CENG-T013:identifiers-schema.
+
+- event_id: CENG-T013-E063
+  packet_id: CENG-T013-P002
+  type: acceptance
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T15:10:00Z'
+  summary: Accepted P002 after independently verifying root precedence, explicit
+    validation modes, safe missing-root behavior, unittest and governed security
+    evidence, accepted P001 dependency, authenticated metadata, exact 5f7e5a6
+    content-head binding, 13 changed-resource hashes, scope digest, and
+    Factory-hook exclusion; released only CENG-T013:validator-root.
+- event_id: CENG-T013-E064
+  packet_id: CENG-T013-P002
+  type: acceptance
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T11:11:01Z'
+  summary: Independent acceptance confirmation passed all requested criteria;
+    P002 is Complete, its validator-root lock is released, and the accepted
+    5f7e5a6 content-head and scope binding remain unchanged.

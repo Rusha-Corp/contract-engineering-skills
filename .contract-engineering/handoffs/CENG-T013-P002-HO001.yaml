@@ -21,8 +21,8 @@ receiver:
   acceptance_ref: null
   signature_ref: ''
 base_revision: 1be220f2691194a8e69f330ebc85fff9fd6c0172
-head_revision: 9ec4dd59425afb82127b10bea121993a1508dd18
-scope_digest: 2cd60f2e23d3d3a485556039e85485ccd68021a4d5848de7e2cdd9b3c0a7d47a
+head_revision: 5233a5c51a47cd069dc6b74845822d5ff10f1e18
+scope_digest: 7bc66056fd760f39a88125502b4778f24966b2a5a55230160b5e1e45895a63e9
 changed_resources:
 - path: scripts/validate-contract-records.py
   sha256: adccfb67b679122c792cedf2debe51d7db04f5a732323b74348167f2062f9859
@@ -45,7 +45,7 @@ changed_resources:
 - path: .contract-engineering/evidence/CENG-T013-P002-SEC002.yaml
   sha256: 84c39f9b2bec456aaf476049497ff26ee4e9664f91f4831030013aa6395dbc87
 - path: .contract-engineering/tracker/events/CENG-T013.yaml
-  sha256: 573586d347d3b9de7d77bd3a2420f3bbe66364a327e75ee48ad0e583d3f56eac
+  sha256: a281159b30a3ab1606a7866bbc8369e477669bf46668a6cfc58ca58752417c6b
 - path: .contract-engineering/tracker/index.yaml
   sha256: cb10b0b2c26a7e3f06fb8730eb1d6477131db6de6338ece6c253c310481b9d21
 - path: .contract-engineering/work-packets/CENG-T013-P002.yaml
@@ -54,23 +54,24 @@ created_at: '2026-09-16T08:33:00Z'
 expires_at: ''
 approval_ref: CENG-T013-P001-DEC001
 verification:
-  verified_at: '2026-09-16T12:22:00Z'
+  verified_at: '2026-09-16T12:32:00Z'
   verifier: worker
   result: pass
   revocation_checked_at: ''
   verification_ref: CENG-T013-P002-SEC002
 validation_results:
 - command: python3 -m unittest tests.test_contract_records.ValidatorRootAndModeTests
-  result: "exit 0; 5 tests ran, OK; captured output in CENG-T013-P002-EV001"
+  result: exit 0; 5 tests ran, OK; captured output in CENG-T013-P002-EV001
 - command: python3 -m unittest discover -s tests -p 'test_*.py'
-  result: "exit 0; 54 tests ran, OK; captured output in CENG-T013-P002-EV001"
+  result: exit 0; 54 tests ran, OK; captured output in CENG-T013-P002-EV001
 - command: python3 scripts/validate-contract-records.py --root .contract-engineering
     --mode enforced
-  result: "exit 0; contract validation valid (mode=enforced); captured output in CENG-T013-P002-EV001"
+  result: exit 0; contract validation valid (mode=enforced); captured output in CENG-T013-P002-EV001
 - command: python3 scripts/validate-tracker.py --root .contract-engineering
-  result: "exit 0; tracker valid: 23 active rows, 24 archive rows, 2 YAML partitions; captured output in CENG-T013-P002-EV001"
+  result: 'exit 0; tracker valid: 23 active rows, 24 archive rows, 2 YAML partitions;
+    captured output in CENG-T013-P002-EV001'
 - command: python3 scripts/render-tracker.py --root .contract-engineering --check
-  result: "exit 0; generated projection check passed; captured output in CENG-T013-P002-EV001"
+  result: exit 0; generated projection check passed; captured output in CENG-T013-P002-EV001
 evidence_refs:
 - CENG-T013-P002-EV001
 - CENG-T013-P002-SEC001
@@ -84,10 +85,9 @@ rollback_notes: Restore the packet-scoped implementation and documentation to th
   base revision; no remote systems were changed.
 requested_next_action: Independently review and accept or reject CENG-T013-P002; do
   not self-accept or mark Complete.
+receiver_notes: Resubmitted after E035 rejection. Independent review must verify the
+  exact b88bdf82970054810b76f67384b16b84b0d8318b committed content-head binding, changed-resource
+  hashes, scope digest, captured command output, threat-model/design record, security-verification
+  record, and Factory-hook exclusion. The handoff record is excluded from changed_resources
+  to preserve the non-circular binding convention.
 receiver_status: pending
-receiver_notes: >-
-  Resubmitted after E030 rejection. Independent review must verify the exact
-  9ec4dd59425afb82127b10bea121993a1508dd18 content head, changed-resource
-  hashes, scope digest, captured command output, threat-model/design record,
-  security-verification record, and Factory-hook exclusion. No acceptance or
-  lock release is requested from the sender.

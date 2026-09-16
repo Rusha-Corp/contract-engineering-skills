@@ -269,3 +269,39 @@ events:
   summary: Resubmitted P002 in Handoff with pending independent receiver review,
     exact committed content-head binding to follow, recomputed resource hashes
       and scope digest, and Factory-hook exclusion preserved.
+- event_id: CENG-T013-E035
+  packet_id: CENG-T013-P002
+  type: rejection
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-16T12:30:00Z'
+  summary: Rejected P002 because the handoff head_revision
+    9ec4dd59425afb82127b10bea121993a1508dd18 does not match the current
+    committed content head b88bdf82970054810b76f67384b16b84b0d8318b. The
+    changed-resource hashes, scope digest, and captured validation evidence are
+    therefore not bound to the reviewed committed tree. Validator-root behavior,
+    security records, actor boundary, and Factory-hook exclusion otherwise
+    passed. Retained CENG-T013:validator-root.
+- event_id: CENG-T013-E036
+  packet_id: CENG-T013-P002
+  type: implementation-start
+  actor: worker
+  occurred_at: '2026-09-16T12:31:00Z'
+  summary: Reopened P002 after E035; retained validator-root implementation and
+    security evidence while repairing only lifecycle and content-head binding
+    records.
+- event_id: CENG-T013-E037
+  packet_id: CENG-T013-P002
+  type: validation
+  actor: worker
+  occurred_at: '2026-09-16T12:32:00Z'
+  summary: Revalidated the preserved unit, contract-record, tracker, projection,
+    and security evidence for the P002 rebinding repair; no implementation or
+    Factory-hook scope changed.
+- event_id: CENG-T013-E038
+  packet_id: CENG-T013-P002
+  type: handoff
+  actor: worker
+  occurred_at: '2026-09-16T12:33:00Z'
+  summary: Returned P002 to Handoff with receiver_status pending and the handoff
+    prepared for exact non-self-referential binding to the resulting committed
+    content tree; changed-resource hashes and scope digest are recomputed.

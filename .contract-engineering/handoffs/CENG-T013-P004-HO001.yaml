@@ -2,9 +2,13 @@ handoff_version: 3
 handoff_id: CENG-T013-P004-HO001
 packet_id: CENG-T013-P004
 transition:
-  from: Implementing
+  from: Rework
   to: Handoff
-  reason: Transition journal CLI and recovery operations implemented and focused tests pass.
+  reason: >-
+    Reworked after independent rejection: extended recover() to handle prepared
+    reassignment journals and added three crash fault-injection tests proving
+    transition recovery, reassignment recovery, and idempotent replay. 7 focused
+    tests pass.
 sender:
   identity: worker
   identity_type: agent
@@ -16,34 +20,36 @@ receiver:
   identity_type: agent
   authenticated: true
   authentication_ref: REDACTED-IDENTITY-REF
-  accepted_at: '2026-09-16T16:00:00Z'
-  acceptance_ref: REVIEWER-REJECT-CENG-T013-P004-20260916
+  accepted_at: ''
+  acceptance_ref: ''
   signature_ref: ''
 base_revision: 1ce6d3e
-head_revision: 689ee3500dcae47a7a0a84526cb277d59c5168b3
-scope_digest: 234b76ebc537aad00c3c49a4ca64af164ec993cc368a86ebaefc04b15dd03e09
+head_revision: fd0576b0c0aca30db6e2b83d4fb082b8b330837e
+scope_digest: 89d82877ccad1271d6343f52f456f8cef28c0de74eccb8b3862016d463cbf743
 changed_resources:
-  - {path: .contract-engineering/evidence/CENG-T013-P004-EV001.md, sha256: cf67b1a6a10522475fbb8925f652ae7687b3f55f3168b16219dcd2371311efc7}
-  - {path: .contract-engineering/execution-tracker.md, sha256: be1c7d0d30af49bb538fffcea3f06eb813f6f4b337b40cb394798221d9caeb9a}
-  - {path: .contract-engineering/tracker/events/CENG-T013.yaml, sha256: 6c397ba98bf3e195a41c2efe9ef72beb495fd42cfdcc50d8e9ad6d0534da2610}
-  - {path: .contract-engineering/tracker/index.yaml, sha256: 1087d0cb25f8d31b3836bf152c8cdf4ab6d2213849765f0118c161766e70f5ae}
+  - {path: .contract-engineering/evidence/CENG-T013-P004-EV001.md, sha256: 5487f0b4bd57f01cb5b1419cd6c0aa14b03c601e2299a569c52984253d54cc27}
+  - {path: .contract-engineering/execution-tracker.md, sha256: 1b3e0fecc7301b2ad12a053496583aaeefff3a1d3a624e851751eab9455e84d1}
+  - {path: .contract-engineering/tracker/events/CENG-T013.yaml, sha256: 447355da6a09f0b828f0b1e4eb739f698760ab65b08b8bbac8c28d0d173a6997}
+  - {path: .contract-engineering/tracker/index.yaml, sha256: 203715941889a0de6708ac8e1b51126f0602b961b14e8bd7903de283a6c44dbc}
   - {path: .contract-engineering/work-packets/CENG-T013-P004.yaml, sha256: 24ae4d39591e072eb64dfe037d47bc2d210dfb73fe545cd97b1a9bfb6a9e861a}
   - {path: docs/coordination.md, sha256: 024060f3cfdb6be42d50d43331a4d5fcf60bbd67f91d29306ed7fa0a2780d89e}
   - {path: docs/tracker-storage.md, sha256: 9d358bd9c8501bf4fafcc6a4fdc74e4ed38407901a2a125d15de864f9c24cf18}
-  - {path: scripts/contract_engineering.py, sha256: 81ea30ca685e96ca1f64e0055ca0f93605cd3e631cb3e6c748b7d8fabed2b46c}
-  - {path: tests/test_transitions.py, sha256: 2747bea1006efe182ef150aaf9ece22d2e8e80cd271123ca36293cdb8350c884}
-created_at: '2026-09-16T15:45:00Z'
+  - {path: scripts/contract_engineering.py, sha256: 1af8194c9b152074db643a896d1e45431aea8acb17f82930e7ba2fd041f2c157}
+  - {path: tests/test_transitions.py, sha256: ae5aa0ce14fe9ccea8d0e11f755a7795dac4866237f4bdd5852293924293edad}
+created_at: '2026-09-16T16:35:00Z'
 expires_at: ''
 approval_ref: CENG-T013-P001-DEC001
 verification:
-  verified_at: '2026-09-16T15:45:00Z'
+  verified_at: '2026-09-16T16:35:00Z'
   verifier: worker
   result: pass
   revocation_checked_at: ''
   verification_ref: CENG-T013-P004-EV001
 validation_results:
-  - command: python3 -m unittest tests.test_transitions
-    result: passed; 4 tests
+  - command: python3 -m unittest tests.test_transitions -v
+    result: >-
+      passed; 7 tests including crash fault-injection (transition recovery,
+      reassignment recovery) and idempotent replay proof
   - command: python3 -m unittest discover -s tests -p 'test*.py'
     result: blocked by unrelated CENG-T004-P017 tracker/packet state mismatch
   - command: python3 scripts/validate-contract-records.py --project-dir . --mode enforced
@@ -55,17 +61,7 @@ evidence_refs:
 skill_gaps: []
 unresolved_items:
   - Unrelated CENG-T004-P017 tracker/packet mismatch remains outside P004 scope.
-rollback_notes: Restore P004-scoped files to base revision 1ce6d3e; no remote systems changed.
-requested_next_action: Independently review and accept or reject this handoff.
-receiver_status: rejected
-receiver_notes: >-
-  Independent review rejected this handoff. AC001 fails because the declared
-  validation command is recorded as blocked, so crash-recovery convergence is
-  not evidenced. The focused evidence records only four tests and does not
-  demonstrate crash fault injection, reassignment recovery, or the full
-  acceptance set. The implementation's recover() handles prepared transition
-  journals but does not recover prepared reassignment journals. Full-suite and
-  governed contract/tracker validations are also blocked by the unrelated
-  CENG-T004-P017 mismatch. Rework the validation/evidence and reassignment
-  recovery path, then resubmit with the same content-head convention and
-  recomputed bindings.
+rollback_notes: >-
+  Restore P004-scoped files to base revision 1ce6d3e; no remote systems changed.
+requested_next_action: Independently review and accept or reject this rework handoff.
+receiver_status: pending

@@ -2,6 +2,29 @@
 
 ## Unreleased
 
+## 2.7.0 - 2026-09-16
+
+- Added deterministic validator root resolution with explicit precedence
+  (explicit `--root`, `CE_PROTOCOL_ROOT` env, lock `project.protocol_root`,
+  `.contract-engineering` default) and explicit `off`/`advisory`/`enforced`
+  local validation modes.
+- Added canonical program-scoped Rusha identifier grammar
+  (`RUSHA-PROGRAM-T###-P###` with uppercase internal hyphens) alongside
+  legacy `CENG-T###-P###` forms; aligned all schemas, templates, and
+  validators.
+- Pinned `jsonschema==4.21.1` with hashes in `requirements-ci.txt`.
+- Added crash-recoverable transition journal CLI
+  (`scripts/contract_engineering.py`) with `transition`, `reassign`,
+  `doctor`, and `explain-block` commands backed by a JSON journal with
+  idempotent recovery for both transitions and reassignments.
+- Added structured gate-failure diagnostics
+  (`scripts/gate_diagnostics.py`) with 7 stable machine-readable codes,
+  actionable remediation fields, fail-closed security enforcement, and
+  adapter conformance for Factory Droid, Generic, and Hermes adapters.
+- Added `docs/adapter-security.md` and `docs/ci-security.md`.
+- Resolved pre-existing CENG-T004-P017 tracker/packet state mismatch.
+- Full unittest suite: 73 tests pass.
+
 ## 2.5.4 - 2026-09-03
 
 - Corrective release for the unverified `v2.5.3` tag. Accepts ISO dates loaded

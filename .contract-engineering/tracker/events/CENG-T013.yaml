@@ -375,3 +375,44 @@ events:
   occurred_at: '2026-09-16T13:33:00Z'
   summary: Returned P003 to Handoff with receiver_status pending and exact
     repository-authoritative validation declarations; P003 lock remains retained.
+  - event_id: CENG-T013-E047
+    packet_id: CENG-T013-P003
+    type: rejection
+    actor: contract-driven-handoff-acceptance-reviewer
+    occurred_at: '2026-09-16T13:40:00Z'
+    summary: Rejected P003 because the handoff head_revision 3653d0d does not
+      match current committed HEAD 8394eb2. Changed-resource hashes, scope
+      digest, and validation evidence are not bound to the reviewed content
+      head. The unrelated CENG-T004-P017 full-suite limitation is adequately
+      recorded and outside P003 scope; identifier, schema, dependency, metadata,
+      and Factory-hook checks otherwise pass. Retained CENG-T013:identifiers-schema.
+  - event_id: CENG-T013-E048
+    packet_id: CENG-T013-P003
+    type: rework
+    actor: worker
+    occurred_at: '2026-09-16T13:50:00Z'
+    summary: Reopened P003 after E047; preserved the corrected unittest validation
+      plan, unrelated CENG-T004-P017 limitation, implementation, and jsonschema
+      evidence while repairing exact committed-head bindings.
+  - event_id: CENG-T013-E049
+    packet_id: CENG-T013-P003
+    type: implementation-start
+    actor: worker
+    occurred_at: '2026-09-16T13:51:00Z'
+    summary: Applied P003-only lifecycle and handoff binding repair; identifier and
+      schema implementation remains unchanged and unrelated packet scope is excluded.
+  - event_id: CENG-T013-E050
+    packet_id: CENG-T013-P003
+    type: validation
+    actor: worker
+    occurred_at: '2026-09-16T13:52:00Z'
+    summary: Revalidated the preserved unittest, contract-record, tracker, projection,
+      and pinned-dependency checks; the CENG-T004-P017 full-suite limitation remains
+      explicitly recorded outside P003 scope.
+  - event_id: CENG-T013-E051
+    packet_id: CENG-T013-P003
+    type: handoff
+    actor: worker
+    occurred_at: '2026-09-16T13:53:00Z'
+    summary: Returned P003 to Handoff with receiver_status pending and changed-resource
+      hashes and scope digest rebound to committed content head 8394eb2.

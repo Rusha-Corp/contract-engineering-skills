@@ -25,3 +25,9 @@ events:
   actor: droid
   occurred_at: '2026-09-24T21:00:00Z'
   summary: 'Implementing -> Validation: Verified both platform wheel hashes and completed local corrective checks.'
+- event_id: CENG-T018-E005
+  packet_id: CENG-T018-P001
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T21:10:00Z'
+  summary: 'Validation -> Handoff: Corrective v2.7.2 content is ready for independent acceptance.'

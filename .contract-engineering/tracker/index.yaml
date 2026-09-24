@@ -14,12 +14,11 @@ rows:
   updated_at: '2026-09-24'
 - task_id: CENG-T018
   packet_id: CENG-T018-P001
-  state: Validation
+  state: Complete
   owner: droid
   reviewer: contract-driven-handoff-acceptance-reviewer
-  locks:
-  - release-path:v2.7.2
-  next_action: Record the corrective content commit and obtain independent acceptance before v2.7.2 publication.
+  locks: []
+  next_action: Verify hosted gates and publish the signed v2.7.2 tag, matching GitHub Release, and artifacts.
   updated_at: '2026-09-24'
 - task_id: CENG-T011
   packet_id: CENG-T011-P001

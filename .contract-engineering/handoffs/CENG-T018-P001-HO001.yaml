@@ -1,0 +1,89 @@
+handoff_version: 3
+handoff_id: CENG-T018-P001-HO001
+packet_id: CENG-T018-P001
+transition:
+  from: Validation
+  to: Handoff
+  reason: Corrective v2.7.2 content is validated from the preserved v2.7.1 line with
+    both platform dependency hashes recorded.
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-RECEIVER-IDENTITY-REF
+  accepted_at: '2026-09-24T22:40:00Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T018-P001-20260924-CONTENT
+  signature_ref: ''
+base_revision: 3336c4f02cd23431267bcddf261f20756ba0c3f7
+head_revision: 7b7b3e732d04024b61261ae4202ae41be19edb43
+scope_digest: 018fa6c24345d45372e741b5de9d360dc685a061054391eb3e3c0df26415eadf
+changed_resources:
+- path: .contract-engineering/decisions/CENG-T018-P001-DEC001.yaml
+  sha256: 3afa8545b57c2a98bc5ed03930b97a106ffd36b605007fe1cdbaac2ad916b919
+- path: .contract-engineering/evidence/CENG-T018-P001-EV001.md
+  sha256: 2ef827b063e017abc49cadce2641fed97b99c79b25edb77b56fb0d4e7e7fd0fc
+- path: .contract-engineering/execution-tracker.md
+  sha256: 1359502b490324bc3e3fc49c0474d9eda0f476d9e4d43062cc54f3ff94a7bad1
+- path: .contract-engineering/tracker/events/CENG-T018.yaml
+  sha256: 8305d1d3a40475e249501481f11efbc089462aec62d7466f7ed07b4e9d0b505e
+- path: .contract-engineering/tracker/index.yaml
+  sha256: 64c9a3dc74bd67db0d8f6c02edeaf64bd5a089c896984e37679ba7b858e3720f
+- path: .contract-engineering/work-packets/CENG-T018-P001.yaml
+  sha256: 3234b623dc0206e10851c494650ddeed71b81da97f7cd0124cf32c8ac9063919
+- path: CHANGELOG.md
+  sha256: 83eeff1f8c4da9615cb3e1575a8cdad32bf22a8d22457e17e7115943009e8952
+- path: requirements-ci.txt
+  sha256: 5263f5e1125c23298cd8559ff816708bdebb4ae9cb337d4dd47cc7455c69af7a
+created_at: '2026-09-24T21:10:00Z'
+expires_at: ''
+approval_ref: CENG-T018-P001-DEC001
+verification:
+  verified_at: '2026-09-24T21:10:00Z'
+  verifier: droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T018-P001-EV001
+validation_results:
+- command: python3 -m pip install --disable-pip-version-check --no-input --require-hashes
+    --dry-run -r requirements-ci.txt
+  result: exit 0; hosted-style dependency resolution passes in the available environment
+- command: python3 scripts/validate-contract-records.py
+  result: exit 0; enforced contract validation valid
+- command: python3 scripts/validate-tracker.py --root .contract-engineering
+  result: exit 0; tracker valid
+- command: python3 -m unittest discover -s tests -p 'test_*.py'
+  result: exit 0; 73 tests passed
+evidence_refs:
+- CENG-T018-P001-EV001
+skill_gaps: []
+unresolved_items:
+- Independent review, signed tag verification, hosted gates, GitHub Release publication,
+  and artifact parity remain pending.
+rollback_notes: Preserve v2.7.1 as an audit record and return consumers to v2.7.0
+  at b0ec963770d8a0106a26cc4d893cbd9417c322d4.
+requested_next_action: Independently review the corrective content, then commit the
+  attestation and publish the matching v2.7.2 tag, GitHub Release, and artifacts.
+receiver_status: accepted
+receiver_notes: >-
+  Independent content-phase acceptance passed for packet revision 1. AC001
+  passes because EV001 records the v2.7.1 hosted hash failure diagnosis,
+  direct CPython 3.8 and 3.12 wheel verification, and both required hashes in
+  requirements-ci.txt. AC002 passes because the bound baseline and content
+  head, eight changed-resource inventory, and EV001 establish a corrective
+  dependency/changelog/governed-records change with no functional source
+  changes. DEC001 is user-approved, actor/reviewer separation is present, and
+  the preserved v2.7.1 tag remains an audit record. Hosted validation, signed
+  tag verification, matching non-draft GitHub Release publication, and
+  artifact parity remain pending; this acceptance does not publish or assert
+  a stable v2.7.2 release.
+accepted_revision: 7b7b3e732d04024b61261ae4202ae41be19edb43
+accepted_packet_revision: 1
+accepted_scope_digest: 018fa6c24345d45372e741b5de9d360dc685a061054391eb3e3c0df26415eadf
+accepted_evidence_refs:
+  - CENG-T018-P001-EV001

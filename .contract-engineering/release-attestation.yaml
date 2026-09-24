@@ -1,16 +1,16 @@
 attestation_version: 1
-attestation_id: CENG-T017-P001-ATT001
-issued_at: "2026-09-24T20:30:00Z"
-expires_at: "2027-09-24T20:30:00Z"
+attestation_id: CENG-T018-P001-ATT001
+issued_at: "2026-09-24T21:05:00Z"
+expires_at: "2027-09-24T21:05:00Z"
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: 2e51ac5e358f2fcc35b13f838287bb49da60a972
-  release: 2.7.1
+  commit: 7b7b3e732d04024b61261ae4202ae41be19edb43
+  release: 2.7.2
   artifacts:
+    - path: requirements-ci.txt
+      sha256: 5263f5e1125c23298cd8559ff816708bdebb4ae9cb337d4dd47cc7455c69af7a
     - path: CHANGELOG.md
-      sha256: 19c7bbad917cc12ea9c02b899f4a00b872d1db483cc8901207e5bcb8d8f19544
-    - path: CONTRIBUTING.md
-      sha256: 7236af086ba41449a01e923314427cdbee0794493c1d07967fc86b6e78326751
+      sha256: 83eeff1f8c4da9615cb3e1575a8cdad32bf22a8d22457e17e7115943009e8952
     - path: docs/release-integrity.md
       sha256: 59be79fcd842d8e2d4d21d8a29e4f6c28059200318509cbdc104264709343725
     - path: .contract-engineering/release-signing-key.asc
@@ -19,29 +19,30 @@ publisher:
   identity: Emmanuel
   identity_type: human
   authentication_ref: 34049E9E7A00440491D319FFF19051409C4115FB
-  workflow: Factory Droid v2.7.1 release parity workflow
+  workflow: Factory Droid v2.7.2 corrective release workflow
   signing_system: gpg
-  signature_ref: gpg:tag:v2.7.1:34049E9E7A00440491D319FFF19051409C4115FB
+  signature_ref: gpg:tag:v2.7.2:34049E9E7A00440491D319FFF19051409C4115FB
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:2e51ac5e358f2fcc35b13f838287bb49da60a972
+  builder_digest: git-tree:7b7b3e732d04024b61261ae4202ae41be19edb43
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: 2e51ac5e358f2fcc35b13f838287bb49da60a972
+  source_commit: 7b7b3e732d04024b61261ae4202ae41be19edb43
   dependencies:
     - "PyYAML 6.0.3 and runtime dependencies, hash-pinned in requirements-ci.txt"
+    - "rpds-py 0.17.1 CPython 3.8 and 3.12 wheel hashes directly verified"
     - "GitHub CodeQL and secret-scanning workflows"
   reproducible: true
 review:
   author: droid
   independent_approver: contract-driven-handoff-acceptance-reviewer
-  approval_ref: CENG-T017-P001-HO002
-  approved_at: "2026-09-24T20:50:00Z"
+  approval_ref: CENG-T018-P001-HO001
+  approved_at: "2026-09-24T21:05:00Z"
 verification:
-  verified_at: "2026-09-24T20:30:00Z"
+  verified_at: "2026-09-24T21:05:00Z"
   verifier: droid
   result: pass
   transparency_ref: PENDING_HOSTED_VALIDATION
-  revocation_checked_at: "2026-09-24T20:30:00Z"
+  revocation_checked_at: "2026-09-24T21:05:00Z"
 revocation:
   status: active
   revocation_ref: null

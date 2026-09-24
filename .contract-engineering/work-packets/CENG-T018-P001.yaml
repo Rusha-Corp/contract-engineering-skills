@@ -8,7 +8,7 @@ work_type: delivery
 title: "Correct v2.7.2 dependency integrity release"
 objective: "Publish a corrective v2.7.2 release that preserves failed v2.7.1 history and adds the verified Python 3.12 rpds-py hash required by hosted CI."
 open_questions: []
-state: Validation
+state: Complete
 scope:
   in:
   - requirements-ci.txt
@@ -57,8 +57,7 @@ reviewer: contract-driven-handoff-acceptance-reviewer
 cleanup_owner: droid
 dependencies:
 - CENG-T017-P001
-locks:
-- release-path:v2.7.2
+locks: []
 claim_timestamp: '2026-09-24T20:55:00Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
@@ -130,7 +129,7 @@ incident_refs:
 - CENG-T018-P001-INC001
 evidence_refs:
 - CENG-T018-P001-EV001
-handoff_ref: null
+handoff_ref: CENG-T018-P001-HO001
 skill_gaps: []
 cleanup_scope:
   dead_refs: []

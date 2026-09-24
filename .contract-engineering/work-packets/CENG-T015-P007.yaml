@@ -15,6 +15,7 @@ state: Complete
 scope:
   in:
   - .github/workflows/protocol-validation.yml
+  - requirements-ci.txt
   - scripts/validate-contract-records.py
   - scripts/migrate_records.py
   - schemas/
@@ -47,7 +48,7 @@ dependencies:
 - CENG-T015-P006
 locks: []
 claim_timestamp: '2026-09-24T17:40:00+00:00'
-revision: 4
+revision: 5
 lease_ref: null
 fencing_token: ''
 worktree:
@@ -59,7 +60,7 @@ baseline_refs:
 - .contract-engineering/protocol.lock.yaml
 - 099450d292ca470f58f5ec19d51139a9ac992e1c
 - /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
-design_decision_ref: null
+design_decision_ref: CENG-T015-P007-DEC001
 data_gate_ref: null
 acceptance_criteria:
 - CI validates actual packet, epic, task, tracker, event, handoff, and scope instances.
@@ -126,4 +127,4 @@ cleanup_scope:
   dead_refs: []
   stale_refs: []
   temp_refs: []
-updated_at: '2026-09-24T18:05:49.243813+00:00'
+updated_at: '2026-09-24T18:38:31+00:00'

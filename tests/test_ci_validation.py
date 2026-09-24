@@ -49,6 +49,8 @@ class CiValidationTests(unittest.TestCase):
         ).read_text(encoding="utf-8")
         self.assertIn("--packet", workflow)
         self.assertIn("--changed-path", workflow)
+        self.assertIn("packet_changed", workflow)
+        self.assertIn("unclaimed", workflow)
         self.assertIn("migrate_records.py --root .contract-engineering", workflow)
         self.assertNotIn("migrate_records.py --apply --confirm", workflow)
 

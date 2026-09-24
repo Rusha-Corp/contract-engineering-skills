@@ -96,11 +96,63 @@ jobs:
             echo "No claimed packet changed; protocol scope enforcement failed."
             exit 1
           fi
-          args=()
-          for path in "${changed[@]}"; do
-            args+=(--changed-path "$path")
-          done
+          mapfile -t unclaimed < <(
+            python - "${packets[@]}" -- "${changed[@]}" <<'PY'
+            import sys
+            from pathlib import Path
+            import yaml
+
+            marker = sys.argv.index("--")
+            packet_paths = [Path(value) for value in sys.argv[1:marker]]
+            changed_paths = sys.argv[marker + 1:]
+
+            def matches(candidate, rule):
+                candidate = candidate.rstrip("/")
+                rule = str(rule).rstrip("/")
+                return candidate == rule or candidate.startswith(rule + "/")
+
+            claims = []
+            for packet_path in packet_paths:
+                packet = yaml.safe_load(packet_path.read_text())
+                claims.extend(
+                    (path, packet_path)
+                    for path in changed_paths
+                    if any(matches(path, rule) for rule in packet["scope"]["in"])
+                )
+            for path in changed_paths:
+                if not any(path == claimed for claimed, _ in claims):
+                    print(path)
+            PY
+          )
+          if [ "${#unclaimed[@]}" -ne 0 ]; then
+            printf 'Changed paths are not claimed by any packet:\n%s\n' \
+              "${unclaimed[*]}"
+            exit 1
+          fi
           for packet in "${packets[@]}"; do
+            mapfile -t packet_changed < <(
+              python - "$packet" "${changed[@]}" <<'PY'
+              import sys
+              from pathlib import Path
+              import yaml
+
+              packet = yaml.safe_load(Path(sys.argv[1]).read_text())
+              changed_paths = sys.argv[2:]
+
+              def matches(candidate, rule):
+                  candidate = candidate.rstrip("/")
+                  rule = str(rule).rstrip("/")
+                  return candidate == rule or candidate.startswith(rule + "/")
+
+              for path in changed_paths:
+                  if any(matches(path, rule) for rule in packet["scope"]["in"]):
+                      print(path)
+              PY
+            )
+            args=()
+            for path in "${packet_changed[@]}"; do
+              args+=(--changed-path "$path")
+            done
             python scripts/validate-contract-records.py \
               --packet "$packet" "${args[@]}"
           done

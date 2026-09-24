@@ -10,12 +10,15 @@ open_questions: []
 state: Complete
 scope:
   in:
+  - .contract-engineering/
   - .contract-engineering/work-packets/CENG-T015-P*.yaml
   - .contract-engineering/tracker/
   - .contract-engineering/handoffs/
   - .contract-engineering/evidence/
   - .contract-engineering/decisions/
   - .factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+  - tests/test_planning_records.py
+  - tests/test_tracker.py
   out:
   - .devcontainer/devcontainer.json
   - .factory/skills/

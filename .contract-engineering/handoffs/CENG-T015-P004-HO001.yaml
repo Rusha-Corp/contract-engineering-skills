@@ -21,7 +21,7 @@ receiver:
   acceptance_ref: ''
   signature_ref: ''
 base_revision: 1ac3908eb124de1fee5adfce65cd768722e2da3d
-head_revision: 03e3389edc7e23593c338a35642d78885f20cebb
+head_revision: daccb4c9ab4b563e769ed23f75565d7501cc2b5e
 scope_digest: 030cfac06a0a067596fbd69b2bc14aa6d67c6bf2e36a476d897e0c464b4d2c23
 changed_resources:
 - path: .contract-engineering/evidence/CENG-T015-P004-EV001.md
@@ -45,7 +45,7 @@ changed_resources:
 - path: schemas/work-packet.schema.json
   sha256: 67a8275f4b937dc0deadd2d141ec77cfceb3f2c8017178afeb17def6747cdb53
 - path: scripts/contract_engineering.py
-  sha256: 80f6a4f9ecae01da0845096daee32091c50aeb335a5efffd597c9e16d3ef0839
+  sha256: df1c7ad78b741309b24163e45cea559cfc456d7edc451df63200cbc658fffd16
 - path: scripts/finalize_handoff.py
   sha256: 11ca39531e70d19e459aed0db96717601f3286e7f1f095399e9761ad2259c4ff
 - path: scripts/packet_leases.py
@@ -53,7 +53,7 @@ changed_resources:
 - path: templates/work-packet.yaml
   sha256: 43ca4147ff8596a8cad8ba73bcb5e8cd1f372e7fb23b4b75a5d175d38f59d572
 - path: tests/test_handoffs.py
-  sha256: a94193673cbbc515ff2eca9e68abd66b5062ddafd3ac8afa77b6a8f75948a364
+  sha256: dcfd9a4899a940d217e478d0c683f1cdaa6f4fcd7b0c862f33816275429306d7
 - path: tests/test_leases.py
   sha256: 9369b4a60c189689ddd1e2c8485cf05c98fcd62b08a67ac6e270521b70a9643d
 created_at: '2026-09-24T17:21:00Z'
@@ -80,7 +80,7 @@ evidence_refs:
 - CENG-T015-P004-EV001
 skill_gaps: []
 unresolved_items:
-- Independent receiver acceptance is pending.
+- Independent receiver acceptance of the reworked completion-lock fix is pending.
 rollback_notes: Revert the handoff and lease packet-scoped commit range to the recorded
   base revision.
 requested_next_action: Review the acceptance criteria and accept or reject this handoff.

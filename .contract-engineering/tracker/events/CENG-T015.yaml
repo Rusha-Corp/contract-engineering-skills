@@ -85,3 +85,15 @@ events:
   actor: droid
   occurred_at: '2026-09-24T00:51:00Z'
   summary: Submitted revision-safe lifecycle implementation for independent receiver acceptance.
+- event_id: CENG-T015-E015
+  packet_id: CENG-T015-P003
+  type: acceptance
+  actor: user
+  occurred_at: '2026-09-24T01:00:00Z'
+  summary: Receiver accepted the revision-safe lifecycle handoff against the declared evidence and content revision.
+- event_id: CENG-T015-E016
+  packet_id: CENG-T015-P003
+  type: complete
+  actor: droid
+  occurred_at: '2026-09-24T01:01:00Z'
+  summary: Transitioned the accepted lifecycle packet to Complete and released its lock.

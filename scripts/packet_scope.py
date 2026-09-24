@@ -58,7 +58,8 @@ def main() -> int:
         if len(args.packet) != 1:
             parser.error("exactly one --packet is required without --unclaimed")
         paths = claimed_paths(args.packet[0], args.changed_path)
-    print("\n".join(paths))
+    if paths:
+        print("\n".join(paths))
     return 0
 
 

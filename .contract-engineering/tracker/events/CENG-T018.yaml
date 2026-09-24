@@ -43,3 +43,15 @@ events:
   actor: droid
   occurred_at: '2026-09-24T21:20:01Z'
   summary: Started the approved schema metadata correction while preserving the verified dependency hash correction.
+- event_id: CENG-T018-E008
+  packet_id: CENG-T018-P001
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T21:35:00Z'
+  summary: 'Rework -> Handoff: Schema metadata and dependency-integrity corrections passed local validation for independent review.'
+- event_id: CENG-T018-E009
+  packet_id: CENG-T018-P001
+  type: transition
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-24T22:45:00Z'
+  summary: 'Handoff -> Complete: Content acceptance passed for packet revision 2; hosted/tag/Release/artifact parity remains pending.'

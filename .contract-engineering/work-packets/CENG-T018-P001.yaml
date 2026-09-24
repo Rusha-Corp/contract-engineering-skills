@@ -8,7 +8,7 @@ work_type: delivery
 title: "Correct v2.7.2 dependency integrity release"
 objective: "Publish a corrective v2.7.2 release that preserves failed v2.7.1 history and adds the verified Python 3.12 rpds-py hash required by hosted CI."
 open_questions: []
-state: Rework
+state: Complete
 scope:
   in:
   - requirements-ci.txt
@@ -131,7 +131,7 @@ incident_refs:
 - CENG-T018-P001-INC001
 evidence_refs:
 - CENG-T018-P001-EV001
-handoff_ref: null
+handoff_ref: CENG-T018-P001-HO002
 skill_gaps: []
 cleanup_scope:
   dead_refs: []

@@ -4,13 +4,15 @@ issued_at: "2026-09-24T21:05:00Z"
 expires_at: "2027-09-24T21:05:00Z"
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: 7b7b3e732d04024b61261ae4202ae41be19edb43
+  commit: 0599f938b0ccabeec6315997cd68fadfc85e9709
   release: 2.7.2
   artifacts:
     - path: requirements-ci.txt
       sha256: 5263f5e1125c23298cd8559ff816708bdebb4ae9cb337d4dd47cc7455c69af7a
     - path: CHANGELOG.md
-      sha256: 83eeff1f8c4da9615cb3e1575a8cdad32bf22a8d22457e17e7115943009e8952
+      sha256: 42c85ad70732e85d7d60619b30b90cdea606f1ba6113973b0cda7cab046efb21
+    - path: schemas/identifiers.schema.json
+      sha256: 825ce4f786090324d94e7dce8e9436289a605cbb00d3b8e55045359148433c11
     - path: docs/release-integrity.md
       sha256: 59be79fcd842d8e2d4d21d8a29e4f6c28059200318509cbdc104264709343725
     - path: .contract-engineering/release-signing-key.asc
@@ -24,9 +26,9 @@ publisher:
   signature_ref: gpg:tag:v2.7.2:34049E9E7A00440491D319FFF19051409C4115FB
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:7b7b3e732d04024b61261ae4202ae41be19edb43
+  builder_digest: git-tree:0599f938b0ccabeec6315997cd68fadfc85e9709
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: 7b7b3e732d04024b61261ae4202ae41be19edb43
+  source_commit: 0599f938b0ccabeec6315997cd68fadfc85e9709
   dependencies:
     - "PyYAML 6.0.3 and runtime dependencies, hash-pinned in requirements-ci.txt"
     - "rpds-py 0.17.1 CPython 3.8 and 3.12 wheel hashes directly verified"
@@ -35,14 +37,14 @@ provenance:
 review:
   author: droid
   independent_approver: contract-driven-handoff-acceptance-reviewer
-  approval_ref: CENG-T018-P001-HO001
-  approved_at: "2026-09-24T21:05:00Z"
+  approval_ref: CENG-T018-P001-HO002
+  approved_at: "2026-09-24T21:30:00Z"
 verification:
-  verified_at: "2026-09-24T21:05:00Z"
+  verified_at: "2026-09-24T21:30:00Z"
   verifier: droid
   result: pass
   transparency_ref: PENDING_HOSTED_VALIDATION
-  revocation_checked_at: "2026-09-24T21:05:00Z"
+  revocation_checked_at: "2026-09-24T21:30:00Z"
 revocation:
   status: active
   revocation_ref: null

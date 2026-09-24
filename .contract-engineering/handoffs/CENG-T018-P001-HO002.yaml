@@ -1,0 +1,95 @@
+handoff_version: 3
+handoff_id: CENG-T018-P001-HO002
+packet_id: CENG-T018-P001
+transition:
+  from: Rework
+  to: Handoff
+  reason: Resubmitted corrective v2.7.2 content with the approved schema metadata
+    correction and complete resource inventory.
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-RECEIVER-IDENTITY-REF
+  accepted_at: '2026-09-24T22:45:00Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T018-P001-20260924-CONTENT
+  signature_ref: ''
+base_revision: 7bfa770132eb0d7ee7be89a81833df25a03fa3ec
+head_revision: 0599f938b0ccabeec6315997cd68fadfc85e9709
+scope_digest: 83c48cd171458dc08b6ccc67259d87a4b817dba03831fbbce3472a9140e54134
+changed_resources:
+- path: .contract-engineering/decisions/CENG-T018-P001-DEC002.yaml
+  sha256: 6930da6a9c24698495af3676ca1c2dd7e82d0b9ca5597994b345282e099ffc4f
+- path: .contract-engineering/evidence/CENG-T018-P001-EV001.md
+  sha256: 43fdb0f0d0d05400aa41b236d1490f13e856f36ce89379bcbbe073f37aeabafa
+- path: .contract-engineering/execution-tracker.md
+  sha256: 01981d5fdde65294b3886f296388b507e447dd6ad41cfcb7c5f05b28095edb7c
+- path: .contract-engineering/tracker/events/CENG-T018.yaml
+  sha256: e51fd2d923e5830ab56336765f7cd88c5bd48c4a30e5de54b543040b395cd473
+- path: .contract-engineering/tracker/index.yaml
+  sha256: 3099d8e4506db5439a51e544b89628157f2931b4f7d9a3931da094e8b794b3ef
+- path: .contract-engineering/work-packets/CENG-T018-P001.yaml
+  sha256: 8a87125eccbef9548e715aad89b887cffe2e1f054a68b62c566edc8cd01dfb91
+- path: CHANGELOG.md
+  sha256: 42c85ad70732e85d7d60619b30b90cdea606f1ba6113973b0cda7cab046efb21
+- path: schemas/identifiers.schema.json
+  sha256: 825ce4f786090324d94e7dce8e9436289a605cbb00d3b8e55045359148433c11
+created_at: '2026-09-24T21:35:00Z'
+expires_at: ''
+approval_ref: CENG-T018-P001-DEC002
+verification:
+  verified_at: '2026-09-24T21:35:00Z'
+  verifier: droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T018-P001-EV001
+validation_results:
+- command: python3 -m json.tool schemas/identifiers.schema.json
+  result: exit 0; schema metadata valid
+- command: python3 -m pip install --disable-pip-version-check --no-input --require-hashes
+    --dry-run -r requirements-ci.txt
+  result: exit 0; hosted-style dependency resolution passes
+- command: python3 scripts/validate-contract-records.py
+  result: exit 0; enforced contract validation valid
+- command: python3 scripts/validate-tracker.py --root .contract-engineering
+  result: exit 0; tracker valid
+- command: python3 -m unittest discover -s tests -p 'test_*.py'
+  result: exit 0; 73 tests passed
+evidence_refs:
+- CENG-T018-P001-EV001
+skill_gaps: []
+unresolved_items:
+- Signed tag verification, hosted gates, GitHub Release publication, and artifact
+  parity remain pending.
+rollback_notes: Preserve failed v2.7.1 and v2.7.2 tag history and return consumers
+  to v2.7.0 at b0ec963770d8a0106a26cc4d893cbd9417c322d4.
+requested_next_action: Commit the attestation and recreate the signed v2.7.2 tag
+  only after hosted gates pass, then publish the matching GitHub Release and artifacts.
+receiver_status: accepted
+receiver_notes: >-
+  Independent content-phase acceptance passed for packet revision 2. AC001
+  passes: EV001 records the v2.7.1 hosted dependency failure, direct CPython
+  3.8 hash f175e95a197f6a4059b50757a3dca33b32b61691bdbd22c29e8a8d21d3914cae,
+  direct hosted CPython 3.12 hash
+  a967dd6afda7715d911c25a6ba1517975acd8d1092b2f326718725461a3d33f9, and
+  the requirements entry containing both hashes. AC002 passes: the declared
+  v2.7.1-to-head scope is the requirements correction, changelog, schema
+  metadata correction, and governed release records; no functional source
+  behavior changes are evidenced. AC003 passes for content acceptance because
+  DEC001 and DEC002 preserve the failed v2.7.1 and v2.7.2 history and keep
+  signed-tag, hosted-gate, GitHub Release, and artifact parity as blocking
+  publication gates. Local schema JSON, require-hashes dry-run,
+  contract/tracker validation, and 73 tests are recorded as passing.
+  This acceptance does not publish or assert v2.7.2 tag, hosted, Release, or
+  asset parity; those remain pending.
+accepted_revision: 0599f938b0ccabeec6315997cd68fadfc85e9709
+accepted_packet_revision: 2
+accepted_scope_digest: 83c48cd171458dc08b6ccc67259d87a4b817dba03831fbbce3472a9140e54134
+accepted_evidence_refs:
+  - CENG-T018-P001-EV001

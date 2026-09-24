@@ -1,0 +1,26 @@
+decision_version: 1
+decision_id: CENG-T017-P001-DEC001
+packet_id: CENG-T017-P001
+status: approved
+title: "Adopt release parity as the stable-release rule"
+proposal: "Treat a stable version as published only when its verified signed tag and matching non-draft GitHub Release both exist, with release artifacts bound to the same commit."
+alternatives_considered:
+  - "Continue treating a Git tag alone as a release."
+  - "Create GitHub Releases manually without requiring signed tags."
+  - "Automate every historical missing Release before adopting a forward rule."
+decision: "For v2.7.1 and all future stable releases, publish the signed tag, matching non-draft GitHub Release, and verified artifacts as one release transaction. A tag-only or Release-only version is incomplete and must not be called released."
+scope:
+  - "CONTRIBUTING.md"
+  - "docs/release-integrity.md"
+  - "v2.7.1 release publication"
+controls:
+  - "The v2.7.1 release must be based on v2.7.0."
+  - "No functional source changes are included."
+  - "Hosted validation, independent review, signature verification, and artifact hashes must pass before publication."
+approved_by: user
+approved_at: "2026-09-24T20:15:00Z"
+expires_at: ""
+success_measure: "v2.7.1 has one documented parity rule and matching signed-tag, GitHub Release, and artifact records."
+rollback_ref: b0ec963770d8a0106a26cc4d893cbd9417c322d4
+review_owner: contract-driven-handoff-acceptance-reviewer
+review_at: "2026-09-24T20:15:00Z"

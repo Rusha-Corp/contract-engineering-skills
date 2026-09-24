@@ -4,6 +4,7 @@ Canonical state: `tracker/index.yaml` and its declared task shards.
 
 | Task | Packet | State | Owner | Reviewer | Locks |
 | --- | --- | --- | --- | --- | --- |
+| CENG-T017 | CENG-T017-P001 | Validation | droid | contract-driven-handoff-acceptance-reviewer | release-path:v2.7.1 |
 | CENG-T011 | CENG-T011-P001 | Complete | agent | user | released |
 | CENG-T011 | CENG-T011-P002 | Complete | agent | user | released |
 | CENG-T011 | CENG-T011-P003 | Complete | agent | user | released |

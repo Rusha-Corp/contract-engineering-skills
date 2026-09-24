@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 2.7.1 - 2026-09-24
+
+- Documented the release parity rule: a stable release requires a verified
+  signed tag, a matching non-draft GitHub Release, and hash-recorded artifacts
+  bound to the same commit.
+
 ## 2.7.0 - 2026-09-16
 
 - Added deterministic validator root resolution with explicit precedence

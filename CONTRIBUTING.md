@@ -19,6 +19,13 @@ the sole approver. Record the immutable source commit, artifact hashes,
 builder, dependencies, approval, verification, revocation, and rollback
 references in the release evidence.
 
+The canonical stable-release rule is documented in
+[`docs/release-integrity.md`](docs/release-integrity.md): a stable version is
+complete only when its verified signed tag and matching non-draft GitHub
+Release both exist, and the published artifacts resolve to that same release
+commit. A tag-only or Release-only version is incomplete and must not be
+described as released.
+
 Adapters, tools, MCP servers, plugins, and external dependencies require an
 inventory from `templates/adapter-inventory.yaml`, explicit capabilities and
 endpoint allowlists, provenance, vulnerability/license checks, compatibility

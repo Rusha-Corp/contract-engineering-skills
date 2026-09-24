@@ -1,0 +1,138 @@
+packet_id: CENG-T017-P001
+task_id: CENG-T017
+revision: 1
+phase: P1_IMPLEMENTATION
+domain: documentation
+packet_class: cross-cutting
+work_type: delivery
+title: "Publish v2.7.1 with release parity controls"
+objective: "Document one canonical release-parity rule and publish the v2.7.1 patch as a signed tag with a matching non-draft GitHub Release and verified artifacts."
+open_questions: []
+state: Validation
+scope:
+  in:
+  - CONTRIBUTING.md
+  - docs/release-integrity.md
+  - CHANGELOG.md
+  - .contract-engineering/work-packets/CENG-T017-P001.yaml
+  - .contract-engineering/decisions/CENG-T017-P001-DEC001.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/tracker/events/CENG-T017.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/evidence/
+  - .contract-engineering/handoffs/
+  - .contract-engineering/release-attestation.yaml
+  - .contract-engineering/release-signing-key.asc
+  - remote GitHub tag v2.7.1
+  - remote GitHub Release v2.7.1
+  - remote GitHub Release assets for v2.7.1
+  out:
+  - functional source behavior
+  - skills/
+  - templates/
+  - existing v2.6.1 and v2.7.0 tags and releases
+  - user work in /home/dev/contract-engineering-skills
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities:
+- repository-read
+- repository-write
+- local-validation
+- release-publication
+risk_tier: high
+approval_policy: two_person
+external_effects:
+- effect_id: CENG-T017-P001-EXT001
+  target: origin GitHub repository
+  operation: Publish the signed v2.7.1 tag, matching non-draft GitHub Release, and release assets.
+  data_classification: public
+  declared: true
+  approval_ref: CENG-T017-P001-DEC001
+  reversible: true
+  rollback: Delete the v2.7.1 release/tag only after preserving the commits and evidence; return consumers to v2.7.0.
+owner: droid
+reviewer: contract-driven-handoff-acceptance-reviewer
+cleanup_owner: droid
+dependencies: []
+locks:
+- release-path:v2.7.1
+claim_timestamp: '2026-09-24T20:20:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- b0ec963770d8a0106a26cc4d893cbd9417c322d4
+- v2.7.0
+design_decision_ref: CENG-T017-P001-DEC001
+data_gate_ref: null
+stability: stable
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+acceptance_criteria:
+- The canonical release-parity rule states that a stable release requires both a verified signed tag and a matching non-draft GitHub Release.
+- v2.7.1 is based directly on v2.7.0 and contains no functional changes.
+- The signed v2.7.1 tag, GitHub Release, and uploaded artifacts resolve to the same release commit and pass hosted gates.
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T017-P001-AC001
+    statement: The repository has one canonical release-parity rule.
+    expected_result: CONTRIBUTING.md points to docs/release-integrity.md, which defines the signed-tag and matching non-draft GitHub Release requirement.
+    verification_method: inspect
+    verification_command: rg -n "release.parity|non-draft GitHub Release|signed.*tag" CONTRIBUTING.md docs/release-integrity.md
+    evidence_refs:
+    - CENG-T017-P001-EV001
+    failure_result: Release guidance permits a tag-only or Release-only stable publication.
+    validation_ref: CENG-T017-P001-VAL001
+  - id: CENG-T017-P001-AC002
+    statement: v2.7.1 is a documentation-only patch from v2.7.0.
+    expected_result: The release diff contains only approved documentation, changelog, governance, attestation, and release metadata changes.
+    verification_method: execute
+    verification_command: git diff --name-only v2.7.0 HEAD
+    evidence_refs:
+    - CENG-T017-P001-EV001
+    failure_result: Functional source behavior changes are included without approval.
+    validation_ref: CENG-T017-P001-VAL002
+  - id: CENG-T017-P001-AC003
+    statement: The stable release has parity across Git, GitHub Releases, and artifacts.
+    expected_result: The signed v2.7.1 tag and non-draft GitHub Release point to the same commit, and each uploaded asset hash is recorded.
+    verification_method: execute
+    verification_command: gh release view v2.7.1 --repo Rusha-Corp/contract-engineering-skills --json tagName,isDraft,targetCommitish,assets
+    evidence_refs:
+    - CENG-T017-P001-EV001
+    failure_result: A stable release exists in only one publication surface or has mismatched artifacts.
+    validation_ref: CENG-T017-P001-VAL003
+validation_plan:
+- id: CENG-T017-P001-VAL001
+  kind: documentation
+  command: rg -n "release.parity|non-draft GitHub Release|signed.*tag" CONTRIBUTING.md docs/release-integrity.md
+  expected: One canonical rule is documented and linked.
+- id: CENG-T017-P001-VAL002
+  kind: full-suite
+  command: python3 -m unittest discover -s tests -p 'test_*.py'
+  expected: All repository tests pass and no functional source files are changed.
+- id: CENG-T017-P001-VAL003
+  kind: release
+  command: gh release view v2.7.1 --repo Rusha-Corp/contract-engineering-skills --json tagName,isDraft,targetCommitish,assets
+  expected: The non-draft Release matches the signed tag and recorded artifact hashes.
+trust_boundary_ref: CENG-T017-P001
+execution_budget_ref: CENG-T017-P001
+checkpoint_ref: CENG-T017-P001
+evaluation_ref: CENG-T017-P001
+agent_run_ref: CENG-T017-P001
+observability_refs:
+- CENG-T017-P001-EV001
+incident_refs:
+- CENG-T017-P001-INC001
+evidence_refs:
+- CENG-T017-P001-EV001
+handoff_ref: null
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []

@@ -1,9 +1,18 @@
 tracker_schema_version: 1
 partition: active
 max_rows: 25
-updated_at: '2026-09-03'
+updated_at: '2026-09-24'
 shards: []
 rows:
+- task_id: CENG-T017
+  packet_id: CENG-T017-P001
+  state: Validation
+  owner: droid
+  reviewer: contract-driven-handoff-acceptance-reviewer
+  locks:
+  - release-path:v2.7.1
+  next_action: Record the content commit, independent review, attestation, and release artifact hashes.
+  updated_at: '2026-09-24'
 - task_id: CENG-T011
   packet_id: CENG-T011-P001
   state: Complete
@@ -11,7 +20,7 @@ rows:
   reviewer: user
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T011
   packet_id: CENG-T011-P002
   state: Complete
@@ -19,7 +28,7 @@ rows:
   reviewer: user
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T011
   packet_id: CENG-T011-P003
   state: Complete
@@ -27,7 +36,7 @@ rows:
   reviewer: user
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T011
   packet_id: CENG-T011-P004
   state: Complete
@@ -35,7 +44,7 @@ rows:
   reviewer: user
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T011
   packet_id: CENG-T011-P005
   state: Complete
@@ -43,7 +52,7 @@ rows:
   reviewer: user
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T011
   packet_id: CENG-T011-P006
   state: Complete
@@ -51,7 +60,7 @@ rows:
   reviewer: user
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T010
   packet_id: CENG-T010-P001
   state: Complete
@@ -59,7 +68,7 @@ rows:
   reviewer: user
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T007
   packet_id: CENG-T007-P003
   state: Complete
@@ -67,7 +76,7 @@ rows:
   reviewer: user
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T009
   packet_id: CENG-T009-P001
   state: Complete
@@ -75,7 +84,7 @@ rows:
   reviewer: user
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T004
   packet_id: CENG-T004-P016
   state: Complete
@@ -83,7 +92,7 @@ rows:
   reviewer: contract-driven-handoff-acceptance-reviewer
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T004
   packet_id: CENG-T004-P017
   state: Rework
@@ -101,7 +110,7 @@ rows:
   reviewer: contract-driven-handoff-acceptance-reviewer
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T004
   packet_id: CENG-T004-P019
   state: Complete
@@ -109,7 +118,7 @@ rows:
   reviewer: contract-driven-handoff-acceptance-reviewer
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T004
   packet_id: CENG-T004-P020
   state: Complete
@@ -117,7 +126,7 @@ rows:
   reviewer: contract-driven-handoff-acceptance-reviewer
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T004
   packet_id: CENG-T004-P021
   state: Complete
@@ -125,7 +134,7 @@ rows:
   reviewer: contract-driven-handoff-acceptance-reviewer
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T004
   packet_id: CENG-T004-P022
   state: Complete
@@ -133,7 +142,7 @@ rows:
   reviewer: contract-driven-handoff-acceptance-reviewer
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T004
   packet_id: CENG-T004-P023
   state: Complete
@@ -141,7 +150,7 @@ rows:
   reviewer: contract-driven-handoff-acceptance-reviewer
   locks: []
   next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T012
   packet_id: CENG-T012-P001
   state: Complete
@@ -149,7 +158,7 @@ rows:
   reviewer: worker
   locks: []
   next_action: Retain in active index until iteration closure
-  updated_at: '2026-09-03'
+  updated_at: '2026-09-24'
 - task_id: CENG-T013
   packet_id: CENG-T013-P001
   state: Complete

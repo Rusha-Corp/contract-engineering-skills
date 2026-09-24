@@ -7,6 +7,20 @@ publisher/provenance verification.
 
 ## Release controls
 
+### Release parity rule
+
+A stable version is complete only when all three publication surfaces agree:
+
+1. a verified signed annotated `vX.Y.Z` Git tag exists;
+2. a matching non-draft GitHub Release exists for that exact tag; and
+3. every published artifact is hash-recorded and resolves to the same release
+   commit.
+
+A tag without its matching GitHub Release, or a GitHub Release without its
+   verified signed tag, is an incomplete publication. It must not be called a
+   stable release. The release handoff records the tag, Release, commit, asset
+   names, and SHA-256 values before publication is considered complete.
+
 Before publishing a protocol release:
 
 1. Work from a clean, reviewed commit on a protected release path.

@@ -1,0 +1,33 @@
+task_id: CENG-T017
+schema_version: 1
+events:
+- event_id: CENG-T017-E001
+  packet_id: CENG-T017-P001
+  type: admission
+  actor: droid
+  occurred_at: '2026-09-24T20:20:00Z'
+  summary: Registered the v2.7.1 documentation-only release packet from the v2.7.0 baseline.
+- event_id: CENG-T017-E002
+  packet_id: CENG-T017-P001
+  type: claim
+  actor: droid
+  occurred_at: '2026-09-24T20:20:01Z'
+  summary: Claimed the release-path:v2.7.1 lock for the clean release transaction.
+- event_id: CENG-T017-E003
+  packet_id: CENG-T017-P001
+  type: implementation-start
+  actor: droid
+  occurred_at: '2026-09-24T20:20:02Z'
+  summary: Started the documentation-only release implementation and artifact preparation.
+- event_id: CENG-T017-E004
+  packet_id: CENG-T017-P001
+  type: validation
+  actor: droid
+  occurred_at: '2026-09-24T20:22:00Z'
+  summary: Refreshed the review timestamp for 17 already-Complete terminal rows and the active index timestamp to satisfy the 14-day tracker review gate.
+- event_id: CENG-T017-E005
+  packet_id: CENG-T017-P001
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T20:24:00Z'
+  summary: 'Implementing -> Validation: Documentation, tracker, link, and full test validation passed.'

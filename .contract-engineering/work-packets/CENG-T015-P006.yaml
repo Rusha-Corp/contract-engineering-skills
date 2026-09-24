@@ -1,0 +1,108 @@
+packet_id: CENG-T015-P006
+task_id: CENG-T015
+phase: P3_CLEANUP
+domain: coding
+packet_class: child-implementation
+work_type: enabler
+parent_task_id: CENG-T015
+priority: normal
+iteration: acceptance-first-rollout
+title: Add safe tracker rollover tooling
+objective: Provide dry-run and confirmation-gated sharding and terminal packet archival while preserving partition invariants.
+open_questions: []
+state: Claimed
+scope:
+  in:
+  - scripts/tracker_rollover.py
+  - scripts/render-tracker.py
+  - scripts/validate-tracker.py
+  - tests/test_rollover.py
+  - docs/tracker-storage.md
+  out:
+  - .devcontainer/devcontainer.json
+  - remote systems
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities:
+- repository-read
+- repository-write
+- local-validation
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: droid
+reviewer: user
+cleanup_owner: droid
+dependencies:
+- CENG-T015-P004
+locks:
+- tracker-rollover:CENG-T015-P006
+claim_timestamp: '2026-09-24T17:40:00+00:00'
+revision: 0
+lease_ref: null
+fencing_token: ''
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 099450d292ca470f58f5ec19d51139a9ac992e1c
+- /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Rollover has a dry-run mode that reports moves without mutation.
+- Confirmed rollover moves, rather than copies, terminal packet files and tracker rows.
+- Shards remain bounded and active/archive partitions remain disjoint.
+- Generated projections and validators run after a confirmed rollover.
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T015-P006-AC001
+    statement: Dry-run rollover is non-mutating and reviewable.
+    expected_result: The plan lists eligible packet files, source partitions, destination archive rows, and blockers without changing files.
+    verification_method: execute
+    verification_command: python3 -m unittest tests.test_rollover -v
+    evidence_refs: []
+    failure_result: Archival can happen without confirmation or rollback visibility.
+    validation_ref: CENG-T015-P006-VAL001
+  - id: CENG-T015-P006-AC002
+    statement: Confirmed rollover preserves one-packet-one-partition invariants.
+    expected_result: Terminal packet files and rows move to the archive and validation passes.
+    verification_method: execute
+    verification_command: python3 -m unittest tests.test_rollover -v
+    evidence_refs: []
+    failure_result: Active and archive partitions diverge or duplicate packets.
+    validation_ref: CENG-T015-P006-VAL001
+validation_plan:
+- id: CENG-T015-P006-VAL001
+  kind: unit
+  command: python3 -m unittest tests.test_rollover -v
+  expected: rollover dry-run and confirmed-move tests pass
+- id: CENG-T015-P006-VAL002
+  kind: full-suite
+  command: python3 -m unittest discover -s tests -p 'test_*.py'
+  expected: repository test suite passes
+- id: CENG-T015-P006-VAL003
+  kind: principles
+  skill: coding-principles
+  checks:
+  - archival is confirmation-gated and reversible
+  - generated projections remain derived
+  - no active packet is moved
+  expected: no unresolved principle violations
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+skill_gaps: []
+evidence_refs: []
+handoff_ref: null
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+updated_at: '2026-09-24T17:40:00+00:00'

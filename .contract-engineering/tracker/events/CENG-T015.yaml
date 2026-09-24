@@ -44,13 +44,6 @@ events:
     tests passed in the isolated worktree.
 - event_id: CENG-T015-E007
   packet_id: CENG-T015-P002
-  type: handoff
-  actor: droid
-  occurred_at: '2026-09-24T00:21:00Z'
-  summary: Submitted criterion-level evidence and a pending receiver handoff for independent
-    acceptance.
-  summary: Resubmitted the corrected handoff for independent acceptance against the 344e955 content revision.
-  packet_id: CENG-T015-P002
   type: acceptance
   actor: user
   occurred_at: '2026-09-24T00:30:00Z'
@@ -168,13 +161,15 @@ events:
   type: handoff
   actor: droid
   occurred_at: '2026-09-24T17:31:10Z'
-  summary: Resubmitted the corrected handoff for independent acceptance against the 344e955 content revision.
+  summary: Resubmitted the corrected handoff for independent acceptance against the
+    344e955 content revision.
 - event_id: CENG-T015-E027
   packet_id: CENG-T015-P004
   type: acceptance
   actor: user
   occurred_at: '2026-09-24T17:31:20Z'
-  summary: Receiver accepted the corrected handoff, including distinct packet and Git-content revisions.
+  summary: Receiver accepted the corrected handoff, including distinct packet and
+    Git-content revisions.
 - event_id: CENG-T015-E026
   packet_id: CENG-T015-P004
   type: transition
@@ -187,3 +182,29 @@ events:
   actor: droid
   occurred_at: '2026-09-24T17:31:50Z'
   summary: Released the completed packet epoch lease after lock reconciliation.
+- event_id: CENG-T015-E029
+  packet_id: CENG-T015-P005
+  type: admission
+  actor: droid
+  occurred_at: '2026-09-24T17:40:00Z'
+  summary: Registered the read-only worktree reconciliation child packet.
+- event_id: CENG-T015-E030
+  packet_id: CENG-T015-P005
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T17:41:00.795899+00:00'
+  summary: 'Implementing -> Validation: Focused and full validation passed'
+- event_id: CENG-T015-E031
+  packet_id: CENG-T015-P005
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T17:41:01.199161+00:00'
+  summary: 'Validation -> Handoff: Evidence and structured handoff are ready for receiver
+    review'
+- event_id: CENG-T015-E032
+  packet_id: CENG-T015-P005
+  type: implementation-start
+  actor: droid
+  occurred_at: '2026-09-24T17:45:00Z'
+  summary: Started read-only worktree reconciliation with explicit packet worktree
+    metadata.

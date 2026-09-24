@@ -67,6 +67,26 @@
     "fencing_token": {
       "type": "string"
     },
+    "worktree": {
+      "type": "object",
+      "required": ["path", "branch", "base_revision", "cleanup_status"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "branch": {"type": "string", "minLength": 1},
+        "base_revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "head_revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "cleanup_status": {
+          "enum": ["active", "released", "removed"]
+        }
+      },
+      "additionalProperties": false
+    },
     "title": {"type": "string", "minLength": 1},
     "objective": {"type": "string", "minLength": 1},
     "actor": {

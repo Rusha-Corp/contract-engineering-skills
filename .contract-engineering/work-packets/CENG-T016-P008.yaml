@@ -1,5 +1,6 @@
 packet_id: CENG-T016-P008
 task_id: CENG-T016
+revision: 1
 phase: P0_FOUNDATIONS
 domain: security
 packet_class: cross-cutting
@@ -22,6 +23,9 @@ scope:
   - .contract-engineering/release-attestation.yaml
   - .contract-engineering/decisions/CENG-T016-P008-DEC001.yaml
   - .contract-engineering/work-packets/CENG-T016-P008.yaml
+  - .contract-engineering/handoffs/
+  - .contract-engineering/evidence/
+  - .contract-engineering/incidents/
   - .contract-engineering/tracker/index.yaml
   - .contract-engineering/tracker/shards/CENG-T016.yaml
   - .contract-engineering/tracker/events/CENG-T016.yaml
@@ -108,7 +112,8 @@ acceptance_contract:
     expected_result: Full tests, schema checks, security checks, and release attestation review have recorded evidence.
     verification_method: inspect
     verification_command: python3 -m unittest discover -s tests -p 'test_*.py'
-    evidence_refs: []
+    evidence_refs:
+    - CENG-T016-P008-EV001
     failure_result: The release is published without independent evidence and rollback metadata.
     validation_ref: CENG-T016-P008-VAL002
 validation_plan:
@@ -132,5 +137,6 @@ cleanup_scope:
   dead_refs: []
   stale_refs: []
   temp_refs: []
-state: Implementing
+state: Handoff
+handoff_ref: CENG-T016-P008-HO001
 updated_at: '2026-09-24T18:55:00Z'

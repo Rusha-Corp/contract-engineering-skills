@@ -1,0 +1,70 @@
+handoff_version: 3
+handoff_id: CENG-T016-P008-HO001
+packet_id: CENG-T016-P008
+transition:
+  from: Implementing
+  to: Handoff
+  reason: Rekeyed v2.6.1 content is prepared from the signed v2.6.0 line and local release validation passes.
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REVIEWER-ACCEPT-CENG-T016-P008-20260924
+  accepted_at: '2026-09-24T19:26:03Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T016-P008-20260924
+  signature_ref: ''
+base_revision: 52e4c50fe3f0145b7b288ed4fe2e5ab616569120
+head_revision: 92b2c83
+scope_digest: a755ccaccb288e0681ae4cc360f7867e10ad5ff8778a480857ef9265effd5e3a
+changed_resources:
+- path: CHANGELOG.md
+  sha256: b3aba4eb8e12b9d6a62a928e6f702195bc08b236cbedf137d8326eb5a8a3e790
+- path: .github/workflows/protocol-validation.yml
+  sha256: 67d8fc80145842eaf90bad6c637bef2c524dbf33a2ae7a726f2bdf92753be67b
+- path: schemas/work-packet.schema.json
+  sha256: b748ec5c053a86d65b8384902612bb26f24bcaf3526079e1440a8c3769a50f27
+- path: scripts/validate-contract-records.py
+  sha256: f1ad0cae16777a9c6751cac8eafc37e62c81361658d7834ebe40cf2ece6e9ce9
+created_at: '2026-09-24T18:55:00Z'
+expires_at: ''
+approval_ref: CENG-T016-P008-DEC001
+verification:
+  verified_at: '2026-09-24T18:55:00Z'
+  verifier: droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T016-P008-EV001
+validation_results:
+- command: python3 -m pip install --disable-pip-version-check --no-input --require-hashes --ignore-installed --dry-run -r requirements-ci.txt
+  result: exit 0; all v2.6.0-line dependency hashes verified
+- command: python3 scripts/validate-contract-records.py
+  result: exit 0; contract validation valid
+- command: python3 scripts/validate-tracker.py --root .contract-engineering
+  result: exit 0; tracker valid
+- command: python3 scripts/render-tracker.py --root .contract-engineering --check
+  result: exit 0; generated projection current
+- command: python3 -m unittest discover -s tests -p 'test_*.py'
+  result: exit 0; 166 tests passed
+- command: python3 scripts/validate-factory-plugin.py --root .
+  result: exit 0; root plugin valid and reproducible
+evidence_refs:
+- CENG-T016-P008-EV001
+skill_gaps: []
+unresolved_items:
+- Hosted tag validation and final GPG signature remain pending.
+- The release attestation and signed v2.6.1 tag are not yet published.
+rollback_notes: Delete the unpublished release branch or return consumers to the verified v2.6.0 tag at 52e4c50fe3f0145b7b288ed4fe2e5ab616569120.
+requested_next_action: Commit the attestation, push the release branch, run hosted validation, sign and publish v2.6.1, then verify the remote tag and release metadata.
+receiver_status: accepted
+receiver_notes: Independent acceptance review passed. AC001 confirms unique CENG-T016 rollout records coexist with the preserved v2.6.0 CENG-T015 release packet. AC002 confirms the recorded local validation, 166 passing tests, and artifact hashes. Hosted tag validation and final GPG signing remain publication gates. Rollback to v2.6.0 is documented.
+accepted_revision: 92b2c8319ae703cbc935aa9d99785af0705dfc25
+accepted_packet_revision: 1
+accepted_scope_digest: a755ccaccb288e0681ae4cc360f7867e10ad5ff8778a480857ef9265effd5e3a
+accepted_evidence_refs:
+- CENG-T016-P008-EV001

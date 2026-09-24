@@ -4,7 +4,8 @@ packet_id: CENG-T015-P003
 transition:
   from: Validation
   to: Handoff
-  reason: Revision-safe lifecycle implementation passed targeted and full repository validation.
+  reason: Revision-safe lifecycle implementation passed targeted and full repository
+    validation.
 sender:
   identity: droid
   identity_type: agent
@@ -20,9 +21,23 @@ receiver:
   acceptance_ref: ''
   signature_ref: ''
 base_revision: 6545301cc1c0c6cabdd45adffdd9e8d38b2cfd37
-head_revision: PENDING_COMMIT
-scope_digest: PENDING_SCOPE_DIGEST
-changed_resources: []
+head_revision: 08279bb59098c50efad89d3072905d1cdece6b7a
+scope_digest: 280a1f911896eb0d5e35568c71f47bce5eb29aee8a9e7f06ab417be401b5206b
+changed_resources:
+- path: .contract-engineering/evidence/CENG-T015-P003-EV001.md
+  sha256: 4545de7ef4e41225eb4895b84167b3ebc63d557eda883818bb62173941c3f763
+- path: .contract-engineering/execution-tracker.md
+  sha256: 8fd9bd5d3ff4314b06d0cd6f87d9826a44473150e4a5a8da7b1e27d7eb8b4ad9
+- path: .contract-engineering/tracker/events/CENG-T015.yaml
+  sha256: da27ff862886cd8e5df378bc0db4aab201f2690ea0cccacf1ee50039bc48ccb9
+- path: .contract-engineering/tracker/shards/CENG-T015.yaml
+  sha256: aa7295af635964df262a18ab3657346823dac1a5eb1925ed1c2fd68561546e4f
+- path: .contract-engineering/work-packets/CENG-T015-P003.yaml
+  sha256: daa420cf96823751adfda9b936591f5c48f94d01d7d38ea8b58e37b47b4171de
+- path: scripts/contract_engineering.py
+  sha256: b3fe9f5d5af7e133310f62ffc6f4761d6d3443fdc7c38f56bbcbf3112e23f18a
+- path: tests/test_transitions.py
+  sha256: 725da3e06da5f120040ed9b4e64f343ddbd3e584201cf8248bd1cb64e5fc9e4f
 created_at: '2026-09-24T00:51:00Z'
 expires_at: ''
 approval_ref: /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
@@ -48,7 +63,8 @@ evidence_refs:
 skill_gaps: []
 unresolved_items:
 - Independent receiver acceptance is pending.
-rollback_notes: Revert the lifecycle packet-scoped commit range to the recorded base revision.
+rollback_notes: Revert the lifecycle packet-scoped commit range to the recorded base
+  revision.
 requested_next_action: Review the acceptance criteria and accept or reject this handoff.
 receiver_status: pending
 receiver_notes: ''

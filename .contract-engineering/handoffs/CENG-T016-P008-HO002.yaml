@@ -1,0 +1,66 @@
+handoff_version: 3
+handoff_id: CENG-T016-P008-HO002
+packet_id: CENG-T016-P008
+transition:
+  from: Rework
+  to: Handoff
+  reason: Corrective release controls are implemented and local validation passes
+    after the failed v2.6.1 hosted gates.
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: contract-driven-handoff-acceptance-reviewer:current-session
+  accepted_at: ''
+  acceptance_ref: ''
+  signature_ref: ''
+base_revision: 92b2c8319ae703cbc935aa9d99785af0705dfc25
+head_revision: 52a17f7116450ff075fb4c006201ab5b3fbb5f21
+scope_digest: c6d664ea743ec9a71b7fa7baea804713d2f0e1eeeaa408b167afac28e3779aa4
+changed_resources:
+- path: .github/workflows/protocol-validation.yml
+  sha256: 5c851b324528b657351b2817ba2462170a104818416ec2e1effe5be0f573de75
+- path: .contract-engineering/release-signing-key.asc
+  sha256: f29750732190374f17da90c35117d778123f3a6917a9d61bd261c73b51fc69f2
+created_at: '2026-09-24T19:40:00Z'
+expires_at: ''
+approval_ref: CENG-T016-P008-DEC002
+verification:
+  verified_at: '2026-09-24T19:40:00Z'
+  verifier: droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T016-P008-EV002
+validation_results:
+- command: python3 scripts/validate-contract-records.py
+  result: exit 0; enforced contract validation valid
+- command: python3 scripts/validate-tracker.py --root .contract-engineering
+  result: exit 0; 27 active rows, 35 archive rows, 4 YAML partitions valid
+- command: python3 -m unittest discover -s tests -p 'test_*.py'
+  result: exit 0; 166 tests passed
+- command: attestation artifact hash verification
+  result: exit 0; corrected workflow and committed public-key hashes match
+evidence_refs:
+- CENG-T016-P008-EV001
+- CENG-T016-P008-EV002
+skill_gaps: []
+unresolved_items:
+- The attestation commit and recreated signed v2.6.1 tag remain unpublished.
+- Hosted protocol, stable-release, security, and secret-scanning gates must pass for
+  the recreated tag.
+rollback_notes: Delete the corrective release branch or return consumers to the verified
+  v2.6.0 tag at 52e4c50fe3f0145b7b288ed4fe2e5ab616569120.
+requested_next_action: Independently review the corrected release controls, then commit
+  the attestation, recreate the signed v2.6.1 tag, and verify all hosted gates.
+receiver_status: pending
+receiver_notes: ''
+accepted_revision: ''
+accepted_packet_revision: ''
+accepted_scope_digest: ''
+accepted_evidence_refs: []

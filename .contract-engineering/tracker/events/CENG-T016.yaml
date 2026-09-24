@@ -262,3 +262,33 @@ events:
   actor: droid
   occurred_at: '2026-09-24T18:35:01Z'
   summary: 'Handoff -> Complete: Receiver accepted CENG-T016-P007-HO001'
+- event_id: CENG-T016-E042
+  packet_id: CENG-T016-P008
+  type: rework
+  actor: droid
+  occurred_at: '2026-09-24T19:35:00Z'
+  summary: 'Handoff -> Rework: Hosted tag scope and signing-key gates failed; user authorized deletion and recreation of v2.6.1.'
+- event_id: CENG-T016-E043
+  packet_id: CENG-T016-P008
+  type: implementation-start
+  actor: droid
+  occurred_at: '2026-09-24T19:35:01Z'
+  summary: Correcting the tag-scope fallback and aligning committed public signing-key metadata with the approved signing identity.
+- event_id: CENG-T016-E044
+  packet_id: CENG-T016-P008
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T19:39:00Z'
+  summary: 'Rework -> Validation: Corrected workflow and signing-key metadata passed local validation.'
+- event_id: CENG-T016-E045
+  packet_id: CENG-T016-P008
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T19:40:00Z'
+  summary: 'Validation -> Handoff: Corrective release handoff prepared for independent acceptance.'
+- event_id: CENG-T016-E046
+  packet_id: CENG-T016-P008
+  type: rejection
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-24T19:45:00Z'
+  summary: 'Rejected CENG-T016-P008-HO002: hosted release gates, exact scope/resource bindings, and recreated signed-tag evidence remain pending; packet returned to Rework and release lock preserved.'

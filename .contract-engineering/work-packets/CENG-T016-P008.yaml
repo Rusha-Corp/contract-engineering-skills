@@ -1,6 +1,6 @@
 packet_id: CENG-T016-P008
 task_id: CENG-T016
-revision: 1
+revision: 2
 phase: P0_FOUNDATIONS
 domain: security
 packet_class: cross-cutting
@@ -16,11 +16,20 @@ open_questions:
     affects_criteria:
     - CENG-T016-P008-AC002
     owner: contract-driven-handoff-acceptance-reviewer
+    disposition: resolved
+    resolution_ref: CENG-T016-P008-HO001
+  - id: CENG-T016-P008-OQ002
+    question: Does the corrected workflow derive one tag parent and does the committed public release key verify the signed tag?
+    affects_criteria:
+    - CENG-T016-P008-AC002
+    owner: droid
     disposition: blocking
 scope:
   in:
   - CHANGELOG.md
   - .contract-engineering/release-attestation.yaml
+  - .contract-engineering/release-signing-key.asc
+  - .contract-engineering/decisions/CENG-T016-P008-DEC002.yaml
   - .contract-engineering/decisions/CENG-T016-P008-DEC001.yaml
   - .contract-engineering/work-packets/CENG-T016-P008.yaml
   - .contract-engineering/handoffs/
@@ -79,7 +88,7 @@ baseline_refs:
 - .contract-engineering/protocol.lock.yaml
 - 52e4c50fe3f0145b7b288ed4fe2e5ab616569120
 - 80f1c21f9428324e07644484bdfdac3832bb49e9
-design_decision_ref: CENG-T016-P008-DEC001
+design_decision_ref: CENG-T016-P008-DEC002
 data_gate_ref: null
 trust_boundary_ref: CENG-T016-P008
 execution_budget_ref: CENG-T016-P008
@@ -105,6 +114,7 @@ acceptance_contract:
     verification_command: python3 scripts/validate-contract-records.py
     evidence_refs:
     - CENG-T016-P008-EV001
+    - CENG-T016-P008-EV002
     failure_result: The release branch has duplicate, missing, or inconsistent governance records.
     validation_ref: CENG-T016-P008-VAL001
   - id: CENG-T016-P008-AC002
@@ -114,6 +124,7 @@ acceptance_contract:
     verification_command: python3 -m unittest discover -s tests -p 'test_*.py'
     evidence_refs:
     - CENG-T016-P008-EV001
+    - CENG-T016-P008-EV002
     failure_result: The release is published without independent evidence and rollback metadata.
     validation_ref: CENG-T016-P008-VAL002
 validation_plan:
@@ -131,12 +142,12 @@ validation_plan:
   expected: tracker partitions and generated projection are valid
 evidence_refs:
 - CENG-T016-P008-EV001
-handoff_ref: null
+- CENG-T016-P008-EV002
 skill_gaps: []
 cleanup_scope:
   dead_refs: []
   stale_refs: []
   temp_refs: []
-state: Handoff
-handoff_ref: CENG-T016-P008-HO001
-updated_at: '2026-09-24T18:55:00Z'
+state: Rework
+handoff_ref: CENG-T016-P008-HO002
+updated_at: '2026-09-24T19:45:00Z'

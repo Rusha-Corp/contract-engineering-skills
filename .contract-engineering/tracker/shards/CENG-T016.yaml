@@ -61,10 +61,10 @@ rows:
   updated_at: '2026-09-24'
 - task_id: CENG-T016
   packet_id: CENG-T016-P008
-  state: Handoff
+  state: Rework
   owner: droid
   reviewer: contract-driven-handoff-acceptance-reviewer
   locks:
   - release-path:v2.6.1
-  next_action: Publish the attestation-bearing commit after hosted validation and final GPG signing.
+  next_action: Record the attestation commit, exact scope/resource bindings, recreated signed tag, and hosted gate results before resubmitting HO002.
   updated_at: '2026-09-24'

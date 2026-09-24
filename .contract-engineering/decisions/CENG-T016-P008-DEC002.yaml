@@ -1,0 +1,26 @@
+decision_version: 1
+decision_id: CENG-T016-P008-DEC002
+packet_id: CENG-T016-P008
+status: approved
+title: "Correct failed v2.6.1 hosted release gates"
+proposal: "Preserve the published but unverified v2.6.1 tag only long enough to diagnose it, then correct the tag-scope fallback and align the committed public release key with the approved local signing identity before deleting and recreating v2.6.1."
+alternatives_considered:
+  - "Preserve v2.6.1 and publish a corrective v2.6.2."
+  - "Stop after documenting the failed v2.6.1 release."
+decision: "Delete and recreate v2.6.1 after correcting the workflow's single-parent fallback and the committed public signing-key metadata, then rerun all local and hosted release gates."
+scope:
+  - ".github/workflows/protocol-validation.yml"
+  - ".contract-engineering/release-signing-key.asc"
+  - ".contract-engineering/release-attestation.yaml"
+  - "v2.6.1 tag lifecycle"
+controls:
+  - "The v2.6.0 tag and rollback commit remain preserved."
+  - "No commit or evidence is deleted; only the failed v2.6.1 tag reference is replaced."
+  - "The recreated tag must verify against the committed public key and pass hosted records, security, and stable-release gates."
+approved_by: user
+approved_at: "2026-09-24T19:35:00Z"
+expires_at: ""
+success_measure: "The recreated v2.6.1 tag passes all hosted release gates and verifies with the committed public key."
+rollback_ref: 52e4c50fe3f0145b7b288ed4fe2e5ab616569120
+review_owner: contract-driven-handoff-acceptance-reviewer
+review_at: "2026-09-24T19:35:00Z"

@@ -4,7 +4,7 @@ issued_at: '2026-09-24T19:22:34Z'
 expires_at: '2027-09-24T19:22:34Z'
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: 92b2c8319ae703cbc935aa9d99785af0705dfc25
+  commit: 52a17f7116450ff075fb4c006201ab5b3fbb5f21
   release: 2.6.1
   artifacts:
   - path: .factory-plugin/plugin.json
@@ -14,7 +14,9 @@ subject:
   - path: requirements-ci.txt
     sha256: 4abdb984af74a71d79d40d9171a649e162e9d39a0756fba3d6c1ac1b3142019a
   - path: .github/workflows/protocol-validation.yml
-    sha256: 67d8fc80145842eaf90bad6c637bef2c524dbf33a2ae7a726f2bdf92753be67b
+    sha256: 5c851b324528b657351b2817ba2462170a104818416ec2e1effe5be0f573de75
+  - path: .contract-engineering/release-signing-key.asc
+    sha256: f29750732190374f17da90c35117d778123f3a6917a9d61bd261c73b51fc69f2
   - path: schemas/work-packet.schema.json
     sha256: b748ec5c053a86d65b8384902612bb26f24bcaf3526079e1440a8c3769a50f27
   - path: scripts/validate-contract-records.py
@@ -30,9 +32,9 @@ publisher:
   signature_ref: gpg:tag:v2.6.1:34049E9E7A00440491D319FFF19051409C4115FB
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:92b2c8319ae703cbc935aa9d99785af0705dfc25
+  builder_digest: git-tree:52a17f7116450ff075fb4c006201ab5b3fbb5f21
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: 92b2c8319ae703cbc935aa9d99785af0705dfc25
+  source_commit: 52a17f7116450ff075fb4c006201ab5b3fbb5f21
   dependencies:
   - PyYAML 6.0.3 and runtime dependencies, hash-pinned in requirements-ci.txt
   - jsonschema 4.21.1 and runtime dependencies, hash-pinned in requirements-ci.txt
@@ -44,7 +46,7 @@ review:
   approval_ref: CENG-T016-P008-HO001
   approved_at: '2026-09-24T19:26:03Z'
 verification:
-  verified_at: '2026-09-24T19:22:34Z'
+  verified_at: '2026-09-24T19:35:00Z'
   verifier: droid
   result: pass
   transparency_ref: PENDING_HOSTED_VALIDATION

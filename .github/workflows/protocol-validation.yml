@@ -91,7 +91,7 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: |
           if [ -z "$BASE_SHA" ] || ! git cat-file -e "$BASE_SHA^{commit}"; then
-            BASE_SHA="$(git rev-list --max-parents=1 HEAD)"
+            BASE_SHA="$(git rev-parse HEAD^)"
           fi
           mapfile -t changed < <(git diff --name-only "$BASE_SHA" "$GITHUB_SHA")
           mapfile -t packets < <(

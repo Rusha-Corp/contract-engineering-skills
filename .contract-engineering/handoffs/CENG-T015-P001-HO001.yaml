@@ -1,0 +1,64 @@
+handoff_version: 3
+handoff_id: CENG-T015-P001-HO001
+packet_id: CENG-T015-P001
+transition:
+  from: Handoff
+  to: Complete
+  reason: Full acceptance-first protocol rollout integrated and final audit passed.
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: ''
+  accepted_at: ''
+  acceptance_ref: ''
+  signature_ref: ''
+base_revision: b0ec963770d8a0106a26cc4d893cbd9417c322d4
+head_revision: 76bfee6
+scope_digest: ''
+changed_resources: []
+created_at: '2026-09-24T18:45:00Z'
+expires_at: ''
+approval_ref: /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+verification:
+  verified_at: '2026-09-24T18:44:00Z'
+  verifier: droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T015-P001-EV001
+validation_results:
+- command: python3 -m unittest discover -s tests -p 'test_*.py'
+  result: exit 0; 106 tests passed; captured in CENG-T015-P001-EV001
+- command: python3 scripts/validate-contract-records.py --root .contract-engineering
+  result: exit 0; contract validation valid; captured in CENG-T015-P001-EV001
+- command: python3 scripts/validate-tracker.py --root .contract-engineering
+  result: exit 0; tracker valid; captured in CENG-T015-P001-EV001
+- command: python3 scripts/render-tracker.py --root .contract-engineering --check
+  result: exit 0; projection current; captured in CENG-T015-P001-EV001
+- command: python3 scripts/migrate_records.py --root .contract-engineering
+  result: exit 0; dry-run reported 25 proposed changes; captured in CENG-T015-P001-EV001
+- command: python3 scripts/tracker_rollover.py --root .contract-engineering
+  result: exit 0; dry-run reported 28 moves and 0 blockers; captured in CENG-T015-P001-EV001
+- command: python3 scripts/reconcile_worktrees.py --root .contract-engineering
+  result: exit 0; 3 registered and no missing or drifted rollout worktrees; captured in CENG-T015-P001-EV001
+evidence_refs:
+- CENG-T015-P001-EV001
+skill_gaps: []
+unresolved_items:
+- Hosted CI execution and remote publication remain outside this local rollout.
+- Live archival remains confirmation-gated and was not applied.
+- Legacy T013/T014 worktrees remain unregistered and require a separate cleanup decision.
+rollback_notes: Revert coordinator commits after the recorded base revision; no remote state or live archival was changed.
+requested_next_action: Receiver reviews and accepts the complete rollout handoff, then archive eligible terminal packets at iteration closure.
+receiver_status: pending
+receiver_notes: ''
+accepted_revision: ''
+accepted_packet_revision: ''
+accepted_scope_digest: ''
+accepted_evidence_refs: []

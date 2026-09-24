@@ -5,7 +5,7 @@ max_rows: 50
 rows:
 - task_id: CENG-T015
   packet_id: CENG-T015-P001
-  state: Claimed
+  state: Handoff
   owner: droid
   reviewer: user
   locks:

@@ -4,9 +4,10 @@ phase: P0_FOUNDATIONS
 domain: coding
 packet_class: parent-coordination
 title: Coordinate acceptance-first protocol rollout
-objective: Deliver the approved acceptance-first workflow through dependency-ordered child packets.
+objective: Deliver the approved acceptance-first workflow through dependency-ordered
+  child packets.
 open_questions: []
-state: Claimed
+state: Handoff
 scope:
   in:
   - .contract-engineering/work-packets/CENG-T015-P*.yaml
@@ -45,26 +46,33 @@ baseline_refs:
 design_decision_ref: null
 data_gate_ref: null
 acceptance_criteria:
-- Child packets are registered with explicit dependencies, scope, ownership, and acceptance contracts.
-- Shared protocol records remain owned by this coordination packet and are not edited concurrently by child packets.
-- Each child handoff records criterion-level evidence, validation results, unresolved items, and the exact next action.
+- Child packets are registered with explicit dependencies, scope, ownership, and acceptance
+  contracts.
+- Shared protocol records remain owned by this coordination packet and are not edited
+  concurrently by child packets.
+- Each child handoff records criterion-level evidence, validation results, unresolved
+  items, and the exact next action.
 acceptance_contract:
   version: 1
   criteria:
   - id: CENG-T015-P001-AC001
     statement: The rollout is decomposed into independently verifiable child packets.
-    expected_result: Every child packet has explicit scope, dependencies, owner, reviewer, acceptance criteria, and validation plan.
+    expected_result: Every child packet has explicit scope, dependencies, owner, reviewer,
+      acceptance criteria, and validation plan.
     verification_method: inspect
     verification_command: python3 scripts/validate-contract-records.py
-    evidence_refs: []
+    evidence_refs:
+    - CENG-T015-P001-EV001
     failure_result: A child packet can start without a bounded contract or owner.
     validation_ref: CENG-T015-P001-VAL001
   - id: CENG-T015-P001-AC002
     statement: Shared tracker and event records have one coordination owner.
-    expected_result: No child packet claims the coordination lock or edits shared projections outside the coordinator scope.
+    expected_result: No child packet claims the coordination lock or edits shared
+      projections outside the coordinator scope.
     verification_method: inspect
     verification_command: python3 scripts/validate-tracker.py --root .contract-engineering
-    evidence_refs: []
+    evidence_refs:
+    - CENG-T015-P001-EV001
     failure_result: Concurrent packet work can overwrite shared governance state.
     validation_ref: CENG-T015-P001-VAL002
 validation_plan:
@@ -91,11 +99,13 @@ evaluation_ref: null
 agent_run_ref: null
 observability_refs: []
 incident_refs: []
-evidence_refs: []
-handoff_ref: null
+evidence_refs:
+- CENG-T015-P001-EV001
+handoff_ref: CENG-T015-P001-HO001
 skill_gaps: []
 cleanup_scope:
   dead_refs: []
   stale_refs: []
   temp_refs: []
-updated_at: '2026-09-24T00:00:00+00:00'
+updated_at: '2026-09-24T18:09:42.800779+00:00'
+revision: 5

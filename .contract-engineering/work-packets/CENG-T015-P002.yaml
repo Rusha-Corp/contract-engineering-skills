@@ -1,0 +1,124 @@
+packet_id: CENG-T015-P002
+task_id: CENG-T015
+phase: P0_FOUNDATIONS
+domain: coding
+packet_class: child-implementation
+title: Add acceptance-first discovery records
+objective: Add work types, priorities, criterion-linked unknowns, and state-aware acceptance validation.
+open_questions: []
+state: Handoff
+scope:
+  in:
+  - templates/work-packet.yaml
+  - schemas/work-packet.schema.json
+  - schemas/task.schema.json
+  - schemas/epic.schema.json
+  - templates/task.yaml
+  - templates/epic.yaml
+  - scripts/validate-contract-records.py
+  - scripts/migrate-records.py
+  - tests/test_contract_records.py
+  - tests/test_acceptance_contracts.py
+  out:
+  - .devcontainer/devcontainer.json
+  - scripts/contract_engineering.py
+  - scripts/validate-tracker.py
+  - remote systems
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities:
+- repository-read
+- repository-write
+- local-validation
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: droid
+reviewer: user
+cleanup_owner: droid
+dependencies:
+- CENG-T015-P001
+locks:
+- acceptance-model:CENG-T015-P002
+claim_timestamp: '2026-09-24T00:00:00+00:00'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- b0ec963770d8a0106a26cc4d893cbd9417c322d4
+- /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Packets distinguish discovery, delivery, bugfix, and enabler work with explicit priority and parent task references.
+- Criterion-affecting unknowns have owners, dispositions, and resolution references.
+- Ready requires a complete acceptance contract while Complete requires criterion-level evidence and an accepted handoff.
+- Record migration has a dry-run mode and does not mutate records without explicit confirmation.
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T015-P002-AC001
+    statement: New packet records express work type, priority, parent task, iteration, and criterion-linked unknowns.
+    expected_result: Valid records pass schema and semantic validation; invalid values produce actionable diagnostics.
+    verification_method: execute
+    verification_command: python3 -m unittest tests.test_acceptance_contracts -v
+    evidence_refs:
+    - CENG-T015-P002-EV001
+    failure_result: Discovery intent and delivery intent remain indistinguishable.
+    validation_ref: CENG-T015-P002-VAL001
+  - id: CENG-T015-P002-AC002
+    statement: Acceptance contracts enforce different requirements at Ready and Complete.
+    expected_result: Ready rejects incomplete contracts; Complete rejects missing evidence or unaccepted handoffs.
+    verification_method: execute
+    verification_command: python3 -m unittest tests.test_acceptance_contracts -v
+    evidence_refs:
+    - CENG-T015-P002-EV001
+    failure_result: Packets either stall before implementation or complete without proof.
+    validation_ref: CENG-T015-P002-VAL001
+  - id: CENG-T015-P002-AC003
+    statement: Record migration is previewable before it changes repository files.
+    expected_result: Dry-run reports proposed changes and leaves packet, tracker, and event files unchanged.
+    verification_method: execute
+    verification_command: python3 -m unittest tests.test_record_migration -v
+    evidence_refs:
+    - CENG-T015-P002-EV001
+    failure_result: Existing records are rewritten without reviewable migration output.
+    validation_ref: CENG-T015-P002-VAL002
+validation_plan:
+- id: CENG-T015-P002-VAL001
+  kind: unit
+  command: python3 -m unittest tests.test_acceptance_contracts -v
+  expected: acceptance and discovery tests pass
+- id: CENG-T015-P002-VAL002
+  kind: unit
+  command: python3 -m unittest tests.test_record_migration -v
+  expected: migration dry-run tests pass
+- id: CENG-T015-P002-VAL003
+  kind: full-suite
+  command: python3 -m unittest discover -s tests -p 'test_*.py'
+  expected: repository test suite passes
+- id: CENG-T015-P002-VAL004
+  kind: principles
+  skill: coding-principles
+  checks:
+  - acceptance validation has one canonical owner
+  - discovery records do not duplicate packet execution state
+  - migration behavior is explicit and reversible
+  expected: no unresolved principle violations
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+evidence_refs:
+- CENG-T015-P002-EV001
+handoff_ref: CENG-T015-P002-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+updated_at: '2026-09-24T00:00:00+00:00'

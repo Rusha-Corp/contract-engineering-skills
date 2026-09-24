@@ -1,4 +1,5 @@
 import importlib.util
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -192,6 +193,24 @@ class ValidatorRootAndModeTests(unittest.TestCase):
                 validator.run_validation(
                     Path(directory), explicit_root="missing", mode="enforced"
                 )
+
+    def test_json_schema_validation_checks_packet_instances(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            root = project / ".contract-engineering"
+            root.mkdir()
+            shutil.copytree(
+                Path(__file__).parents[1] / "schemas",
+                project / "schemas",
+            )
+            value = packet(
+                packet_id="TEST-T015-P002",
+                task_id="TEST-T015",
+                scope={"in": ["src"], "out": [], "unexpected": True},
+            )
+            with self.assertRaises(ValueError) as context:
+                validator.validate_json_schemas(root, {value["packet_id"]: value})
+            self.assertIn("schema validation failed", str(context.exception))
 
 
 class CanonicalIdentifierTests(unittest.TestCase):
@@ -492,13 +511,15 @@ class AcceptanceContractTests(unittest.TestCase):
             )
         self.assertIn("missing statement", str(ctx.exception))
 
-    def test_empty_evidence_refs_rejected(self):
+    def test_empty_evidence_refs_rejected_for_complete_packet(self):
         contract = self._valid_contract()
         contract["criteria"][0]["evidence_refs"] = []
+        packet = self._packet_with_contract(contract)
+        packet["state"] = "Complete"
         with self.assertRaises(ValueError) as ctx:
             validator.validate_acceptance_contract(
                 Path("test.yaml"),
-                self._packet_with_contract(contract),
+                packet,
             )
         self.assertIn("evidence_refs", str(ctx.exception))
 

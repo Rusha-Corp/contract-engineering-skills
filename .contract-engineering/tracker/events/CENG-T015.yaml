@@ -1,0 +1,45 @@
+task_id: CENG-T015
+schema_version: 1
+events:
+- event_id: CENG-T015-E001
+  packet_id: CENG-T015-P001
+  type: admission
+  actor: droid
+  occurred_at: '2026-09-24T00:00:00Z'
+  summary: Registered the acceptance-first protocol rollout as a parent coordination packet with a dedicated task shard.
+- event_id: CENG-T015-E002
+  packet_id: CENG-T015-P001
+  type: claim
+  actor: droid
+  occurred_at: '2026-09-24T00:00:00Z'
+  summary: Claimed the coordination lock for CENG-T015 and isolated implementation in the CENG-T015-P001 worktree.
+- event_id: CENG-T015-E003
+  packet_id: CENG-T015-P002
+  type: admission
+  actor: droid
+  occurred_at: '2026-09-24T00:00:00Z'
+  summary: Registered the first child packet for acceptance-first discovery records and state-aware validation.
+- event_id: CENG-T015-E004
+  packet_id: CENG-T015-P002
+  type: claim
+  actor: droid
+  occurred_at: '2026-09-24T00:00:00Z'
+  summary: Claimed the acceptance-model lock for the first implementation slice.
+- event_id: CENG-T015-E005
+  packet_id: CENG-T015-P002
+  type: implementation-start
+  actor: droid
+  occurred_at: '2026-09-24T00:10:00Z'
+  summary: Implemented acceptance-first metadata, criterion-linked unknowns, state-aware evidence checks, planning records, and migration dry-run support.
+- event_id: CENG-T015-E006
+  packet_id: CENG-T015-P002
+  type: validation
+  actor: droid
+  occurred_at: '2026-09-24T00:20:00Z'
+  summary: Acceptance, planning, migration, tracker, schema, and full repository unit tests passed in the isolated worktree.
+- event_id: CENG-T015-E007
+  packet_id: CENG-T015-P002
+  type: handoff
+  actor: droid
+  occurred_at: '2026-09-24T00:21:00Z'
+  summary: Submitted criterion-level evidence and a pending receiver handoff for independent acceptance.

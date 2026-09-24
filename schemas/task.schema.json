@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Rusha-Corp/contract-engineering-skills/schemas/task.schema.json",
+  "title": "Contract Engineering Task",
+  "type": "object",
+  "required": [
+    "task_id",
+    "title",
+    "objective",
+    "priority",
+    "status",
+    "dependencies",
+    "packet_refs",
+    "open_questions"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "pattern": "^(?:[A-Z][A-Z0-9]*-)+T[0-9]{3}$"
+    },
+    "epic_id": {
+      "type": "string",
+      "pattern": "^(?:[A-Z][A-Z0-9]*-)+E[0-9]{3}$"
+    },
+    "title": {"type": "string", "minLength": 1},
+    "objective": {"type": "string", "minLength": 1},
+    "priority": {"enum": ["critical", "high", "normal", "deferred"]},
+    "status": {
+      "enum": ["proposed", "in_progress", "blocked", "done", "deferred"]
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(?:[A-Z][A-Z0-9]*-)+T[0-9]{3}$"
+      }
+    },
+    "packet_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(?:[A-Z][A-Z0-9]*-)+T[0-9]{3}-P[0-9]{3}$"
+      }
+    },
+    "open_questions": {"type": "array"}
+  },
+  "additionalProperties": false
+}

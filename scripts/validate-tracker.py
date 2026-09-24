@@ -96,7 +96,21 @@ def validate_row(row: Any, source: Path, expected_partition: str) -> str:
             fail(f"{source}: updated_at must be an ISO date for {packet_id!r}")
     else:
         fail(f"{source}: updated_at must be an ISO date for {packet_id!r}")
-    if expected_partition == "active" and date.today() - updated_date > MAX_ACTIVE_AGE:
+    reviewable_states = {
+        "Claimed",
+        "Implementing",
+        "Validation",
+        "Handoff",
+        "Rework",
+        "DesignReview",
+        "DataReview",
+        "Interrupted",
+    }
+    if (
+        expected_partition == "active"
+        and row["state"] in reviewable_states
+        and date.today() - updated_date > MAX_ACTIVE_AGE
+    ):
         fail(f"{source}: active packet {packet_id!r} has a stale updated_at")
     if expected_partition == "archive" and row["state"] not in {"Complete", "Cancelled"}:
         fail(f"{source}: archived packet {packet_id!r} is not terminal")

@@ -1,0 +1,23 @@
+tracker_schema_version: 1
+partition: active
+task_id: CENG-T015
+max_rows: 50
+rows:
+- task_id: CENG-T015
+  packet_id: CENG-T015-P001
+  state: Claimed
+  owner: droid
+  reviewer: user
+  locks:
+  - protocol-coordination:CENG-T015
+  next_action: Coordinate child packet implementation and acceptance.
+  updated_at: '2026-09-24'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P002
+  state: Handoff
+  owner: droid
+  reviewer: user
+  locks:
+  - acceptance-model:CENG-T015-P002
+  next_action: Obtain independent receiver acceptance for the acceptance-first records handoff.
+  updated_at: '2026-09-24'

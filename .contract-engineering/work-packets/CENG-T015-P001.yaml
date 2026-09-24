@@ -1,0 +1,101 @@
+packet_id: CENG-T015-P001
+task_id: CENG-T015
+phase: P0_FOUNDATIONS
+domain: coding
+packet_class: parent-coordination
+title: Coordinate acceptance-first protocol rollout
+objective: Deliver the approved acceptance-first workflow through dependency-ordered child packets.
+open_questions: []
+state: Claimed
+scope:
+  in:
+  - .contract-engineering/work-packets/CENG-T015-P*.yaml
+  - .contract-engineering/tracker/
+  - .contract-engineering/handoffs/
+  - .contract-engineering/evidence/
+  - .contract-engineering/decisions/
+  - .factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+  out:
+  - .devcontainer/devcontainer.json
+  - .factory/skills/
+  - remote systems
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities:
+- repository-read
+- repository-write
+- local-validation
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: droid
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks:
+- protocol-coordination:CENG-T015
+claim_timestamp: '2026-09-24T00:00:00+00:00'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- b0ec963770d8a0106a26cc4d893cbd9417c322d4
+- /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- Child packets are registered with explicit dependencies, scope, ownership, and acceptance contracts.
+- Shared protocol records remain owned by this coordination packet and are not edited concurrently by child packets.
+- Each child handoff records criterion-level evidence, validation results, unresolved items, and the exact next action.
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T015-P001-AC001
+    statement: The rollout is decomposed into independently verifiable child packets.
+    expected_result: Every child packet has explicit scope, dependencies, owner, reviewer, acceptance criteria, and validation plan.
+    verification_method: inspect
+    verification_command: python3 scripts/validate-contract-records.py
+    evidence_refs: []
+    failure_result: A child packet can start without a bounded contract or owner.
+    validation_ref: CENG-T015-P001-VAL001
+  - id: CENG-T015-P001-AC002
+    statement: Shared tracker and event records have one coordination owner.
+    expected_result: No child packet claims the coordination lock or edits shared projections outside the coordinator scope.
+    verification_method: inspect
+    verification_command: python3 scripts/validate-tracker.py --root .contract-engineering
+    evidence_refs: []
+    failure_result: Concurrent packet work can overwrite shared governance state.
+    validation_ref: CENG-T015-P001-VAL002
+validation_plan:
+- id: CENG-T015-P001-VAL001
+  kind: records
+  command: python3 scripts/validate-contract-records.py
+  expected: contract records are valid or documented migration blockers are isolated
+- id: CENG-T015-P001-VAL002
+  kind: tracker
+  command: python3 scripts/validate-tracker.py --root .contract-engineering
+  expected: tracker partitions are valid
+- id: CENG-T015-P001-VAL003
+  kind: principles
+  skill: coding-principles
+  checks:
+  - child packets have one clear responsibility
+  - shared coordination state has one owner
+  - no speculative implementation scope is added
+  expected: no unresolved principle violations
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+evidence_refs: []
+handoff_ref: null
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+updated_at: '2026-09-24T00:00:00+00:00'

@@ -1,0 +1,138 @@
+packet_id: CENG-T018-P001
+task_id: CENG-T018
+revision: 1
+phase: P1_IMPLEMENTATION
+domain: security
+packet_class: cross-cutting
+work_type: delivery
+title: "Correct v2.7.2 dependency integrity release"
+objective: "Publish a corrective v2.7.2 release that preserves failed v2.7.1 history and adds the verified Python 3.12 rpds-py hash required by hosted CI."
+open_questions: []
+state: Validation
+scope:
+  in:
+  - requirements-ci.txt
+  - CHANGELOG.md
+  - .contract-engineering/work-packets/CENG-T018-P001.yaml
+  - .contract-engineering/decisions/CENG-T018-P001-DEC001.yaml
+  - .contract-engineering/evidence/
+  - .contract-engineering/handoffs/
+  - .contract-engineering/release-attestation.yaml
+  - .contract-engineering/release-signing-key.asc
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/tracker/events/CENG-T018.yaml
+  - .contract-engineering/execution-tracker.md
+  - remote GitHub tag v2.7.2
+  - remote GitHub Release v2.7.2
+  - remote GitHub Release assets for v2.7.2
+  out:
+  - functional source behavior
+  - skills/
+  - templates/
+  - existing v2.7.1 failed tag and release history
+  - user work in /home/dev/contract-engineering-skills
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities:
+- repository-read
+- repository-write
+- local-validation
+- release-publication
+risk_tier: high
+approval_policy: two_person
+external_effects:
+- effect_id: CENG-T018-P001-EXT001
+  target: origin GitHub repository
+  operation: Publish the signed v2.7.2 tag, matching non-draft GitHub Release, and release assets while preserving v2.7.1.
+  data_classification: public
+  declared: true
+  approval_ref: CENG-T018-P001-DEC001
+  reversible: true
+  rollback: Delete the v2.7.2 release/tag only after preserving commits and evidence; return consumers to v2.7.0.
+owner: droid
+reviewer: contract-driven-handoff-acceptance-reviewer
+cleanup_owner: droid
+dependencies:
+- CENG-T017-P001
+locks:
+- release-path:v2.7.2
+claim_timestamp: '2026-09-24T20:55:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 3336c4f02cd23431267bcddf261f20756ba0c3f7
+- v2.7.1
+design_decision_ref: CENG-T018-P001-DEC001
+data_gate_ref: null
+stability: stable
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+acceptance_criteria:
+- The v2.7.1 hosted hash failure and verified wheel hashes are recorded.
+- v2.7.2 changes only the CI dependency hash, changelog, and governed release records.
+- The signed v2.7.2 tag, matching non-draft GitHub Release, and uploaded assets pass hosted gates and bind to the same commit.
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T018-P001-AC001
+    statement: The dependency-integrity correction is reproducibly verified.
+    expected_result: requirements-ci.txt contains both the valid CPython 3.8 hash f175e95... and hosted CPython 3.12 hash a967dd6..., with evidence from direct wheel downloads.
+    verification_method: inspect
+    verification_command: rg -n "f175e95|a967dd6" requirements-ci.txt
+    evidence_refs:
+    - CENG-T018-P001-EV001
+    failure_result: Hosted hash verification remains broken or an unverified hash is added.
+    validation_ref: CENG-T018-P001-VAL001
+  - id: CENG-T018-P001-AC002
+    statement: The corrective release contains no functional behavior changes.
+    expected_result: The diff from v2.7.1 contains only requirements, changelog, and governed release records.
+    verification_method: execute
+    verification_command: git diff --name-only v2.7.1 HEAD
+    evidence_refs:
+    - CENG-T018-P001-EV001
+    failure_result: Functional source behavior changes are included without approval.
+    validation_ref: CENG-T018-P001-VAL002
+  - id: CENG-T018-P001-AC003
+    statement: The final v2.7.2 publication has tag, Release, and artifact parity.
+    expected_result: Signed tag, non-draft GitHub Release, and hash-recorded assets resolve to the same commit after hosted gates pass.
+    verification_method: inspect
+    verification_command: gh release view v2.7.2 --repo Rusha-Corp/contract-engineering-skills --json tagName,isDraft,targetCommitish,assets
+    evidence_refs:
+    - CENG-T018-P001-EV001
+    failure_result: The corrective release is published on only one surface or with mismatched assets.
+    validation_ref: CENG-T018-P001-VAL003
+validation_plan:
+- id: CENG-T018-P001-VAL001
+  kind: supply-chain
+  command: 'python3 -m pip download --disable-pip-version-check --no-input --no-deps --only-binary=:all: --platform manylinux_2_17_x86_64 --python-version 3.12 --implementation cp --abi cp312 rpds-py==0.17.1 --dest /tmp/rpds-verification'
+  expected: Downloaded wheel hash is a967dd6afda7715d911c25a6ba1517975acd8d1092b2f326718725461a3d33f9.
+- id: CENG-T018-P001-VAL002
+  kind: full-suite
+  command: python3 -m unittest discover -s tests -p 'test_*.py'
+  expected: All repository tests pass and no functional source files change.
+- id: CENG-T018-P001-VAL003
+  kind: release
+  command: gh release view v2.7.2 --repo Rusha-Corp/contract-engineering-skills --json tagName,isDraft,targetCommitish,assets
+  expected: Final parity gate passes for v2.7.2.
+trust_boundary_ref: CENG-T018-P001
+execution_budget_ref: CENG-T018-P001
+checkpoint_ref: CENG-T018-P001
+evaluation_ref: CENG-T018-P001
+agent_run_ref: CENG-T018-P001
+observability_refs:
+- CENG-T018-P001-EV001
+incident_refs:
+- CENG-T018-P001-INC001
+evidence_refs:
+- CENG-T018-P001-EV001
+handoff_ref: null
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []

@@ -1,0 +1,25 @@
+decision_version: 1
+decision_id: CENG-T018-P001-DEC001
+packet_id: CENG-T018-P001
+status: approved
+title: "Publish v2.7.2 as corrective dependency-integrity release"
+proposal: "Preserve the failed v2.7.1 tag for auditability and publish v2.7.2 from that release line after adding the verified Python 3.12 rpds-py wheel hash required by hosted CI."
+alternatives_considered:
+  - "Delete and recreate v2.7.1 after repairing the dependency hash."
+  - "Leave v2.7.1 failed and stop publication."
+decision: "Preserve v2.7.1 unchanged and publish v2.7.2 as the corrective release. Include the verified hash correction, failure evidence, and matching tag/Release/artifact parity."
+scope:
+  - "requirements-ci.txt"
+  - "v2.7.2 changelog and release records"
+  - "v2.7.2 tag, GitHub Release, and assets"
+controls:
+  - "The v2.7.1 failed tag remains preserved and is not described as stable."
+  - "The replacement wheel hash is verified directly for the hosted Python 3.12 platform."
+  - "Publication remains blocked until independent review and all hosted gates pass."
+approved_by: user
+approved_at: "2026-09-24T20:55:00Z"
+expires_at: ""
+success_measure: "v2.7.2 hosted protocol, secret-scanning, and security gates pass and the matching GitHub Release assets verify."
+rollback_ref: b0ec963770d8a0106a26cc4d893cbd9417c322d4
+review_owner: contract-driven-handoff-acceptance-reviewer
+review_at: "2026-09-24T20:55:00Z"

@@ -1,0 +1,27 @@
+task_id: CENG-T018
+schema_version: 1
+events:
+- event_id: CENG-T018-E001
+  packet_id: CENG-T018-P001
+  type: admission
+  actor: droid
+  occurred_at: '2026-09-24T20:55:00Z'
+  summary: Registered the v2.7.2 corrective dependency-integrity release packet from the preserved v2.7.1 line.
+- event_id: CENG-T018-E002
+  packet_id: CENG-T018-P001
+  type: claim
+  actor: droid
+  occurred_at: '2026-09-24T20:55:01Z'
+  summary: Claimed the release-path:v2.7.2 lock for the corrective release.
+- event_id: CENG-T018-E003
+  packet_id: CENG-T018-P001
+  type: implementation-start
+  actor: droid
+  occurred_at: '2026-09-24T20:55:02Z'
+  summary: Started the dependency hash correction and v2.7.2 corrective release records.
+- event_id: CENG-T018-E004
+  packet_id: CENG-T018-P001
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T21:00:00Z'
+  summary: 'Implementing -> Validation: Verified both platform wheel hashes and completed local corrective checks.'

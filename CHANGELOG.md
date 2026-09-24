@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 2.7.2 - 2026-09-24
+
+- Corrective release for the failed `v2.7.1` hosted dependency-integrity gate:
+  added the verified Python 3.12 Linux wheel hash for `rpds-py==0.17.1`.
+- Preserves the `v2.7.1` tag as an audit record; no functional behavior changes.
+
 ## 2.7.1 - 2026-09-24
 
 - Documented the release parity rule: a stable release requires a verified

@@ -48,6 +48,33 @@ class RecordMigrationTests(unittest.TestCase):
             with self.assertRaises(migrate_records.MigrationError):
                 migrate_records.apply(root, confirm=False)
 
+    def test_confirmed_apply_is_deterministic_and_writes_planned_defaults(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / ".contract-engineering"
+            packets = root / "work-packets"
+            packets.mkdir(parents=True)
+            packet_path = packets / "TEST-T015-P002.yaml"
+            packet_path.write_text(
+                yaml.safe_dump(
+                    {
+                        "packet_id": "TEST-T015-P002",
+                        "task_id": "TEST-T015",
+                        "state": "Planned",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            first_plan = migrate_records.plan(root)
+            applied = migrate_records.apply(root, confirm=True)
+
+            self.assertEqual(applied, first_plan)
+            migrated = yaml.safe_load(packet_path.read_text())
+            self.assertEqual(migrated["work_type"], "delivery")
+            self.assertEqual(migrated["priority"], "normal")
+            self.assertEqual(migrated["open_questions"], [])
+            self.assertEqual(migrate_records.plan(root), [])
+
 
 if __name__ == "__main__":
     unittest.main()

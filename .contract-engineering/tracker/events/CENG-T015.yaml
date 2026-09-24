@@ -238,3 +238,27 @@ events:
   actor: droid
   occurred_at: '2026-09-24T18:20:01Z'
   summary: 'Handoff -> Complete: Receiver accepted CENG-T015-P006-HO001'
+- event_id: CENG-T015-E038
+  packet_id: CENG-T015-P007
+  type: implementation-start
+  actor: droid
+  occurred_at: '2026-09-24T18:25:00Z'
+  summary: Started CI scope enforcement, schema instance validation, and migration dry-run checks in the dedicated P007 worktree.
+- event_id: CENG-T015-E039
+  packet_id: CENG-T015-P007
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T18:30:10Z'
+  summary: 'Implementing -> Validation: CI, schema, migration, and full validation passed'
+- event_id: CENG-T015-E040
+  packet_id: CENG-T015-P007
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T18:30:11Z'
+  summary: 'Validation -> Handoff: Evidence and handoff prepared for receiver review'
+- event_id: CENG-T015-E041
+  packet_id: CENG-T015-P007
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T18:35:01Z'
+  summary: 'Handoff -> Complete: Receiver accepted CENG-T015-P007-HO001'

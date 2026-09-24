@@ -54,10 +54,9 @@ rows:
   updated_at: '2026-09-24'
 - task_id: CENG-T015
   packet_id: CENG-T015-P007
-  state: Claimed
+  state: Complete
   owner: droid
   reviewer: user
-  locks:
-  - ci-migration-coordinator:CENG-T015-P007
-  next_action: Update CI and migration enforcement after child packet acceptance.
+  locks: []
+  next_action: Obtain receiver acceptance for the P007 handoff.
   updated_at: '2026-09-24'

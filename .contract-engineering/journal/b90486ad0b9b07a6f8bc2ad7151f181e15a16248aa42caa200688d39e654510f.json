@@ -1,0 +1,11 @@
+{
+  "kind": "transition",
+  "packet_id": "CENG-T015-P007",
+  "source": "Handoff",
+  "destination": "Complete",
+  "actor": "droid",
+  "reason": "Receiver accepted CENG-T015-P007-HO001",
+  "expected_revision": 3,
+  "event_id": "CENG-T015-E038",
+  "status": "committed"
+}

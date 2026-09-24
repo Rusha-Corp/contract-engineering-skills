@@ -234,6 +234,29 @@ def validate_json_schemas(root: Path, packets: dict[str, dict[str, Any]]) -> Non
                 f"{packet_id}: schema validation failed at {location}: "
                 f"{errors[0].message}"
             )
+    for directory, schema_name, identifier_key in (
+        (root / "epics", "epic.schema.json", "epic_id"),
+        (root / "tasks", "task.schema.json", "task_id"),
+    ):
+        if not directory.is_dir():
+            continue
+        document = documents.get(schema_name)
+        if document is None:
+            fail(f"{schema_dir / schema_name}: schema is missing")
+        validator_class = jsonschema.validators.validator_for(document)
+        instance_validator = validator_class(document, registry=registry)
+        for path in sorted(directory.glob("*.yaml")):
+            validate_instance(
+                instance_validator,
+                load_yaml(path),
+                f"{path} ({identifier_key})",
+            )
+    tracker_validator = schemas["tracker.schema.json"]
+    for path in _tracker_instance_paths(root):
+        validate_instance(tracker_validator, load_yaml(path), str(path))
+    event_validator = schemas["tracker-event.schema.json"]
+    for path in sorted((root / "tracker/events").glob("*.yaml")):
+        validate_instance(event_validator, load_yaml(path), str(path))
     identifier_schema = load_json_schema(schema_dir / "identifiers.schema.json")
     task_validator = jsonschema.Draft202012Validator(
         identifier_schema["$defs"]["taskId"]
@@ -255,6 +278,34 @@ def load_json_schema(path: Path) -> dict[str, Any]:
         return json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError) as exc:
         fail(f"{path}: cannot load JSON Schema: {exc}")
+
+
+def validate_instance(validator: Any, instance: Any, label: str) -> None:
+    errors = sorted(validator.iter_errors(instance), key=lambda error: list(error.path))
+    if errors:
+        location = ".".join(str(part) for part in errors[0].path) or "<root>"
+        fail(f"{label}: schema validation failed at {location}: {errors[0].message}")
+
+
+def _tracker_instance_paths(root: Path) -> list[Path]:
+    paths = []
+    index = root / "tracker/index.yaml"
+    archive = root / "tracker/archive/index.yaml"
+    if index.is_file():
+        paths.append(index)
+        document = load_yaml(index)
+        for relative in document.get("shards", []):
+            path = root / relative
+            if path.is_file():
+                paths.append(path)
+    if archive.is_file():
+        paths.append(archive)
+        document = load_yaml(archive)
+        for relative in document.get("shards", []):
+            path = root / relative
+            if path.is_file():
+                paths.append(path)
+    return paths
 
 
 def validate_identifier(validator: Any, value: object, label: str) -> None:

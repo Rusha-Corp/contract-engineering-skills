@@ -1,0 +1,89 @@
+handoff_version: 3
+handoff_id: CENG-T015-P007-HO001
+packet_id: CENG-T015-P007
+transition:
+  from: Handoff
+  to: Complete
+  reason: CI scope, schema-instance, migration, contract, tracker, and full-suite
+    validation passed.
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: USER-ACCEPT-CENG-T015-P007-20260924
+  accepted_at: '2026-09-24T18:35:00Z'
+  acceptance_ref: USER-ACCEPT-CENG-T015-P007-20260924
+  signature_ref: ''
+base_revision: b990693ebf4df11e85ac692bd932709a3365a271
+head_revision: 5609c69
+scope_digest: 92a77ddd05b68c980b37f1946e00f1d740be0bfc2bb33763d729a889d67be8a4
+changed_resources:
+- path: .contract-engineering/evidence/CENG-T015-P007-EV001.md
+  sha256: 5f6f69becef2688597cf3155dda3f459dbddf6dd5d630c7d4315e626175a5bc4
+- path: .contract-engineering/execution-tracker.md
+  sha256: 68164647cd837c2d71e2cacd265178d59bf908a20193402865516242823ab1a7
+- path: .contract-engineering/handoffs/CENG-T015-P007-HO001.yaml
+  sha256: 5b534bda15484532aa447ad62e0d8608bc34efb3f7f82c8b8d0a4b2c6e263c7c
+- path: .contract-engineering/journal/7e97b20db43a442bea28b971ed8fbc4b3318c700c125a7936e59cae432a39a39.json
+  sha256: ef6e23e9cca68dba74b1bf80e7659fd54d27936c9d7a24a9252f290ecbc265b2
+- path: .contract-engineering/journal/8942ed1dc9904a4f4dfd8cba38e9a2478944e55d40e75a56724bce19c4bfad3e.json
+  sha256: 2a50bb301032ce7d0e89f410c9614e43eb48a91c63a0c9ad4a8254cbf659a2fd
+- path: .contract-engineering/tracker/events/CENG-T015.yaml
+  sha256: d4e28668f1dc508d619df4f21018ef5f84f987cf149c052de5ebdef5e96c2226
+- path: .contract-engineering/tracker/shards/CENG-T015.yaml
+  sha256: b0cbed47dcb4a5af8cb4d33f06578e7509c4774744043795e16980124e4400e7
+- path: .contract-engineering/work-packets/CENG-T015-P007.yaml
+  sha256: 29e79042bf9b87a1779104e9ea577a821b678e6cdc729d0a351a8d623e7ab950
+- path: .github/workflows/protocol-validation.yml
+  sha256: e95443a3d0f3509959501534c7a9ae109fb509186fd789eba868657cafff18a1
+- path: schemas/tracker.schema.json
+  sha256: 2daa80c914d7b3b7063e88ce86962dc358d8da8bbaace884bbe0a0e4ab3a6453
+- path: scripts/validate-contract-records.py
+  sha256: f1ad0cae16777a9c6751cac8eafc37e62c81361658d7834ebe40cf2ece6e9ce9
+- path: tests/test_ci_validation.py
+  sha256: c9259be7868ce8fc4b1413793e87ca1d5c18beebf60a2839b12b6258898d58a8
+- path: tests/test_record_migration.py
+  sha256: 3235de1941351afbc4fa41b140d7bbea1c71baa79bf4e14db74fee0e07c23f9d
+created_at: '2026-09-24T18:30:00Z'
+expires_at: ''
+approval_ref: /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+verification:
+  verified_at: '2026-09-24T18:29:00Z'
+  verifier: droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T015-P007-EV001
+validation_results:
+- command: python3 -m unittest tests.test_ci_validation tests.test_record_migration
+    -v
+  result: exit 0; 5 tests passed; captured in CENG-T015-P007-EV001
+- command: python3 -m unittest discover -s tests -p 'test_*.py'
+  result: exit 0; 106 tests passed; captured in CENG-T015-P007-EV001
+- command: python3 scripts/migrate_records.py --root .contract-engineering
+  result: exit 0; dry-run completed; captured in CENG-T015-P007-EV001
+- command: python3 scripts/validate-contract-records.py --root .contract-engineering
+  result: exit 0; contract validation valid; captured in CENG-T015-P007-EV001
+- command: python3 scripts/validate-tracker.py --root .contract-engineering
+  result: exit 0; tracker valid; captured in CENG-T015-P007-EV001
+evidence_refs:
+- CENG-T015-P007-EV001
+skill_gaps: []
+unresolved_items:
+- Hosted CI execution remains pending the next remote pull request or push.
+rollback_notes: Revert the P007-scoped commit to the recorded base revision; migration
+  was run in dry-run mode only.
+requested_next_action: Receiver reviews and accepts this handoff; after acceptance,
+  transition P007 to Complete and release its lock.
+receiver_status: accepted
+receiver_notes: User accepted the validated CI, schema-instance, scope, and migration handoff. Hosted CI execution remains a documented limitation.
+accepted_revision: 5609c69
+accepted_packet_revision: 3
+accepted_scope_digest: 92a77ddd05b68c980b37f1946e00f1d740be0bfc2bb33763d729a889d67be8a4
+accepted_evidence_refs:
+- CENG-T015-P007-EV001

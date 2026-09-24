@@ -134,6 +134,7 @@ class HandoffCompletionTests(unittest.TestCase):
             "CENG-T015-P004", "worker", ttl_seconds=3600
         )
         packet["lease_ref"] = "CENG-T015-P004"
+        packet["locks"] = ["handoff-lease-coordinator:CENG-T015-P004"]
         self.packet_path.write_text(yaml.safe_dump(packet), encoding="utf-8")
         self._write_handoff()
         result = TransitionStore(self.root).transition(
@@ -145,6 +146,7 @@ class HandoffCompletionTests(unittest.TestCase):
             fencing_token=lease["fencing_token"],
         )
         self.assertEqual(result["state"], "Complete")
+        self.assertEqual(result["locks"], [])
 
 
 if __name__ == "__main__":

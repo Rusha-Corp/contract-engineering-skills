@@ -202,6 +202,8 @@ class TransitionStore:
             raise TransitionError("prepared transition no longer matches packet revision")
         packet["state"] = operation["destination"]
         packet["revision"] = current_revision + 1
+        if operation["destination"] == "Complete":
+            packet["locks"] = []
         packet["updated_at"] = datetime.now(timezone.utc).isoformat()
         self._write(packet_path, packet)
         self._update_tracker(packet)

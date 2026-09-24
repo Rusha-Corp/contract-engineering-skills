@@ -1,0 +1,83 @@
+handoff_version: 3
+handoff_id: CENG-T017-P001-HO001
+packet_id: CENG-T017-P001
+transition:
+  from: Validation
+  to: Handoff
+  reason: Documentation-only v2.7.1 content is validated from the v2.7.0 baseline
+    and release parity metadata is prepared for independent review.
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REVIEWER-PENDING
+  accepted_at: ''
+  acceptance_ref: ''
+  signature_ref: ''
+base_revision: b0ec963770d8a0106a26cc4d893cbd9417c322d4
+head_revision: 2e51ac5e358f2fcc35b13f838287bb49da60a972
+scope_digest: a9acfa87fc1f8db24059c3e57812459c34146bbb591b96df32ccadbb910b439b
+changed_resources:
+- path: CHANGELOG.md
+  sha256: 19c7bbad917cc12ea9c02b899f4a00b872d1db483cc8901207e5bcb8d8f19544
+- path: CONTRIBUTING.md
+  sha256: 7236af086ba41449a01e923314427cdbee0794493c1d07967fc86b6e78326751
+- path: docs/release-integrity.md
+  sha256: 59be79fcd842d8e2d4d21d8a29e4f6c28059200318509cbdc104264709343725
+created_at: '2026-09-24T20:35:00Z'
+expires_at: ''
+approval_ref: CENG-T017-P001-DEC001
+verification:
+  verified_at: '2026-09-24T20:35:00Z'
+  verifier: droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T017-P001-EV001
+validation_results:
+- command: python3 scripts/validate-contract-records.py
+  result: exit 0; enforced contract validation valid
+- command: python3 scripts/validate-tracker.py --root .contract-engineering
+  result: exit 0; 24 active rows, 24 archive rows, 2 YAML partitions valid
+- command: python3 scripts/check-markdown-links.py
+  result: exit 0; 31 Markdown files valid
+- command: python3 -m unittest discover -s tests -p 'test_*.py'
+  result: exit 0; 73 tests passed
+evidence_refs:
+- CENG-T017-P001-EV001
+skill_gaps: []
+unresolved_items:
+- Independent review, signed tag verification, hosted validation, and GitHub Release
+  publication remain pending.
+rollback_notes: Return consumers to v2.7.0 at b0ec963770d8a0106a26cc4d893cbd9417c322d4.
+requested_next_action: Independently review the documentation-only content and release
+  parity metadata, then commit the attestation and publish the matching v2.7.1 tag,
+  GitHub Release, and artifacts.
+receiver_status: rejected
+receiver_notes: >-
+  Rejected on independent acceptance review. AC001 passes: CONTRIBUTING.md
+  links to docs/release-integrity.md, whose release-parity rule requires a
+  verified signed tag, matching non-draft GitHub Release, and hash-recorded
+  artifacts. AC002 is not accepted as fully evidenced: EV001 records local
+  validation and documentation-only intent, but its changed-file statement
+  includes generated tracker projection and tracker index changes that are not
+  present in changed_resources or their declared hashes. AC003 fails: EV001
+  explicitly says release publication gates remain pending; no concrete
+  evidence verifies a signed v2.7.1 tag, non-draft GitHub Release, matching
+  release commit, or uploaded artifact hashes. The release-attestation.yaml
+  also has transparency_ref PENDING_HOSTED_VALIDATION and records independent
+  approval before this review, so it cannot serve as a completed attestation.
+  The high-risk two-person gate, receiver authorization, hosted validation,
+  attestation-commit binding, signed-tag verification, GitHub Release parity,
+  and artifact publication gates therefore remain unmet. Preserve the
+  release-path:v2.7.1 lock and resubmit after the attestation metadata is
+  finalized and all hosted and publication evidence is available.
+accepted_revision: ''
+accepted_packet_revision: ''
+accepted_scope_digest: ''
+accepted_evidence_refs: []

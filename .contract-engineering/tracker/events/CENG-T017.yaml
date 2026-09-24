@@ -31,3 +31,27 @@ events:
   actor: droid
   occurred_at: '2026-09-24T20:24:00Z'
   summary: 'Implementing -> Validation: Documentation, tracker, link, and full test validation passed.'
+- event_id: CENG-T017-E006
+  packet_id: CENG-T017-P001
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T20:35:00Z'
+  summary: 'Validation -> Handoff: v2.7.1 content and release parity metadata prepared for independent acceptance.'
+- event_id: CENG-T017-E007
+  packet_id: CENG-T017-P001
+  type: rework
+  actor: droid
+  occurred_at: '2026-09-24T20:45:00Z'
+  summary: 'Handoff -> Rework: Independent review required the complete content-commit resource inventory.'
+- event_id: CENG-T017-E008
+  packet_id: CENG-T017-P001
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T20:45:01Z'
+  summary: 'Rework -> Handoff: Resubmitted v2.7.1 content with all governed resource hashes bound.'
+- event_id: CENG-T017-E009
+  packet_id: CENG-T017-P001
+  type: decision
+  actor: user
+  occurred_at: '2026-09-24T20:50:00Z'
+  summary: Approved separating independent content acceptance from the final external publication parity gate.

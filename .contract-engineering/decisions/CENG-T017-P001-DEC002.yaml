@@ -1,0 +1,24 @@
+decision_version: 1
+decision_id: CENG-T017-P001-DEC002
+packet_id: CENG-T017-P001
+status: approved
+title: "Separate content acceptance from final publication parity"
+proposal: "Accept the v2.7.1 documentation content and attestation preparation before the external publication step, then require the signed tag, non-draft GitHub Release, and artifact hashes as the final release gate."
+alternatives_considered:
+  - "Require the GitHub Release to exist before independent content acceptance."
+  - "Publish without independent acceptance and review afterward."
+decision: "The independent reviewer accepts the exact content commit and release metadata first. Publication then remains blocked until the signed tag, matching non-draft GitHub Release, and artifact hashes are verified together."
+scope:
+  - "CENG-T017-P001 acceptance contract"
+  - "v2.7.1 publication gate"
+controls:
+  - "No stable-release claim is made before the final parity evidence passes."
+  - "The reviewer acceptance binds the content commit and packet scope, not an unpublished tag."
+  - "The final handoff must record the tag, GitHub Release, asset names, and SHA-256 values."
+approved_by: user
+approved_at: "2026-09-24T20:50:00Z"
+expires_at: ""
+success_measure: "Content acceptance can occur before publication while the final parity rule still blocks completion until all release surfaces match."
+rollback_ref: b0ec963770d8a0106a26cc4d893cbd9417c322d4
+review_owner: contract-driven-handoff-acceptance-reviewer
+review_at: "2026-09-24T20:50:00Z"

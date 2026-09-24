@@ -5,11 +5,10 @@ max_rows: 50
 rows:
 - task_id: CENG-T015
   packet_id: CENG-T015-P001
-  state: Handoff
+  state: Complete
   owner: droid
   reviewer: user
-  locks:
-  - protocol-coordination:CENG-T015
+  locks: []
   next_action: Coordinate child packet implementation and acceptance.
   updated_at: '2026-09-24'
 - task_id: CENG-T015

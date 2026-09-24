@@ -7,7 +7,7 @@ title: Coordinate acceptance-first protocol rollout
 objective: Deliver the approved acceptance-first workflow through dependency-ordered
   child packets.
 open_questions: []
-state: Handoff
+state: Complete
 scope:
   in:
   - .contract-engineering/work-packets/CENG-T015-P*.yaml
@@ -36,8 +36,7 @@ owner: droid
 reviewer: user
 cleanup_owner: droid
 dependencies: []
-locks:
-- protocol-coordination:CENG-T015
+locks: []
 claim_timestamp: '2026-09-24T00:00:00+00:00'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
@@ -107,5 +106,5 @@ cleanup_scope:
   dead_refs: []
   stale_refs: []
   temp_refs: []
-updated_at: '2026-09-24T18:09:42.800779+00:00'
-revision: 5
+updated_at: '2026-09-24T18:12:06.603364+00:00'
+revision: 6

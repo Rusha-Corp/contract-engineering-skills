@@ -11,7 +11,7 @@ title: Enforce revision-bound handoffs and leases
 objective: Require accepted handoffs to match immutable packet content and protect
   mutations with concrete leases.
 open_questions: []
-state: Handoff
+state: Complete
 scope:
   in:
   - scripts/contract_engineering.py
@@ -41,10 +41,9 @@ reviewer: user
 cleanup_owner: droid
 dependencies:
 - CENG-T015-P003
-locks:
-- handoff-lease-coordinator:CENG-T015-P004
+locks: []
 claim_timestamp: '2026-09-24T01:10:00+00:00'
-revision: 3
+revision: 4
 lease_ref: CENG-T015-P004
 fencing_token: ''
 baseline_refs:
@@ -119,4 +118,4 @@ cleanup_scope:
   dead_refs: []
   stale_refs: []
   temp_refs: []
-updated_at: '2026-09-24T17:11:41.690272+00:00'
+updated_at: '2026-09-24T17:31:44.814427+00:00'

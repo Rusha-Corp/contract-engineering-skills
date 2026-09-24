@@ -49,7 +49,7 @@ events:
   occurred_at: '2026-09-24T00:21:00Z'
   summary: Submitted criterion-level evidence and a pending receiver handoff for independent
     acceptance.
-- event_id: CENG-T015-E008
+  summary: Resubmitted the corrected handoff for independent acceptance against the 344e955 content revision.
   packet_id: CENG-T015-P002
   type: acceptance
   actor: user
@@ -147,22 +147,43 @@ events:
   type: handoff
   actor: droid
   occurred_at: '2026-09-24T17:21:00Z'
-  summary: Submitted revision-bound handoff and lease enforcement implementation for independent acceptance.
+  summary: Submitted revision-bound handoff and lease enforcement implementation for
+    independent acceptance.
 - event_id: CENG-T015-E023
   packet_id: CENG-T015-P004
   type: acceptance
   actor: user
   occurred_at: '2026-09-24T17:30:00Z'
-  summary: Receiver accepted the reworked handoff, including completion lock release and non-secret epoch fencing.
+  summary: Receiver accepted the reworked handoff, including completion lock release
+    and non-secret epoch fencing.
 - event_id: CENG-T015-E024
   packet_id: CENG-T015-P004
   type: rework
   actor: droid
-  occurred_at: '2026-09-24T17:35:00Z'
-  summary: Corrected distinct Git-content and packet-lifecycle revision binding and closed blocked transition journal records.
+  occurred_at: '2026-09-24T17:31:00Z'
+  summary: Corrected distinct Git-content and packet-lifecycle revision binding and
+    closed blocked transition journal records.
 - event_id: CENG-T015-E025
   packet_id: CENG-T015-P004
   type: handoff
   actor: droid
-  occurred_at: '2026-09-24T17:36:00Z'
+  occurred_at: '2026-09-24T17:31:10Z'
   summary: Resubmitted the corrected handoff for independent acceptance against the 344e955 content revision.
+- event_id: CENG-T015-E027
+  packet_id: CENG-T015-P004
+  type: acceptance
+  actor: user
+  occurred_at: '2026-09-24T17:31:20Z'
+  summary: Receiver accepted the corrected handoff, including distinct packet and Git-content revisions.
+- event_id: CENG-T015-E026
+  packet_id: CENG-T015-P004
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T17:31:44.924177+00:00'
+  summary: 'Handoff -> Complete: final corrected handoff accepted'
+- event_id: CENG-T015-E028
+  packet_id: CENG-T015-P004
+  type: lease-release
+  actor: droid
+  occurred_at: '2026-09-24T17:31:50Z'
+  summary: Released the completed packet epoch lease after lock reconciliation.

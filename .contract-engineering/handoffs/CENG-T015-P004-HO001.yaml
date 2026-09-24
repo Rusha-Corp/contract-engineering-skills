@@ -83,10 +83,17 @@ validation_results:
 evidence_refs:
 - CENG-T015-P004-EV001
 skill_gaps: []
-unresolved_items:
-- Independent receiver acceptance of the handoff/recovery correction is pending.
+unresolved_items: []
 rollback_notes: Revert the handoff and lease packet-scoped commit range to the recorded
   base revision.
-requested_next_action: Review the corrected handoff and accept or reject this revision.
-receiver_status: pending
-receiver_notes: ''
+requested_next_action: Retain the completed packet in the active shard until iteration closure.
+receiver_status: accepted
+receiver_notes: >-
+  User accepted the corrected handoff. The final revision separates Git content
+  SHA from packet lifecycle revision, closes blocked transition journal records,
+  and preserves the 96-test validation result.
+accepted_revision: 344e955415bfc78a1b762a1fe93bda7f7e6f75bc
+accepted_packet_revision: 3
+accepted_scope_digest: 030cfac06a0a067596fbd69b2bc14aa6d67c6bf2e36a476d897e0c464b4d2c23
+accepted_evidence_refs:
+- CENG-T015-P004-EV001

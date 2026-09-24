@@ -30,4 +30,4 @@ Canonical state: `tracker/index.yaml` and its declared task shards.
 | CENG-T015 | CENG-T015-P001 | Claimed | droid | user | protocol-coordination:CENG-T015 |
 | CENG-T015 | CENG-T015-P002 | Complete | droid | user | released |
 | CENG-T015 | CENG-T015-P003 | Complete | droid | user | released |
-| CENG-T015 | CENG-T015-P004 | Handoff | droid | user | handoff-lease-coordinator:CENG-T015-P004 |
+| CENG-T015 | CENG-T015-P004 | Complete | droid | user | released |

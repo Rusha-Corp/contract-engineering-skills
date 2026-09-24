@@ -15,7 +15,7 @@ takeover:
   recovery_plan: revalidate packet scope and revision
   takeover_ref: null
 release:
-  status: active
-  released_at: ''
+  status: released
+  released_at: '2026-09-24T17:31:44.961689+00:00'
   release_ref: null
 fencing_epoch: 1

@@ -20,3 +20,12 @@ rows:
   locks: []
   next_action: Retain in active shard until iteration closure.
   updated_at: '2026-09-24'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P003
+  state: Handoff
+  owner: droid
+  reviewer: user
+  locks:
+  - transition-coordinator:CENG-T015-P003
+  next_action: Obtain independent receiver acceptance for the lifecycle coordinator handoff.
+  updated_at: '2026-09-24'

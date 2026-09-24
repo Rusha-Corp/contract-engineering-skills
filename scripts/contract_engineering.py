@@ -18,8 +18,13 @@ STATES = {"Planned", "Claimed", "DesignReview", "DesignBlocked", "DataReview",
           "DataBlocked", "Ready", "Implementing", "Validation", "Rework",
           "Handoff", "Complete", "Interrupted", "Cancelled"}
 ALLOWED = {
-    "Ready": {"Claimed", "Implementing", "Cancelled"},
-    "Claimed": {"Implementing", "Interrupted", "Cancelled"},
+    "Planned": {"Claimed", "Cancelled"},
+    "Claimed": {"DesignReview", "DataReview", "Ready", "Implementing", "Interrupted", "Cancelled"},
+    "DesignReview": {"DesignBlocked", "DataReview", "Cancelled"},
+    "DesignBlocked": {"DesignReview", "Cancelled"},
+    "DataReview": {"DataBlocked", "Ready", "Cancelled"},
+    "DataBlocked": {"DataReview", "Cancelled"},
+    "Ready": {"Implementing", "Interrupted", "Cancelled"},
     "Implementing": {"Validation", "Interrupted", "Cancelled", "Rework"},
     "Validation": {"Handoff", "Rework", "Interrupted"},
     "Rework": {"Implementing", "Cancelled"},
@@ -36,7 +41,6 @@ class TransitionStore:
         self.root = Path(root)
         self.packets = self.root / "work-packets"
         self.journal = self.root / "journal"
-        self.journal.mkdir(parents=True, exist_ok=True)
 
     def _path(self, packet_id: str) -> Path:
         path = self.packets / f"{packet_id}.yaml"
@@ -60,6 +64,7 @@ class TransitionStore:
                 os.unlink(name)
 
     def _journal(self, operation: dict[str, Any]) -> Path:
+        self.journal.mkdir(parents=True, exist_ok=True)
         identity = hashlib.sha256(json.dumps(operation, sort_keys=True).encode()).hexdigest()
         path = self.journal / f"{identity}.json"
         if not path.exists():
@@ -68,7 +73,15 @@ class TransitionStore:
             os.replace(tmp, path)
         return path
 
-    def transition(self, packet_id: str, destination: str, actor: str, reason: str) -> dict[str, Any]:
+    def transition(
+        self,
+        packet_id: str,
+        destination: str,
+        actor: str,
+        reason: str,
+        *,
+        expected_revision: int | None = None,
+    ) -> dict[str, Any]:
         packet = self._load(packet_id)
         source = packet.get("state")
         if source == destination:
@@ -76,18 +89,103 @@ class TransitionStore:
         if destination not in STATES or destination not in ALLOWED.get(source, set()):
             self._blocked(packet_id, source, destination, actor, reason, "illegal lifecycle transition")
             raise TransitionError(f"blocked transition {source} -> {destination}")
+        current_revision = int(packet.get("revision", 0))
+        if expected_revision is None:
+            raise TransitionError("expected revision is required for a state transition")
+        if expected_revision != current_revision:
+            self._blocked(packet_id, source, destination, actor, reason, "stale packet revision")
+            raise TransitionError(
+                f"stale packet revision: expected {expected_revision}, current {current_revision}"
+            )
         if destination == "Complete" and not packet.get("handoff_ref"):
             self._blocked(packet_id, source, destination, actor, reason, "handoff acceptance is required")
             raise TransitionError("blocked transition: handoff acceptance is required")
-        operation = {"kind": "transition", "packet_id": packet_id, "source": source,
-                     "destination": destination, "actor": actor, "reason": reason}
+        operation = {
+            "kind": "transition",
+            "packet_id": packet_id,
+            "source": source,
+            "destination": destination,
+            "actor": actor,
+            "reason": reason,
+            "expected_revision": expected_revision,
+            "event_id": self._next_event_id(packet["task_id"]),
+        }
         journal = self._journal(operation)
-        if packet["state"] != destination:
-            packet["state"] = destination
-            packet["updated_at"] = datetime.now(timezone.utc).isoformat()
-            self._write(self._path(packet_id), packet)
+        self._apply_transition(operation)
         journal.write_text(json.dumps({**operation, "status": "committed"}, indent=2), encoding="utf-8")
-        return packet
+        return self._load(packet_id)
+
+    def _next_event_id(self, task_id: str) -> str:
+        path = self.root / "tracker" / "events" / f"{task_id}.yaml"
+        if not path.is_file():
+            return f"{task_id}-E001"
+        document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        events = document.get("events", [])
+        return f"{task_id}-E{len(events) + 1:03d}"
+
+    def _update_tracker(self, packet: dict[str, Any]) -> None:
+        tracker = self.root / "tracker" / "index.yaml"
+        if not tracker.is_file():
+            return
+        index = yaml.safe_load(tracker.read_text(encoding="utf-8")) or {}
+        paths = [tracker] + [self.root / path for path in index.get("shards", [])]
+        for path in paths:
+            document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+            for row in document.get("rows", []):
+                if row.get("packet_id") == packet["packet_id"]:
+                    row["state"] = packet["state"]
+                    row["owner"] = packet.get("owner", row.get("owner", ""))
+                    row["reviewer"] = packet.get("reviewer", row.get("reviewer", ""))
+                    row["locks"] = packet.get("locks", row.get("locks", []))
+                    row["updated_at"] = datetime.now(timezone.utc).date().isoformat()
+                    self._write(path, document)
+                    return
+
+    def _append_event(self, operation: dict[str, Any], packet: dict[str, Any]) -> None:
+        events_path = self.root / "tracker" / "events" / f"{packet['task_id']}.yaml"
+        events_path.parent.mkdir(parents=True, exist_ok=True)
+        document = (
+            yaml.safe_load(events_path.read_text(encoding="utf-8"))
+            if events_path.is_file()
+            else {"task_id": packet["task_id"], "schema_version": 1, "events": []}
+        )
+        events = document.setdefault("events", [])
+        if any(event.get("event_id") == operation["event_id"] for event in events):
+            return
+        events.append(
+            {
+                "event_id": operation["event_id"],
+                "packet_id": packet["packet_id"],
+                "type": "transition",
+                "actor": operation["actor"],
+                "occurred_at": datetime.now(timezone.utc).isoformat(),
+                "summary": (
+                    f"{operation['source']} -> {operation['destination']}: "
+                    f"{operation['reason']}"
+                ),
+            }
+        )
+        self._write(events_path, document)
+
+    def _apply_transition(self, operation: dict[str, Any]) -> None:
+        packet_path = self._path(operation["packet_id"])
+        packet = self._load(operation["packet_id"])
+        current_revision = int(packet.get("revision", 0))
+        if packet.get("state") == operation["destination"] and current_revision == operation["expected_revision"] + 1:
+            self._update_tracker(packet)
+            self._append_event(operation, packet)
+            return
+        if (
+            packet.get("state") != operation["source"]
+            or current_revision != operation["expected_revision"]
+        ):
+            raise TransitionError("prepared transition no longer matches packet revision")
+        packet["state"] = operation["destination"]
+        packet["revision"] = current_revision + 1
+        packet["updated_at"] = datetime.now(timezone.utc).isoformat()
+        self._write(packet_path, packet)
+        self._update_tracker(packet)
+        self._append_event(operation, packet)
 
     def reassign(self, packet_id: str, owner: str, reason: str, *, actor: str, force: bool = False) -> dict[str, Any]:
         packet = self._load(packet_id)
@@ -119,10 +217,9 @@ class TransitionStore:
                 continue
             if record.get("kind") == "transition":
                 packet = self._load(record["packet_id"])
-                if packet.get("state") == record["source"]:
-                    packet["state"] = record["destination"]
-                    packet["updated_at"] = datetime.now(timezone.utc).isoformat()
-                    self._write(self._path(record["packet_id"]), packet)
+                record.setdefault("expected_revision", int(packet.get("revision", 0)))
+                record.setdefault("event_id", self._next_event_id(packet["task_id"]))
+                self._apply_transition(record)
                 record["status"] = "committed"
                 path.write_text(json.dumps(record, indent=2), encoding="utf-8")
                 recovered.append(path.name)
@@ -164,12 +261,12 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=Path(".contract-engineering"))
     sub = parser.add_subparsers(dest="command", required=True)
-    t = sub.add_parser("transition"); t.add_argument("packet"); t.add_argument("destination"); t.add_argument("--actor", required=True); t.add_argument("--reason", default="")
+    t = sub.add_parser("transition"); t.add_argument("packet"); t.add_argument("destination"); t.add_argument("--actor", required=True); t.add_argument("--reason", default=""); t.add_argument("--expected-revision", required=True, type=int)
     r = sub.add_parser("reassign"); r.add_argument("packet"); r.add_argument("owner"); r.add_argument("--actor", required=True); r.add_argument("--reason", default=""); r.add_argument("--force", action="store_true")
     sub.add_parser("doctor")
     e = sub.add_parser("explain-block"); e.add_argument("packet"); e.add_argument("destination")
     args = parser.parse_args(); store = TransitionStore(args.root)
-    if args.command == "transition": result = store.transition(args.packet, args.destination, args.actor, args.reason)
+    if args.command == "transition": result = store.transition(args.packet, args.destination, args.actor, args.reason, expected_revision=args.expected_revision)
     elif args.command == "reassign": result = store.reassign(args.packet, args.owner, args.reason, actor=args.actor, force=args.force)
     elif args.command == "doctor": result = store.doctor()
     else: result = store.explain_block(args.packet, args.destination)

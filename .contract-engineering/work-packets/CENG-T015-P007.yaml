@@ -18,6 +18,7 @@ scope:
   - requirements-ci.txt
   - scripts/validate-contract-records.py
   - scripts/migrate_records.py
+  - scripts/packet_scope.py
   - schemas/
   - tests/test_ci_validation.py
   - tests/test_record_migration.py

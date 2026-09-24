@@ -15,6 +15,13 @@ assert SPEC and SPEC.loader
 validator = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(validator)
 
+SCOPE_SPEC = importlib.util.spec_from_file_location(
+    "packet_scope", ROOT / "scripts/packet_scope.py"
+)
+assert SCOPE_SPEC and SCOPE_SPEC.loader
+scope = importlib.util.module_from_spec(SCOPE_SPEC)
+SCOPE_SPEC.loader.exec_module(scope)
+
 
 class CiValidationTests(unittest.TestCase):
     def test_schema_validation_checks_epic_instances(self):
@@ -53,6 +60,22 @@ class CiValidationTests(unittest.TestCase):
         self.assertIn("unclaimed", workflow)
         self.assertIn("migrate_records.py --root .contract-engineering", workflow)
         self.assertNotIn("migrate_records.py --apply --confirm", workflow)
+
+    def test_packet_scope_dispatch_claims_only_owned_paths(self):
+        packet = ROOT / ".contract-engineering/work-packets/CENG-T015-P007.yaml"
+        changed = [
+            ".github/workflows/protocol-validation.yml",
+            "requirements-ci.txt",
+            "tests/test_tracker.py",
+        ]
+        self.assertEqual(
+            scope.claimed_paths(packet, changed),
+            changed[:2],
+        )
+        self.assertEqual(
+            scope.unclaimed_paths([packet], changed),
+            ["tests/test_tracker.py"],
+        )
 
 
 if __name__ == "__main__":

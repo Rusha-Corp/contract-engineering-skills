@@ -12,6 +12,7 @@ decision: "Make the minimum CI repair: update the published rpds-py wheel hash, 
 scope:
   - "requirements-ci.txt"
   - ".github/workflows/protocol-validation.yml"
+  - "scripts/packet_scope.py"
   - "schemas/identifiers.schema.json"
   - "tests/test_ci_validation.py"
   - "tests/test_planning_records.py"

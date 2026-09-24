@@ -4,7 +4,7 @@ issued_at: '2026-09-24T19:22:34Z'
 expires_at: '2027-09-24T19:22:34Z'
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: 52a17f7116450ff075fb4c006201ab5b3fbb5f21
+  commit: 2858cd3149b803c47ce984b7f1dd7e321e8c8266
   release: 2.6.1
   artifacts:
   - path: .factory-plugin/plugin.json
@@ -32,9 +32,9 @@ publisher:
   signature_ref: gpg:tag:v2.6.1:34049E9E7A00440491D319FFF19051409C4115FB
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:52a17f7116450ff075fb4c006201ab5b3fbb5f21
+  builder_digest: git-tree:2858cd3149b803c47ce984b7f1dd7e321e8c8266
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: 52a17f7116450ff075fb4c006201ab5b3fbb5f21
+  source_commit: 2858cd3149b803c47ce984b7f1dd7e321e8c8266
   dependencies:
   - PyYAML 6.0.3 and runtime dependencies, hash-pinned in requirements-ci.txt
   - jsonschema 4.21.1 and runtime dependencies, hash-pinned in requirements-ci.txt

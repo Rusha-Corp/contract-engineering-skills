@@ -1,0 +1,11 @@
+{
+  "kind": "blocked",
+  "packet_id": "CENG-T015-P004",
+  "source": "Handoff",
+  "destination": "Complete",
+  "actor": "droid",
+  "reason": "receiver accepted revision-bound handoff",
+  "failure": "handoff revision does not match packet revision",
+  "redacted": true,
+  "status": "prepared"
+}

@@ -2,7 +2,8 @@ tracker_schema_version: 1
 partition: active
 max_rows: 25
 updated_at: '2026-09-03'
-shards: []
+shards:
+- tracker/shards/CENG-T015.yaml
 rows:
 - task_id: CENG-T011
   packet_id: CENG-T011-P001

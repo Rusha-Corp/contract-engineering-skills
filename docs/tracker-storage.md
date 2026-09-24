@@ -57,6 +57,21 @@ assigned packet, direct dependency summaries, and linked evidence. They
 should not load the complete archive or event history unless the task
 requires historical analysis.
 
+## Confirmation-gated rollover
+
+Use the rollover tool in dry-run mode to list terminal packet rows and their
+planned archive destinations:
+
+```bash
+python3 scripts/tracker_rollover.py --root .contract-engineering
+```
+
+The dry run does not write files. After reviewing the plan and resolving all
+blockers, pass `--confirm` to move terminal packet YAML files and tracker rows
+into the archive. Active packets are never eligible, and a terminal tracker
+row whose packet file is missing or nonterminal blocks the entire confirmed
+operation.
+
 ## Validation and concurrency
 
 Use `scripts/validate-tracker.py` to enforce:

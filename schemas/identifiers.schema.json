@@ -2,6 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/Rusha-Corp/contract-engineering-skills/schemas/identifiers.schema.json",
   "title": "Contract Engineering Identifiers",
+  "type": "object",
   "$defs": {
     "programComponent": {
       "type": "string",

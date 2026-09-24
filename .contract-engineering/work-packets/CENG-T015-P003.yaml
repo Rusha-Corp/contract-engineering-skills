@@ -1,0 +1,104 @@
+packet_id: CENG-T015-P003
+task_id: CENG-T015
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: child-implementation
+work_type: enabler
+parent_task_id: CENG-T015
+priority: high
+iteration: acceptance-first-rollout
+title: Make lifecycle transitions revision-safe
+objective: Coordinate packet, tracker, event, and recovery updates through a revision-aware transition path.
+open_questions: []
+state: Complete
+scope:
+  in:
+  - scripts/contract_engineering.py
+  - tests/test_transitions.py
+  out:
+  - .devcontainer/devcontainer.json
+  - remote systems
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities:
+- repository-read
+- repository-write
+- local-validation
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: droid
+reviewer: user
+cleanup_owner: droid
+dependencies:
+- CENG-T015-P002
+locks: []
+claim_timestamp: '2026-09-24T00:40:00+00:00'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 6545301cc1c0c6cabdd45adffdd9e8d38b2cfd37
+- /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+design_decision_ref: null
+data_gate_ref: null
+acceptance_criteria:
+- The transition coordinator supports the documented lifecycle state machine.
+- State mutations require an expected packet revision and reject stale writers.
+- Packet, tracker projection, event stream, and journal recovery converge idempotently.
+- Read-only diagnostics do not create mutation directories.
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T015-P003-AC001
+    statement: Lifecycle transitions are revision-safe and projection-aware.
+    expected_result: Valid transitions update packet revision, tracker row, and event stream; stale revisions are rejected.
+    verification_method: execute
+    verification_command: python3 -m unittest tests.test_transitions -v
+    evidence_refs:
+    - CENG-T015-P003-EV001
+    failure_result: Concurrent agents can overwrite packet state or lose transition history.
+    validation_ref: CENG-T015-P003-VAL001
+  - id: CENG-T015-P003-AC002
+    statement: Prepared transition recovery is idempotent.
+    expected_result: Replaying a prepared operation completes missing projection work once and does not duplicate events.
+    verification_method: execute
+    verification_command: python3 -m unittest tests.test_transitions -v
+    evidence_refs:
+    - CENG-T015-P003-EV001
+    failure_result: Recovery resurrects invalid state or duplicates audit events.
+    validation_ref: CENG-T015-P003-VAL001
+validation_plan:
+- id: CENG-T015-P003-VAL001
+  kind: unit
+  command: python3 -m unittest tests.test_transitions -v
+  expected: lifecycle transition tests pass
+- id: CENG-T015-P003-VAL002
+  kind: full-suite
+  command: python3 -m unittest discover -s tests -p 'test_*.py'
+  expected: repository test suite passes
+- id: CENG-T015-P003-VAL003
+  kind: principles
+  skill: coding-principles
+  checks:
+  - transition coordination has one owner
+  - recovery is idempotent and fail-fast on revision mismatch
+  - no hidden mutation occurs in read-only diagnostics
+  expected: no unresolved principle violations
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+skill_gaps: []
+evidence_refs:
+- CENG-T015-P003-EV001
+handoff_ref: CENG-T015-P003-HO001
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+updated_at: '2026-09-24T00:40:00+00:00'

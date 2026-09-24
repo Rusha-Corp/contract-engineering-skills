@@ -1,0 +1,121 @@
+packet_id: CENG-T015-P004
+task_id: CENG-T015
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: child-implementation
+work_type: enabler
+parent_task_id: CENG-T015
+priority: high
+iteration: acceptance-first-rollout
+title: Enforce revision-bound handoffs and leases
+objective: Require accepted handoffs to match immutable packet content and protect
+  mutations with concrete leases.
+open_questions: []
+state: Complete
+scope:
+  in:
+  - scripts/contract_engineering.py
+  - scripts/finalize_handoff.py
+  - scripts/packet_leases.py
+  - templates/packet-lease.yaml
+  - tests/test_transitions.py
+  - tests/test_handoffs.py
+  - tests/test_leases.py
+  out:
+  - .devcontainer/devcontainer.json
+  - remote systems
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities:
+- repository-read
+- repository-write
+- local-validation
+risk_tier: high
+approval_policy: user
+external_effects: []
+owner: droid
+reviewer: user
+cleanup_owner: droid
+dependencies:
+- CENG-T015-P003
+locks: []
+claim_timestamp: '2026-09-24T01:10:00+00:00'
+revision: 4
+lease_ref: CENG-T015-P004
+fencing_token: ''
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 1ac3908eb124de1fee5adfce65cd768722e2da3d
+- /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+design_decision_ref: null
+data_gate_ref: null
+trust_boundary_ref: templates/trust-boundary.yaml
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+- templates/agent-event.yaml
+incident_refs:
+- templates/agent-incident.yaml
+acceptance_criteria:
+- Complete is blocked unless the referenced handoff is accepted and revision/scope/evidence
+  binding matches.
+- Lease claims have expiry, heartbeat, fencing token, and explicit takeover metadata.
+- High-risk packets cannot mutate without a concrete active lease.
+- Stale recovery and takeover attempts fail closed.
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T015-P004-AC001
+    statement: Completion validates the referenced handoff contract.
+    expected_result: Pending, rejected, stale, or mismatched handoffs are blocked;
+      accepted matching handoffs permit completion.
+    verification_method: execute
+    verification_command: python3 -m unittest tests.test_handoffs -v
+    evidence_refs:
+    - CENG-T015-P004-EV001
+    failure_result: A packet can complete with an unaccepted or stale handoff.
+    validation_ref: CENG-T015-P004-VAL001
+  - id: CENG-T015-P004-AC002
+    statement: Lease ownership is enforced for high-risk mutation paths.
+    expected_result: Expired, revoked, or fenced-out leases cannot mutate packet state.
+    verification_method: execute
+    verification_command: python3 -m unittest tests.test_leases -v
+    evidence_refs:
+    - CENG-T015-P004-EV001
+    failure_result: A stale agent can continue writing after takeover.
+    validation_ref: CENG-T015-P004-VAL002
+validation_plan:
+- id: CENG-T015-P004-VAL001
+  kind: unit
+  command: python3 -m unittest tests.test_handoffs -v
+  expected: handoff finalization tests pass
+- id: CENG-T015-P004-VAL002
+  kind: unit
+  command: python3 -m unittest tests.test_leases -v
+  expected: lease fencing tests pass
+- id: CENG-T015-P004-VAL003
+  kind: full-suite
+  command: python3 -m unittest discover -s tests -p 'test_*.py'
+  expected: repository test suite passes
+- id: CENG-T015-P004-VAL004
+  kind: principles
+  skill: coding-principles
+  checks:
+  - handoff and lease logic have separate focused responsibilities
+  - revision and fencing checks fail closed
+  - no external effect is performed by local finalization tooling
+  expected: no unresolved principle violations
+skill_gaps: []
+evidence_refs:
+- CENG-T015-P004-EV001
+handoff_ref: CENG-T015-P004-HO001
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+updated_at: '2026-09-24T17:31:44.814427+00:00'

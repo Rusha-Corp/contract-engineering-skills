@@ -1,0 +1,208 @@
+handoff_version: 3
+handoff_id: CENG-T015-P001-HO001
+packet_id: CENG-T015-P001
+transition:
+  from: Handoff
+  to: Complete
+  reason: Full acceptance-first protocol rollout integrated and final audit passed.
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: USER-ACCEPT-CENG-T015-P001-20260924
+  accepted_at: '2026-09-24T18:50:00Z'
+  acceptance_ref: USER-ACCEPT-CENG-T015-P001-20260924
+  signature_ref: ''
+base_revision: b0ec963770d8a0106a26cc4d893cbd9417c322d4
+head_revision: a47d957
+scope_digest: f93121f7c1bc586240fb98d13cbc9f011deb95b241400272bccdf12ff507e32d
+changed_resources:
+- path: .contract-engineering/evidence/CENG-T015-P001-EV001.md
+  sha256: e13764140b019bc286b2e24445f7b8aa38c032ef6c2fb82b61b1a5789b8820f8
+- path: .contract-engineering/evidence/CENG-T015-P002-EV001.md
+  sha256: e9e452078423645dd70766d0e586f4fc052c3866bfb0454a51b0afde05b0beb4
+- path: .contract-engineering/evidence/CENG-T015-P003-EV001.md
+  sha256: 4545de7ef4e41225eb4895b84167b3ebc63d557eda883818bb62173941c3f763
+- path: .contract-engineering/evidence/CENG-T015-P004-EV001.md
+  sha256: 08604e70f0537bed492030e6095eee38ee055e8a33110c728ba4b6d2047cf86a
+- path: .contract-engineering/evidence/CENG-T015-P005-EV001.md
+  sha256: 2a795ccdead01e2e9891a6948e2aac59cb501acae93f30e8b3b094cdbcc8ca03
+- path: .contract-engineering/evidence/CENG-T015-P006-EV001.md
+  sha256: 04fb4cae5b09e4429f8dc68833d62d87f0c1d4448b639956c761e22d5c139784
+- path: .contract-engineering/evidence/CENG-T015-P007-EV001.md
+  sha256: 5f6f69becef2688597cf3155dda3f459dbddf6dd5d630c7d4315e626175a5bc4
+- path: .contract-engineering/execution-tracker.md
+  sha256: f81fb762e23edb33d4cfa1d386f152569c6a35de8ed225a8b2f3c46e750e53c7
+- path: .contract-engineering/handoffs/CENG-T015-P001-HO001.yaml
+  sha256: 1b85cf9ba0a56971ddab2dc5ef7a6238a5a266e4f3c64d2603ecbe7ad677a93a
+- path: .contract-engineering/handoffs/CENG-T015-P002-HO001.yaml
+  sha256: 25ab8ae289453833458e5335996609fb448b090ca3c053eecd2411fa07e60c57
+- path: .contract-engineering/handoffs/CENG-T015-P003-HO001.yaml
+  sha256: c904a10dde1737cc5ee865cc078220bb793302b6ac44f9a04c4fdccff606768a
+- path: .contract-engineering/handoffs/CENG-T015-P004-HO001.yaml
+  sha256: 1a003d84928f167eb60ae31c330968af7bd049d6d195742949e0c9942b120d20
+- path: .contract-engineering/handoffs/CENG-T015-P005-HO001.yaml
+  sha256: 0c8d944efab1edca92a41662ca686b39ad9902e2a37e824d29a00cc874987b94
+- path: .contract-engineering/handoffs/CENG-T015-P006-HO001.yaml
+  sha256: 520d923e26def19d215152484ea6f2059565cbb064c77ebdcc13aafb339f6417
+- path: .contract-engineering/handoffs/CENG-T015-P007-HO001.yaml
+  sha256: dc8d97d6c481fa933e52c1d5719d04f62c6aa4ebef67cfff74d9a9dd03cdaa19
+- path: .contract-engineering/journal/1fada80be04a9e6344dcfbf4411ae40a4bb819320e56971e68af347387a30780.json
+  sha256: 6a9eee731226f498ce183169b4a7a326191b357590ffb42ad639f25b6ba9b331
+- path: .contract-engineering/journal/2dfed8392ac8ec8610626d6d3449b3bfc0ed5991f5420042e06b23d6876dd4e4.json
+  sha256: a6a322f2a12b6bc5425570338eaa14ebaf088f388f8312013d764a01d1ea01f2
+- path: .contract-engineering/journal/34945f017297455020ea2ebc28507092f8ada9beb4ba78de53b2b6f05463ccf2.json
+  sha256: 5733fc1ee1683cbbfbe897a3834c107880f0d676eb0fac259957f535e0ec35b2
+- path: .contract-engineering/journal/38745f2cfdce7d563017c3ebe2120dc6942877a748faa1caf1a2159927cf465a.json
+  sha256: 74e220355f4195c77e932fe152835c309dcb36d4f82b87579a6e80edb077160f
+- path: .contract-engineering/journal/57d1921703150e9df77bf84a0e42c496f02dc1db8972d76237fb1c112dc35f92.json
+  sha256: 3c745945117cb34b3d21df2edff9f7422e2671166178c867094d24f5181cbe09
+- path: .contract-engineering/journal/6b595b59d3e7c60ae2daccdef945b6daf2b8655d12eaf7be38fc2acba80b3d7f.json
+  sha256: 7d372a519d60f414ef166a8c02b6dd64d7f6775ef4fdd930845fbf287aa2b47a
+- path: .contract-engineering/journal/7ab8b1eec1018ceb2bccc4965b259f03ead04c626358cda7f376efe2c9e7c3d3.json
+  sha256: 7dadb6da26f173523a7543194c828ebb752fe0d1c3b2ecc8c87147bee45d1f33
+- path: .contract-engineering/journal/7e97b20db43a442bea28b971ed8fbc4b3318c700c125a7936e59cae432a39a39.json
+  sha256: ef6e23e9cca68dba74b1bf80e7659fd54d27936c9d7a24a9252f290ecbc265b2
+- path: .contract-engineering/journal/8942ed1dc9904a4f4dfd8cba38e9a2478944e55d40e75a56724bce19c4bfad3e.json
+  sha256: 2a50bb301032ce7d0e89f410c9614e43eb48a91c63a0c9ad4a8254cbf659a2fd
+- path: .contract-engineering/journal/8b9a0aff3e386a0c2ba1487a8d2f1c4d257aebe95f1890b384aebf420201a101.json
+  sha256: 4bc1f6e4c0c98489d24573357029f38c429d0d61a27e6a402541d9360d10dec7
+- path: .contract-engineering/journal/a4bd8bc9c256d4720d20f11b1449883298fb573bafc5a515b338f9d650c4553f.json
+  sha256: 4b8df9462420ccee5c22807a798991930b43e696c4f99e9553fbc6375fa43916
+- path: .contract-engineering/journal/a86ee90828927724f319644f94eb0242728d65273ae805a5f8740789b0f9b9ad.json
+  sha256: 198e51e0ae363f2248db9f587a878e54afa19de87c17de1f35a98b54fe5c474e
+- path: .contract-engineering/journal/b83627d768454cf0c02775ecd83f3db02ead0438885574d1e15e148d20a26eba.json
+  sha256: 1eb5644b01467a3dd44889bd2db82abdfdcf08c8a80dd1faf446fd2b9cfe9800
+- path: .contract-engineering/journal/b90486ad0b9b07a6f8bc2ad7151f181e15a16248aa42caa200688d39e654510f.json
+  sha256: 3d745ff8b97c31f1edf69c4e0635eba285038c23ca548410eb5d3a2067dac830
+- path: .contract-engineering/journal/c467b1180c765dc2fa2c6a3dbb44ed1861597660225f9e2fbbb538eab9769ebc.json
+  sha256: 14ef51490b0793856fd007c11c9a565c7fbe606d2d769252a31f089a20f19255
+- path: .contract-engineering/journal/ea14d08e1e8c7f01c2ce0452d5e056e076fe0fad0acf39d98c6a15a3b5264253.json
+  sha256: 66811cba6fb642021f2f520b5718ac3d9d25d274352931ed37ebf511002e179c
+- path: .contract-engineering/leases/CENG-T015-P004.yaml
+  sha256: dfea2a79bd180dbee2661295ceb38be5adcd57f045ae8bcc48b1330bff6a1fbf
+- path: .contract-engineering/tracker/events/CENG-T015.yaml
+  sha256: 1d0a09d25b9774efb2ce63f59c3f583b8498e98b81d2e128713a2d879c6541f3
+- path: .contract-engineering/tracker/index.yaml
+  sha256: 5b903045b1118fada6ad53fe8c7bee747c71d5910817d7689cef4f46c6121acc
+- path: .contract-engineering/tracker/shards/CENG-T015.yaml
+  sha256: 0f2d5d9a76face0bfc7e81365b030f73e5b6c17fde8a2e5e0faba5f962c4e80c
+- path: .contract-engineering/work-packets/CENG-T015-P001.yaml
+  sha256: 5412f7ad8602ae2a614b025bf48b5179e8424c6eb697697ab7fe5e7b5ede714f
+- path: .contract-engineering/work-packets/CENG-T015-P002.yaml
+  sha256: 2bef26a314cccba43ccf4a97a0066eb5c0d3215c4f6545df5413282ae099024c
+- path: .contract-engineering/work-packets/CENG-T015-P003.yaml
+  sha256: 39f6c8a301bf5d29d2c4eb4f90072b50883b54aa7c4e334e39e5bd212d770ddf
+- path: .contract-engineering/work-packets/CENG-T015-P004.yaml
+  sha256: ee2407595b8fe9d71702bff9db2e44fec6e58f5cdfeb248d187287b47a1cb6e1
+- path: .contract-engineering/work-packets/CENG-T015-P005.yaml
+  sha256: 68cecd1190f6d2fc60d0362274efb22808e76d333aafe6c9bd8ace918afb66f0
+- path: .contract-engineering/work-packets/CENG-T015-P006.yaml
+  sha256: 269dce10367ce746c1c4b001a9a07c28dd0cc6a55bc18bf233b9b7f6c22e6ae0
+- path: .contract-engineering/work-packets/CENG-T015-P007.yaml
+  sha256: 4595ea48262aac2d716d19800c1d559a8132631d3dcae34c2919ea8e38f95abf
+- path: .github/workflows/protocol-validation.yml
+  sha256: e95443a3d0f3509959501534c7a9ae109fb509186fd789eba868657cafff18a1
+- path: docs/tracker-storage.md
+  sha256: 4e3450ef160aa2e9b7e7c218cf221c0a4441b21063354520a17cf698d69fb6e2
+- path: schemas/epic.schema.json
+  sha256: 2d5fed22803e80aa09f3d39a333d83365c32c0b34ec8d4fc10537f4a422cb34a
+- path: schemas/task.schema.json
+  sha256: b335d4a852eb9bcc26d1f7f2b04a50febc8fbd4daa3c2a9aa6472b6baf746973
+- path: schemas/tracker.schema.json
+  sha256: 2daa80c914d7b3b7063e88ce86962dc358d8da8bbaace884bbe0a0e4ab3a6453
+- path: schemas/work-packet.schema.json
+  sha256: 60d0a8450f795eec8d1ebc4b9932c287bf5fba144cbc460aaec057f2b90e6c1b
+- path: scripts/contract_engineering.py
+  sha256: df8b461b9016cc6c33e3763e8c07df2dd4f99b47ea47bcbf9bf22ff94ebcd564
+- path: scripts/finalize_handoff.py
+  sha256: ec722d5418852ca22e652e4cbe98c87b1e91d3867abd50ec2522d85e69372b89
+- path: scripts/migrate_records.py
+  sha256: 0e6d0b37cb5cfb9d6d46c0677c0c9393c4d7af14a8ba48f85bab71a00da44ad7
+- path: scripts/packet_leases.py
+  sha256: bbd2b9bffdb571a27c61180ed704b6865553270460ccd292696f49fa9f28b47f
+- path: scripts/reconcile_worktrees.py
+  sha256: 1c855fad921e8b8ef1c2a93ed6c5e8ea59a2ec5a0331b673ebafc996829e3dbf
+- path: scripts/tracker_rollover.py
+  sha256: a03b205ca660912a24a081d0c0a33efa49b6d33ebe3b372200af6d2c32a53445
+- path: scripts/validate-contract-records.py
+  sha256: f1ad0cae16777a9c6751cac8eafc37e62c81361658d7834ebe40cf2ece6e9ce9
+- path: scripts/validate-tracker.py
+  sha256: 300002d23d5c13af4d49382f411d5142360c3ad67041c026a342340ce4f7d889
+- path: templates/epic.yaml
+  sha256: 4e9f9ddebc768f06daaa78bcab61ec91a21730d7a5ebba4e0506dd5e20847048
+- path: templates/task.yaml
+  sha256: 5ed87baaa2a3961834abf1c1847e459cc27db9d39476653070cb00c46fea840f
+- path: templates/work-packet.yaml
+  sha256: 41814c5bc8975152b2e265b7cdce2c387371b35a65d6b77acf3390f1730c73ac
+- path: tests/test_acceptance_contracts.py
+  sha256: 260000d05b3f4f65316a486a15fd8a9beb206160be28f218c9e1a7093f801659
+- path: tests/test_ci_validation.py
+  sha256: c9259be7868ce8fc4b1413793e87ca1d5c18beebf60a2839b12b6258898d58a8
+- path: tests/test_contract_records.py
+  sha256: d3fcf2fd62fda5a0ee7c3b2d564dd3f819ca3f855a1901a502e8f6adae298ca7
+- path: tests/test_handoffs.py
+  sha256: 85c09c815720783f93f50e3d4bb6442ef73d2d4c0bb8246a0982dad66c658d03
+- path: tests/test_leases.py
+  sha256: 9369b4a60c189689ddd1e2c8485cf05c98fcd62b08a67ac6e270521b70a9643d
+- path: tests/test_planning_records.py
+  sha256: c4718000128f33e3b8b48db3f49830138ade9f2d4a3b1cd5c7020b2678b3b4e5
+- path: tests/test_record_migration.py
+  sha256: 3235de1941351afbc4fa41b140d7bbea1c71baa79bf4e14db74fee0e07c23f9d
+- path: tests/test_rollover.py
+  sha256: 1d902d3dbbcc096dbc978e787761b27c6807aff88f4c079f53dfcbbfa5b2a78a
+- path: tests/test_tracker.py
+  sha256: 061c40f7f914a64b81e7812933f182d1d3c600c89dc3ef902318f01adbac2e51
+- path: tests/test_transitions.py
+  sha256: 790af18591f8acb518c2271c4c5e9d1d13c692892b1c99cb54abb1b9d8cf4cc0
+- path: tests/test_worktrees.py
+  sha256: 7f7c74044b5ab7f9e856413ed3ed12e440fbb0196beca1fcea95c18a3a49f57b
+created_at: '2026-09-24T18:45:00Z'
+expires_at: ''
+approval_ref: /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+verification:
+  verified_at: '2026-09-24T18:44:00Z'
+  verifier: droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T015-P001-EV001
+validation_results:
+- command: python3 -m unittest discover -s tests -p 'test_*.py'
+  result: exit 0; 106 tests passed; captured in CENG-T015-P001-EV001
+- command: python3 scripts/validate-contract-records.py --root .contract-engineering
+  result: exit 0; contract validation valid; captured in CENG-T015-P001-EV001
+- command: python3 scripts/validate-tracker.py --root .contract-engineering
+  result: exit 0; tracker valid; captured in CENG-T015-P001-EV001
+- command: python3 scripts/render-tracker.py --root .contract-engineering --check
+  result: exit 0; projection current; captured in CENG-T015-P001-EV001
+- command: python3 scripts/migrate_records.py --root .contract-engineering
+  result: exit 0; dry-run reported 25 proposed changes; captured in CENG-T015-P001-EV001
+- command: python3 scripts/tracker_rollover.py --root .contract-engineering
+  result: exit 0; dry-run reported 28 moves and 0 blockers; captured in CENG-T015-P001-EV001
+- command: python3 scripts/reconcile_worktrees.py --root .contract-engineering
+  result: exit 0; 3 registered and no missing or drifted rollout worktrees; captured
+    in CENG-T015-P001-EV001
+evidence_refs:
+- CENG-T015-P001-EV001
+skill_gaps: []
+unresolved_items:
+- Hosted CI execution and remote publication remain outside this local rollout.
+- Live archival remains confirmation-gated and was not applied.
+- Legacy T013/T014 worktrees remain unregistered and require a separate cleanup decision.
+rollback_notes: Revert coordinator commits after the recorded base revision; no remote
+  state or live archival was changed.
+requested_next_action: Receiver reviews and accepts the complete rollout handoff,
+  then archive eligible terminal packets at iteration closure.
+receiver_status: accepted
+receiver_notes: User accepted the complete acceptance-first protocol rollout. Local validation passed; remote publication, hosted CI, live archival, and legacy worktree cleanup remain explicitly outside this handoff.
+accepted_revision: a47d957
+accepted_packet_revision: 5
+accepted_scope_digest: f93121f7c1bc586240fb98d13cbc9f011deb95b241400272bccdf12ff507e32d
+accepted_evidence_refs:
+- CENG-T015-P001-EV001

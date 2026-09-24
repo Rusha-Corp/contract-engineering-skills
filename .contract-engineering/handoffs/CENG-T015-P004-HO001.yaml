@@ -1,0 +1,99 @@
+handoff_version: 3
+handoff_id: CENG-T015-P004-HO001
+packet_id: CENG-T015-P004
+transition:
+  from: Validation
+  to: Handoff
+  reason: Revision-bound handoff validation and concrete lease fencing passed targeted
+    and full repository validation.
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: USER-ACCEPT-CENG-T015-P004-20260924-REWORK
+  accepted_at: '2026-09-24T17:30:00Z'
+  acceptance_ref: USER-ACCEPT-CENG-T015-P004-20260924-REWORK
+  signature_ref: ''
+base_revision: 1ac3908eb124de1fee5adfce65cd768722e2da3d
+head_revision: 344e955415bfc78a1b762a1fe93bda7f7e6f75bc
+scope_digest: 030cfac06a0a067596fbd69b2bc14aa6d67c6bf2e36a476d897e0c464b4d2c23
+changed_resources:
+- path: .contract-engineering/evidence/CENG-T015-P004-EV001.md
+  sha256: 08604e70f0537bed492030e6095eee38ee055e8a33110c728ba4b6d2047cf86a
+- path: .contract-engineering/execution-tracker.md
+  sha256: 4802517b3b7980c8046a27ca07aa6ee20e3d007991a6db18d22a4c37cec44ad7
+- path: .contract-engineering/journal/57d1921703150e9df77bf84a0e42c496f02dc1db8972d76237fb1c112dc35f92.json
+  sha256: 3c745945117cb34b3d21df2edff9f7422e2671166178c867094d24f5181cbe09
+- path: .contract-engineering/journal/6b595b59d3e7c60ae2daccdef945b6daf2b8655d12eaf7be38fc2acba80b3d7f.json
+  sha256: 7d372a519d60f414ef166a8c02b6dd64d7f6775ef4fdd930845fbf287aa2b47a
+- path: .contract-engineering/journal/a4bd8bc9c256d4720d20f11b1449883298fb573bafc5a515b338f9d650c4553f.json
+  sha256: 4b8df9462420ccee5c22807a798991930b43e696c4f99e9553fbc6375fa43916
+- path: .contract-engineering/journal/b83627d768454cf0c02775ecd83f3db02ead0438885574d1e15e148d20a26eba.json
+  sha256: 1eb5644b01467a3dd44889bd2db82abdfdcf08c8a80dd1faf446fd2b9cfe9800
+- path: .contract-engineering/leases/CENG-T015-P004.yaml
+  sha256: 3f301c20816ae1e1e51ce2e4765775af383689a9b1e232b66c90e6dd63b10ce7
+- path: .contract-engineering/tracker/events/CENG-T015.yaml
+  sha256: f239f6a9ce038bcad25eb90629b881a36b1d068281720aa5521975413bdb0661
+- path: .contract-engineering/tracker/shards/CENG-T015.yaml
+  sha256: 37032df0faf841941c88297535f93451166be8b693975dbe4fd6101e3683ecd1
+- path: .contract-engineering/work-packets/CENG-T015-P004.yaml
+  sha256: 6eb24bac8c73bb3a10ede3fdc38b5f3df2ce44ea093fb53e0caf34d1caf26225
+- path: schemas/work-packet.schema.json
+  sha256: 67a8275f4b937dc0deadd2d141ec77cfceb3f2c8017178afeb17def6747cdb53
+- path: scripts/contract_engineering.py
+  sha256: df8b461b9016cc6c33e3763e8c07df2dd4f99b47ea47bcbf9bf22ff94ebcd564
+- path: scripts/finalize_handoff.py
+  sha256: ec722d5418852ca22e652e4cbe98c87b1e91d3867abd50ec2522d85e69372b89
+- path: scripts/packet_leases.py
+  sha256: bbd2b9bffdb571a27c61180ed704b6865553270460ccd292696f49fa9f28b47f
+- path: templates/work-packet.yaml
+  sha256: 43ca4147ff8596a8cad8ba73bcb5e8cd1f372e7fb23b4b75a5d175d38f59d572
+- path: tests/test_handoffs.py
+  sha256: 85c09c815720783f93f50e3d4bb6442ef73d2d4c0bb8246a0982dad66c658d03
+- path: tests/test_leases.py
+  sha256: 9369b4a60c189689ddd1e2c8485cf05c98fcd62b08a67ac6e270521b70a9643d
+- path: tests/test_transitions.py
+  sha256: 790af18591f8acb518c2271c4c5e9d1d13c692892b1c99cb54abb1b9d8cf4cc0
+created_at: '2026-09-24T17:21:00Z'
+expires_at: ''
+approval_ref: /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+verification:
+  verified_at: '2026-09-24T17:20:00Z'
+  verifier: droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T015-P004-EV001
+validation_results:
+- command: python3 -m unittest tests.test_handoffs tests.test_leases tests.test_transitions
+  result: exit 0; 18 tests passed; captured in CENG-T015-P004-EV001
+- command: python3 -m unittest discover -s tests -p 'test_*.py'
+  result: exit 0; 95 tests passed; captured in CENG-T015-P004-EV001
+- command: python3 scripts/validate-contract-records.py --root .contract-engineering
+  result: exit 0; contract validation valid; captured in CENG-T015-P004-EV001
+- command: python3 scripts/validate-tracker.py --root .contract-engineering
+  result: exit 0; tracker valid; captured in CENG-T015-P004-EV001
+- command: python3 scripts/render-tracker.py --root .contract-engineering --check
+  result: exit 0; generated projection check passed; captured in CENG-T015-P004-EV001
+evidence_refs:
+- CENG-T015-P004-EV001
+skill_gaps: []
+unresolved_items: []
+rollback_notes: Revert the handoff and lease packet-scoped commit range to the recorded
+  base revision.
+requested_next_action: Retain the completed packet in the active shard until iteration closure.
+receiver_status: accepted
+receiver_notes: >-
+  User accepted the corrected handoff. The final revision separates Git content
+  SHA from packet lifecycle revision, closes blocked transition journal records,
+  and preserves the 96-test validation result.
+accepted_revision: 344e955415bfc78a1b762a1fe93bda7f7e6f75bc
+accepted_packet_revision: 3
+accepted_scope_digest: 030cfac06a0a067596fbd69b2bc14aa6d67c6bf2e36a476d897e0c464b4d2c23
+accepted_evidence_refs:
+- CENG-T015-P004-EV001

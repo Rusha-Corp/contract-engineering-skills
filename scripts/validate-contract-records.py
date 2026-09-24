@@ -20,6 +20,7 @@ from typing import Any
 
 import yaml
 import jsonschema
+from referencing import Registry, Resource
 from yaml.events import (
     AliasEvent,
     MappingEndEvent,
@@ -80,6 +81,11 @@ PACKET_CLASSES = {
 }
 ACCEPTANCE_CRITERION_ID = re.compile(r"^[A-Z0-9-]+-AC\d{3}$")
 VALIDATION_PLAN_ID = re.compile(r"^[A-Z0-9-]+-VAL\d{3}$")
+OPEN_QUESTION_ID = re.compile(r"^[A-Z0-9-]+-OQ\d{3}$")
+EPIC_ID = re.compile(r"^(?:[A-Z][A-Z0-9]*-)+E\d{3}$")
+WORK_TYPES = {"discovery", "delivery", "bugfix", "enabler"}
+PRIORITIES = {"critical", "high", "normal", "deferred"}
+QUESTION_DISPOSITIONS = {"blocking", "bounded", "resolved", "follow_up", "deferred"}
 EXECUTION_CONTROL_REFS = (
     "trust_boundary_ref",
     "execution_budget_ref",
@@ -177,6 +183,7 @@ def _validate_records(root: Path, packet_path: Path | None, changed_paths: list[
     validate_dependency_graph(packets)
     validate_locks(packets)
     validate_references(root, packets)
+    validate_planning_records(root, packets)
     if packet_path:
         packet = packets.get(packet_path.stem)
         if packet is None:
@@ -187,21 +194,69 @@ def _validate_records(root: Path, packet_path: Path | None, changed_paths: list[
 def validate_json_schemas(root: Path, packets: dict[str, dict[str, Any]]) -> None:
     """Validate canonical records with the pinned JSON Schema implementation."""
     schema_dir = root.parent / "schemas"
-    schemas = {
-        "work-packet.schema.json": jsonschema.validators.validator_for(
-            load_json_schema(schema_dir / "work-packet.schema.json")
-        ),
-        "tracker.schema.json": jsonschema.validators.validator_for(
-            load_json_schema(schema_dir / "tracker.schema.json")
-        ),
-        "tracker-event.schema.json": jsonschema.validators.validator_for(
-            load_json_schema(schema_dir / "tracker-event.schema.json")
-        ),
+    documents = {
+        path.name: load_json_schema(path)
+        for path in schema_dir.glob("*.json")
     }
-    for schema_name, validator in schemas.items():
-        validator.check_schema(
-            load_json_schema(schema_dir / schema_name)
+    store: dict[str, dict[str, Any]] = {}
+    for name, document in documents.items():
+        store[name] = document
+        if document.get("$id"):
+            store[document["$id"]] = document
+    registry = Registry().with_resources(
+        [
+            (document["$id"], Resource.from_contents(document))
+            for document in documents.values()
+            if document.get("$id")
+        ]
+    )
+    schemas = {}
+    for schema_name in (
+        "work-packet.schema.json",
+        "tracker.schema.json",
+        "tracker-event.schema.json",
+    ):
+        document = documents.get(schema_name)
+        if document is None:
+            fail(f"{schema_dir / schema_name}: schema is missing")
+        validator_class = jsonschema.validators.validator_for(document)
+        validator_class.check_schema(document)
+        schemas[schema_name] = validator_class(document, registry=registry)
+    packet_validator = schemas["work-packet.schema.json"]
+    for packet_id, packet in packets.items():
+        errors = sorted(
+            packet_validator.iter_errors(packet),
+            key=lambda error: list(error.path),
         )
+        if errors:
+            location = ".".join(str(part) for part in errors[0].path) or "<root>"
+            fail(
+                f"{packet_id}: schema validation failed at {location}: "
+                f"{errors[0].message}"
+            )
+    for directory, schema_name, identifier_key in (
+        (root / "epics", "epic.schema.json", "epic_id"),
+        (root / "tasks", "task.schema.json", "task_id"),
+    ):
+        if not directory.is_dir():
+            continue
+        document = documents.get(schema_name)
+        if document is None:
+            fail(f"{schema_dir / schema_name}: schema is missing")
+        validator_class = jsonschema.validators.validator_for(document)
+        instance_validator = validator_class(document, registry=registry)
+        for path in sorted(directory.glob("*.yaml")):
+            validate_instance(
+                instance_validator,
+                load_yaml(path),
+                f"{path} ({identifier_key})",
+            )
+    tracker_validator = schemas["tracker.schema.json"]
+    for path in _tracker_instance_paths(root):
+        validate_instance(tracker_validator, load_yaml(path), str(path))
+    event_validator = schemas["tracker-event.schema.json"]
+    for path in sorted((root / "tracker/events").glob("*.yaml")):
+        validate_instance(event_validator, load_yaml(path), str(path))
     identifier_schema = load_json_schema(schema_dir / "identifiers.schema.json")
     task_validator = jsonschema.Draft202012Validator(
         identifier_schema["$defs"]["taskId"]
@@ -223,6 +278,34 @@ def load_json_schema(path: Path) -> dict[str, Any]:
         return json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError) as exc:
         fail(f"{path}: cannot load JSON Schema: {exc}")
+
+
+def validate_instance(validator: Any, instance: Any, label: str) -> None:
+    errors = sorted(validator.iter_errors(instance), key=lambda error: list(error.path))
+    if errors:
+        location = ".".join(str(part) for part in errors[0].path) or "<root>"
+        fail(f"{label}: schema validation failed at {location}: {errors[0].message}")
+
+
+def _tracker_instance_paths(root: Path) -> list[Path]:
+    paths = []
+    index = root / "tracker/index.yaml"
+    archive = root / "tracker/archive/index.yaml"
+    if index.is_file():
+        paths.append(index)
+        document = load_yaml(index)
+        for relative in document.get("shards", []):
+            path = root / relative
+            if path.is_file():
+                paths.append(path)
+    if archive.is_file():
+        paths.append(archive)
+        document = load_yaml(archive)
+        for relative in document.get("shards", []):
+            path = root / relative
+            if path.is_file():
+                paths.append(path)
+    return paths
 
 
 def validate_identifier(validator: Any, value: object, label: str) -> None:
@@ -491,8 +574,10 @@ def validate_acceptance_contract(path: Path, packet: dict[str, Any]) -> None:
             if not isinstance(val, str) or not val.strip():
                 fail(f"{path}: acceptance criterion {criterion_id} missing {field}")
         evidence_refs = item.get("evidence_refs", [])
-        if not isinstance(evidence_refs, list) or not evidence_refs:
-            fail(f"{path}: acceptance criterion {criterion_id} must have evidence_refs")
+        if not isinstance(evidence_refs, list):
+            fail(f"{path}: acceptance criterion {criterion_id} evidence_refs must be a list")
+        if packet.get("state") == "Complete" and not evidence_refs:
+            fail(f"{path}: acceptance criterion {criterion_id} must have evidence_refs before Complete")
         for ref in evidence_refs:
             if not isinstance(ref, str) or not ref.strip():
                 fail(f"{path}: acceptance criterion {criterion_id} has empty evidence ref")
@@ -506,6 +591,115 @@ def validate_acceptance_contract(path: Path, packet: dict[str, Any]) -> None:
         vref = item.get("validation_ref")
         if vref and vref not in validation_ids:
             fail(f"{path}: acceptance criterion {item['id']} references unknown validation {vref}")
+
+
+def validate_work_metadata(path: Path, packet: dict[str, Any]) -> None:
+    """Validate optional metadata used by new acceptance-first packets."""
+    work_type = packet.get("work_type")
+    if work_type is not None and work_type not in WORK_TYPES:
+        fail(f"{path}: invalid work_type {work_type!r}")
+    priority = packet.get("priority")
+    if priority is not None and priority not in PRIORITIES:
+        fail(f"{path}: invalid priority {priority!r}")
+    parent_task_id = packet.get("parent_task_id")
+    if parent_task_id is not None and (
+        not isinstance(parent_task_id, str) or not TASK_ID.fullmatch(parent_task_id)
+    ):
+        fail(f"{path}: parent_task_id must be a valid task identifier")
+    iteration = packet.get("iteration")
+    if iteration is not None and (not isinstance(iteration, str) or not iteration.strip()):
+        fail(f"{path}: iteration must be a non-empty string when provided")
+
+
+def validate_open_questions(path: Path, packet: dict[str, Any]) -> None:
+    """Validate criterion-linked unknowns and block only unresolved blockers."""
+    questions = packet.get("open_questions", [])
+    if not isinstance(questions, list):
+        fail(f"{path}: open_questions must be a list")
+    criteria = {
+        item.get("id")
+        for item in packet.get("acceptance_contract", {}).get("criteria", [])
+        if isinstance(item, dict)
+    }
+    for question in questions:
+        if isinstance(question, str):
+            # Legacy packets use free-form questions and are migrated separately.
+            continue
+        if not isinstance(question, dict):
+            fail(f"{path}: each open question must be a mapping")
+        question_id = question.get("id", "")
+        if not OPEN_QUESTION_ID.fullmatch(str(question_id)):
+            fail(f"{path}: invalid open question id: {question_id}")
+        if not isinstance(question.get("question"), str) or not question["question"].strip():
+            fail(f"{path}: open question {question_id} is missing question")
+        affects = question.get("affects_criteria", [])
+        if not isinstance(affects, list) or not affects:
+            fail(f"{path}: open question {question_id} must affect at least one criterion")
+        unknown_criteria = set(affects) - criteria
+        if unknown_criteria:
+            fail(
+                f"{path}: open question {question_id} references unknown criteria "
+                f"{sorted(unknown_criteria)}"
+            )
+        if not isinstance(question.get("owner"), str) or not question["owner"].strip():
+            fail(f"{path}: open question {question_id} is missing owner")
+        disposition = question.get("disposition")
+        if disposition not in QUESTION_DISPOSITIONS:
+            fail(f"{path}: open question {question_id} has invalid disposition")
+        if disposition in {"resolved", "bounded"} and not question.get("resolution_ref"):
+            fail(f"{path}: open question {question_id} needs resolution_ref")
+        if packet.get("state") == "Ready" and disposition == "blocking":
+            fail(f"{path}: blocking open question {question_id} prevents Ready")
+
+
+def validate_planning_records(
+    root: Path, packets: dict[str, dict[str, Any]]
+) -> None:
+    """Validate optional epic/task planning records and their references."""
+    epics_dir = root / "epics"
+    tasks_dir = root / "tasks"
+    epics: dict[str, dict[str, Any]] = {}
+    tasks: dict[str, dict[str, Any]] = {}
+    for path in sorted(epics_dir.glob("*.yaml")) if epics_dir.is_dir() else []:
+        value = load_yaml(path)
+        if not isinstance(value, dict):
+            fail(f"{path}: epic must be a mapping")
+        epic_id = value.get("epic_id")
+        if not isinstance(epic_id, str) or not EPIC_ID.fullmatch(epic_id):
+            fail(f"{path}: invalid epic_id")
+        if path.stem != epic_id or epic_id in epics:
+            fail(f"{path}: epic_id does not match filename or is duplicated")
+        if value.get("priority") not in PRIORITIES:
+            fail(f"{path}: invalid priority")
+        if value.get("status") not in {"proposed", "active", "paused", "closed"}:
+            fail(f"{path}: invalid status")
+        if not isinstance(value.get("task_refs", []), list):
+            fail(f"{path}: task_refs must be a list")
+        epics[epic_id] = value
+    for path in sorted(tasks_dir.glob("*.yaml")) if tasks_dir.is_dir() else []:
+        value = load_yaml(path)
+        if not isinstance(value, dict):
+            fail(f"{path}: task must be a mapping")
+        task_id = value.get("task_id")
+        if not isinstance(task_id, str) or not TASK_ID.fullmatch(task_id):
+            fail(f"{path}: invalid task_id")
+        if path.stem != task_id or task_id in tasks:
+            fail(f"{path}: task_id does not match filename or is duplicated")
+        if value.get("priority") not in PRIORITIES:
+            fail(f"{path}: invalid priority")
+        if value.get("status") not in {"proposed", "in_progress", "blocked", "done", "deferred"}:
+            fail(f"{path}: invalid status")
+        epic_id = value.get("epic_id")
+        if epic_id is not None and epic_id not in epics:
+            fail(f"{path}: unknown epic_id {epic_id}")
+        for packet_id in value.get("packet_refs", []):
+            if packet_id not in packets:
+                fail(f"{path}: unknown packet reference {packet_id}")
+        tasks[task_id] = value
+    for epic_id, epic in epics.items():
+        for task_id in epic.get("task_refs", []):
+            if task_id not in tasks:
+                fail(f"{epic_id}: unknown task reference {task_id}")
 
 
 def validate_packet(path: Path, packet: dict[str, Any], packets: dict[str, dict[str, Any]]) -> None:
@@ -562,7 +756,9 @@ def validate_packet(path: Path, packet: dict[str, Any], packets: dict[str, dict[
     if len(packet["locks"]) != len(set(packet["locks"])):
         fail(f"{path}: duplicate lock")
     validate_security_semantics(packet)
+    validate_work_metadata(path, packet)
     validate_acceptance_contract(path, packet)
+    validate_open_questions(path, packet)
 
 
 ARCHIVE_PACKET_DIR = "archive/work-packets"

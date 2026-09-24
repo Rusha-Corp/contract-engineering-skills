@@ -84,4 +84,5 @@ jsonschema-specifications==2023.12.1 \
 referencing==0.33.0 \
     --hash=sha256:39240f2ecc770258f28b642dd47fd74bc8b02484de54e1882b74b35ebd779bd5
 rpds-py==0.17.1 \
+    --hash=sha256:a967dd6afda7715d911c25a6ba1517975acd8d1092b2f326718725461a3d33f9 \
     --hash=sha256:f175e95a197f6a4059b50757a3dca33b32b61691bdbd22c29e8a8d21d3914cae

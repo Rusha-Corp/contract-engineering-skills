@@ -1,0 +1,11 @@
+{
+  "kind": "transition",
+  "packet_id": "CENG-T015-P001",
+  "source": "Validation",
+  "destination": "Handoff",
+  "actor": "droid",
+  "reason": "Parent evidence and final integration audit are ready for receiver review",
+  "expected_revision": 4,
+  "event_id": "CENG-T015-E041",
+  "status": "committed"
+}

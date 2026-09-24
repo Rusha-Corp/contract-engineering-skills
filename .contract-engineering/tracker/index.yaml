@@ -18,7 +18,7 @@ rows:
   owner: droid
   reviewer: contract-driven-handoff-acceptance-reviewer
   locks: []
-  next_action: Recreate the signed v2.7.2 tag and publish the matching GitHub Release only after hosted gates and artifact parity pass.
+  next_action: Retain the verified v2.7.2 release and its publication evidence through iteration closure.
   updated_at: '2026-09-24'
 - task_id: CENG-T011
   packet_id: CENG-T011-P001

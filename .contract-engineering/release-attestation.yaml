@@ -4,7 +4,7 @@ issued_at: '2026-09-24T19:22:34Z'
 expires_at: '2027-09-24T19:22:34Z'
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: 2858cd3149b803c47ce984b7f1dd7e321e8c8266
+  commit: 559fff900550d498f729586304d9ea41fcdf6c3a
   release: 2.6.1
   artifacts:
   - path: .factory-plugin/plugin.json
@@ -32,9 +32,9 @@ publisher:
   signature_ref: gpg:tag:v2.6.1:34049E9E7A00440491D319FFF19051409C4115FB
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:2858cd3149b803c47ce984b7f1dd7e321e8c8266
+  builder_digest: git-tree:559fff900550d498f729586304d9ea41fcdf6c3a
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: 2858cd3149b803c47ce984b7f1dd7e321e8c8266
+  source_commit: 559fff900550d498f729586304d9ea41fcdf6c3a
   dependencies:
   - PyYAML 6.0.3 and runtime dependencies, hash-pinned in requirements-ci.txt
   - jsonschema 4.21.1 and runtime dependencies, hash-pinned in requirements-ci.txt
@@ -43,8 +43,8 @@ provenance:
 review:
   author: droid
   independent_approver: contract-driven-handoff-acceptance-reviewer
-  approval_ref: CENG-T016-P008-HO002
-  approved_at: '2026-09-24T19:50:00Z'
+  approval_ref: CENG-T016-P008-HO003
+  approved_at: '2026-09-24T20:00:00Z'
 verification:
   verified_at: '2026-09-24T19:48:53Z'
   verifier: droid

@@ -310,3 +310,39 @@ events:
   actor: contract-driven-handoff-acceptance-reviewer
   occurred_at: '2026-09-24T19:50:02Z'
   summary: 'Released release-path:v2.6.1 after CENG-T016-P008 completion.'
+- event_id: CENG-T016-E050
+  packet_id: CENG-T016-P008
+  type: rework
+  actor: droid
+  occurred_at: '2026-09-24T19:58:00Z'
+  summary: 'Complete -> Rework: Final tag scope enforcement requires the completed packet path to be included in the publication commit.'
+- event_id: CENG-T016-E051
+  packet_id: CENG-T016-P008
+  type: implementation-start
+  actor: droid
+  occurred_at: '2026-09-24T19:58:01Z'
+  summary: Creating a revision-3 handoff for the publication timestamp marker while preserving the accepted corrective release evidence.
+- event_id: CENG-T016-E052
+  packet_id: CENG-T016-P008
+  type: handoff
+  actor: droid
+  occurred_at: '2026-09-24T19:58:02Z'
+  summary: Submitted the revision-3 publication-scope marker as CENG-T016-P008-HO003 with head revision 559fff900550d498f729586304d9ea41fcdf6c3a and the single changed packet path CENG-T016-P008.yaml.
+- event_id: CENG-T016-E053
+  packet_id: CENG-T016-P008
+  type: acceptance
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-24T20:00:00Z'
+  summary: 'Accepted CENG-T016-P008-HO003: narrow revision-3 marker binds head 559fff900550d498f729586304d9ea41fcdf6c3a with scope digest c6d664ea, DEC002 approved, prior HO002 acceptance, and hosted successes 36050289600, 36050289680, 36050289708.'
+- event_id: CENG-T016-E054
+  packet_id: CENG-T016-P008
+  type: transition
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-24T20:00:01Z'
+  summary: 'Rework -> Complete: revision-3 publication marker independently accepted at content revision 559fff900550d498f729586304d9ea41fcdf6c3a and packet revision 3.'
+- event_id: CENG-T016-E055
+  packet_id: CENG-T016-P008
+  type: lease-release
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-24T20:00:02Z'
+  summary: 'Released the CENG-T016-P008 publication lease after acceptance of the revision-3 marker.'

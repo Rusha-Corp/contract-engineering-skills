@@ -1,0 +1,76 @@
+handoff_version: 3
+handoff_id: CENG-T016-P008-HO003
+packet_id: CENG-T016-P008
+transition:
+  from: Rework
+  to: Complete
+  reason: Publication-scope marker is bound to packet revision 3 after the final tag
+    scope check required a changed claimed packet path; independently accepted by the
+    reviewer.
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: contract-driven-handoff-acceptance-reviewer
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REVIEWER-ACCEPT-CENG-T016-P008-HO003-20260924
+  accepted_at: '2026-09-24T20:00:00Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T016-P008-HO003-20260924
+  signature_ref: ''
+base_revision: 52a17f7116450ff075fb4c006201ab5b3fbb5f21
+head_revision: 559fff900550d498f729586304d9ea41fcdf6c3a
+scope_digest: c6d664ea743ec9a71b7fa7baea804713d2f0e1eeeaa408b167afac28e3779aa4
+changed_resources:
+- path: .contract-engineering/work-packets/CENG-T016-P008.yaml
+  sha256: fa46ec480aced4c9ebb3015675e00093f1337f9636e9597577a5b8db366cde90
+created_at: '2026-09-24T19:58:00Z'
+expires_at: ''
+approval_ref: CENG-T016-P008-DEC002
+verification:
+  verified_at: '2026-09-24T19:58:00Z'
+  verifier: droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T016-P008-EV002
+validation_results:
+- command: python3 scripts/validate-contract-records.py
+  result: exit 0; enforced contract validation valid
+- command: python3 scripts/validate-tracker.py --root .contract-engineering
+  result: exit 0; tracker valid
+- command: hosted protocol scope validation
+  result: prior final tag attempt failed because no claimed packet path changed; this
+    revision-3 marker provides the required claimed path
+evidence_refs:
+- CENG-T016-P008-EV001
+- CENG-T016-P008-EV002
+skill_gaps: []
+unresolved_items:
+- The final accepted packet marker and attestation commit must be committed before
+  recreating v2.6.1.
+rollback_notes: Return consumers to the verified v2.6.0 tag at 52e4c50fe3f0145b7b288ed4fe2e5ab616569120.
+requested_next_action: Commit this accepted publication-scope marker with the final
+  attestation and recreate v2.6.1; no remote tag modification is performed by this
+  review.
+receiver_status: accepted
+receiver_notes: >-
+  Independent acceptance passed. HO003 is a narrow revision-3 publication-scope
+  marker: its single changed resource is the claimed packet path
+  CENG-T016-P008.yaml with sha256 fa46ec480aced4c9ebb3015675e00093f1337f9636e9597577a5b8db366cde90,
+  providing the required claimed-path change for final hosted scope run
+  36051534714. DEC002 is approved user authorization for correcting v2.6.1.
+  Scope digest c6d664ea743ec9a71b7fa7baea804713d2f0e1eeeaa408b167afac28e3779aa4
+  binds head revision 559fff900550d498f729586304d9ea41fcdf6c3a, which matches the
+  release attestation commit. Prior HO002 was accepted at packet revision 2.
+  EV002 records hosted protocol run 36050289600, secret scanning 36050289680, and
+  security run 36050289708 as successes, with contract and tracker local
+  validation passing (AC001, AC002).
+accepted_revision: 559fff900550d498f729586304d9ea41fcdf6c3a
+accepted_packet_revision: 3
+accepted_scope_digest: c6d664ea743ec9a71b7fa7baea804713d2f0e1eeeaa408b167afac28e3779aa4
+accepted_evidence_refs:
+- CENG-T016-P008-EV001
+- CENG-T016-P008-EV002

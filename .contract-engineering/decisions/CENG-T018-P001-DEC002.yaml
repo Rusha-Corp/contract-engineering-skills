@@ -1,0 +1,25 @@
+decision_version: 1
+decision_id: CENG-T018-P001-DEC002
+packet_id: CENG-T018-P001
+status: approved
+title: "Correct v2.7.2 schema metadata and recreate the tag"
+proposal: "Add the missing required top-level object metadata to schemas/identifiers.schema.json, preserve the dependency correction, and delete/recreate v2.7.2 after hosted gates pass."
+alternatives_considered:
+  - "Preserve v2.7.2 and publish v2.7.3."
+  - "Stop with v2.7.2 documented as failed."
+decision: "Delete and recreate v2.7.2 after applying both the verified rpds-py hash correction and the identifiers schema metadata correction. Preserve all failed-tag commits and evidence."
+scope:
+  - "schemas/identifiers.schema.json"
+  - "requirements-ci.txt"
+  - "v2.7.2 tag lifecycle"
+controls:
+  - "The failed v2.7.2 tag remains auditable until explicitly deleted and recreated."
+  - "The schema correction must pass local and hosted normative-schema validation."
+  - "The recreated release requires independent review, signed-tag verification, hosted gates, matching GitHub Release, and artifact parity."
+approved_by: user
+approved_at: "2026-09-24T21:20:00Z"
+expires_at: ""
+success_measure: "Recreated v2.7.2 passes protocol, secret-scanning, and security gates and receives the matching GitHub Release."
+rollback_ref: b0ec963770d8a0106a26cc4d893cbd9417c322d4
+review_owner: contract-driven-handoff-acceptance-reviewer
+review_at: "2026-09-24T21:20:00Z"

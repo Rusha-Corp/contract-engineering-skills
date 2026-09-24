@@ -31,3 +31,15 @@ events:
   actor: droid
   occurred_at: '2026-09-24T21:10:00Z'
   summary: 'Validation -> Handoff: Corrective v2.7.2 content is ready for independent acceptance.'
+- event_id: CENG-T018-E006
+  packet_id: CENG-T018-P001
+  type: rework
+  actor: droid
+  occurred_at: '2026-09-24T21:20:00Z'
+  summary: 'Complete -> Rework: Hosted protocol validation found missing top-level object metadata in schemas/identifiers.schema.json; user authorized deleting and recreating v2.7.2.'
+- event_id: CENG-T018-E007
+  packet_id: CENG-T018-P001
+  type: implementation-start
+  actor: droid
+  occurred_at: '2026-09-24T21:20:01Z'
+  summary: Started the approved schema metadata correction while preserving the verified dependency hash correction.

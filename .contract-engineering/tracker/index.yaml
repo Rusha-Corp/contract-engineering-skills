@@ -14,11 +14,11 @@ rows:
   updated_at: '2026-09-24'
 - task_id: CENG-T018
   packet_id: CENG-T018-P001
-  state: Complete
+  state: Rework
   owner: droid
   reviewer: contract-driven-handoff-acceptance-reviewer
   locks: []
-  next_action: Verify hosted gates and publish the signed v2.7.2 tag, matching GitHub Release, and artifacts.
+  next_action: Apply the approved schema metadata correction and resubmit the v2.7.2 handoff before recreating the tag.
   updated_at: '2026-09-24'
 - task_id: CENG-T011
   packet_id: CENG-T011-P001

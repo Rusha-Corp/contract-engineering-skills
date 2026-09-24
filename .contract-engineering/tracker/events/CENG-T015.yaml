@@ -43,3 +43,15 @@ events:
   actor: droid
   occurred_at: '2026-09-24T00:21:00Z'
   summary: Submitted criterion-level evidence and a pending receiver handoff for independent acceptance.
+- event_id: CENG-T015-E008
+  packet_id: CENG-T015-P002
+  type: acceptance
+  actor: user
+  occurred_at: '2026-09-24T00:30:00Z'
+  summary: Receiver accepted the acceptance-first records handoff against the declared evidence and content revision.
+- event_id: CENG-T015-E009
+  packet_id: CENG-T015-P002
+  type: complete
+  actor: droid
+  occurred_at: '2026-09-24T00:31:00Z'
+  summary: Transitioned the accepted packet to Complete and released the acceptance-model lock.

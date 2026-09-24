@@ -15,10 +15,10 @@ sender:
 receiver:
   identity: user
   identity_type: human
-  authenticated: false
-  authentication_ref: ''
-  accepted_at: ''
-  acceptance_ref: ''
+  authenticated: true
+  authentication_ref: USER-ACCEPT-CENG-T015-P002-20260924
+  accepted_at: '2026-09-24T00:30:00Z'
+  acceptance_ref: USER-ACCEPT-CENG-T015-P002-20260924
   signature_ref: ''
 base_revision: b0ec963770d8a0106a26cc4d893cbd9417c322d4
 head_revision: 6a351d8adf07f3da32dc25b1bbc3857122260ae0
@@ -87,9 +87,17 @@ validation_results:
 evidence_refs:
 - CENG-T015-P002-EV001
 skill_gaps: []
-unresolved_items:
-- Independent receiver acceptance is still pending.
+unresolved_items: []
 rollback_notes: Revert the packet-scoped commit range to the recorded base revision.
-requested_next_action: Review the acceptance criteria and accept or reject this handoff.
-receiver_status: pending
-receiver_notes: ''
+requested_next_action: Retain the completed packet in the active shard until iteration closure.
+receiver_status: accepted
+receiver_notes: >-
+  User accepted the acceptance-first records and validation handoff. The evidence
+  records 84 passing repository tests, enforced contract validation, tracker
+  validation, projection validation, criterion-linked unknown checks, and
+  migration dry-run behavior. The packet remains independently reproducible at
+  the declared content revision and scope digest.
+accepted_revision: 6a351d8adf07f3da32dc25b1bbc3857122260ae0
+accepted_scope_digest: 5b992e7a17e2dbe292d78b56e8c267c79eb206038005f5cb373fc5ead62339dc
+accepted_evidence_refs:
+- CENG-T015-P002-EV001

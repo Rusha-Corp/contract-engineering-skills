@@ -14,10 +14,9 @@ rows:
   updated_at: '2026-09-24'
 - task_id: CENG-T015
   packet_id: CENG-T015-P002
-  state: Handoff
+  state: Complete
   owner: droid
   reviewer: user
-  locks:
-  - acceptance-model:CENG-T015-P002
-  next_action: Obtain independent receiver acceptance for the acceptance-first records handoff.
+  locks: []
+  next_action: Retain in active shard until iteration closure.
   updated_at: '2026-09-24'

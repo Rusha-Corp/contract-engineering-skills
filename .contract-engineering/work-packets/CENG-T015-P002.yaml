@@ -6,7 +6,7 @@ packet_class: child-implementation
 title: Add acceptance-first discovery records
 objective: Add work types, priorities, criterion-linked unknowns, and state-aware acceptance validation.
 open_questions: []
-state: Handoff
+state: Complete
 scope:
   in:
   - templates/work-packet.yaml
@@ -41,8 +41,7 @@ reviewer: user
 cleanup_owner: droid
 dependencies:
 - CENG-T015-P001
-locks:
-- acceptance-model:CENG-T015-P002
+locks: []
 claim_timestamp: '2026-09-24T00:00:00+00:00'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml

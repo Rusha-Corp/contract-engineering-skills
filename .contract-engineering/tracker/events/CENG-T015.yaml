@@ -189,22 +189,52 @@ events:
   occurred_at: '2026-09-24T17:40:00Z'
   summary: Registered the read-only worktree reconciliation child packet.
 - event_id: CENG-T015-E030
+  packet_id: CENG-T015-P006
+  type: admission
+  actor: droid
+  occurred_at: '2026-09-24T17:40:01Z'
+  summary: Registered the dry-run tracker rollover child packet.
+- event_id: CENG-T015-E031
+  packet_id: CENG-T015-P007
+  type: admission
+  actor: droid
+  occurred_at: '2026-09-24T17:40:02Z'
+  summary: Registered the CI and migration enforcement child packet.
+- event_id: CENG-T015-E032
   packet_id: CENG-T015-P005
   type: transition
   actor: droid
   occurred_at: '2026-09-24T17:41:00.795899+00:00'
   summary: 'Implementing -> Validation: Focused and full validation passed'
-- event_id: CENG-T015-E031
+- event_id: CENG-T015-E033
   packet_id: CENG-T015-P005
   type: transition
   actor: droid
   occurred_at: '2026-09-24T17:41:01.199161+00:00'
   summary: 'Validation -> Handoff: Evidence and structured handoff are ready for receiver
     review'
-- event_id: CENG-T015-E032
-  packet_id: CENG-T015-P005
+- event_id: CENG-T015-E034
+  packet_id: CENG-T015-P006
   type: implementation-start
   actor: droid
-  occurred_at: '2026-09-24T17:45:00Z'
-  summary: Started read-only worktree reconciliation with explicit packet worktree
-    metadata.
+  occurred_at: '2026-09-24T18:10:00Z'
+  summary: Started confirmation-gated tracker rollover implementation in the dedicated
+    P006 worktree.
+- event_id: CENG-T015-E035
+  packet_id: CENG-T015-P006
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T18:15:10Z'
+  summary: 'Implementing -> Validation: Rollover tests and full validation passed'
+- event_id: CENG-T015-E036
+  packet_id: CENG-T015-P006
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T18:15:11Z'
+  summary: 'Validation -> Handoff: Evidence and handoff prepared for receiver review'
+- event_id: CENG-T015-E037
+  packet_id: CENG-T015-P006
+  type: transition
+  actor: droid
+  occurred_at: '2026-09-24T18:20:01Z'
+  summary: 'Handoff -> Complete: Receiver accepted CENG-T015-P006-HO001'

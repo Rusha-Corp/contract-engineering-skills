@@ -81,6 +81,7 @@ class TransitionStore:
         reason: str,
         *,
         expected_revision: int | None = None,
+        fencing_token: str | None = None,
     ) -> dict[str, Any]:
         packet = self._load(packet_id)
         source = packet.get("state")
@@ -100,6 +101,25 @@ class TransitionStore:
         if destination == "Complete" and not packet.get("handoff_ref"):
             self._blocked(packet_id, source, destination, actor, reason, "handoff acceptance is required")
             raise TransitionError("blocked transition: handoff acceptance is required")
+        if destination == "Complete":
+            try:
+                from scripts.finalize_handoff import HandoffError, validate_handoff
+
+                validate_handoff(self.root, packet)
+            except HandoffError as exc:
+                self._blocked(packet_id, source, destination, actor, reason, str(exc))
+                raise TransitionError(f"blocked transition: {exc}") from exc
+        if packet.get("risk_tier") in {"high", "critical"} or packet.get("external_effects"):
+            try:
+                from scripts.packet_leases import LeaseError, LeaseManager
+
+                LeaseManager(self.root).validate(
+                    packet_id,
+                    fencing_token or os.environ.get("CE_FENCING_TOKEN", ""),
+                )
+            except LeaseError as exc:
+                self._blocked(packet_id, source, destination, actor, reason, str(exc))
+                raise TransitionError(f"blocked transition: lease {exc}") from exc
         operation = {
             "kind": "transition",
             "packet_id": packet_id,

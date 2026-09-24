@@ -7,6 +7,9 @@ work_type: discovery|delivery|bugfix|enabler
 parent_task_id: null
 priority: critical|high|normal|deferred
 iteration: ""
+revision: 0
+lease_ref: null
+fencing_token: ""
 title: ""
 objective: ""
 open_questions: []

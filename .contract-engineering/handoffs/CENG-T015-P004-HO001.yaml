@@ -1,0 +1,54 @@
+handoff_version: 3
+handoff_id: CENG-T015-P004-HO001
+packet_id: CENG-T015-P004
+transition:
+  from: Validation
+  to: Handoff
+  reason: Revision-bound handoff validation and concrete lease fencing passed targeted and full repository validation.
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: false
+  authentication_ref: ''
+  accepted_at: ''
+  acceptance_ref: ''
+  signature_ref: ''
+base_revision: 1ac3908eb124de1fee5adfce65cd768722e2da3d
+head_revision: PENDING_COMMIT
+scope_digest: PENDING_SCOPE_DIGEST
+changed_resources: []
+created_at: '2026-09-24T17:21:00Z'
+expires_at: ''
+approval_ref: /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+verification:
+  verified_at: '2026-09-24T17:20:00Z'
+  verifier: droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T015-P004-EV001
+validation_results:
+- command: python3 -m unittest tests.test_handoffs tests.test_leases tests.test_transitions
+  result: exit 0; 18 tests passed; captured in CENG-T015-P004-EV001
+- command: python3 -m unittest discover -s tests -p 'test_*.py'
+  result: exit 0; 95 tests passed; captured in CENG-T015-P004-EV001
+- command: python3 scripts/validate-contract-records.py --root .contract-engineering
+  result: exit 0; contract validation valid; captured in CENG-T015-P004-EV001
+- command: python3 scripts/validate-tracker.py --root .contract-engineering
+  result: exit 0; tracker valid; captured in CENG-T015-P004-EV001
+- command: python3 scripts/render-tracker.py --root .contract-engineering --check
+  result: exit 0; generated projection check passed; captured in CENG-T015-P004-EV001
+evidence_refs:
+- CENG-T015-P004-EV001
+skill_gaps: []
+unresolved_items:
+- Independent receiver acceptance is pending.
+rollback_notes: Revert the handoff and lease packet-scoped commit range to the recorded base revision.
+requested_next_action: Review the acceptance criteria and accept or reject this handoff.
+receiver_status: pending
+receiver_notes: ''

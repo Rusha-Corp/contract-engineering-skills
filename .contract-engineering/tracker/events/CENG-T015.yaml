@@ -148,3 +148,21 @@ events:
   actor: droid
   occurred_at: '2026-09-24T17:21:00Z'
   summary: Submitted revision-bound handoff and lease enforcement implementation for independent acceptance.
+- event_id: CENG-T015-E023
+  packet_id: CENG-T015-P004
+  type: acceptance
+  actor: user
+  occurred_at: '2026-09-24T17:30:00Z'
+  summary: Receiver accepted the reworked handoff, including completion lock release and non-secret epoch fencing.
+- event_id: CENG-T015-E024
+  packet_id: CENG-T015-P004
+  type: rework
+  actor: droid
+  occurred_at: '2026-09-24T17:35:00Z'
+  summary: Corrected distinct Git-content and packet-lifecycle revision binding and closed blocked transition journal records.
+- event_id: CENG-T015-E025
+  packet_id: CENG-T015-P004
+  type: handoff
+  actor: droid
+  occurred_at: '2026-09-24T17:36:00Z'
+  summary: Resubmitted the corrected handoff for independent acceptance against the 344e955 content revision.

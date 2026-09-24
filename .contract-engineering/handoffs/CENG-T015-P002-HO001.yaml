@@ -4,7 +4,8 @@ packet_id: CENG-T015-P002
 transition:
   from: Validation
   to: Handoff
-  reason: Acceptance-first metadata, discovery records, state-aware evidence validation, and migration dry-run support passed local validation.
+  reason: Acceptance-first metadata, discovery records, state-aware evidence validation,
+    and migration dry-run support passed local validation.
 sender:
   identity: droid
   identity_type: agent
@@ -20,9 +21,51 @@ receiver:
   acceptance_ref: ''
   signature_ref: ''
 base_revision: b0ec963770d8a0106a26cc4d893cbd9417c322d4
-head_revision: PENDING_COMMIT
-scope_digest: PENDING_SCOPE_DIGEST
-changed_resources: []
+head_revision: 6a351d8adf07f3da32dc25b1bbc3857122260ae0
+scope_digest: 5b992e7a17e2dbe292d78b56e8c267c79eb206038005f5cb373fc5ead62339dc
+changed_resources:
+- path: .contract-engineering/evidence/CENG-T015-P002-EV001.md
+  sha256: e9e452078423645dd70766d0e586f4fc052c3866bfb0454a51b0afde05b0beb4
+- path: .contract-engineering/execution-tracker.md
+  sha256: 46c3addfaedba7092db4bd305a2af2c911d4fdedc86770532c0915216cdf973f
+- path: .contract-engineering/tracker/events/CENG-T015.yaml
+  sha256: e3a2772f2ed4a89f4218d3fdaa3161c4c974f29a01c535667b33211b4be08a54
+- path: .contract-engineering/tracker/index.yaml
+  sha256: 5b903045b1118fada6ad53fe8c7bee747c71d5910817d7689cef4f46c6121acc
+- path: .contract-engineering/tracker/shards/CENG-T015.yaml
+  sha256: cab1e193dcae8949e006b965f146a8e436d6dcf1bc9e4e4da253d3d3b3d65a87
+- path: .contract-engineering/work-packets/CENG-T015-P001.yaml
+  sha256: 80698e65844e12c96a5b85c4f19a35e6b16e053e2304d203b730aeca744bf1e3
+- path: .contract-engineering/work-packets/CENG-T015-P002.yaml
+  sha256: cee406f77bf625f11aede646f65240e6180a94a31d1dc37fad0fb7584955d40b
+- path: schemas/epic.schema.json
+  sha256: 2d5fed22803e80aa09f3d39a333d83365c32c0b34ec8d4fc10537f4a422cb34a
+- path: schemas/task.schema.json
+  sha256: b335d4a852eb9bcc26d1f7f2b04a50febc8fbd4daa3c2a9aa6472b6baf746973
+- path: schemas/work-packet.schema.json
+  sha256: d5169c1cde66551ac58b8d375a4eec43837ee21b8181d14a4f8af77a55e194a6
+- path: scripts/migrate_records.py
+  sha256: 0e6d0b37cb5cfb9d6d46c0677c0c9393c4d7af14a8ba48f85bab71a00da44ad7
+- path: scripts/validate-contract-records.py
+  sha256: 6f450562139200429b7515729640b7c02f0a4e6072ee7919cca086532045e7ef
+- path: scripts/validate-tracker.py
+  sha256: 300002d23d5c13af4d49382f411d5142360c3ad67041c026a342340ce4f7d889
+- path: templates/epic.yaml
+  sha256: 4e9f9ddebc768f06daaa78bcab61ec91a21730d7a5ebba4e0506dd5e20847048
+- path: templates/task.yaml
+  sha256: 5ed87baaa2a3961834abf1c1847e459cc27db9d39476653070cb00c46fea840f
+- path: templates/work-packet.yaml
+  sha256: 567f69b1b9014ff1f865cce7663d892cd4bc1d2d163586697a9f72f42fba728f
+- path: tests/test_acceptance_contracts.py
+  sha256: 260000d05b3f4f65316a486a15fd8a9beb206160be28f218c9e1a7093f801659
+- path: tests/test_contract_records.py
+  sha256: d3fcf2fd62fda5a0ee7c3b2d564dd3f819ca3f855a1901a502e8f6adae298ca7
+- path: tests/test_planning_records.py
+  sha256: c4718000128f33e3b8b48db3f49830138ade9f2d4a3b1cd5c7020b2678b3b4e5
+- path: tests/test_record_migration.py
+  sha256: 84493787d9a4a1584ad7efc1467e7e35dd5cc17a8f1d972cafe778b6fed41adc
+- path: tests/test_tracker.py
+  sha256: 061c40f7f914a64b81e7812933f182d1d3c600c89dc3ef902318f01adbac2e51
 created_at: '2026-09-24T00:21:00Z'
 expires_at: ''
 approval_ref: /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md

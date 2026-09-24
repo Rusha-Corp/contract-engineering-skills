@@ -1,0 +1,46 @@
+incident_id: CENG-T016-P008-INC001
+detected_at: "2026-09-24T18:55:00Z"
+detected_by: droid
+severity: low
+state: Verified
+category: other
+summary: "Release preparation control record for the rekeyed v2.6.1 maintenance branch."
+affected:
+  projects:
+  - contract-engineering-skills
+  packets:
+  - CENG-T016-P008
+  actors:
+  - droid
+  tools: []
+  releases:
+  - v2.6.1
+  data_classes:
+  - public
+containment:
+  actions:
+  - "Publication remains blocked pending independent review and signing."
+  completed_at: "2026-09-24T18:55:00Z"
+  approval_ref: CENG-T016-P008-DEC001
+evidence_refs:
+- CENG-T016-P008-EV001
+notifications:
+  user: true
+  security: false
+  consumers: false
+remediation:
+  actions:
+  - "Complete independent release review and hosted validation."
+  owner: droid
+  due_at: "2026-09-24T23:59:59Z"
+verification:
+  verifier: contract-driven-handoff-acceptance-reviewer
+  result: pending
+  verified_at: ""
+postmortem_ref: null
+rollback_ref: 52e4c50fe3f0145b7b288ed4fe2e5ab616569120
+closed_at: ""
+disposition:
+  reason: "No publication occurred; this control record tracks the release gate."
+  recovery_path: "Keep v2.6.0 as the verified rollback."
+  closure_path: "Close after independent release review or record a bounded exception."

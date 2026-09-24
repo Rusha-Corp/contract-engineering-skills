@@ -1,0 +1,21 @@
+lease_version: 1
+packet_id: CENG-T016-P004
+holder:
+  agent_id: droid
+  harness: local
+  session_id: droid
+issued_at: '2026-09-24T17:11:17.800267+00:00'
+expires_at: '2026-09-24T18:11:17.800267+00:00'
+heartbeat_at: '2026-09-24T17:11:17.800267+00:00'
+renewal_count: 0
+takeover:
+  status: none
+  prior_holder: ''
+  reason: ''
+  recovery_plan: revalidate packet scope and revision
+  takeover_ref: null
+release:
+  status: released
+  released_at: '2026-09-24T17:31:44.961689+00:00'
+  release_ref: null
+fencing_epoch: 1

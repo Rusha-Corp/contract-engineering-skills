@@ -1,4 +1,5 @@
 import importlib.util
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -130,6 +131,109 @@ class SecuritySemanticTests(unittest.TestCase):
         }
         with self.assertRaises(ValueError):
             validator.validate_evidence_policy(policy, "synthetic-policy")
+
+
+class ValidatorRootAndModeTests(unittest.TestCase):
+    def test_root_precedence_is_explicit_then_environment_then_lock_then_default(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            (project / ".contract-engineering").mkdir()
+            (project / ".contract-engineering" / "protocol.lock.yaml").write_text(
+                "project:\n  protocol_root: locked-records\n"
+            )
+            self.assertEqual(
+                validator.resolve_protocol_root(project, explicit_root="explicit"),
+                project / "explicit",
+            )
+            self.assertEqual(
+                validator.resolve_protocol_root(
+                    project, environment={"CE_PROTOCOL_ROOT": "environment"}
+                ),
+                project / "environment",
+            )
+            self.assertEqual(
+                validator.resolve_protocol_root(project),
+                project / "locked-records",
+            )
+            (project / ".contract-engineering" / "protocol.lock.yaml").unlink()
+            self.assertEqual(
+                validator.resolve_protocol_root(project),
+                project / ".contract-engineering",
+            )
+
+    def test_absolute_explicit_root_is_preserved(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "records"
+            self.assertEqual(
+                validator.resolve_protocol_root(Path(directory), explicit_root=root),
+                root,
+            )
+
+    def test_off_mode_does_not_read_or_mutate_records(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            before = (project / "marker").write_text("unchanged")
+            result = validator.run_validation(project, mode="off")
+            self.assertEqual(result.mode, "off")
+            self.assertTrue(result.skipped)
+            self.assertEqual((project / "marker").read_text(), "unchanged")
+
+    def test_advisory_mode_reports_missing_root_without_raising(self):
+        with tempfile.TemporaryDirectory() as directory:
+            result = validator.run_validation(
+                Path(directory), explicit_root="missing", mode="advisory"
+            )
+            self.assertEqual(result.mode, "advisory")
+            self.assertFalse(result.valid)
+            self.assertIn("missing", result.messages[0])
+
+    def test_enforced_mode_reports_missing_root(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaises(ValueError):
+                validator.run_validation(
+                    Path(directory), explicit_root="missing", mode="enforced"
+                )
+
+    def test_json_schema_validation_checks_packet_instances(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            root = project / ".contract-engineering"
+            root.mkdir()
+            shutil.copytree(
+                Path(__file__).parents[1] / "schemas",
+                project / "schemas",
+            )
+            value = packet(
+                packet_id="TEST-T015-P002",
+                task_id="TEST-T015",
+                scope={"in": ["src"], "out": [], "unexpected": True},
+            )
+            with self.assertRaises(ValueError) as context:
+                validator.validate_json_schemas(root, {value["packet_id"]: value})
+            self.assertIn("schema validation failed", str(context.exception))
+
+
+class CanonicalIdentifierTests(unittest.TestCase):
+    def test_accepts_legacy_and_program_scoped_identifiers(self):
+        for value in (
+            "CENG-T001",
+            "CENG-T001-P001",
+            "RUSHA-PROGRAM-T001",
+            "RUSHA-PROGRAM-T001-P001",
+            "RUSHA-PLATFORM-CORE-T001-P001",
+        ):
+            self.assertTrue(validator.is_task_or_packet_identifier(value), value)
+
+    def test_rejects_noncanonical_identifier_shapes(self):
+        for value in (
+            "ceng-T001",
+            "RUSHA--T001",
+            "RUSHA-Platform-T001",
+            "RUSHA-T01",
+            "RUSHA-T001-P01",
+            "RUSHA-T001-P001-extra",
+        ):
+            self.assertFalse(validator.is_task_or_packet_identifier(value), value)
 
 
 def _packet(packet_id, state, owner="agent", reviewer="user", handoff_ref=None):
@@ -407,13 +511,15 @@ class AcceptanceContractTests(unittest.TestCase):
             )
         self.assertIn("missing statement", str(ctx.exception))
 
-    def test_empty_evidence_refs_rejected(self):
+    def test_empty_evidence_refs_rejected_for_complete_packet(self):
         contract = self._valid_contract()
         contract["criteria"][0]["evidence_refs"] = []
+        packet = self._packet_with_contract(contract)
+        packet["state"] = "Complete"
         with self.assertRaises(ValueError) as ctx:
             validator.validate_acceptance_contract(
                 Path("test.yaml"),
-                self._packet_with_contract(contract),
+                packet,
             )
         self.assertIn("evidence_refs", str(ctx.exception))
 

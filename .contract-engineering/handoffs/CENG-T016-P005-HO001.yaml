@@ -1,0 +1,85 @@
+handoff_version: 3
+handoff_id: CENG-T016-P005-HO001
+packet_id: CENG-T016-P005
+transition:
+  from: Handoff
+  to: Complete
+  reason: Read-only worktree reconciliation passed focused, full-suite, contract,
+    and tracker validation.
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: USER-ACCEPT-CENG-T016-P005-20260924
+  accepted_at: '2026-09-24T18:00:00Z'
+  acceptance_ref: USER-ACCEPT-CENG-T016-P005-20260924
+  signature_ref: ''
+base_revision: 099450d292ca470f58f5ec19d51139a9ac992e1c
+head_revision: 1d4a07b
+scope_digest: 2b7298cce4ecdaf591ff3d57313669842ce4877662dbb4c69bd4d6c8b6ea59db
+changed_resources:
+- path: .contract-engineering/evidence/CENG-T016-P005-EV001.md
+  sha256: 2a795ccdead01e2e9891a6948e2aac59cb501acae93f30e8b3b094cdbcc8ca03
+- path: .contract-engineering/execution-tracker.md
+  sha256: 4f02f0bd4dc5facb60a23988eb6d0864983017465fdaa4230369a9a2d62cc653
+- path: .contract-engineering/handoffs/CENG-T016-P005-HO001.yaml
+  sha256: db30060b097110041f9c0d90a786497baea0928cc3ae1399c851be8dd9e3f41d
+- path: .contract-engineering/journal/1c7697107b2d62162f70f3aae90616f589af80b662ce96e1d06037eb387c68f3.json
+  sha256: 0e91ffd075d68e519cc823732d32a9201db7af3eb3e8c4cf4f6a9b1ff3c1cb41
+- path: .contract-engineering/journal/ac5afecddd8d4c60fd3537f5fbcc2f5d0eebd36de3dfb7f64e9b04a6d75b92e8.json
+  sha256: 818941219f88fa84940e1aa7fd43cfd83b7d9aa0e878b9042a097ef3eeb5b5d6
+- path: .contract-engineering/tracker/events/CENG-T016.yaml
+  sha256: afd783a619b1188b46bbc1ae4c34033feda5efcd3bb1d3637ea0f0562827e431
+- path: .contract-engineering/tracker/shards/CENG-T016.yaml
+  sha256: 9ef281ad82ba842c3cdc058062211b5dd8de60f2903f43ad16b30d1cd7312ad0
+- path: .contract-engineering/work-packets/CENG-T016-P005.yaml
+  sha256: a54db33414b9642d58588ec9f837f2612e996a07d27b4993a1b6440522738f03
+- path: schemas/work-packet.schema.json
+  sha256: 60d0a8450f795eec8d1ebc4b9932c287bf5fba144cbc460aaec057f2b90e6c1b
+- path: scripts/reconcile_worktrees.py
+  sha256: 1c855fad921e8b8ef1c2a93ed6c5e8ea59a2ec5a0331b673ebafc996829e3dbf
+- path: templates/work-packet.yaml
+  sha256: 41814c5bc8975152b2e265b7cdce2c387371b35a65d6b77acf3390f1730c73ac
+- path: tests/test_worktrees.py
+  sha256: 7f7c74044b5ab7f9e856413ed3ed12e440fbb0196beca1fcea95c18a3a49f57b
+created_at: '2026-09-24T17:50:00Z'
+expires_at: ''
+approval_ref: /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+verification:
+  verified_at: '2026-09-24T17:49:00Z'
+  verifier: droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T016-P005-EV001
+validation_results:
+- command: python3 -m unittest tests.test_worktrees -v
+  result: exit 0; 3 tests passed; captured in CENG-T016-P005-EV001
+- command: python3 -m unittest discover -s tests -p 'test_*.py'
+  result: exit 0; 99 tests passed; captured in CENG-T016-P005-EV001
+- command: python3 scripts/validate-contract-records.py --root .contract-engineering
+  result: exit 0; contract validation valid; captured in CENG-T016-P005-EV001
+- command: python3 scripts/validate-tracker.py --root .contract-engineering
+  result: exit 0; tracker valid; captured in CENG-T016-P005-EV001
+evidence_refs:
+- CENG-T016-P005-EV001
+skill_gaps: []
+unresolved_items:
+- Legacy T013/T014 worktrees are reported as unregistered and require a separate cleanup
+  or registration decision.
+rollback_notes: Revert the P005-scoped commit to the recorded base revision; no Git
+  or worktree cleanup was performed.
+requested_next_action: Receiver reviews and accepts this handoff; after acceptance,
+  transition P005 to Complete and release its lock.
+receiver_status: accepted
+receiver_notes: User accepted the validated read-only reconciliation handoff. Legacy T013/T014 worktrees remain explicitly unresolved and were not modified.
+accepted_revision: 1d4a07b
+accepted_packet_revision: 3
+accepted_scope_digest: 2b7298cce4ecdaf591ff3d57313669842ce4877662dbb4c69bd4d6c8b6ea59db
+accepted_evidence_refs:
+- CENG-T016-P005-EV001

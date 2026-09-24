@@ -1,0 +1,131 @@
+packet_id: CENG-T016-P007
+task_id: CENG-T016
+phase: P2_DESIGN_GAPS
+domain: coding
+packet_class: child-implementation
+work_type: enabler
+parent_task_id: CENG-T016
+priority: high
+iteration: acceptance-first-rollout
+title: Enforce acceptance workflow in CI
+objective: Validate schema instances, packet scope, criterion contracts, and migration
+  readiness in local and CI checks.
+open_questions: []
+state: Complete
+scope:
+  in:
+  - .github/workflows/protocol-validation.yml
+  - requirements-ci.txt
+  - scripts/validate-contract-records.py
+  - scripts/migrate_records.py
+  - scripts/packet_scope.py
+  - schemas/
+  - tests/test_ci_validation.py
+  - tests/test_record_migration.py
+  - .contract-engineering/work-packets/CENG-T016-P007.yaml
+  - .contract-engineering/tracker/shards/CENG-T016.yaml
+  - .contract-engineering/tracker/events/CENG-T016.yaml
+  - .contract-engineering/execution-tracker.md
+  out:
+  - .devcontainer/devcontainer.json
+  - remote systems
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-5.6 Luna
+  session_id: current-session
+capabilities:
+- repository-read
+- repository-write
+- local-validation
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: droid
+reviewer: user
+cleanup_owner: droid
+dependencies:
+- CENG-T016-P005
+- CENG-T016-P006
+locks: []
+claim_timestamp: '2026-09-24T17:40:00+00:00'
+revision: 5
+lease_ref: null
+fencing_token: ''
+worktree:
+  path: /home/dev/contract-engineering-skills-CENG-T016-P007
+  branch: agent/CENG-T016-P007
+  base_revision: b990693ebf4df11e85ac692bd932709a3365a271
+  cleanup_status: active
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 099450d292ca470f58f5ec19d51139a9ac992e1c
+- /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+design_decision_ref: CENG-T016-P007-DEC001
+data_gate_ref: null
+acceptance_criteria:
+- CI validates actual packet, epic, task, tracker, event, handoff, and scope instances.
+- CI reports criterion-level failures and does not fail on retained terminal rows
+  solely due to age.
+- Migration remains dry-run by default and existing-record cleanup is explicit and
+  reviewable.
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T016-P007-AC001
+    statement: CI runs acceptance-aware contract and scope validation.
+    expected_result: Invalid schema instances, out-of-scope changed paths, and incomplete
+      completion contracts fail with actionable diagnostics.
+    verification_method: execute
+    verification_command: python3 -m unittest tests.test_ci_validation -v
+    evidence_refs:
+    - CENG-T016-P007-EV001
+    failure_result: CI can pass malformed records or out-of-scope packet changes.
+    validation_ref: CENG-T016-P007-VAL001
+  - id: CENG-T016-P007-AC002
+    statement: Existing records have a reviewable migration path.
+    expected_result: Dry-run output is deterministic, non-mutating, and suitable for
+      a closure packet.
+    verification_method: execute
+    verification_command: python3 -m unittest tests.test_record_migration -v
+    evidence_refs:
+    - CENG-T016-P007-EV001
+    failure_result: Legacy records are rewritten without reviewable output.
+    validation_ref: CENG-T016-P007-VAL002
+validation_plan:
+- id: CENG-T016-P007-VAL001
+  kind: unit
+  command: python3 -m unittest tests.test_ci_validation -v
+  expected: CI validation tests pass
+- id: CENG-T016-P007-VAL002
+  kind: unit
+  command: python3 -m unittest tests.test_record_migration -v
+  expected: migration tests pass
+- id: CENG-T016-P007-VAL003
+  kind: full-suite
+  command: python3 -m unittest discover -s tests -p 'test_*.py'
+  expected: repository test suite passes
+- id: CENG-T016-P007-VAL004
+  kind: principles
+  skill: coding-principles
+  checks:
+  - CI remains a projection of canonical validation
+  - migration defaults to dry-run
+  - scope enforcement uses packet ownership rather than hardcoded paths
+  expected: no unresolved principle violations
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+skill_gaps: []
+evidence_refs:
+- CENG-T016-P007-EV001
+handoff_ref: CENG-T016-P007-HO001
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+updated_at: '2026-09-24T18:38:31+00:00'

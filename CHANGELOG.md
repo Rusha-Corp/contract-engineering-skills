@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+## 2.6.1 - 2026-09-24
+
+- Backported the accepted acceptance-first rollout from the v2.6.0 line under
+  the rekeyed `CENG-T016` packet namespace.
+- Added criterion-linked discovery records, revision-safe lifecycle
+  transitions, revision-bound handoffs and leases, worktree reconciliation,
+  safe tracker rollover, and CI enforcement for packet scope and migration
+  readiness.
+- Preserved the existing v2.6.0 release packet and records under
+  `CENG-T015`; no consumer lock update is included.
+
 ## 2.6.0 - 2026-09-16
 
 - Added contract-driven design schemas, admission validation, visual preview

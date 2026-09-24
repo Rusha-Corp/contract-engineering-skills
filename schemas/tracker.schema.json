@@ -7,6 +7,7 @@
   "properties": {
     "tracker_schema_version": {"type": "integer", "const": 1},
     "partition": {"enum": ["active", "archive"]},
+    "task_id": {"$ref": "identifiers.schema.json#/$defs/taskId"},
     "max_rows": {"type": "integer", "minimum": 1},
     "updated_at": {"type": "string", "minLength": 1},
     "shards": {"type": "array", "items": {"type": "string"}},

@@ -86,10 +86,58 @@ jobs:
         run: python scripts/validate-admission.py --root .contract-engineering --all-ready || echo "no ready packets yet"
       - name: Validate Factory hook policy
         run: python -m unittest tests.test_factory_hooks -v
+      - name: Enforce changed packet scope
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          if [ -z "$BASE_SHA" ] || ! git cat-file -e "$BASE_SHA^{commit}"; then
+            BASE_SHA="$(git rev-list --max-parents=1 HEAD)"
+          fi
+          mapfile -t changed < <(git diff --name-only "$BASE_SHA" "$GITHUB_SHA")
+          mapfile -t packets < <(
+            printf '%s\n' "${changed[@]}" |
+              grep -E '^\.contract-engineering/work-packets/[^/]+\.yaml$' || true
+          )
+          if [ "${#packets[@]}" -eq 0 ]; then
+            echo "No claimed packet changed; protocol scope enforcement failed."
+            exit 1
+          fi
+          changed_args=()
+          for path in "${changed[@]}"; do
+            changed_args+=(--changed-path "$path")
+          done
+          packet_args=()
+          for packet in "${packets[@]}"; do
+            packet_args+=(--packet "$packet")
+          done
+          mapfile -t unclaimed < <(
+            python scripts/packet_scope.py \
+              --unclaimed "${packet_args[@]}" "${changed_args[@]}"
+          )
+          if [ "${#unclaimed[@]}" -ne 0 ]; then
+            printf 'Changed paths are not claimed by any packet:\n%s\n' \
+              "${unclaimed[*]}"
+            exit 1
+          fi
+          for packet in "${packets[@]}"; do
+            mapfile -t packet_changed < <(
+              python scripts/packet_scope.py \
+                --packet "$packet" "${changed_args[@]}"
+            )
+            args=()
+            for path in "${packet_changed[@]}"; do
+              args+=(--changed-path "$path")
+            done
+            python scripts/validate-contract-records.py \
+              --packet "$packet" "${args[@]}"
+          done
+
       - name: Validate canonical tracker partitions
         run: |
           python scripts/validate-tracker.py --root .contract-engineering
           python scripts/render-tracker.py --root .contract-engineering --check
+      - name: Review record migration plan
+        run: python scripts/migrate_records.py --root .contract-engineering
       - name: Run repository unit tests
         run: python -m unittest discover -s tests -p 'test_*.py'
       - name: Validate root Factory plugin

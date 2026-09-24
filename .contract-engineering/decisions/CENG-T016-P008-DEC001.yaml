@@ -1,0 +1,26 @@
+decision_version: 1
+decision_id: CENG-T016-P008-DEC001
+packet_id: CENG-T016-P008
+status: approved
+title: "Backport accepted rollout as a rekeyed v2.6.1 release"
+proposal: "Prepare v2.6.1 from the signed v2.6.0 line by carrying the accepted seven-packet acceptance-first rollout under the new CENG-T016 namespace."
+alternatives_considered:
+  - "Copy CENG-T015 records unchanged, creating a duplicate packet namespace."
+  - "Release the rollout from the current v2.7.0 mainline."
+  - "Publish a metadata-only v2.6.1 corrective release."
+decision: "Rekey the rollout records, handoffs, evidence, leases, tracker shard, and events from CENG-T015 to CENG-T016, preserve the existing v2.6.0 CENG-T015 release packet, and validate the resulting maintenance branch before publication."
+scope:
+  - "v2.6.0 release baseline"
+  - "CENG-T016 rekeyed rollout records"
+  - "Acceptance-first implementation and CI validation files"
+controls:
+  - "The v2.6.0 release packet and records remain under CENG-T015."
+  - "The rollout namespace is unique as CENG-T016."
+  - "Publication remains blocked until independent release review, attestation, signing, and final user authorization."
+approved_by: user
+approved_at: "2026-09-24T18:55:00Z"
+expires_at: ""
+success_measure: "The v2.6.1 content commit validates cleanly with unique packet IDs, complete rollout evidence, and passing hosted release checks."
+rollback_ref: 52e4c50fe3f0145b7b288ed4fe2e5ab616569120
+review_owner: contract-driven-handoff-acceptance-reviewer
+review_at: "2026-09-24T18:55:00Z"

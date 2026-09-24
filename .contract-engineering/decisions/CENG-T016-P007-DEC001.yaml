@@ -1,0 +1,33 @@
+decision_version: 1
+decision_id: CENG-T016-P007-DEC001
+packet_id: CENG-T016-P007
+status: approved
+title: "Repair rollout CI dependency lock and packet scope dispatch"
+proposal: "Extend the completed CI packet's declared scope to include the CI dependency lock and correct the stale rpds-py hash; dispatch changed paths only to packets that claim them."
+alternatives_considered:
+  - "Merge the rollout with a known failing dependency installation."
+  - "Disable or weaken packet scope enforcement for the rollout."
+  - "Close the rollout PR without repairing its validation path."
+decision: "Make the minimum CI repair: update the published rpds-py wheel hash, preserve require-hashes installation, and make workflow scope validation evaluate each changed path against the packet(s) that claim it while rejecting unclaimed paths."
+scope:
+  - "requirements-ci.txt"
+  - ".github/workflows/protocol-validation.yml"
+  - "scripts/packet_scope.py"
+  - "schemas/identifiers.schema.json"
+  - "tests/test_ci_validation.py"
+  - "tests/test_planning_records.py"
+  - "tests/test_tracker.py"
+  - ".contract-engineering/work-packets/CENG-T016-P001.yaml"
+  - ".contract-engineering/work-packets/CENG-T016-P007.yaml"
+controls:
+  - "User explicitly authorized repair of PR #20 before merge."
+  - "The dependency remains pinned by version and SHA-256 hash."
+  - "Scope enforcement remains fail-closed for changed paths claimed by no packet."
+  - "The repair is isolated in a dedicated worktree and validated before push."
+approved_by: user
+approved_at: "2026-09-24T18:38:31Z"
+expires_at: ""
+success_measure: "PR #20 records and scan checks pass with no unclaimed or cross-packet scope failures."
+rollback_ref: a2483616bb3b18288502f7cfbc4ecc0cd255dc85
+review_owner: user
+review_at: "2026-09-24T18:38:31Z"

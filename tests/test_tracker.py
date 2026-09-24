@@ -46,6 +46,11 @@ class TrackerValidationTests(unittest.TestCase):
         with self.assertRaises(SystemExit):
             validator.validate_row(stale, Path("index.yaml"), "active")
 
+    def test_allows_terminal_row_to_remain_during_user_confirmation(self):
+        terminal = row(state="Complete")
+        terminal["updated_at"] = (date.today() - timedelta(days=15)).isoformat()
+        validator.validate_row(terminal, Path("index.yaml"), "active")
+
     def test_rejects_duplicate_partition_rows(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -1,0 +1,84 @@
+handoff_version: 3
+handoff_id: CENG-T016-P006-HO001
+packet_id: CENG-T016-P006
+transition:
+  from: Handoff
+  to: Complete
+  reason: Confirmation-gated tracker rollover passed focused, full-suite, contract,
+    and tracker validation.
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: REDACTED-IDENTITY-REF
+  signature_ref: ''
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: USER-ACCEPT-CENG-T016-P006-20260924
+  accepted_at: '2026-09-24T18:20:00Z'
+  acceptance_ref: USER-ACCEPT-CENG-T016-P006-20260924
+  signature_ref: ''
+base_revision: 262120590a158193f2aa312ef0335b4a39242dd1
+head_revision: cfa47b8
+scope_digest: f258a76e9fd890cb35fdf76ce24e1effb9929b44aaf5006ba40759b5f1196849
+changed_resources:
+- path: .contract-engineering/evidence/CENG-T016-P006-EV001.md
+  sha256: 04fb4cae5b09e4429f8dc68833d62d87f0c1d4448b639956c761e22d5c139784
+- path: .contract-engineering/execution-tracker.md
+  sha256: 4a185ce93c5fd8864df3e287e5ad7a192b76f58f60e13810a015c08bf9e04f3a
+- path: .contract-engineering/handoffs/CENG-T016-P006-HO001.yaml
+  sha256: 7d4efc835688bb8b64ce8d225eef9a4c934e25b4e9d69fe93f128fa3009cfa61
+- path: .contract-engineering/journal/7ab8b1eec1018ceb2bccc4965b259f03ead04c626358cda7f376efe2c9e7c3d3.json
+  sha256: 7dadb6da26f173523a7543194c828ebb752fe0d1c3b2ecc8c87147bee45d1f33
+- path: .contract-engineering/journal/c467b1180c765dc2fa2c6a3dbb44ed1861597660225f9e2fbbb538eab9769ebc.json
+  sha256: 14ef51490b0793856fd007c11c9a565c7fbe606d2d769252a31f089a20f19255
+- path: .contract-engineering/tracker/events/CENG-T016.yaml
+  sha256: 14305f95803a1b00cb66a75758675e436fc4c0034c5deb73edf742d173a3cfee
+- path: .contract-engineering/tracker/shards/CENG-T016.yaml
+  sha256: 3543b189b0eed6b3f8d91febc2aa4f7f4b35f3028e707f94511603bef8a02f40
+- path: .contract-engineering/work-packets/CENG-T016-P006.yaml
+  sha256: d59df02652975538d34b0849c5fda0d705755e7af0a159811cc350ddd9fe84c0
+- path: docs/tracker-storage.md
+  sha256: 4e3450ef160aa2e9b7e7c218cf221c0a4441b21063354520a17cf698d69fb6e2
+- path: scripts/tracker_rollover.py
+  sha256: a03b205ca660912a24a081d0c0a33efa49b6d33ebe3b372200af6d2c32a53445
+- path: tests/test_rollover.py
+  sha256: 1d902d3dbbcc096dbc978e787761b27c6807aff88f4c079f53dfcbbfa5b2a78a
+created_at: '2026-09-24T18:15:00Z'
+expires_at: ''
+approval_ref: /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
+verification:
+  verified_at: '2026-09-24T18:14:00Z'
+  verifier: droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T016-P006-EV001
+validation_results:
+- command: python3 -m unittest tests.test_rollover -v
+  result: exit 0; 4 tests passed; captured in CENG-T016-P006-EV001
+- command: python3 -m unittest discover -s tests -p 'test_*.py'
+  result: exit 0; 103 tests passed; captured in CENG-T016-P006-EV001
+- command: python3 scripts/tracker_rollover.py --root .contract-engineering
+  result: exit 0; dry-run reported 26 moves and 0 blockers; captured in CENG-T016-P006-EV001
+- command: python3 scripts/validate-contract-records.py --root .contract-engineering
+  result: exit 0; contract validation valid; captured in CENG-T016-P006-EV001
+- command: python3 scripts/validate-tracker.py --root .contract-engineering
+  result: exit 0; tracker valid; captured in CENG-T016-P006-EV001
+evidence_refs:
+- CENG-T016-P006-EV001
+skill_gaps: []
+unresolved_items:
+- Live archival remains pending explicit review and --confirm execution.
+rollback_notes: Revert the P006-scoped commit to the recorded base revision; no live
+  archival was applied.
+requested_next_action: Receiver reviews and accepts this handoff; after acceptance,
+  transition P006 to Complete and release its lock.
+receiver_status: accepted
+receiver_notes: User accepted the validated confirmation-gated rollover handoff. Live archival remains an explicit follow-up operation.
+accepted_revision: cfa47b8
+accepted_packet_revision: 3
+accepted_scope_digest: f258a76e9fd890cb35fdf76ce24e1effb9929b44aaf5006ba40759b5f1196849
+accepted_evidence_refs:
+- CENG-T016-P006-EV001

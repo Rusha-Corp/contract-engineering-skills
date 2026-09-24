@@ -292,3 +292,21 @@ events:
   actor: contract-driven-handoff-acceptance-reviewer
   occurred_at: '2026-09-24T19:45:00Z'
   summary: 'Rejected CENG-T016-P008-HO002: hosted release gates, exact scope/resource bindings, and recreated signed-tag evidence remain pending; packet returned to Rework and release lock preserved.'
+- event_id: CENG-T016-E047
+  packet_id: CENG-T016-P008
+  type: acceptance
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-24T19:50:00Z'
+  summary: 'Accepted CENG-T016-P008-HO002 after AC001 and AC002 passed against EV001 and EV002, including local validation, corrected resource hashes, user authorization DEC002, and hosted runs 36050289600, 36050289680, and 36050289708.'
+- event_id: CENG-T016-E048
+  packet_id: CENG-T016-P008
+  type: transition
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-24T19:50:01Z'
+  summary: 'Handoff -> Complete: corrected release handoff independently accepted at content revision 52a17f7116450ff075fb4c006201ab5b3fbb5f21 and packet revision 2.'
+- event_id: CENG-T016-E049
+  packet_id: CENG-T016-P008
+  type: lease-release
+  actor: contract-driven-handoff-acceptance-reviewer
+  occurred_at: '2026-09-24T19:50:02Z'
+  summary: 'Released release-path:v2.6.1 after CENG-T016-P008 completion.'

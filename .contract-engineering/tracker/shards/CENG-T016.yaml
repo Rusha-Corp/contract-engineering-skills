@@ -61,10 +61,9 @@ rows:
   updated_at: '2026-09-24'
 - task_id: CENG-T016
   packet_id: CENG-T016-P008
-  state: Rework
+  state: Complete
   owner: droid
   reviewer: contract-driven-handoff-acceptance-reviewer
-  locks:
-  - release-path:v2.6.1
-  next_action: Record the attestation commit, exact scope/resource bindings, recreated signed tag, and hosted gate results before resubmitting HO002.
+  locks: []
+  next_action: Retain in active shard until iteration closure.
   updated_at: '2026-09-24'

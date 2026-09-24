@@ -81,8 +81,7 @@ dependencies:
 - CENG-T016-P005
 - CENG-T016-P006
 - CENG-T016-P007
-locks:
-- release-path:v2.6.1
+locks: []
 claim_timestamp: '2026-09-24T18:55:00Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
@@ -148,6 +147,6 @@ cleanup_scope:
   dead_refs: []
   stale_refs: []
   temp_refs: []
-state: Rework
+state: Complete
 handoff_ref: CENG-T016-P008-HO002
-updated_at: '2026-09-24T19:45:00Z'
+updated_at: '2026-09-24T19:50:00Z'

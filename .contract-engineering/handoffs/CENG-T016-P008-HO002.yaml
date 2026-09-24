@@ -3,8 +3,9 @@ handoff_id: CENG-T016-P008-HO002
 packet_id: CENG-T016-P008
 transition:
   from: Rework
-  to: Handoff
-  reason: Corrective release controls are implemented and local validation passes
+  to: Complete
+  reason: Corrective release controls, local validation, recreated signed-tag evidence,
+    and all hosted release gates pass independent review
     after the failed v2.6.1 hosted gates.
 sender:
   identity: droid
@@ -17,8 +18,8 @@ receiver:
   identity_type: agent
   authenticated: true
   authentication_ref: contract-driven-handoff-acceptance-reviewer:current-session
-  accepted_at: ''
-  acceptance_ref: ''
+  accepted_at: '2026-09-24T19:50:00Z'
+  acceptance_ref: REVIEWER-ACCEPT-CENG-T016-P008-HO002-20260924
   signature_ref: ''
 base_revision: 92b2c8319ae703cbc935aa9d99785af0705dfc25
 head_revision: 52a17f7116450ff075fb4c006201ab5b3fbb5f21
@@ -32,8 +33,8 @@ created_at: '2026-09-24T19:40:00Z'
 expires_at: ''
 approval_ref: CENG-T016-P008-DEC002
 verification:
-  verified_at: '2026-09-24T19:40:00Z'
-  verifier: droid
+  verified_at: '2026-09-24T19:50:00Z'
+  verifier: contract-driven-handoff-acceptance-reviewer
   result: pass
   revocation_checked_at: ''
   verification_ref: CENG-T016-P008-EV002
@@ -51,16 +52,25 @@ evidence_refs:
 - CENG-T016-P008-EV002
 skill_gaps: []
 unresolved_items:
-- The attestation commit and recreated signed v2.6.1 tag remain unpublished.
-- Hosted protocol, stable-release, security, and secret-scanning gates must pass for
-  the recreated tag.
+- None.
 rollback_notes: Delete the corrective release branch or return consumers to the verified
   v2.6.0 tag at 52e4c50fe3f0145b7b288ed4fe2e5ab616569120.
-requested_next_action: Independently review the corrected release controls, then commit
-  the attestation, recreate the signed v2.6.1 tag, and verify all hosted gates.
-receiver_status: pending
-receiver_notes: ''
-accepted_revision: ''
-accepted_packet_revision: ''
-accepted_scope_digest: ''
-accepted_evidence_refs: []
+requested_next_action: Retain the accepted release records; no remote tag publication
+  or modification is performed by this review.
+receiver_status: accepted
+receiver_notes: >-
+  AC001 passed: packet revision 2 and the exact scope digest bind the unique
+  CENG-T016 rollout records, with local contract and tracker validation passing.
+  AC002 passed: EV001 records 166 local tests and EV002 records corrected
+  workflow/key hashes plus successful hosted protocol run 36050289600, secret
+  scanning run 36050289680, and security run 36050289708 with CodeQL success.
+  DEC002 is approved user authorization for deleting and recreating v2.6.1; the
+  independent reviewer accepts corrected content revision
+  52a17f7116450ff075fb4c006201ab5b3fbb5f21 and the attestation/tag target
+  95983f8338d2a3488f60e13934c59093163198f4.
+accepted_revision: 52a17f7116450ff075fb4c006201ab5b3fbb5f21
+accepted_packet_revision: 2
+accepted_scope_digest: c6d664ea743ec9a71b7fa7baea804713d2f0e1eeeaa408b167afac28e3779aa4
+accepted_evidence_refs:
+- CENG-T016-P008-EV001
+- CENG-T016-P008-EV002

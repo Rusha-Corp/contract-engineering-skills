@@ -43,13 +43,13 @@ provenance:
 review:
   author: droid
   independent_approver: contract-driven-handoff-acceptance-reviewer
-  approval_ref: CENG-T016-P008-HO001
-  approved_at: '2026-09-24T19:26:03Z'
+  approval_ref: CENG-T016-P008-HO002
+  approved_at: '2026-09-24T19:50:00Z'
 verification:
-  verified_at: '2026-09-24T19:35:00Z'
+  verified_at: '2026-09-24T19:48:53Z'
   verifier: droid
   result: pass
-  transparency_ref: PENDING_HOSTED_VALIDATION
+  transparency_ref: github-actions:protocol-validation:36050289600;secret-scanning:36050289680;security:36050289708
   revocation_checked_at: '2026-09-24T19:22:34Z'
 revocation:
   status: active

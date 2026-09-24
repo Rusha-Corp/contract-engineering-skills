@@ -112,6 +112,20 @@ class HandoffCompletionTests(unittest.TestCase):
             )
         self.assertIn("revision", str(context.exception))
 
+    def test_content_and_packet_revisions_are_distinct_bindings(self):
+        self._write_handoff(
+            accepted_revision="a" * 40,
+            accepted_packet_revision=1,
+        )
+        result = TransitionStore(self.root).transition(
+            "CENG-T015-P004",
+            "Complete",
+            "worker",
+            "accepted content revision",
+            expected_revision=1,
+        )
+        self.assertEqual(result["state"], "Complete")
+
     def test_high_risk_completion_requires_active_lease(self):
         packet = yaml.safe_load(self.packet_path.read_text())
         packet["risk_tier"] = "high"

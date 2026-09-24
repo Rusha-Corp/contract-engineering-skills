@@ -113,6 +113,11 @@ class TransitionTests(unittest.TestCase):
         store = TransitionStore(self.root)
         with self.assertRaises(TransitionError):
             store.transition("CENG-T013-P004", "Complete", "worker", "skip")
+        blocked = [
+            json.loads(path.read_text())
+            for path in (self.root / "journal").glob("*.json")
+        ]
+        self.assertEqual(blocked[0]["status"], "committed")
         explanation = store.explain_block("CENG-T013-P004", "Complete")
         self.assertIn("handoff", " ".join(explanation["failures"]))
 

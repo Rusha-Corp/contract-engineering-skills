@@ -50,7 +50,10 @@ def validate_handoff(root: Path | str, packet: dict[str, Any]) -> dict[str, Any]
         raise HandoffError("handoff receiver acceptance is required")
     if not handoff.get("receiver_notes"):
         raise HandoffError("accepted handoff requires receiver notes")
-    if handoff.get("accepted_revision") != packet.get("revision", 0):
+    accepted_packet_revision = handoff.get(
+        "accepted_packet_revision", handoff.get("accepted_revision")
+    )
+    if accepted_packet_revision != packet.get("revision", 0):
         raise HandoffError("handoff revision does not match packet revision")
     if handoff.get("accepted_scope_digest") != scope_digest(packet):
         raise HandoffError("handoff scope digest does not match packet scope")

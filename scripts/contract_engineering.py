@@ -229,7 +229,11 @@ class TransitionStore:
         operation = {"kind": "blocked", "packet_id": packet_id, "source": source,
                      "destination": destination, "actor": actor, "reason": reason,
                      "failure": failure, "redacted": True}
-        self._journal(operation)
+        journal = self._journal(operation)
+        journal.write_text(
+            json.dumps({**operation, "status": "committed"}, indent=2),
+            encoding="utf-8",
+        )
 
     def recover(self) -> list[str]:
         recovered = []

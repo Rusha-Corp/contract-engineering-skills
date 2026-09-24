@@ -4,7 +4,8 @@ packet_id: CENG-T015-P004
 transition:
   from: Validation
   to: Handoff
-  reason: Revision-bound handoff validation and concrete lease fencing passed targeted and full repository validation.
+  reason: Revision-bound handoff validation and concrete lease fencing passed targeted
+    and full repository validation.
 sender:
   identity: droid
   identity_type: agent
@@ -20,9 +21,41 @@ receiver:
   acceptance_ref: ''
   signature_ref: ''
 base_revision: 1ac3908eb124de1fee5adfce65cd768722e2da3d
-head_revision: PENDING_COMMIT
-scope_digest: PENDING_SCOPE_DIGEST
-changed_resources: []
+head_revision: 03e3389edc7e23593c338a35642d78885f20cebb
+scope_digest: 030cfac06a0a067596fbd69b2bc14aa6d67c6bf2e36a476d897e0c464b4d2c23
+changed_resources:
+- path: .contract-engineering/evidence/CENG-T015-P004-EV001.md
+  sha256: 08604e70f0537bed492030e6095eee38ee055e8a33110c728ba4b6d2047cf86a
+- path: .contract-engineering/execution-tracker.md
+  sha256: 4802517b3b7980c8046a27ca07aa6ee20e3d007991a6db18d22a4c37cec44ad7
+- path: .contract-engineering/journal/6b595b59d3e7c60ae2daccdef945b6daf2b8655d12eaf7be38fc2acba80b3d7f.json
+  sha256: 7d372a519d60f414ef166a8c02b6dd64d7f6775ef4fdd930845fbf287aa2b47a
+- path: .contract-engineering/journal/a4bd8bc9c256d4720d20f11b1449883298fb573bafc5a515b338f9d650c4553f.json
+  sha256: 4b8df9462420ccee5c22807a798991930b43e696c4f99e9553fbc6375fa43916
+- path: .contract-engineering/journal/b83627d768454cf0c02775ecd83f3db02ead0438885574d1e15e148d20a26eba.json
+  sha256: 1eb5644b01467a3dd44889bd2db82abdfdcf08c8a80dd1faf446fd2b9cfe9800
+- path: .contract-engineering/leases/CENG-T015-P004.yaml
+  sha256: 3f301c20816ae1e1e51ce2e4765775af383689a9b1e232b66c90e6dd63b10ce7
+- path: .contract-engineering/tracker/events/CENG-T015.yaml
+  sha256: d931ff887121a5d6b5fad6dcace08fc602f2e5963eaee9de029ec9eabcd8885f
+- path: .contract-engineering/tracker/shards/CENG-T015.yaml
+  sha256: 37032df0faf841941c88297535f93451166be8b693975dbe4fd6101e3683ecd1
+- path: .contract-engineering/work-packets/CENG-T015-P004.yaml
+  sha256: 6eb24bac8c73bb3a10ede3fdc38b5f3df2ce44ea093fb53e0caf34d1caf26225
+- path: schemas/work-packet.schema.json
+  sha256: 67a8275f4b937dc0deadd2d141ec77cfceb3f2c8017178afeb17def6747cdb53
+- path: scripts/contract_engineering.py
+  sha256: 80f6a4f9ecae01da0845096daee32091c50aeb335a5efffd597c9e16d3ef0839
+- path: scripts/finalize_handoff.py
+  sha256: 11ca39531e70d19e459aed0db96717601f3286e7f1f095399e9761ad2259c4ff
+- path: scripts/packet_leases.py
+  sha256: bbd2b9bffdb571a27c61180ed704b6865553270460ccd292696f49fa9f28b47f
+- path: templates/work-packet.yaml
+  sha256: 43ca4147ff8596a8cad8ba73bcb5e8cd1f372e7fb23b4b75a5d175d38f59d572
+- path: tests/test_handoffs.py
+  sha256: a94193673cbbc515ff2eca9e68abd66b5062ddafd3ac8afa77b6a8f75948a364
+- path: tests/test_leases.py
+  sha256: 9369b4a60c189689ddd1e2c8485cf05c98fcd62b08a67ac6e270521b70a9643d
 created_at: '2026-09-24T17:21:00Z'
 expires_at: ''
 approval_ref: /home/dev/.factory/specs/2026-09-24-acceptance-first-protocol-rollout.md
@@ -48,7 +81,8 @@ evidence_refs:
 skill_gaps: []
 unresolved_items:
 - Independent receiver acceptance is pending.
-rollback_notes: Revert the handoff and lease packet-scoped commit range to the recorded base revision.
+rollback_notes: Revert the handoff and lease packet-scoped commit range to the recorded
+  base revision.
 requested_next_action: Review the acceptance criteria and accept or reject this handoff.
 receiver_status: pending
 receiver_notes: ''

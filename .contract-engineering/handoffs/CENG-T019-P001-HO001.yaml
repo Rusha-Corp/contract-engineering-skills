@@ -1,0 +1,56 @@
+handoff_id: CENG-T019-P001-HO001
+packet_id: CENG-T019-P001
+sender: droid
+receiver: user
+summary: >
+  Protocol governance remediation: re-pinned lock to v2.7.2, updated
+  attestation with user as independent approver and re-signed the tag,
+  gitignored the devcontainer to stop shipping mounted-secrets config,
+  rolled 24 terminal packets to archive, fixed duplicate locks key and
+  dispositioned stale P017, strengthened CI lock-ancestry assertion,
+  made tracker staleness check deterministic, updated template lock to
+  v2.7.2, and narrowed the reviewer droid's tools.
+changed_resources:
+  - .contract-engineering/protocol.lock.yaml
+  - .contract-engineering/release-attestation.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/tracker/archive/index.yaml
+  - .contract-engineering/tracker/archive/execution-tracker-archive.md
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/work-packets/CENG-T004-P017.yaml
+  - .contract-engineering/archive/work-packets/ (24 terminal packets moved here)
+  - .gitignore
+  - .devcontainer/devcontainer.json (untracked)
+  - .github/workflows/protocol-validation.yml
+  - docs/protocol-configuration.md
+  - droids/contract-driven-handoff-acceptance-reviewer.md
+  - scripts/validate-tracker.py
+  - templates/protocol-lock.yaml
+  - tests/test_tracker.py
+  - git tag v2.7.2 (re-signed)
+validation_results:
+  - "validate-contract-records.py: pass (mode=enforced)"
+  - "validate-tracker.py: pass — 1 active row, 48 archive rows"
+  - "render-tracker.py --check: pass"
+  - "unittest discover: 75 tests pass"
+  - "lock ref e13b696 is ancestor of HEAD: pass"
+  - "git verify-tag v2.7.2: VALIDSIG 34049E9E7A00440491D319FFF19051409C4115FB"
+evidence_refs:
+  - CENG-T019-P001-EV001
+skill_gaps: []
+unresolved_items:
+  - "contract_engineering.py ALLOWED dict is missing the Interrupted state transitions (Interrupted → Claimed, Implementing, Cancelled) defined by the SKILL.md state machine; pre-existing bug, not fixed in this remediation"
+  - "v2.7.2 tag was re-signed locally; pushing requires --force and user authorization"
+  - "origin/main is 2 commits ahead and 8 commits behind local main; push requires user confirmation"
+  - "Attestation subject commit (0599f93) differs from the tag commit (e13b696) per the two-commit release model; the attestation now records the user as independent approver but the tag points to the attestation commit, not the content commit"
+rollback_notes:
+  - "git reset --hard e13b696 returns to the pre-remediation v2.7.2 state"
+  - "git tag -f v2.7.2 f6d80f9 restores the original tag signature"
+  - "The 24 archived packets can be moved back with git mv"
+requested_next_action: >
+  Review the 9 commits on this branch. If accepted, push to origin/main
+  (requires force for the diverged remote) and force-push the re-signed
+  v2.7.2 tag. Then create a new protocol release packet to update the
+  lock to the post-remediation HEAD commit.
+receiver_status: pending
+receiver_notes: ""

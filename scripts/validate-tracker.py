@@ -40,6 +40,27 @@ PACKET_ID = identifiers.PACKET_ID
 MAX_ACTIVE_AGE = timedelta(days=14)
 
 
+def _index_commit_date(source: Path) -> date:
+    """Return the date of the last git commit touching ``source``.
+
+    Falls back to ``date.today()`` when not inside a git repository, so
+    the staleness check remains deterministic relative to the committed
+    state rather than the runner's wall clock.
+    """
+    import subprocess
+    try:
+        output = subprocess.check_output(
+            ["git", "log", "-1", "--format=%ci", "--", str(source)],
+            text=True,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+        if output:
+            return date.fromisoformat(output.split()[0])
+    except (subprocess.CalledProcessError, FileNotFoundError, ValueError):
+        pass
+    return date.today()
+
+
 def fail(message: str) -> None:
     raise SystemExit(f"tracker validation failed: {message}")
 
@@ -56,7 +77,12 @@ def load(path: Path) -> dict[str, Any]:
     return value
 
 
-def validate_row(row: Any, source: Path, expected_partition: str) -> str:
+def validate_row(
+    row: Any,
+    source: Path,
+    expected_partition: str,
+    reference_date: date | None = None,
+) -> str:
     if not isinstance(row, dict):
         fail(f"{source}: tracker row must be a mapping")
     required = {
@@ -96,8 +122,10 @@ def validate_row(row: Any, source: Path, expected_partition: str) -> str:
             fail(f"{source}: updated_at must be an ISO date for {packet_id!r}")
     else:
         fail(f"{source}: updated_at must be an ISO date for {packet_id!r}")
-    if expected_partition == "active" and date.today() - updated_date > MAX_ACTIVE_AGE:
-        fail(f"{source}: active packet {packet_id!r} has a stale updated_at")
+    if expected_partition == "active":
+        ref = reference_date if reference_date is not None else _index_commit_date(source)
+        if ref - updated_date > MAX_ACTIVE_AGE:
+            fail(f"{source}: active packet {packet_id!r} has a stale updated_at")
     if expected_partition == "archive" and row["state"] not in {"Complete", "Cancelled"}:
         fail(f"{source}: archived packet {packet_id!r} is not terminal")
     return packet_id
@@ -144,8 +172,9 @@ def partition_rows(root: Path, relative: str, expected_partition: str) -> tuple[
         all_rows.extend(shard_rows)
         files.add(str(shard_path))
     seen: set[str] = set()
+    ref_date = _index_commit_date(index_path) if expected_partition == "active" else None
     for row in all_rows:
-        packet_id = validate_row(row, index_path, expected_partition)
+        packet_id = validate_row(row, index_path, expected_partition, ref_date)
         if packet_id in seen:
             fail(f"{packet_id}: duplicate row in {expected_partition} partition")
         seen.add(packet_id)

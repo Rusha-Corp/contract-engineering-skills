@@ -44,7 +44,40 @@ class TrackerValidationTests(unittest.TestCase):
         stale = row()
         stale["updated_at"] = (date.today() - timedelta(days=15)).isoformat()
         with self.assertRaises(SystemExit):
-            validator.validate_row(stale, Path("index.yaml"), "active")
+            validator.validate_row(
+                stale, Path("index.yaml"), "active",
+                reference_date=date.today(),
+            )
+
+    def test_accepts_stale_active_row_within_window(self):
+        """updated_at 13 days before reference_date is not stale."""
+        fresh = row()
+        ref = date.today()
+        fresh["updated_at"] = (ref - timedelta(days=13)).isoformat()
+        result = validator.validate_row(
+            fresh, Path("index.yaml"), "active",
+            reference_date=ref,
+        )
+        self.assertEqual(result, "TEST-T001-P001")
+
+    def test_staleness_is_deterministic_relative_to_reference_date(self):
+        """The same row is valid at ref-13 and stale at ref-15 with no record change."""
+        row_data = row()
+        base = date(2026, 9, 1)
+        row_data["updated_at"] = (base - timedelta(days=13)).isoformat()
+        # 13 days before reference: not stale
+        result = validator.validate_row(
+            row_data, Path("index.yaml"), "active",
+            reference_date=base,
+        )
+        self.assertEqual(result, "TEST-T001-P001")
+        # 15 days before reference: stale
+        stale_copy = dict(row_data)
+        with self.assertRaises(SystemExit):
+            validator.validate_row(
+                stale_copy, Path("index.yaml"), "active",
+                reference_date=base + timedelta(days=2),
+            )
 
     def test_rejects_duplicate_partition_rows(self):
         with tempfile.TemporaryDirectory() as directory:

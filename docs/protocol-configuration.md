@@ -142,11 +142,11 @@ Choose a checkout directory outside the host's skill directory:
 git clone https://github.com/Rusha-Corp/contract-engineering-skills.git \
   "$HOME/contract-engineering-skills"
 git -C "$HOME/contract-engineering-skills" checkout --detach \
-  575f473a9349c5dfb61df7758b52a5592b2e2915
+  e13b69660119f5cfe3975efdec278992892926e8
 ```
 
 Use the `protocol.ref` from the project's lock file instead of the example
-commit above. Then follow the host adapter's instructions to copy the five
+commit above. Then follow the host adapter's instructions to copy the six
 `SKILL.md` files into its global skill directory. Never overwrite an existing
 skill until its local differences have been reviewed or backed up.
 

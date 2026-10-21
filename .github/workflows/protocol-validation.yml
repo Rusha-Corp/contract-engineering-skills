@@ -123,6 +123,18 @@ jobs:
               ["git", "cat-file", "-e", f"{ref}^{{commit}}"],
               check=True,
           )
+          # Assert the lock ref is reachable from HEAD (ancestor or equal).
+          head = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip()
+          if ref != head:
+              result = subprocess.run(
+                  ["git", "merge-base", "--is-ancestor", ref, "HEAD"],
+                  capture_output=True,
+              )
+              if result.returncode != 0:
+                  raise SystemExit(
+                      f"protocol lock ref {ref} is not an ancestor of HEAD {head}; "
+                      f"the lock has drifted from the working tree"
+                  )
           for name, pin in lock["skills"].items():
               content = subprocess.check_output(
                   ["git", "show", f"{ref}:skills/{name}/SKILL.md"],
@@ -131,12 +143,20 @@ jobs:
               actual_hash = hashlib.sha256(content).hexdigest()
               if actual_hash != pin["sha256"]:
                   raise SystemExit(f"{name}: lock hash does not match {ref}")
+              # Also verify the working-tree file matches the lock.
+              wt_hash = hashlib.sha256(
+                  Path(f"skills/{name}/SKILL.md").read_bytes()
+              ).hexdigest()
+              if wt_hash != pin["sha256"]:
+                  raise SystemExit(
+                      f"{name}: working-tree skill hash does not match lock"
+                  )
               version = re.search(
                   rb"^version:\s*(\S+)\s*$", content, re.MULTILINE
               )
               if not version or version.group(1).decode() != str(pin["version"]):
                   raise SystemExit(f"{name}: lock version does not match {ref}")
-          print(f"verified six skill pins against {ref}")
+          print(f"verified six skill pins against {ref} (ancestry + working-tree aligned)")
           PY
 
   stable-release-gate:

@@ -74,6 +74,31 @@ be the release author or publisher. Attestations are bound to the exact
 repository, commit, release, and artifact bytes; changing any subject field
 requires a new signature and approval.
 
+### Atomic publication sequence
+
+The content commit, attestation commit, and signed tag must all be created
+locally before any push to the remote. Pushing content first and attesting
+later creates a window where unattested code is public without a verifiable
+release — a chicken-and-egg problem, since the attestation references a
+commit that must exist, but the commit should not be public without the
+attestation.
+
+The correct sequence is:
+
+1. Create the **content commit** locally (do not push).
+2. Create the **attestation commit** locally, referencing the content commit
+   as `subject.commit`.
+3. Create the **signed annotated tag** locally, pointing to the attestation
+   commit.
+4. Push main and the tag together in one operation:
+   `git push origin main --tags`.
+
+This ensures the content and its attestation arrive on the remote
+simultaneously. A consumer who clones after the push gets both at once. CI's
+main-branch validation and the stable-release-gate both trigger from the same
+push, and the stable-release-gate verifies the attestation that arrived with
+it. No window exists where unattested content is public.
+
 ## Verification
 
 A consumer verifies, in order:

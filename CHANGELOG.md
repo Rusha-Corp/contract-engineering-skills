@@ -2,6 +2,34 @@
 
 ## Unreleased
 
+## 2.8.0 - 2026-10-21
+
+- Require a human-signed owner on every new packet. The `owner` field is now a
+  structured object with `identity`, `identity_type` (must be `"human"`),
+  `authentication_ref`, and `signed_at`. Introduced the `implementor` role for
+  agent identity, separating the human authority from the agent executor.
+- Bumped `phased-engineering-execution` skill to 2.6.0: core rule requires a
+  human owner who signs scope authorization; agent procedure requires human
+  signature at handoff acceptance.
+- Updated handoff-acceptance reviewer droid to verify human owner signature
+  before accepting a handoff.
+- Fixed missing `Interrupted` state transitions in `contract_engineering.py`
+  (`Interrupted → Claimed, Implementing, Cancelled`).
+- Made tracker staleness check deterministic: compares `updated_at` against the
+  last git commit date of the tracker index file instead of `date.today()`.
+- Strengthened CI lock-alignment: asserts the lock ref is an ancestor of HEAD
+  and that working-tree skill hashes match the lock.
+- Gitignored `.devcontainer/` to stop shipping bind-mounted host credential
+  directories that contradicted the protocol's own secret-management guidance.
+- Rolled 24 terminal packets to the archive partition and dispositioned stale
+  `CENG-T004-P017` to `Interrupted` with a recovery note.
+- Updated template lock to v2.7.2 and fixed "five" → "six" governed skills
+  references.
+- Documented the atomic publication sequence in `docs/release-integrity.md`
+  to prevent the chicken-and-egg window where unattested content is pushed
+  before its attestation.
+- Full unittest suite: 119 tests pass.
+
 ## 2.7.2 - 2026-09-24
 
 - Corrective release for the failed `v2.7.1` hosted dependency-integrity gate:

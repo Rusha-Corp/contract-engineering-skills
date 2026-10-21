@@ -16,3 +16,7 @@ __pycache__/
 *.pfx
 credentials*.json
 service-account*.json
+
+# Devcontainer config is local; may bind-mount host credential dirs for
+# local development. Do not ship mounted-secrets patterns in the protocol.
+.devcontainer/

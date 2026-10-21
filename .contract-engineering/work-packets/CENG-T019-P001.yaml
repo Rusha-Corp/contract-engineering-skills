@@ -126,5 +126,5 @@ migration_dependencies: []
 removal_criteria: []
 exception_refs: []
 sunset_target: ''
-state: Handoff
+state: Complete
 updated_at: '2026-10-21'

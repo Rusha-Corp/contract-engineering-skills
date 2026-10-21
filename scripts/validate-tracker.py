@@ -269,10 +269,13 @@ def compare(rows: list[dict[str, Any]], packets: dict[str, dict[str, Any]], part
     for row in rows:
         packet = packets[row["packet_id"]]
         for field in ("state", "owner", "reviewer"):
-            if row[field] != packet.get(field):
+            packet_value = packet.get(field)
+            if field == "owner" and isinstance(packet_value, dict):
+                packet_value = packet_value.get("identity", "")
+            if row[field] != packet_value:
                 fail(
                     f"{partition}: {row['packet_id']} {field} mismatch "
-                    f"({row[field]!r} != {packet.get(field)!r})"
+                    f"({row[field]!r} != {packet_value!r})"
                 )
         packet_locks = packet.get("locks", [])
         if sorted(row["locks"]) != sorted(packet_locks):

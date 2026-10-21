@@ -52,7 +52,16 @@ observability_refs:
 - templates/agent-event.yaml
 incident_refs:
 - templates/agent-incident.yaml
-owner: agent
+owner:
+  identity: Emmanuel
+  identity_type: human
+  authentication_ref: gpg:34049E9E7A00440491D319FFF19051409C4115FB
+  signed_at: '2026-08-31T21:17:48Z'
+implementor:
+  agent_id: factory-droid
+  harness: Factory
+  model: GPT-5.6 Luna
+  session_id: CENG-T004-P017-release-publication
 reviewer: contract-driven-handoff-acceptance-reviewer
 cleanup_owner: agent
 dependencies:

@@ -133,6 +133,83 @@ class SecuritySemanticTests(unittest.TestCase):
             validator.validate_evidence_policy(policy, "synthetic-policy")
 
 
+class OwnerValidationTests(unittest.TestCase):
+    def _packet(self, **overrides):
+        value = {
+            "packet_id": "TEST-T005-P001",
+            "task_id": "CENG-T005",
+            "state": "Implementing",
+            "domain": "coding",
+            "scope": {"in": ["src"], "out": []},
+        }
+        value.update(overrides)
+        return value
+
+    def test_rejects_string_owner_for_new_packet(self):
+        """Non-terminal packet with bare string owner must fail."""
+        p = self._packet(owner="agent", state="Implementing")
+        with self.assertRaises(ValueError):
+            validator.validate_owner(p, Path("test.yaml"))
+
+    def test_accepts_string_owner_for_archived_packet(self):
+        """Terminal (Complete) packet with bare string owner must pass."""
+        p = self._packet(owner="agent", state="Complete")
+        validator.validate_owner(p, Path("test.yaml"))
+
+    def test_rejects_non_human_owner_identity_type(self):
+        """Owner with identity_type 'agent' must fail."""
+        p = self._packet(
+            owner={
+                "identity": "factory-droid",
+                "identity_type": "agent",
+                "authentication_ref": "test-ref",
+                "signed_at": "2026-10-21T00:00:00Z",
+            },
+            state="Implementing",
+        )
+        with self.assertRaises(ValueError):
+            validator.validate_owner(p, Path("test.yaml"))
+
+    def test_rejects_owner_equals_implementor(self):
+        """Owner identity matching implementor agent_id must fail."""
+        p = self._packet(
+            owner={
+                "identity": "factory-droid",
+                "identity_type": "human",
+                "authentication_ref": "test-ref",
+                "signed_at": "2026-10-21T00:00:00Z",
+            },
+            implementor={
+                "agent_id": "factory-droid",
+                "harness": "Factory",
+                "model": "test",
+                "session_id": "test",
+            },
+            state="Implementing",
+        )
+        with self.assertRaises(ValueError):
+            validator.validate_owner(p, Path("test.yaml"))
+
+    def test_accepts_structured_human_owner(self):
+        """A valid structured human owner must pass."""
+        p = self._packet(
+            owner={
+                "identity": "Emmanuel",
+                "identity_type": "human",
+                "authentication_ref": "gpg:34049E9E",
+                "signed_at": "2026-10-21T00:00:00Z",
+            },
+            implementor={
+                "agent_id": "factory-droid",
+                "harness": "Factory",
+                "model": "test",
+                "session_id": "test",
+            },
+            state="Implementing",
+        )
+        validator.validate_owner(p, Path("test.yaml"))
+
+
 class ValidatorRootAndModeTests(unittest.TestCase):
     def test_root_precedence_is_explicit_then_environment_then_lock_then_default(self):
         with tempfile.TemporaryDirectory() as directory:

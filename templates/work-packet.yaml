@@ -23,7 +23,7 @@ state: Planned
 scope:
   in: []
   out: []
-actor:
+implementor:
   agent_id: ""
   harness: ""
   model: ""
@@ -32,7 +32,11 @@ capabilities: []
 risk_tier: low|medium|high|critical
 approval_policy: automatic|reviewer|user|two_person
 external_effects: []
-owner: ""
+owner:
+  identity: ""
+  identity_type: human
+  authentication_ref: ""
+  signed_at: ""
 reviewer: ""
 cleanup_owner: ""
 dependencies: []

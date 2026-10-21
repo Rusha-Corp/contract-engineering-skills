@@ -32,7 +32,7 @@ scope:
   - skills/*/SKILL.md
   - consumer lock updates before release verification
   - unapproved remote repository changes
-actor:
+implementor:
   agent_id: factory-droid
   harness: Factory
   model: glm-5.2
@@ -44,7 +44,11 @@ capabilities:
 risk_tier: high
 approval_policy: user
 external_effects: []
-owner: droid
+owner:
+  identity: Emmanuel
+  identity_type: human
+  authentication_ref: gpg:34049E9E7A00440491D319FFF19051409C4115FB
+  signed_at: '2026-10-21T00:00:00Z'
 reviewer: user
 cleanup_owner: droid
 dependencies: []

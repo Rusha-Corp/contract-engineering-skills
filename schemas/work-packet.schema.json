@@ -100,6 +100,17 @@
       },
       "additionalProperties": true
     },
+    "implementor": {
+      "type": "object",
+      "required": ["agent_id", "harness", "model", "session_id"],
+      "properties": {
+        "agent_id": {"type": "string"},
+        "harness": {"type": "string"},
+        "model": {"type": "string"},
+        "session_id": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
     "capabilities": {"type": "array", "items": {"type": "string"}},
     "risk_tier": {"enum": ["low", "medium", "high", "critical"]},
     "approval_policy": {"enum": ["automatic", "reviewer", "user", "two_person"]},
@@ -138,7 +149,22 @@
       },
       "additionalProperties": false
     },
-    "owner": {"type": "string", "minLength": 1},
+    "owner": {
+      "anyOf": [
+        {"type": "string", "minLength": 1},
+        {
+          "type": "object",
+          "required": ["identity", "identity_type", "authentication_ref", "signed_at"],
+          "properties": {
+            "identity": {"type": "string", "minLength": 1},
+            "identity_type": {"enum": ["human"]},
+            "authentication_ref": {"type": "string", "minLength": 1},
+            "signed_at": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
     "reviewer": {"type": "string", "minLength": 1},
     "cleanup_owner": {"type": "string", "minLength": 1},
     "dependencies": {
@@ -330,11 +356,14 @@
       },
       "then": {
         "required": [
-          "actor",
           "capabilities",
           "risk_tier",
           "approval_policy",
           "external_effects"
+        ],
+        "anyOf": [
+          {"required": ["actor"]},
+          {"required": ["implementor"]}
         ]
       }
     },

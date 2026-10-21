@@ -476,7 +476,7 @@ def validate_security_semantics(packet: dict[str, Any]) -> None:
     )
     if not trigger:
         return
-    required = {"actor", "capabilities", "risk_tier", "approval_policy", "external_effects"}
+    required = {"capabilities", "risk_tier", "approval_policy", "external_effects"}
     missing = required - packet.keys()
     if missing:
         fail(f"{packet['packet_id']}: missing security fields: {sorted(missing)}")
@@ -484,13 +484,14 @@ def validate_security_semantics(packet: dict[str, Any]) -> None:
         fail(f"{packet['packet_id']}: invalid risk tier")
     if packet["approval_policy"] not in {"automatic", "reviewer", "user", "two_person"}:
         fail(f"{packet['packet_id']}: invalid approval policy")
-    if not isinstance(packet["actor"], dict) or not {
+    actor = packet.get("implementor") or packet.get("actor")
+    if not isinstance(actor, dict) or not {
         "agent_id",
         "harness",
         "model",
         "session_id",
-    } <= packet["actor"].keys():
-        fail(f"{packet['packet_id']}: actor identity is incomplete")
+    } <= actor.keys():
+        fail(f"{packet['packet_id']}: implementor (or actor) identity is incomplete")
     if not isinstance(packet["capabilities"], list):
         fail(f"{packet['packet_id']}: capabilities must be a list")
     excessive = FORBIDDEN_CAPABILITIES.intersection(packet["capabilities"])
@@ -702,6 +703,43 @@ def validate_planning_records(
                 fail(f"{epic_id}: unknown task reference {task_id}")
 
 
+def validate_owner(packet: dict[str, Any], path: Path) -> None:
+    """Enforce human-signed owner for new (non-terminal) packets.
+
+    Legacy packets with bare string owners remain valid only when terminal
+    (Complete or Cancelled). New packets must have a structured owner with
+    identity_type=human, a non-empty authentication_ref, and signed_at.
+    The owner identity must not match the implementor agent_id.
+    """
+    owner = packet.get("owner")
+    state = packet.get("state", "")
+    terminal = state in {"Complete", "Cancelled"}
+    if isinstance(owner, str):
+        if not terminal and owner in {"", "unassigned"}:
+            fail(f"{path}: active packet must have an owner")
+        if not terminal:
+            fail(f"{path}: non-terminal packet must have a structured human owner, not a bare string")
+        return
+    if not isinstance(owner, dict):
+        fail(f"{path}: owner must be a structured object or a legacy string")
+        return
+    if terminal:
+        return
+    required = {"identity", "identity_type", "authentication_ref", "signed_at"}
+    missing = required - owner.keys()
+    if missing:
+        fail(f"{path}: owner missing required fields: {sorted(missing)}")
+    if owner.get("identity_type") != "human":
+        fail(f"{path}: owner.identity_type must be 'human'")
+    if not owner.get("authentication_ref"):
+        fail(f"{path}: owner.authentication_ref is required for new packets")
+    if not owner.get("signed_at"):
+        fail(f"{path}: owner.signed_at is required for new packets")
+    implementor = packet.get("implementor") or packet.get("actor")
+    if implementor and owner.get("identity") == implementor.get("agent_id"):
+        fail(f"{path}: owner identity must not match implementor agent_id")
+
+
 def validate_packet(path: Path, packet: dict[str, Any], packets: dict[str, dict[str, Any]]) -> None:
     required = {
         "packet_id",
@@ -734,8 +772,11 @@ def validate_packet(path: Path, packet: dict[str, Any], packets: dict[str, dict[
     if packet["state"] not in STATES:
         fail(f"{path}: invalid state {packet['state']}")
     if packet["state"] in {"Claimed", "Implementing", "Validation", "Handoff"}:
-        if packet["owner"] in {"", "unassigned"} or not packet["claim_timestamp"]:
+        owner = packet["owner"]
+        owner_str = owner if isinstance(owner, str) else owner.get("identity", "")
+        if owner_str in {"", "unassigned"} or not packet.get("claim_timestamp"):
             fail(f"{path}: active packet must have an owner and claim timestamp")
+    validate_owner(packet, path)
     if packet["state"] == "Complete":
         if packet["locks"]:
             fail(f"{path}: complete packet must release all locks")
@@ -800,7 +841,12 @@ def _check_row_consistency(
             packet = packets[packet_id]
             if state.strip() != packet["state"]:
                 fail(f"{label}: state mismatch for {packet_id}")
-            if owner.strip() != str(packet["owner"]):
+            packet_owner = packet["owner"]
+            if isinstance(packet_owner, dict):
+                owner_str = packet_owner.get("identity", "")
+            else:
+                owner_str = str(packet_owner)
+            if owner.strip() != owner_str:
                 fail(f"{label}: owner mismatch for {packet_id}")
             if reviewer.strip() != str(packet["reviewer"]):
                 fail(f"{label}: reviewer mismatch for {packet_id}")

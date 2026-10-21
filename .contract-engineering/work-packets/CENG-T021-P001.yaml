@@ -23,7 +23,7 @@ scope:
   - .contract-engineering/protocol.lock.yaml
   - scripts/validate-contract-records.py
   - scripts/validate-tracker.py
-state: Handoff
+state: Complete
 owner:
   identity: Emmanuel
   identity_type: human
@@ -44,8 +44,7 @@ external_effects: []
 reviewer: user
 cleanup_owner: droid
 dependencies: []
-locks:
-- scripts/contract_engineering.py
+locks: []
 claim_timestamp: '2026-10-21T12:00:00Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml

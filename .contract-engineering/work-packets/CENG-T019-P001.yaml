@@ -1,0 +1,130 @@
+packet_id: CENG-T019-P001
+task_id: CENG-T019
+phase: P1_IMPLEMENTATION
+domain: security
+packet_class: cross-cutting
+title: Remediate protocol governance drift and security gaps
+objective: >
+  Fix 9 governance and security defects: re-pin lock to v2.7.2, update
+  attestation with user as independent approver, gitignore devcontainer,
+  roll terminal packets to archive, fix duplicate locks key and stale P017,
+  strengthen CI lock-ancestry assertion, make staleness check deterministic,
+  update template lock, and narrow reviewer droid tools.
+open_questions: []
+scope:
+  in:
+  - .contract-engineering/protocol.lock.yaml
+  - .contract-engineering/release-attestation.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/tracker/archive/index.yaml
+  - .contract-engineering/work-packets/CENG-T004-P017.yaml
+  - .contract-engineering/archive/work-packets/
+  - .contract-engineering/handoffs/CENG-T019-P001-HO001.yaml
+  - .gitignore
+  - .github/workflows/protocol-validation.yml
+  - docs/protocol-configuration.md
+  - droids/contract-driven-handoff-acceptance-reviewer.md
+  - scripts/validate-tracker.py
+  - templates/protocol-lock.yaml
+  - tests/test_tracker.py
+  out:
+  - global installed skills
+  - skills/*/SKILL.md
+  - consumer lock updates before release verification
+  - unapproved remote repository changes
+actor:
+  agent_id: factory-droid
+  harness: Factory
+  model: glm-5.2
+  session_id: CENG-T019-P001-governance-remediation
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: high
+approval_policy: user
+external_effects: []
+owner: droid
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: '2026-10-21T00:00:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- e13b69660119f5cfe3975efdec278992892926e8
+design_decision_ref: null
+data_gate_ref: null
+trust_boundary_ref: docs/agent-trust-boundaries.md
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+- templates/agent-event.yaml
+incident_refs:
+- templates/agent-incident.yaml
+acceptance_criteria:
+- Protocol lock pins v2.7.2 ref e13b696 with correct skill hashes
+- Release attestation records user as independent approver with fresh approval ref
+- v2.7.2 tag is re-signed with the ed25519 key 34049E9E7A00440491D319FFF19051409C4115FB
+- Devcontainer is untracked and gitignored
+- All terminal tracker rows and packet YAMLs are in the archive partition
+- CENG-T004-P017 is in Interrupted state with a recovery note
+- CI lock-alignment step asserts HEAD ancestry and working-tree hash match
+- Tracker staleness check is deterministic (uses commit date, not wall clock)
+- Template lock pins v2.7.2
+- Reviewer droid has no ApplyPatch tool
+- All 75 unit tests pass
+- All validators pass (contract records, tracker, render check)
+validation_plan:
+- id: CENG-T019-P001-VAL001
+  kind: security
+  skill: security-assurance
+  checks:
+  - Lock ref is an ancestor of HEAD
+  - Tag signature verifies against publisher key
+  - No secrets exposed in devcontainer (untracked and gitignored)
+  - Working-tree skill hashes match lock
+  expected: no unresolved blocking security findings
+- id: CENG-T019-P001-VAL002
+  kind: type-check
+  skill: phased-engineering-execution
+  checks:
+  - validate-contract-records.py passes
+  - validate-tracker.py passes
+  - render-tracker.py --check passes
+  - unittest discover passes
+  expected: all validators and tests pass
+evidence_refs: []
+handoff_ref: CENG-T019-P001-HO001
+skill_gaps:
+- gap_id: CENG-T019-SG001
+  skill_file: scripts/contract_engineering.py
+  gap_type: missing
+  severity: medium
+  description: >
+    The ALLOWED dict is missing Interrupted state transitions
+    (Interrupted → Claimed, Implementing, Cancelled) defined by the
+    SKILL.md state machine.
+  impact: explain-block incorrectly reports legal recovery transitions as blocked
+  proposed_change: Add Interrupted to ALLOWED with Claimed, Implementing, Cancelled
+  evidence_refs: []
+  outcome_metric: explain-block reports legal transitions correctly
+  review_date: '2026-11-21'
+  user_notified: true
+  user_decision: defer
+  action_owner: user
+  decision_ref: null
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ''
+state: Handoff
+updated_at: '2026-10-21'

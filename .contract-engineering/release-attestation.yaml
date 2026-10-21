@@ -36,15 +36,15 @@ provenance:
   reproducible: true
 review:
   author: droid
-  independent_approver: contract-driven-handoff-acceptance-reviewer
-  approval_ref: CENG-T018-P001-HO002
-  approved_at: "2026-09-24T21:30:00Z"
+  independent_approver: Emmanuel
+  approval_ref: USER-ACCEPT-CENG-T019-P001-20261021
+  approved_at: "2026-10-21T00:00:00Z"
 verification:
-  verified_at: "2026-09-24T21:30:00Z"
+  verified_at: "2026-10-21T00:00:00Z"
   verifier: droid
   result: pass
   transparency_ref: PENDING_HOSTED_VALIDATION
-  revocation_checked_at: "2026-09-24T21:30:00Z"
+  revocation_checked_at: "2026-10-21T00:00:00Z"
 revocation:
   status: active
   revocation_ref: null

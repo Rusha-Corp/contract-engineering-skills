@@ -1,0 +1,40 @@
+handoff_id: CENG-T021-P001-HO001
+packet_id: CENG-T021-P001
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: session:CENG-T021-P001-interrupted-fix
+  signature_ref: ""
+receiver:
+  identity: Emmanuel
+  identity_type: human
+  authenticated: false
+  authentication_ref: ""
+  accepted_at: ""
+  acceptance_ref: ""
+summary: >
+  Added Interrupted state to the ALLOWED dict in contract_engineering.py.
+  The state machine in SKILL.md defines Interrupted → Claimed,
+  Implementing, Cancelled, but the ALLOWED dict was missing the Interrupted
+  entry entirely. This caused explain_block to report legal recovery
+  transitions as blocked.
+changed_resources:
+  - path: scripts/contract_engineering.py
+    change: 'Added Interrupted: {Claimed, Implementing, Cancelled} to ALLOWED dict'
+  - path: tests/test_transitions.py
+    change: 'Added InterruptedTransitionTests with 5 test cases'
+validation_results:
+  - "unittest discover: 119 tests pass (5 new)"
+  - "validate-contract-records.py: pass (mode=enforced)"
+  - "validate-tracker.py: pass — 11 active rows, 48 archive rows"
+evidence_refs: []
+unresolved_items: []
+rollback_notes:
+  - "Revert the single line addition to ALLOWED in contract_engineering.py"
+  - "Remove the InterruptedTransitionTests class from test_transitions.py"
+requested_next_action: >
+  Review the one-line fix and five new tests. If accepted, sign the
+  handoff acceptance and the packet transitions to Complete.
+receiver_status: pending
+receiver_notes: ""

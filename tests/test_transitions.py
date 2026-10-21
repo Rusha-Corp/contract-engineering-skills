@@ -201,5 +201,61 @@ class TransitionTests(unittest.TestCase):
         self.assertEqual(store._load("CENG-T013-P004")["state"], "Validation")
 
 
+class InterruptedTransitionTests(unittest.TestCase):
+    """Tests for the Interrupted state transitions defined by SKILL.md."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name) / ".contract-engineering"
+        (self.root / "work-packets").mkdir(parents=True)
+        (self.root / "journal").mkdir(parents=True)
+        packet = {
+            "packet_id": "CENG-T013-P004", "task_id": "CENG-T013",
+            "state": "Interrupted", "owner": "worker", "reviewer": "user",
+            "locks": ["lease"], "scope": {"in": ["scripts"], "out": []},
+            "revision": 0,
+        }
+        (self.root / "work-packets/CENG-T013-P004.yaml").write_text(
+            yaml.safe_dump(packet), encoding="utf-8"
+        )
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_interrupted_to_claimed(self):
+        store = TransitionStore(self.root)
+        result = store.transition(
+            "CENG-T013-P004", "Claimed", "worker", "recovery review passed",
+            expected_revision=0,
+        )
+        self.assertEqual(result["state"], "Claimed")
+
+    def test_interrupted_to_implementing(self):
+        store = TransitionStore(self.root)
+        result = store.transition(
+            "CENG-T013-P004", "Implementing", "worker", "resuming after recovery",
+            expected_revision=0,
+        )
+        self.assertEqual(result["state"], "Implementing")
+
+    def test_interrupted_to_cancelled(self):
+        store = TransitionStore(self.root)
+        result = store.transition(
+            "CENG-T013-P004", "Cancelled", "worker", "disposition: abandoned",
+            expected_revision=0,
+        )
+        self.assertEqual(result["state"], "Cancelled")
+
+    def test_explain_block_allows_interrupted_to_implementing(self):
+        store = TransitionStore(self.root)
+        explanation = store.explain_block("CENG-T013-P004", "Implementing")
+        self.assertEqual(explanation["failures"], [])
+
+    def test_explain_block_allows_interrupted_to_claimed(self):
+        store = TransitionStore(self.root)
+        explanation = store.explain_block("CENG-T013-P004", "Claimed")
+        self.assertEqual(explanation["failures"], [])
+
+
 if __name__ == "__main__":
     unittest.main()

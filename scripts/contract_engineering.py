@@ -29,6 +29,7 @@ ALLOWED = {
     "Validation": {"Handoff", "Rework", "Interrupted"},
     "Rework": {"Implementing", "Cancelled"},
     "Handoff": {"Complete", "Rework"},
+    "Interrupted": {"Claimed", "Implementing", "Cancelled"},
 }
 
 

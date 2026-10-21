@@ -1,0 +1,83 @@
+packet_id: CENG-T021-P001
+task_id: CENG-T021
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: single-domain
+work_type: bugfix
+title: Fix missing Interrupted state transitions in contract_engineering.py
+objective: >
+  Add the Interrupted state to the ALLOWED dict in contract_engineering.py
+  so that explain-block and transition correctly handle recovery
+  transitions defined by the SKILL.md state machine.
+open_questions: []
+scope:
+  in:
+  - scripts/contract_engineering.py
+  - tests/test_transitions.py
+  - .contract-engineering/work-packets/CENG-T021-P001.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/handoffs/CENG-T021-P001-HO001.yaml
+  - .contract-engineering/execution-tracker.md
+  out:
+  - skills/*/SKILL.md
+  - .contract-engineering/protocol.lock.yaml
+  - scripts/validate-contract-records.py
+  - scripts/validate-tracker.py
+state: Handoff
+owner:
+  identity: Emmanuel
+  identity_type: human
+  authentication_ref: gpg:34049E9E7A00440491D319FFF19051409C4115FB
+  signed_at: '2026-10-21T12:00:00Z'
+implementor:
+  agent_id: factory-droid
+  harness: Factory
+  model: glm-5.2
+  session_id: CENG-T021-P001-interrupted-fix
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: low
+approval_policy: automatic
+external_effects: []
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks:
+- scripts/contract_engineering.py
+claim_timestamp: '2026-10-21T12:00:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 4c786ec06037121a7893ece32be6aa27afdb8fe8
+design_decision_ref: null
+data_gate_ref: null
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+acceptance_criteria:
+- The ALLOWED dict in contract_engineering.py includes Interrupted with transitions to Claimed, Implementing, and Cancelled
+- explain-block reports legal Interrupted transitions correctly
+- transition() accepts Interrupted → Claimed, Interrupted → Implementing, and Interrupted → Cancelled
+- All existing tests pass plus new tests for the Interrupted transitions
+validation_plan:
+- id: CENG-T021-P001-VAL001
+  kind: type-check
+  skill: phased-engineering-execution
+  checks:
+  - unittest discover passes
+  - validate-contract-records.py passes
+  expected: all tests and validators pass
+evidence_refs: []
+handoff_ref: CENG-T021-P001-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+updated_at: '2026-10-21'

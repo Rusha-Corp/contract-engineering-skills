@@ -1,0 +1,45 @@
+handoff_id: CENG-T020-P001-HO001
+packet_id: CENG-T020-P001
+sender: droid
+receiver: user
+summary: >
+  Implement the human-signed owner model: packet owner is now a structured
+  human identity with authentication_ref and signed_at. Introduced
+  implementor as the agent role, separating the human authority from the
+  agent executor. Updated JSON schema, record validator, work-packet
+  template, tracker comparison, phased-engineering-execution skill (bumped
+  to 2.6.0 with lock re-pin), and handoff-acceptance reviewer droid.
+  Migrated legacy non-terminal packets (P017, T019) to structured owners.
+changed_resources:
+  - schemas/work-packet.schema.json
+  - scripts/validate-contract-records.py
+  - scripts/validate-tracker.py
+  - templates/work-packet.yaml
+  - tests/test_contract_records.py
+  - skills/phased-engineering-execution/SKILL.md
+  - .contract-engineering/protocol.lock.yaml
+  - droids/contract-driven-handoff-acceptance-reviewer.md
+  - .contract-engineering/work-packets/CENG-T004-P017.yaml
+  - .contract-engineering/work-packets/CENG-T019-P001.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/execution-tracker.md
+validation_results:
+  - "validate-contract-records.py: pass (mode=enforced)"
+  - "validate-tracker.py: pass — 9 active rows, 48 archive rows"
+  - "render-tracker.py --check: pass"
+  - "unittest discover: 114 tests pass"
+  - "all skill hashes match lock"
+evidence_refs: []
+skill_gaps: []
+unresolved_items:
+  - "Archived legacy packets still have bare string owners; they pass validation as terminal records but should be migrated in a future cleanup packet"
+  - "reviewer and cleanup_owner fields remain bare strings; structuring them is a follow-up when multi-human review workflows need it"
+rollback_notes:
+  - "git revert 1fa23ed d50905a 7b163b0 undoes the three feature commits"
+  - "Lock can be restored to phased-engineering-execution 2.5.0 hash e67e9f5b"
+requested_next_action: >
+  Review the three feature commits. If accepted, push to origin and create
+  a new protocol release packet to publish a tagged release from the
+  post-change HEAD.
+receiver_status: pending
+receiver_notes: ""

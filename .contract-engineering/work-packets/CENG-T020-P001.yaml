@@ -1,0 +1,95 @@
+packet_id: CENG-T020-P001
+task_id: CENG-T020
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: cross-cutting
+title: Implement human-signed owner model
+objective: >
+  Make the packet owner a signed human identity and introduce implementor
+  as the agent role, separating human authority from agent execution.
+open_questions: []
+scope:
+  in:
+  - schemas/work-packet.schema.json
+  - scripts/validate-contract-records.py
+  - scripts/validate-tracker.py
+  - templates/work-packet.yaml
+  - tests/test_contract_records.py
+  - skills/phased-engineering-execution/SKILL.md
+  - .contract-engineering/protocol.lock.yaml
+  - droids/contract-driven-handoff-acceptance-reviewer.md
+  - .contract-engineering/work-packets/CENG-T004-P017.yaml
+  - .contract-engineering/work-packets/CENG-T019-P001.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/handoffs/CENG-T020-P001-HO001.yaml
+  out:
+  - global installed skills
+  - skills/*/SKILL.md (except phased-engineering-execution)
+  - consumer lock updates before release verification
+state: Handoff
+owner:
+  identity: Emmanuel
+  identity_type: human
+  authentication_ref: gpg:34049E9E7A00440491D319FFF19051409C4115FB
+  signed_at: '2026-10-21T00:00:00Z'
+implementor:
+  agent_id: factory-droid
+  harness: Factory
+  model: glm-5.2
+  session_id: CENG-T020-P001-human-owner-model
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: high
+approval_policy: user
+external_effects: []
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: '2026-10-21T00:00:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- e13b69660119f5cfe3975efdec278992892926e8
+design_decision_ref: null
+data_gate_ref: null
+trust_boundary_ref: docs/agent-trust-boundaries.md
+execution_budget_ref: templates/execution-budget.yaml
+checkpoint_ref: templates/execution-checkpoint.yaml
+evaluation_ref: templates/evaluation-plan.yaml
+agent_run_ref: templates/agent-run.yaml
+observability_refs:
+- templates/agent-event.yaml
+incident_refs:
+- templates/agent-incident.yaml
+acceptance_criteria:
+- Packet owner is a structured object with identity, identity_type=human, authentication_ref, and signed_at
+- Implementor block captures agent identity (agent_id, harness, model, session_id)
+- Validator rejects bare string owners for non-terminal packets
+- Validator rejects owner identity matching implementor agent_id
+- Legacy terminal packets with string owners still validate
+- Tracker row owner matches packet owner.identity for structured owners
+- Skill updated to require human-signed owner, bumped to 2.6.0, lock re-pinned
+- Reviewer droid verifies human owner signature before acceptance
+- All 114 tests pass
+- All validators pass
+validation_plan:
+- id: CENG-T020-P001-VAL001
+  kind: type-check
+  skill: phased-engineering-execution
+  checks:
+  - validate-contract-records.py passes
+  - validate-tracker.py passes
+  - unittest discover passes
+  - skill hashes match lock
+  expected: all validators and tests pass
+evidence_refs: []
+handoff_ref: CENG-T020-P001-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+updated_at: '2026-10-21'

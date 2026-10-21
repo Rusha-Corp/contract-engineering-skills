@@ -1,8 +1,8 @@
 lock_version: 1
 protocol:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  ref: e13b69660119f5cfe3975efdec278992892926e8
-  release: 2.7.2
+  ref: 82ab6f2ceb57132f8ce1a3edb2cc40ac677dbccd
+  release: 2.8.0
 skills:
   phased-engineering-execution:
     version: 2.6.0
@@ -26,9 +26,9 @@ project:
   protocol_root: .contract-engineering
 development:
   status: released
-  ref: e13b69660119f5cfe3975efdec278992892926e8
-  based_on_release: 2.7.2
-  reason: v2.7.2 is the latest published immutable release; the lock now points to the verified content release.
+  ref: 82ab6f2ceb57132f8ce1a3edb2cc40ac677dbccd
+  based_on_release: 2.8.0
+  reason: v2.8.0 introduces the human-signed owner model, deterministic staleness check, CI ancestry assertion, and atomic publication protocol.
   consumer_action: Synchronize from the locked ref after running the protocol preflight.
   skills:
     phased-engineering-execution:

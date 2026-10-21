@@ -1,34 +1,190 @@
 attestation_version: 1
-attestation_id: CENG-T018-P001-ATT001
-issued_at: "2026-09-24T21:05:00Z"
-expires_at: "2027-09-24T21:05:00Z"
+attestation_id: CENG-T021-P002-ATT001
+issued_at: "2026-10-21T14:00:00Z"
+expires_at: "2027-10-21T14:00:00Z"
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: 0599f938b0ccabeec6315997cd68fadfc85e9709
-  release: 2.7.2
+  commit: 82ab6f2ceb57132f8ce1a3edb2cc40ac677dbccd
+  release: 2.8.0
   artifacts:
+    - path: CHANGELOG.md
+      sha256: ab6e9d4f8bf12de136f8237d96e3255c1f0186088f739a8e8b21ec211dddee82
+    - path: README.md
+      sha256: 3f3aa16232590c2fe53a4ace61ecc9930888b1b443ecceaa40df3f6e60c1805c
+    - path: docs/release-integrity.md
+      sha256: 75c1ae9df34538d3cb1d0e1be91fc49cd30878abe950ae42800b884d08197e8f
+    - path: docs/protocol-configuration.md
+      sha256: b5906a3ba21ec1e338e64e4c833b49ed9e050b7654df8813112e69919aa1b35b
+    - path: docs/repository-development.md
+      sha256: 60dba771f2d86c0448887e209f8f7d2ba95b50c0fb4eb6c0dec0aeff77e2b944
+    - path: docs/tracker-storage.md
+      sha256: 4e3450ef160aa2e9b7e7c218cf221c0a4441b21063354520a17cf698d69fb6e2
+    - path: docs/secret-management.md
+      sha256: 34ad7567303538f849985b5ce23dbb5d842a32ef7b45343821f408bb3e70c3b7
+    - path: docs/agent-security.md
+      sha256: b62e986089d619f39b0e53878de5a70a1f81469a5ee2f54ec74ad30b632a7f0b
+    - path: docs/code-security.md
+      sha256: 84a8a69189378d5d574525a9e35a406af57d9ccbe2b52a5d79e8bb64887f9603
+    - path: docs/ci-security.md
+      sha256: 921baf18f2e9d368664eac294534c9696440a53878fc1200479045a779121643
+    - path: docs/evidence-security.md
+      sha256: bb9b119cf6bd6b62bcf5e96a3b2f552277ce9bdea11857785697d449dfea25b3
+    - path: docs/adapter-security.md
+      sha256: 188e112a9abf643ff058923856d155833d6c0ae384c7f2c81e6754fdbb78a947
+    - path: docs/agent-trust-boundaries.md
+      sha256: 918253136176e37fbf2772b60dbb36b7b40be864e0116f842ce1d54e5c06f0c8
+    - path: docs/approval-integrity.md
+      sha256: dd5765193d480214bc2ba414463d6e15fa5bd4e61a2861b6c97ca364a3afbeab
+    - path: docs/runtime-controls.md
+      sha256: 6513881ef3de85c054b5e1579db499858ba63ba2f2cec867bcec9826c10b7bb0
+    - path: docs/incident-response.md
+      sha256: 5d563d90bd39e10c8439fdfa3efa90af8b7801eb585e2a30cc304e62b948a26c
+    - path: docs/deprecation-policy.md
+      sha256: d71590255abe8e4ab84375ca6e44288d242c48b21794ef38474fb0bdfadf5e9c
+    - path: docs/reproducibility.md
+      sha256: 52fce181d8e3c6c2c91e6d2e9b4e05fbad94af14fa64a0bb317ed64c5c1b255d
+    - path: docs/rule-ownership.md
+      sha256: 7e5e5aa97a9baa77f3998a9a51452e2717afd7bf659203ce9e13931db7b1cf53
+    - path: docs/coordination.md
+      sha256: 024060f3cfdb6be42d50d43331a4d5fcf60bbd67f91d29306ed7fa0a2780d89e
+    - path: docs/protocol-fleet.md
+      sha256: 4fb263853267ed0ad9c5db51ae0fe1d502e7cb20254bc9acc4bafa082a4d0121
+    - path: docs/agent-observability.md
+      sha256: 740e218c629e2e26b74a83beaee0e26e53a1e3f57c28401d0c8a7aaef099048f
+    - path: docs/agent-evaluation.md
+      sha256: d43b4083e6f72d848514c4013cce6220128c73c38cddcbc811e647ef364788c0
+    - path: docs/durable-execution.md
+      sha256: f489bd533183c121da6e1028daefeb3a665938726dd5d31e431731b534a09627
+    - path: docs/visual-identity.md
+      sha256: fa438fc4e3da37d0a916bbf29949d2437617a9376a09ad57bbbefc18f0582523
     - path: requirements-ci.txt
       sha256: 5263f5e1125c23298cd8559ff816708bdebb4ae9cb337d4dd47cc7455c69af7a
-    - path: CHANGELOG.md
-      sha256: 42c85ad70732e85d7d60619b30b90cdea606f1ba6113973b0cda7cab046efb21
+    - path: schemas/work-packet.schema.json
+      sha256: 010c9cc6cb2157688951a00dd968b0daf346a9dcec8f86f4603b93693f98299b
+    - path: schemas/tracker.schema.json
+      sha256: 2daa80c914d7b3b7063e88ce86962dc358d8da8bbaace884bbe0a0e4ab3a6453
+    - path: schemas/tracker-event.schema.json
+      sha256: adc9429c17b63e3991bac7c2e0e0987006ad6bc4cc06c2b25e936250e617d53a
+    - path: schemas/evidence-policy.schema.json
+      sha256: d580a8b4784cfe8674ee1db688dfb414e8fe5bb52bfad11cb5d3af0965b8d622
     - path: schemas/identifiers.schema.json
       sha256: 825ce4f786090324d94e7dce8e9436289a605cbb00d3b8e55045359148433c11
-    - path: docs/release-integrity.md
-      sha256: 59be79fcd842d8e2d4d21d8a29e4f6c28059200318509cbdc104264709343725
+    - path: scripts/contract_engineering.py
+      sha256: 5fb167c384ded6adc9a94be0e4d09e6ee40c7c8c088584f14da39e349de994cb
+    - path: scripts/gate_diagnostics.py
+      sha256: 0fcbe48ae740765a5fdd9c4e08b38a986fa333ef1532fa800ede9da319b05d30
+    - path: scripts/identifiers.py
+      sha256: 3de40150216e8c0f6051e65926586c056fd47fa18efb6070d3d108f6fba764e5
+    - path: scripts/validate-contract-records.py
+      sha256: c99d6dc5240c97f3581ebb0936580aac39dbf7a71f20ed9a3388d45333a28878
+    - path: scripts/validate-tracker.py
+      sha256: 7c74b4128a1c2816f7bcc4cfa9c1e43e1c9a6a836b9447cc49217979fb13e84a
+    - path: scripts/render-tracker.py
+      sha256: cb5629cf407bd34e1161686b72c33723f6afdd5033aabfd355c51b2d606abc21
+    - path: scripts/check-markdown-links.py
+      sha256: be99a3487867b775ad1798953ca3ff8a36d96d044b754ca9d5f4942ce3bbdcf1
+    - path: scripts/validate-svg-assets.py
+      sha256: deb75910df4b89abb4538e15682c24e52f922c9da6b4203fb83b8d884ee92962
+    - path: skills/phased-engineering-execution/SKILL.md
+      sha256: f4ee096ef75ec38f06e10379d0f90366713dae21c8d6ab3c6c866de29bfdf995
+    - path: skills/cleanup-protocol/SKILL.md
+      sha256: 79af8387cc3219bc1a169561ec77a3349f435bcf0ce61c051f4692ec619765ec
+    - path: skills/project-lifecycle/SKILL.md
+      sha256: 37b2793346c8d38180d43486ed7ec0f8bb5f657fd01e9cae0da4650077335136
+    - path: skills/skill-evolution/SKILL.md
+      sha256: 149be48373c05e58e1127efd4dc329f3f0af516a836d31b99cb62b64e0a2cafd
+    - path: skills/coding-principles/SKILL.md
+      sha256: 7b4fb4e71e18e6e256776ff0918c8693815f060088485b5a72c2d886ee0c3770
+    - path: skills/security-assurance/SKILL.md
+      sha256: c0e4226a0c8630d25b234a52097fad7dd08fe817eb3a22e1f5045fb1faffc847
+    - path: templates/work-packet.yaml
+      sha256: 7d9866ca61a3d8a123f1b7951cc8575952474896938ddfad4866867e6595c401
+    - path: templates/protocol-lock.yaml
+      sha256: 1719c3c263c0b46412582c6505567355df2a224ae2d468f0071b51f8e898083e
+    - path: templates/AGENTS.md
+      sha256: 5ec9933cd39f77a7872fd899e62131c2fec7cac3f364ad1c8667d06ae0275c52
+    - path: templates/handoff.yaml
+      sha256: 196b0b1f6646b4311824bc5f1d0d851cf8a34ea7d810ec3b87d80f8d269a73bb
+    - path: templates/evidence-policy.yaml
+      sha256: 160aaab60d830c1cf44729036c3727c82e308ef723d396762536aecf82947f51
+    - path: templates/protocol-attestation.yaml
+      sha256: ed1c2096459e165921589b744862d0b8f2abd9472cd52a02704527b5ba64d8de
+    - path: templates/protocol-consumer.yaml
+      sha256: fa8ccff7ba619b8d6b50b869145e1939c0e3fd6b9e9db55cc8079c6143dae500
+    - path: templates/tracker-event.yaml
+      sha256: 95382c5d288c6416460edb44be292ae3a56be4c024956d4508277f7adb3b25b6
+    - path: templates/tracker-index.yaml
+      sha256: d0af55ef6c727b8771da456c967417e7479bd5e412961b53d590cc2d2fdf921b
+    - path: templates/tracker-shard.yaml
+      sha256: 46046847ea4d3fc1d648c5995f34671e5a201e978351b373eb0d973de281cab4
+    - path: templates/trust-boundary.yaml
+      sha256: 8336cabc7c515cc2ed383ad5ff3ea313cef5a3778374d3bacecdd49274396488
+    - path: templates/approval.yaml
+      sha256: f76b1aeea75568d479f454142873e791b59e20cc2d5a50905118001a1b09bcd3
+    - path: templates/adapter-inventory.yaml
+      sha256: 35f9fb6c1b2543aa80576bbf89ab1cc4305759d8b913ad9eea413a244a9c90a6
+    - path: templates/agent-event.yaml
+      sha256: a2de264f59cad38a9e63dd43764776bb39a082d5e7db1e57cd50a7127623fa13
+    - path: templates/agent-identity.yaml
+      sha256: 65890b12518c5b649e37225cff97f5586173d73f1735892797e6c710a4716353
+    - path: templates/agent-incident.yaml
+      sha256: 8ceb3630ed632dbf4b45dfc336fbc34351340b5301c593cff1c507db31051687
+    - path: templates/agent-run.yaml
+      sha256: 7c84e9c0bb3f24265af36d0876445f80759e24d78af6a05e3eabad2c9af08199
+    - path: templates/deprecation-record.yaml
+      sha256: 80561771920d0f51a5e441429ca248444b6acde84761c2e4c68a865139163ef9
+    - path: templates/evaluation-plan.yaml
+      sha256: 2bdbfc5b6541e3cd6f312d7ae9c5a4c6374f1c7b2092e5fac6c62a5d0e90e9e7
+    - path: templates/execution-budget.yaml
+      sha256: b5389468ae9af788a3b3f20e9b3399b661f9940b2c05a5c7f0034aba8addb156
+    - path: templates/execution-checkpoint.yaml
+      sha256: 1080196613c9db996654c1145fb69e8f424c44313bbd733eae4dbb4962efb44e
+    - path: templates/packet-lease.yaml
+      sha256: 8995ad28896044c74c4ca22d94a5ef9dccf3b52da1b9801abbd4f81a8c306587
+    - path: templates/skill-feedback.yaml
+      sha256: 23c4d0fb4b1c31057d08715508e1f1c86bb85733c9922cae6683098ca0cb4cf9
+    - path: templates/validation-guide.md
+      sha256: cbb38aebb0bbe2b145d6b5b7b526f2c8b09198436d05a45be44d4b92277941ee
+    - path: droids/contract-driven-handoff-acceptance-reviewer.md
+      sha256: 4bcfc7769f6ae0b9b1f3c18b77021938ab3e1efb25d9b3ca1dac37c827875971
+    - path: .github/workflows/protocol-validation.yml
+      sha256: eafbbe4ba86652d97a5689e4ae7b0f4d7f9a5d7b3d416d6bf3900bc8fa0cc5e4
+    - path: .github/workflows/secret-scanning.yml
+      sha256: 6a37398aa251224083bba98116241e640b515a20af33a0319b873a509829a20d
+    - path: .github/workflows/security.yml
+      sha256: 8da2186afe7fb5bbe5988b8b64e0f0b1f297c731e5b9337c6f149478cfa8a808
+    - path: .gitleaks.toml
+      sha256: 7883026ea65018b3828382c1b6c7c646f84f94db0e8a5bdbc56b3f5cb18253c9
+    - path: .gitignore
+      sha256: 9b16e135e32a2063a28b0d1bda22bbebc417bb6dac0dec9f6e45c6065fd17533
+    - path: CONTRIBUTING.md
+      sha256: 7236af086ba41449a01e923314427cdbee0794493c1d07967fc86b6e78326751
+    - path: SECURITY.md
+      sha256: 3aa1514969852f33d68f1aa2d8b3e4adbb252490aac59da2ba3cdf01982a6fb2
+    - path: tests/test_contract_records.py
+      sha256: 09cb6d59cdbf4c3b10a738c198f42fcbfba4f43dd02f82231aac64e81cf9312c
+    - path: tests/test_gate_diagnostics.py
+      sha256: f9d80cc4b9cdba8a6c2b246755524a73d54bf449da01cd5f47e69c7388ada207
+    - path: tests/test_parser_limits.py
+      sha256: 0cf0d98485493c067f4591f03990322b9e6203c89622e891673a2e10af41e8d5
+    - path: tests/test_tracker.py
+      sha256: fd56a008aab72d5b0596080ef54c1726d88a17b8a49b123b20e717939fa95ac8
+    - path: tests/test_transitions.py
+      sha256: 9f78e61cc9916e7f9a2b7873280352eba5154919f78e8d13b1f98b9dc7f2a505
     - path: .contract-engineering/release-signing-key.asc
       sha256: f29750732190374f17da90c35117d778123f3a6917a9d61bd261c73b51fc69f2
 publisher:
   identity: Emmanuel
   identity_type: human
   authentication_ref: 34049E9E7A00440491D319FFF19051409C4115FB
-  workflow: Factory Droid v2.7.2 corrective release workflow
+  workflow: Factory Droid v2.8.0 release workflow
   signing_system: gpg
-  signature_ref: gpg:tag:v2.7.2:34049E9E7A00440491D319FFF19051409C4115FB
+  signature_ref: gpg:tag:v2.8.0:34049E9E7A00440491D319FFF19051409C4115FB
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:0599f938b0ccabeec6315997cd68fadfc85e9709
+  builder_digest: git-tree:82ab6f2ceb57132f8ce1a3edb2cc40ac677dbccd
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: 0599f938b0ccabeec6315997cd68fadfc85e9709
+  source_commit: 82ab6f2ceb57132f8ce1a3edb2cc40ac677dbccd
   dependencies:
     - "PyYAML 6.0.3 and runtime dependencies, hash-pinned in requirements-ci.txt"
     - "rpds-py 0.17.1 CPython 3.8 and 3.12 wheel hashes directly verified"
@@ -38,14 +194,14 @@ review:
   author: droid
   independent_approver: Emmanuel
   approval_ref: USER-APPROVAL-REF
-  approved_at: "2026-10-21T00:00:00Z"
+  approved_at: "2026-10-21T14:00:00Z"
 verification:
-  verified_at: "2026-10-21T00:00:00Z"
+  verified_at: "2026-10-21T14:00:00Z"
   verifier: droid
   result: pass
   transparency_ref: PENDING_HOSTED_VALIDATION
-  revocation_checked_at: "2026-10-21T00:00:00Z"
+  revocation_checked_at: "2026-10-21T14:00:00Z"
 revocation:
   status: active
   revocation_ref: null
-  rollback_ref: b0ec963770d8a0106a26cc4d893cbd9417c322d4
+  rollback_ref: e13b69660119f5cfe3975efdec278992892926e8

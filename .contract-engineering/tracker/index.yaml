@@ -6,12 +6,11 @@ shards: []
 rows:
 - task_id: CENG-T004
   packet_id: CENG-T004-P017
-  state: Rework
+  state: Interrupted
   owner: agent
   reviewer: contract-driven-handoff-acceptance-reviewer
   locks:
   - release-path:v2.2.0
   - release-attestation
-  next_action: Resolve hosted security gate failures and signing limitations before
-    resubmission
-  updated_at: '2026-09-16'
+  next_action: Recovery — resolve hosted security gate failures and signing limitations; re-claim before resubmission.
+  updated_at: '2026-10-21'

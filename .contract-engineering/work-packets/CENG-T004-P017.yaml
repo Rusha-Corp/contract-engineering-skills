@@ -117,4 +117,13 @@ migration_dependencies:
 removal_criteria: []
 exception_refs: []
 sunset_target: ''
-state: Rework
+state: Interrupted
+updated_at: '2026-10-21'
+recovery_note: >
+  Packet was in Rework since 2026-09-16 with unresolved hosted security gate
+  failures and signing limitations (passphrase-protected key, no TTY). The
+  v2.2.0 tag (90f29dc) failed hosted secret scanning and cannot be rewritten.
+  Transitioned to Interrupted on 2026-10-21 per the 14-day review cadence.
+  Recovery requires: (1) resolve hosted gate failures or supersede with a
+  new release, (2) unlock the signing key interactively, (3) re-claim the
+  packet and obtain fresh two_person approval before resubmission.

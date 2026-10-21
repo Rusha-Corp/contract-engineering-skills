@@ -48,7 +48,15 @@ evidence, applying the same evidence-backed rigor.
 ### Decision
 
 Before writing, report a compact decision table with criterion, evidence,
-result, and reason. Then output a structured decision for the parent agent
+result, and reason. Then verify the human owner signature:
+
+- Reject the handoff if the packet has a bare string owner (legacy) and is
+  non-terminal.
+- Reject if `owner.identity_type` is not `"human"`.
+- Reject if `owner.identity` matches `implementor.agent_id`.
+- Reject if `owner.authentication_ref` or `owner.signed_at` is missing.
+
+Then output a structured decision for the parent agent
 or user to apply through the host's authenticated approval mechanism:
 
 - If every criterion and gate passes, output an accepted decision with the

@@ -1,0 +1,11 @@
+{
+  "kind": "transition",
+  "packet_id": "CENG-T015-P001",
+  "source": "Claimed",
+  "destination": "Ready",
+  "actor": "droid",
+  "reason": "Approved child packet rollout is integrated and ready for final audit",
+  "expected_revision": 0,
+  "event_id": "CENG-T015-E041",
+  "status": "committed"
+}

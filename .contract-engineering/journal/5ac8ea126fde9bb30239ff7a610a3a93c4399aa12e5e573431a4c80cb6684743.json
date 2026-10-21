@@ -1,0 +1,11 @@
+{
+  "kind": "blocked",
+  "packet_id": "CENG-T015-P001",
+  "source": "Handoff",
+  "destination": "Complete",
+  "actor": "droid",
+  "reason": "Receiver accepted CENG-T015-P001-HO001",
+  "failure": "stale packet revision",
+  "redacted": true,
+  "status": "committed"
+}

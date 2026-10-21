@@ -122,7 +122,17 @@ def validate_row(
             fail(f"{source}: updated_at must be an ISO date for {packet_id!r}")
     else:
         fail(f"{source}: updated_at must be an ISO date for {packet_id!r}")
-    if expected_partition == "active":
+    reviewable_states = {
+        "Claimed",
+        "Implementing",
+        "Validation",
+        "Handoff",
+        "Rework",
+        "DesignReview",
+        "DataReview",
+        "Interrupted",
+    }
+    if expected_partition == "active" and row["state"] in reviewable_states:
         ref = reference_date if reference_date is not None else _index_commit_date(source)
         if ref - updated_date > MAX_ACTIVE_AGE:
             fail(f"{source}: active packet {packet_id!r} has a stale updated_at")

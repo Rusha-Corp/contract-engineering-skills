@@ -1,0 +1,61 @@
+tracker_schema_version: 1
+partition: active
+task_id: CENG-T015
+max_rows: 50
+rows:
+- task_id: CENG-T015
+  packet_id: CENG-T015-P001
+  state: Complete
+  owner: droid
+  reviewer: user
+  locks: []
+  next_action: Coordinate child packet implementation and acceptance.
+  updated_at: '2026-09-24'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P002
+  state: Complete
+  owner: droid
+  reviewer: user
+  locks: []
+  next_action: Retain in active shard until iteration closure.
+  updated_at: '2026-09-24'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P003
+  state: Complete
+  owner: droid
+  reviewer: user
+  locks: []
+  next_action: Retain in active shard until iteration closure.
+  updated_at: '2026-09-24'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P004
+  state: Complete
+  owner: droid
+  reviewer: user
+  locks: []
+  next_action: Retain in active shard until iteration closure.
+  updated_at: '2026-09-24'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P005
+  state: Complete
+  owner: droid
+  reviewer: user
+  locks: []
+  next_action: Retain in active shard until iteration closure.
+  updated_at: '2026-09-24'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P006
+  state: Complete
+  owner: droid
+  reviewer: user
+  locks: []
+  next_action: Retain in active shard until iteration closure.
+  updated_at: '2026-09-24'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P007
+  state: Complete
+  owner: droid
+  reviewer: user
+  locks: []
+  next_action: Obtain receiver acceptance for the P007 handoff.
+  updated_at: '2026-09-24'

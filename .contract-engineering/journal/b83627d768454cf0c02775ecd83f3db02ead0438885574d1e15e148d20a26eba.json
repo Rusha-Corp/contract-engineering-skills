@@ -1,0 +1,11 @@
+{
+  "kind": "transition",
+  "packet_id": "CENG-T015-P004",
+  "source": "Claimed",
+  "destination": "Implementing",
+  "actor": "droid",
+  "reason": "begin scoped implementation",
+  "expected_revision": 0,
+  "event_id": "CENG-T015-E019",
+  "status": "committed"
+}

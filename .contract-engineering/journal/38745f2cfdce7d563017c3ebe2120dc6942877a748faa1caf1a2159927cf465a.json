@@ -1,0 +1,11 @@
+{
+  "kind": "transition",
+  "packet_id": "CENG-T015-P001",
+  "source": "Ready",
+  "destination": "Implementing",
+  "actor": "droid",
+  "reason": "Final integration audit started",
+  "expected_revision": 1,
+  "event_id": "CENG-T015-E041",
+  "status": "committed"
+}

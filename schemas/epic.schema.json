@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Rusha-Corp/contract-engineering-skills/schemas/epic.schema.json",
+  "title": "Contract Engineering Epic",
+  "type": "object",
+  "required": [
+    "epic_id",
+    "title",
+    "objective",
+    "priority",
+    "status",
+    "success_measures",
+    "non_goals",
+    "task_refs"
+  ],
+  "properties": {
+    "epic_id": {
+      "type": "string",
+      "pattern": "^(?:[A-Z][A-Z0-9]*-)+E[0-9]{3}$"
+    },
+    "title": {"type": "string", "minLength": 1},
+    "objective": {"type": "string", "minLength": 1},
+    "priority": {"enum": ["critical", "high", "normal", "deferred"]},
+    "status": {"enum": ["proposed", "active", "paused", "closed"]},
+    "success_measures": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "non_goals": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "task_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(?:[A-Z][A-Z0-9]*-)+T[0-9]{3}$"
+      }
+    }
+  },
+  "additionalProperties": false
+}

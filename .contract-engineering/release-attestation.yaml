@@ -37,7 +37,7 @@ provenance:
 review:
   author: droid
   independent_approver: Emmanuel
-  approval_ref: USER-ACCEPT-CENG-T019-P001-20261021
+  approval_ref: USER-APPROVAL-REF
   approved_at: "2026-10-21T00:00:00Z"
 verification:
   verified_at: "2026-10-21T00:00:00Z"

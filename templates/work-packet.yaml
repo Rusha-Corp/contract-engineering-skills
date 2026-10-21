@@ -3,6 +3,19 @@ task_id: PROJECT-T001
 phase: P1_IMPLEMENTATION
 domain: coding
 packet_class: single-domain|cross-cutting|parent-coordination|child-implementation
+work_type: discovery|delivery|bugfix|enabler
+parent_task_id: null
+priority: critical|high|normal|deferred
+iteration: ""
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: ""
+  branch: ""
+  base_revision: ""
+  head_revision: ""
+  cleanup_status: active
 title: ""
 objective: ""
 open_questions: []

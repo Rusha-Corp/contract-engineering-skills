@@ -5,8 +5,8 @@ protocol:
   release: 2.7.2
 skills:
   phased-engineering-execution:
-    version: 2.5.0
-    sha256: e67e9f5b9c99d0122b1058c8e5a86c9a283d5b560b2acf2937312b0f858b9d43
+    version: 2.6.0
+    sha256: f4ee096ef75ec38f06e10379d0f90366713dae21c8d6ab3c6c866de29bfdf995
   cleanup-protocol:
     version: 2.4.0
     sha256: 79af8387cc3219bc1a169561ec77a3349f435bcf0ce61c051f4692ec619765ec

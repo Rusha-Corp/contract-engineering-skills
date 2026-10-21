@@ -1,6 +1,6 @@
 ---
 name: phased-engineering-execution
-version: 2.5.0
+version: 2.6.0
 description: Break engineering work into owned packets and execute it through evidence-based phases, gates, validation, and handoffs.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,10 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.6.0 (2026-10-21): Require a human-signed owner on every new packet.
+  Introduced the `implementor` role for agent identity, separating the
+  human authority (owner) from the agent executor (implementor). The
+  human owner signs scope authorization and handoff acceptance.
 - 2.5.0 (2026-09-03): Made YAML tracker partitions canonical, added generated
   Markdown projections, append-only task event streams, bounded shard
   validation, and database-backed consumer guidance.
@@ -31,7 +35,7 @@ Use for multi-step engineering work, shared resources, formal handoffs, browser 
 
 ## Core rule
 
-No implementation begins until the task has a baseline, an owner, explicit scope, an approved design when required, and a passed data correctness gate when data affects the result.
+No implementation begins until the task has a baseline, a **human owner** who has signed the scope authorization, explicit scope, an approved design when required, and a passed data correctness gate when data affects the result.
 
 ## Shared identifiers
 
@@ -92,7 +96,7 @@ open_questions: []
 scope:
   in: []
   out: []
-actor:
+implementor:
   agent_id: ""
   harness: ""
   model: ""
@@ -101,7 +105,11 @@ capabilities: []
 risk_tier: low|medium|high|critical
 approval_policy: automatic|reviewer|user|two_person
 external_effects: []
-owner: "agent-or-user"
+owner:
+  identity: ""
+  identity_type: human
+  authentication_ref: ""
+  signed_at: ""
 reviewer: "agent-or-user"
 cleanup_owner: "agent-or-user"
 dependencies: []
@@ -410,8 +418,9 @@ after a batch acceptance.
 1. Read and pass the project's protocol-lock preflight, then read the active
    tracker index, relevant task shard/events, requirements, applicable skills,
    and assigned packet.
-2. Confirm actor identity, capabilities, risk tier, approval policy, owner,
-   reviewer, cleanup owner, dependencies, locks, gates, and scope.
+2. Confirm the human owner's signed authorization, implementor identity,
+   capabilities, risk tier, approval policy, owner, reviewer, cleanup owner,
+   dependencies, locks, gates, and scope.
 3. Claim the packet and complete the baseline before editing. Include the
    protocol lock path in `baseline_refs`.
 4. Confirm all applicable Skill versions are pinned in the tracker or packet.
@@ -455,8 +464,10 @@ receiver_notes: ""
 A handoff is complete only after the receiver records authenticated
 acceptance or rejection with reasons. Acceptance must bind the receiver to
 the exact packet revision, scope digest, changed-resource hashes, approval
-reference, validation evidence, and receiver timestamp. A tracker state change
-without that handoff record is invalid.
+reference, validation evidence, and receiver timestamp. The human owner
+must sign the handoff acceptance; an agent may not transition a packet to
+Complete on its own. A tracker state change without that handoff record is
+invalid.
 
 ## Validation rules
 

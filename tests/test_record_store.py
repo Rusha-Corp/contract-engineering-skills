@@ -61,6 +61,20 @@ class FileStoreBasicTests(unittest.TestCase):
     def test_list_events_empty_when_no_file(self) -> None:
         self.assertEqual(self.store.list_events("CENG-T999"), [])
 
+    def test_get_event_document_returns_none_when_missing(self) -> None:
+        self.assertIsNone(self.store.get_event_document("CENG-T999"))
+
+    def test_get_event_document_returns_full_wrapper(self) -> None:
+        event = {"event_id": "CENG-T013-E001", "packet_id": "CENG-T013-P004",
+                 "type": "transition", "actor": "worker",
+                 "occurred_at": "2026-01-01T00:00:00Z", "summary": "test"}
+        self.store.append_event("CENG-T013", event)
+        doc = self.store.get_event_document("CENG-T013")
+        assert doc is not None
+        self.assertEqual(doc["task_id"], "CENG-T013")
+        self.assertEqual(doc["schema_version"], 1)
+        self.assertEqual(len(doc["events"]), 1)
+
     def test_get_tracker_index_returns_none_when_missing(self) -> None:
         self.assertIsNone(self.store.get_tracker_index())
 
@@ -370,6 +384,22 @@ class FileStoreConformanceTests(unittest.TestCase):
         self.store.append_event("CENG-T001", event)
         self.store.append_event("CENG-T001", event)
         self.assertEqual(len(self.store.list_events("CENG-T001")), 1)
+
+    def test_get_event_document(self) -> None:
+        event = {
+            "event_id": "CENG-T001-E001",
+            "packet_id": "CENG-T001-P001",
+            "type": "transition",
+            "actor": "worker",
+            "occurred_at": "2026-01-01T00:00:00Z",
+            "summary": "test",
+        }
+        self.store.append_event("CENG-T001", event)
+        doc = self.store.get_event_document("CENG-T001")
+        assert doc is not None
+        self.assertEqual(doc["task_id"], "CENG-T001")
+        self.assertEqual(doc["schema_version"], 1)
+        self.assertEqual(len(doc["events"]), 1)
 
     def test_move_tracker_row_atomic(self) -> None:
         index = {

@@ -209,6 +209,32 @@ class TrackerValidationTests(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 validator.validate_events(root, set())
 
+    def test_rejects_event_with_unsupported_schema_version(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "tracker" / "events").mkdir(parents=True)
+            (root / "tracker" / "events" / "TEST-T001.yaml").write_text(
+                'task_id: TEST-T001\nschema_version: 2\nevents:\n'
+                '  - event_id: TEST-T001-E001\n    packet_id: TEST-T001-P001\n'
+                '    type: claimed\n    actor: agent\n'
+                '    occurred_at: "2026-09-03T00:00:00Z"\n    summary: claimed\n'
+            )
+            with self.assertRaises(SystemExit):
+                validator.validate_events(root, {"TEST-T001-P001"})
+
+    def test_rejects_event_with_task_id_mismatch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "tracker" / "events").mkdir(parents=True)
+            (root / "tracker" / "events" / "TEST-T001.yaml").write_text(
+                'task_id: TEST-T002\nschema_version: 1\nevents:\n'
+                '  - event_id: TEST-T001-E001\n    packet_id: TEST-T001-P001\n'
+                '    type: claimed\n    actor: agent\n'
+                '    occurred_at: "2026-09-03T00:00:00Z"\n    summary: claimed\n'
+            )
+            with self.assertRaises(SystemExit):
+                validator.validate_events(root, {"TEST-T001-P001"})
+
     def test_validates_repository_tracker_partitions(self):
         root = Path(__file__).parents[1] / ".contract-engineering"
         validator.validate(root)

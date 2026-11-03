@@ -116,6 +116,10 @@ class RecordStore(ABC):
     def list_events(self, task_id: str) -> list[dict[str, Any]]:
         """Return events for *task_id*, or an empty list if none exist."""
 
+    @abstractmethod
+    def get_event_document(self, task_id: str) -> dict[str, Any] | None:
+        """Return the full event document (task_id, schema_version, events) or ``None``."""
+
     # -- handoffs ----------------------------------------------------------
 
     @abstractmethod
@@ -412,6 +416,12 @@ class FileStore(RecordStore):
             return []
         document = self._read_yaml(path)
         return list(document.get("events", []))
+
+    def get_event_document(self, task_id: str) -> dict[str, Any] | None:
+        path = self._events_path(task_id)
+        if not path.is_file():
+            return None
+        return self._read_yaml(path)
 
     # -- handoffs ----------------------------------------------------------
 

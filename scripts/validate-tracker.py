@@ -231,12 +231,17 @@ def validate_events(
     # Discover task IDs by listing event files, then read via store.
     for event_path in sorted(events_dir.glob("*.yaml")):
         task_id_from_file = event_path.stem
-        document = store.list_events(task_id_from_file)
-        # Reconstruct a pseudo-document for validation compatibility.
-        task_id = task_id_from_file
+        document = store.get_event_document(task_id_from_file)
+        if document is None:
+            fail(f"{event_path}: event document not found")
+        task_id = document.get("task_id")
         if not isinstance(task_id, str) or not TASK_ID.fullmatch(task_id):
             fail(f"{event_path}: invalid task_id")
-        events = document
+        if task_id != task_id_from_file:
+            fail(f"{event_path}: task_id mismatch (file={task_id_from_file}, doc={task_id})")
+        if document.get("schema_version") != 1:
+            fail(f"{event_path}: unsupported schema_version")
+        events = document.get("events")
         if not isinstance(events, list):
             fail(f"{event_path}: events must be a list")
         previous_timestamp = ""

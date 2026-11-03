@@ -9,6 +9,8 @@ from typing import Any
 
 import yaml
 
+from scripts.record_store import FileStore, RecordStore
+
 
 HEAD = (
     "# Execution Tracker\n\n"
@@ -31,13 +33,16 @@ def load(path: Path) -> dict[str, Any]:
     return value
 
 
-def rows_for(root: Path, relative: str) -> list[dict[str, Any]]:
-    index_path = root / relative
-    index = load(index_path)
+def rows_for(root: Path, relative: str, *, store: RecordStore | None = None) -> list[dict[str, Any]]:
+    if store is None:
+        store = FileStore(root)
+    partition = "archive" if "archive" in relative else "active"
+    index = store.get_tracker_index(partition)
+    if index is None:
+        return []
     rows = list(index.get("rows", []))
     for shard in index.get("shards", []):
-        shard_path = root / shard
-        shard_doc = load(shard_path)
+        shard_doc = store.get_shard(shard)
         rows.extend(shard_doc.get("rows", []))
     return rows
 
@@ -62,18 +67,21 @@ def render(header: str, rows: list[dict[str, Any]]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def render_projections(root: Path, check: bool = False) -> None:
+def render_projections(root: Path, check: bool = False, *, store: RecordStore | None = None) -> None:
+    if store is None:
+        store = FileStore(root)
     targets = (
-        ("tracker/index.yaml", "execution-tracker.md", HEAD),
+        ("tracker/index.yaml", "execution-tracker.md", HEAD, "active"),
         (
             "tracker/archive/index.yaml",
             "archive/execution-tracker-archive.md",
             ARCHIVE_HEAD,
+            "archive",
         ),
     )
     changed = False
-    for source, destination, header in targets:
-        expected = render(header, rows_for(root, source))
+    for source, destination, header, partition in targets:
+        expected = render(header, rows_for(root, source, store=store))
         path = root / destination
         if check:
             actual = path.read_text() if path.is_file() else ""

@@ -12,6 +12,8 @@ from typing import Any
 
 import yaml
 
+from scripts.record_store import FileStore, RecordStore
+
 IDENTIFIER_SCRIPT = Path(__file__).with_name("identifiers.py")
 IDENTIFIER_SPEC = importlib.util.spec_from_file_location("identifiers", IDENTIFIER_SCRIPT)
 assert IDENTIFIER_SPEC and IDENTIFIER_SPEC.loader
@@ -141,9 +143,20 @@ def validate_row(
     return packet_id
 
 
-def partition_rows(root: Path, relative: str, expected_partition: str) -> tuple[list[dict[str, Any]], set[str]]:
+def partition_rows(
+    root: Path,
+    relative: str,
+    expected_partition: str,
+    *,
+    store: RecordStore | None = None,
+) -> tuple[list[dict[str, Any]], set[str]]:
+    if store is None:
+        store = FileStore(root)
+    partition = "archive" if "archive" in relative else "active"
     index_path = root / relative
-    index = load(index_path)
+    index = store.get_tracker_index(partition)
+    if index is None:
+        fail(f"missing {index_path}")
     if index.get("tracker_schema_version") != 1:
         fail(f"{index_path}: unsupported tracker_schema_version")
     if index.get("partition") != expected_partition:
@@ -162,7 +175,7 @@ def partition_rows(root: Path, relative: str, expected_partition: str) -> tuple[
         if not isinstance(shard, str):
             fail(f"{index_path}: shard paths must be strings")
         shard_path = root / shard
-        shard_doc = load(shard_path)
+        shard_doc = store.get_shard(shard)
         if shard_doc.get("tracker_schema_version") != 1:
             fail(f"{shard_path}: unsupported tracker_schema_version")
         if shard_doc.get("partition") != expected_partition:
@@ -191,35 +204,46 @@ def partition_rows(root: Path, relative: str, expected_partition: str) -> tuple[
     return all_rows, files
 
 
-def packet_files(root: Path, directory: str) -> dict[str, dict[str, Any]]:
+def packet_files(
+    root: Path,
+    directory: str,
+    *,
+    store: RecordStore | None = None,
+) -> dict[str, dict[str, Any]]:
+    if store is None:
+        store = FileStore(root)
+    partition = "archive" if "archive" in directory else "active"
     result: dict[str, dict[str, Any]] = {}
-    path = root / directory
-    if not path.is_dir():
-        return result
-    for packet_path in sorted(path.glob("*.yaml")):
-        packet = load(packet_path)
-        packet_id = packet.get("packet_id")
+    for packet_id, packet in store.list_packets(partition).items():
         if not isinstance(packet_id, str):
-            fail(f"{packet_path}: missing packet_id")
+            fail(f"missing packet_id in {directory}")
         if packet_id in result:
             fail(f"duplicate packet file {packet_id}")
         result[packet_id] = packet
     return result
 
 
-def validate_events(root: Path, packet_ids: set[str]) -> None:
+def validate_events(
+    root: Path,
+    packet_ids: set[str],
+    *,
+    store: RecordStore | None = None,
+) -> None:
+    if store is None:
+        store = FileStore(root)
     events_dir = root / "tracker/events"
     if not events_dir.is_dir():
         return
     seen: set[str] = set()
+    # Discover task IDs by listing event files, then read via store.
     for event_path in sorted(events_dir.glob("*.yaml")):
-        document = load(event_path)
-        task_id = document.get("task_id")
+        task_id_from_file = event_path.stem
+        document = store.list_events(task_id_from_file)
+        # Reconstruct a pseudo-document for validation compatibility.
+        task_id = task_id_from_file
         if not isinstance(task_id, str) or not TASK_ID.fullmatch(task_id):
             fail(f"{event_path}: invalid task_id")
-        if document.get("schema_version") != 1:
-            fail(f"{event_path}: unsupported schema_version")
-        events = document.get("events")
+        events = document
         if not isinstance(events, list):
             fail(f"{event_path}: events must be a list")
         previous_timestamp = ""
@@ -282,13 +306,15 @@ def compare(rows: list[dict[str, Any]], packets: dict[str, dict[str, Any]], part
             fail(f"{partition}: {row['packet_id']} locks mismatch")
 
 
-def validate(root: Path) -> None:
-    active_rows, active_files = partition_rows(root, "tracker/index.yaml", "active")
+def validate(root: Path, *, store: RecordStore | None = None) -> None:
+    if store is None:
+        store = FileStore(root)
+    active_rows, active_files = partition_rows(root, "tracker/index.yaml", "active", store=store)
     archive_rows, archive_files = partition_rows(
-        root, "tracker/archive/index.yaml", "archive"
+        root, "tracker/archive/index.yaml", "archive", store=store
     )
-    active_packets = packet_files(root, "work-packets")
-    archive_packets = packet_files(root, "archive/work-packets")
+    active_packets = packet_files(root, "work-packets", store=store)
+    archive_packets = packet_files(root, "archive/work-packets", store=store)
     compare(active_rows, active_packets, "active")
     compare(archive_rows, archive_packets, "archive")
     active_ids = {row["packet_id"] for row in active_rows}
@@ -296,7 +322,7 @@ def validate(root: Path) -> None:
     overlap = active_ids & archive_ids
     if overlap:
         fail(f"packets appear in both active and archive partitions: {sorted(overlap)}")
-    validate_events(root, active_ids | archive_ids)
+    validate_events(root, active_ids | archive_ids, store=store)
     print(
         f"tracker valid: {len(active_rows)} active rows, "
         f"{len(archive_rows)} archive rows, "

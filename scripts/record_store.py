@@ -222,7 +222,17 @@ class FileStore(RecordStore):
         return self.root / _EVENTS / f"{task_id}.yaml"
 
     def _shard_path(self, relative_path: str) -> Path:
-        return self.root / _ACTIVE_TRACKER / relative_path
+        """Resolve a shard path declared in the tracker index.
+
+        Shard paths may be relative to the tracker directory
+        (``shards/CENG-T015.yaml``) or to the protocol root
+        (``tracker/shards/CENG-T015.yaml``).  Normalise both forms
+        to ``root / tracker / shards/...``.
+        """
+        normalised = relative_path
+        if normalised.startswith("tracker/"):
+            normalised = normalised[len("tracker/"):]
+        return self.root / _ACTIVE_TRACKER / normalised
 
     def _handoff_path(self, handoff_id: str) -> Path:
         return self.root / _HANDOFFS / f"{handoff_id}.yaml"

@@ -28,9 +28,9 @@ project:
     backend: file
 development:
   status: released
-  ref: 82ab6f2ceb57132f8ce1a3edb2cc40ac677dbccd
-  based_on_release: 2.8.0
-  reason: v2.8.0 introduces the human-signed owner model, deterministic staleness check, CI ancestry assertion, and atomic publication protocol.
+  ref: 40cf8ce321a4c69c9bed067ee771932fa934b202
+  based_on_release: 3.0.0
+  reason: v3.0.0 introduces the storage-independent record store interface, enabling a future API backend as a non-breaking v3.x addition.
   consumer_action: Synchronize from the locked ref after running the protocol preflight.
   skills:
     phased-engineering-execution:

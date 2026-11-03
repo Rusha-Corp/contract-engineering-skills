@@ -7,12 +7,17 @@ import hashlib
 import json
 import os
 import secrets
+import sys
 import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-import yaml
+_PARENT = Path(__file__).resolve().parent.parent
+if str(_PARENT) not in sys.path:
+    sys.path.insert(0, str(_PARENT))
+
+from scripts.record_store import FileStore
 
 STATES = {"Planned", "Claimed", "DesignReview", "DesignBlocked", "DataReview",
           "DataBlocked", "Ready", "Implementing", "Validation", "Rework",
@@ -40,23 +45,21 @@ class TransitionError(ValueError):
 class TransitionStore:
     def __init__(self, root: Path | str = ".contract-engineering"):
         self.root = Path(root)
-        self.packets = self.root / "work-packets"
+        self.store = FileStore(self.root)
         self.journal = self.root / "journal"
 
-    def _path(self, packet_id: str) -> Path:
-        path = self.packets / f"{packet_id}.yaml"
-        if not path.is_file():
-            raise TransitionError(f"unknown packet: {packet_id}")
-        return path
-
     def _load(self, packet_id: str) -> dict[str, Any]:
-        return yaml.safe_load(self._path(packet_id).read_text(encoding="utf-8"))
+        packet = self.store.get_packet(packet_id)
+        if packet is None:
+            raise TransitionError(f"unknown packet: {packet_id}")
+        return packet
 
-    def _write(self, path: Path, value: Any) -> None:
+    def _write_journal(self, path: Path, value: Any) -> None:
+        path.parent.mkdir(parents=True, exist_ok=True)
         fd, name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.")
         try:
             with os.fdopen(fd, "w", encoding="utf-8") as stream:
-                yaml.safe_dump(value, stream, sort_keys=False)
+                json.dump(value, stream, indent=2)
                 stream.flush()
                 os.fsync(stream.fileno())
             os.replace(name, path)
@@ -133,63 +136,55 @@ class TransitionStore:
         }
         journal = self._journal(operation)
         self._apply_transition(operation)
-        journal.write_text(json.dumps({**operation, "status": "committed"}, indent=2), encoding="utf-8")
+        self._write_journal(journal, {**operation, "status": "committed"})
         return self._load(packet_id)
 
     def _next_event_id(self, task_id: str) -> str:
-        path = self.root / "tracker" / "events" / f"{task_id}.yaml"
-        if not path.is_file():
-            return f"{task_id}-E001"
-        document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-        events = document.get("events", [])
+        events = self.store.list_events(task_id)
         return f"{task_id}-E{len(events) + 1:03d}"
 
     def _update_tracker(self, packet: dict[str, Any]) -> None:
-        tracker = self.root / "tracker" / "index.yaml"
-        if not tracker.is_file():
+        index = self.store.get_tracker_index()
+        if index is None:
             return
-        index = yaml.safe_load(tracker.read_text(encoding="utf-8")) or {}
-        paths = [tracker] + [self.root / path for path in index.get("shards", [])]
-        for path in paths:
-            document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-            for row in document.get("rows", []):
+        # Check index rows.
+        for row in index.get("rows", []):
+            if row.get("packet_id") == packet["packet_id"]:
+                row["state"] = packet["state"]
+                row["owner"] = packet.get("owner", row.get("owner", ""))
+                row["reviewer"] = packet.get("reviewer", row.get("reviewer", ""))
+                row["locks"] = packet.get("locks", row.get("locks", []))
+                row["updated_at"] = datetime.now(timezone.utc).date().isoformat()
+                self.store.put_tracker_index(index)
+                return
+        # Check shard rows.
+        for shard_path in index.get("shards", []):
+            shard = self.store.get_shard(shard_path)
+            for row in shard.get("rows", []):
                 if row.get("packet_id") == packet["packet_id"]:
                     row["state"] = packet["state"]
                     row["owner"] = packet.get("owner", row.get("owner", ""))
                     row["reviewer"] = packet.get("reviewer", row.get("reviewer", ""))
                     row["locks"] = packet.get("locks", row.get("locks", []))
                     row["updated_at"] = datetime.now(timezone.utc).date().isoformat()
-                    self._write(path, document)
+                    self.store.put_shard(shard_path, shard)
                     return
 
     def _append_event(self, operation: dict[str, Any], packet: dict[str, Any]) -> None:
-        events_path = self.root / "tracker" / "events" / f"{packet['task_id']}.yaml"
-        events_path.parent.mkdir(parents=True, exist_ok=True)
-        document = (
-            yaml.safe_load(events_path.read_text(encoding="utf-8"))
-            if events_path.is_file()
-            else {"task_id": packet["task_id"], "schema_version": 1, "events": []}
-        )
-        events = document.setdefault("events", [])
-        if any(event.get("event_id") == operation["event_id"] for event in events):
-            return
-        events.append(
-            {
-                "event_id": operation["event_id"],
-                "packet_id": packet["packet_id"],
-                "type": "transition",
-                "actor": operation["actor"],
-                "occurred_at": datetime.now(timezone.utc).isoformat(),
-                "summary": (
-                    f"{operation['source']} -> {operation['destination']}: "
-                    f"{operation['reason']}"
-                ),
-            }
-        )
-        self._write(events_path, document)
+        event = {
+            "event_id": operation["event_id"],
+            "packet_id": packet["packet_id"],
+            "type": "transition",
+            "actor": operation["actor"],
+            "occurred_at": datetime.now(timezone.utc).isoformat(),
+            "summary": (
+                f"{operation['source']} -> {operation['destination']}: "
+                f"{operation['reason']}"
+            ),
+        }
+        self.store.append_event(packet["task_id"], event)
 
     def _apply_transition(self, operation: dict[str, Any]) -> None:
-        packet_path = self._path(operation["packet_id"])
         packet = self._load(operation["packet_id"])
         current_revision = int(packet.get("revision", 0))
         if packet.get("state") == operation["destination"] and current_revision == operation["expected_revision"] + 1:
@@ -206,7 +201,7 @@ class TransitionStore:
         if operation["destination"] == "Complete":
             packet["locks"] = []
         packet["updated_at"] = datetime.now(timezone.utc).isoformat()
-        self._write(packet_path, packet)
+        self.store.put_packet(operation["packet_id"], packet)
         self._update_tracker(packet)
         self._append_event(operation, packet)
 
@@ -222,8 +217,8 @@ class TransitionStore:
         packet["owner"] = owner
         packet["fencing_token"] = operation["fencing_token"]
         packet["updated_at"] = datetime.now(timezone.utc).isoformat()
-        self._write(self._path(packet_id), packet)
-        journal.write_text(json.dumps({**operation, "status": "committed"}, indent=2), encoding="utf-8")
+        self.store.put_packet(packet_id, packet)
+        self._write_journal(journal, {**operation, "status": "committed"})
         return packet
 
     def _blocked(self, packet_id: str, source: str, destination: str, actor: str, reason: str, failure: str) -> None:
@@ -231,10 +226,7 @@ class TransitionStore:
                      "destination": destination, "actor": actor, "reason": reason,
                      "failure": failure, "redacted": True}
         journal = self._journal(operation)
-        journal.write_text(
-            json.dumps({**operation, "status": "committed"}, indent=2),
-            encoding="utf-8",
-        )
+        self._write_journal(journal, {**operation, "status": "committed"})
 
     def recover(self) -> list[str]:
         recovered = []
@@ -248,7 +240,7 @@ class TransitionStore:
                 record.setdefault("event_id", self._next_event_id(packet["task_id"]))
                 self._apply_transition(record)
                 record["status"] = "committed"
-                path.write_text(json.dumps(record, indent=2), encoding="utf-8")
+                self._write_journal(path, record)
                 recovered.append(path.name)
             elif record.get("kind") == "reassign":
                 packet = self._load(record["packet_id"])
@@ -256,18 +248,17 @@ class TransitionStore:
                     packet["owner"] = record["owner"]
                     packet["fencing_token"] = record.get("fencing_token", "")
                     packet["updated_at"] = datetime.now(timezone.utc).isoformat()
-                    self._write(self._path(record["packet_id"]), packet)
+                    self.store.put_packet(record["packet_id"], packet)
                 record["status"] = "committed"
-                path.write_text(json.dumps(record, indent=2), encoding="utf-8")
+                self._write_journal(path, record)
                 recovered.append(path.name)
         return recovered
 
     def doctor(self) -> dict[str, Any]:
         inconsistencies = []
-        for path in self.packets.glob("*.yaml"):
-            packet = yaml.safe_load(path.read_text(encoding="utf-8"))
+        for packet_id, packet in self.store.list_packets().items():
             if packet.get("state") not in STATES:
-                inconsistencies.append(f"{path.name}: invalid state")
+                inconsistencies.append(f"{packet_id}.yaml: invalid state")
         return {"inconsistencies": inconsistencies, "pending_journal": [
             p.name for p in self.journal.glob("*.json")
             if json.loads(p.read_text()).get("status") == "prepared"

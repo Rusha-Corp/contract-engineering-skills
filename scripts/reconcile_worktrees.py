@@ -7,18 +7,25 @@ import argparse
 import json
 import re
 import subprocess
+import sys
 from pathlib import Path
-from typing import Any, Dict, Iterable, List
+from typing import Any, Iterable
 
-import yaml
+_PACKET_ID = re.compile(r"(?P<packet>[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*-P[0-9]{3})")
 
-PACKET_ID = re.compile(r"(?P<packet>[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*-P[0-9]{3})")
+_PARENT = Path(__file__).resolve().parent.parent
+if str(_PARENT) not in sys.path:
+    sys.path.insert(0, str(_PARENT))
+
+from scripts.record_store import FileStore, RecordStore
+
+PACKET_ID = _PACKET_ID
 
 
-def parse_worktrees(text: str) -> List[Dict[str, Any]]:
+def parse_worktrees(text: str) -> list[dict[str, Any]]:
     """Parse `git worktree list --porcelain` output without invoking Git."""
-    records: List[Dict[str, Any]] = []
-    current: Dict[str, Any] | None = None
+    records: list[dict[str, Any]] = []
+    current: dict[str, Any] | None = None
     for raw_line in text.splitlines() + [""]:
         line = raw_line.strip()
         if not line:
@@ -46,19 +53,25 @@ def parse_worktrees(text: str) -> List[Dict[str, Any]]:
     return sorted(records, key=lambda item: (item["path"], item.get("branch") or ""))
 
 
-def reconcile_records(root: Path | str, worktree_text: str) -> Dict[str, List[Dict[str, Any]]]:
+def reconcile_records(
+    root: Path | str,
+    worktree_text: str,
+    *,
+    store: RecordStore | None = None,
+) -> dict[str, list[dict[str, Any]]]:
     """Compare live worktrees with packet metadata without writing anything."""
-    protocol_root = Path(root)
-    packets = _load_packets(protocol_root / "work-packets")
+    if store is None:
+        store = FileStore(root)
+    packets = list(store.list_packets().values())
     live = parse_worktrees(worktree_text)
     by_packet = {packet["packet_id"]: packet for packet in packets}
     live_by_packet = {
         item["packet_id"]: item for item in live if item.get("packet_id")
     }
 
-    registered: List[Dict[str, Any]] = []
-    drift: List[Dict[str, Any]] = []
-    unregistered: List[Dict[str, Any]] = []
+    registered: list[dict[str, Any]] = []
+    drift: list[dict[str, Any]] = []
+    unregistered: list[dict[str, Any]] = []
     for item in live:
         packet_id = item.get("packet_id")
         if not packet_id and not _looks_like_packet_worktree(item):
@@ -72,8 +85,8 @@ def reconcile_records(root: Path | str, worktree_text: str) -> Dict[str, List[Di
         else:
             drift.append(_merge(item, packet, metadata))
 
-    missing: List[Dict[str, Any]] = []
-    stale: List[Dict[str, Any]] = []
+    missing: list[dict[str, Any]] = []
+    stale: list[dict[str, Any]] = []
     for packet in packets:
         metadata = packet.get("worktree")
         if not metadata or metadata.get("cleanup_status") in {"released", "removed"}:
@@ -104,17 +117,6 @@ def reconcile_records(root: Path | str, worktree_text: str) -> Dict[str, List[Di
     }
 
 
-def _load_packets(directory: Path) -> List[Dict[str, Any]]:
-    packets = []
-    if not directory.exists():
-        return packets
-    for path in sorted(directory.glob("*.yaml")):
-        record = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-        if record.get("packet_id"):
-            packets.append(record)
-    return packets
-
-
 def _packet_id(branch: str | None, path: str | None) -> str | None:
     for value in (branch, path):
         if value:
@@ -124,13 +126,13 @@ def _packet_id(branch: str | None, path: str | None) -> str | None:
     return None
 
 
-def _looks_like_packet_worktree(item: Dict[str, Any]) -> bool:
+def _looks_like_packet_worktree(item: dict[str, Any]) -> bool:
     branch = item.get("branch") or ""
     path = item.get("path") or ""
     return branch.startswith("agent/") or "CENG-" in path
 
 
-def _matches(metadata: Dict[str, Any], live: Dict[str, Any]) -> bool:
+def _matches(metadata: dict[str, Any], live: dict[str, Any]) -> bool:
     return (
         metadata.get("path") == live.get("path")
         and metadata.get("branch") == live.get("branch")
@@ -138,8 +140,8 @@ def _matches(metadata: Dict[str, Any], live: Dict[str, Any]) -> bool:
 
 
 def _merge(
-    live: Dict[str, Any], packet: Dict[str, Any], metadata: Dict[str, Any] | None = None
-) -> Dict[str, Any]:
+    live: dict[str, Any], packet: dict[str, Any], metadata: dict[str, Any] | None = None
+) -> dict[str, Any]:
     result = dict(live)
     result["state"] = packet.get("state")
     if metadata is not None:
@@ -150,7 +152,7 @@ def _merge(
     return result
 
 
-def _sorted(records: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def _sorted(records: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
     return sorted(
         records, key=lambda item: (item.get("packet_id") or "", item.get("path") or "")
     )

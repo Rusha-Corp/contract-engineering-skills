@@ -27,3 +27,5 @@ skills:
     sha256: c0e4226a0c8630d25b234a52097fad7dd08fe817eb3a22e1f5045fb1faffc847
 project:
   protocol_root: .contract-engineering
+  record_store:
+    backend: file

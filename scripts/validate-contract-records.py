@@ -21,6 +21,12 @@ from typing import Any
 import yaml
 import jsonschema
 from referencing import Registry, Resource
+
+_PARENT = Path(__file__).resolve().parent.parent
+if str(_PARENT) not in sys.path:
+    sys.path.insert(0, str(_PARENT))
+
+from scripts.record_store import FileStore
 from yaml.events import (
     AliasEvent,
     MappingEndEvent,
@@ -146,25 +152,21 @@ def resolve_protocol_root(
     return root if root.is_absolute() else project / root
 
 
-def _validate_records(root: Path, packet_path: Path | None, changed_paths: list[str]) -> None:
+def _validate_records(
+    root: Path,
+    packet_path: Path | None,
+    changed_paths: list[str],
+    *,
+    store: FileStore | None = None,
+) -> None:
     if not root.is_dir():
         fail(f"protocol root does not exist: {root}")
     configure_resource_limits()
-    def load_partition(directory: Path) -> dict[str, dict[str, Any]]:
-        partition: dict[str, dict[str, Any]] = {}
-        if not directory.is_dir():
-            return partition
-        for path in sorted(directory.glob("*.yaml")):
-            packet = load_yaml(path)
-            if not isinstance(packet, dict) or "packet_id" not in packet:
-                fail(f"{path}: packet must be a YAML mapping with packet_id")
-            packet_id = packet["packet_id"]
-            if packet_id in partition:
-                fail(f"duplicate packet ID in {directory}: {packet_id}")
-            partition[packet_id] = packet
-        return partition
-    live_packets = load_partition(root / "work-packets")
-    archive_packets = load_partition(root / ARCHIVE_PACKET_DIR)
+
+    if store is None:
+        store = FileStore(root)
+    live_packets = store.list_packets("active")
+    archive_packets = store.list_packets("archive")
     cross_dup = set(live_packets) & set(archive_packets)
     if cross_dup:
         fail(f"duplicate packet IDs across partitions {sorted(cross_dup)}")
@@ -174,15 +176,15 @@ def _validate_records(root: Path, packet_path: Path | None, changed_paths: list[
         (root / "work-packets", live_packets),
         (root / ARCHIVE_PACKET_DIR, archive_packets),
     ):
-        if directory.is_dir():
-            for path in sorted(directory.glob("*.yaml")):
-                validate_packet(path, packets[path.stem], packets)
+        for packet_id, packet in partition.items():
+            path = directory / f"{packet_id}.yaml"
+            validate_packet(path, packet, packets)
     validate_project_lock(root)
     validate_canonical_tracker(root)
     validate_tracker(root, live_packets, archive_packets)
     validate_dependency_graph(packets)
     validate_locks(packets)
-    validate_references(root, packets)
+    validate_references(root, packets, store=store)
     validate_planning_records(root, packets)
     if packet_path:
         packet = packets.get(packet_path.stem)
@@ -323,6 +325,7 @@ def run_validation(
     environment: dict[str, str] | None = None,
     packet_path: Path | None = None,
     changed_paths: list[str] | None = None,
+    store: FileStore | None = None,
 ) -> ValidationResult:
     """Run local validation in explicit off, advisory, or enforced mode."""
 
@@ -336,7 +339,7 @@ def run_validation(
         project_dir, explicit_root=explicit_root, environment=environment
     )
     try:
-        _validate_records(root, packet_path, changed_paths or [])
+        _validate_records(root, packet_path, changed_paths or [], store=store)
     except ValueError as exc:
         if selected == "enforced":
             raise
@@ -995,23 +998,29 @@ def validate_dependency_graph(packets: dict[str, dict[str, Any]]) -> None:
         visit(packet_id)
 
 
-def validate_references(root: Path, packets: dict[str, dict[str, Any]]) -> None:
+def validate_references(
+    root: Path,
+    packets: dict[str, dict[str, Any]],
+    *,
+    store: FileStore | None = None,
+) -> None:
+    if store is None:
+        store = FileStore(root)
+    handoffs_dir = root / "handoffs"
     evidence_dir = root / "evidence"
-    handoff_dir = root / "handoffs"
     for packet_id, packet in packets.items():
         for evidence_ref in packet.get("evidence_refs", []):
-            path = evidence_dir / f"{evidence_ref}.md"
-            if not path.is_file():
+            if not store.evidence_exists(evidence_ref):
                 fail(f"{packet_id}: missing evidence {evidence_ref}")
         handoff_ref = packet.get("handoff_ref")
-        if handoff_ref and not (handoff_dir / f"{handoff_ref}.yaml").is_file():
+        if handoff_ref and store.get_handoff(handoff_ref) is None:
             fail(f"{packet_id}: missing handoff {handoff_ref}")
-    for path in sorted(handoff_dir.glob("*.yaml")):
-        handoff = load_yaml(path)
+    for handoff_id, handoff in store.list_handoffs().items():
+        path = handoffs_dir / f"{handoff_id}.yaml"
         required = {"handoff_id", "packet_id", "sender", "receiver", "receiver_status"}
         if not isinstance(handoff, dict) or not required <= handoff.keys():
             fail(f"{path}: incomplete handoff")
-        if handoff["handoff_id"] != path.stem:
+        if handoff.get("handoff_id") != handoff_id:
             fail(f"{path}: handoff_id does not match filename")
         if handoff["packet_id"] not in packets:
             fail(f"{path}: unknown packet reference")
@@ -1043,7 +1052,7 @@ def validate_canonical_tracker(root: Path) -> None:
         fail(f"{script}: cannot load canonical tracker validator")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    module.validate(root)
+    module.validate(root, store=FileStore(root))
     render_script = Path(__file__).with_name("render-tracker.py")
     render_spec = importlib.util.spec_from_file_location("render_tracker", render_script)
     if render_spec is None or render_spec.loader is None:

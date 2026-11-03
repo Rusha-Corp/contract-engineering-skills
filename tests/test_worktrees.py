@@ -1,3 +1,5 @@
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -59,6 +61,18 @@ class WorktreeReconciliationTests(unittest.TestCase):
             before = path.read_bytes()
             reconcile_records(root, WORKTREES)
             self.assertEqual(path.read_bytes(), before)
+
+    def test_standalone_cli_imports_successfully(self):
+        """The script must run as ``python3 scripts/reconcile_worktrees.py``."""
+        repo_root = Path(__file__).resolve().parents[1]
+        result = subprocess.run(
+            [sys.executable, str(repo_root / "scripts" / "reconcile_worktrees.py"), "--help"],
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("usage", result.stdout.lower())
 
 
 if __name__ == "__main__":

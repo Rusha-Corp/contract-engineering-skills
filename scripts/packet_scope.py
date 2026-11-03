@@ -4,10 +4,15 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 from typing import Iterable
 
-import yaml
+_PARENT = Path(__file__).resolve().parent.parent
+if str(_PARENT) not in sys.path:
+    sys.path.insert(0, str(_PARENT))
+
+from scripts.record_store import FileStore, RecordStore
 
 
 def path_matches(candidate: str, rule: str) -> bool:
@@ -16,13 +21,20 @@ def path_matches(candidate: str, rule: str) -> bool:
     return candidate == rule or candidate.startswith(rule + "/")
 
 
-def packet_scope(packet_path: Path) -> list[str]:
-    packet = yaml.safe_load(packet_path.read_text(encoding="utf-8"))
-    return [str(rule) for rule in packet["scope"]["in"]]
+def packet_scope(packet_path: Path, *, store: RecordStore | None = None) -> list[str]:
+    packet_id = packet_path.stem
+    if store is None:
+        # Derive the protocol root from the packet path: .../work-packets/<id>.yaml
+        root = packet_path.parent.parent
+        store = FileStore(root)
+    packet = store.get_packet(packet_id)
+    if packet is None:
+        return []
+    return [str(rule) for rule in packet.get("scope", {}).get("in", [])]
 
 
-def claimed_paths(packet_path: Path, changed_paths: Iterable[str]) -> list[str]:
-    rules = packet_scope(packet_path)
+def claimed_paths(packet_path: Path, changed_paths: Iterable[str], *, store: RecordStore | None = None) -> list[str]:
+    rules = packet_scope(packet_path, store=store)
     return [
         path
         for path in changed_paths
@@ -31,7 +43,7 @@ def claimed_paths(packet_path: Path, changed_paths: Iterable[str]) -> list[str]:
 
 
 def unclaimed_paths(
-    packet_paths: Iterable[Path], changed_paths: Iterable[str]
+    packet_paths: Iterable[Path], changed_paths: Iterable[str], *, store: RecordStore | None = None
 ) -> list[str]:
     packets = list(packet_paths)
     return [
@@ -40,7 +52,7 @@ def unclaimed_paths(
         if not any(
             path_matches(path, rule)
             for packet in packets
-            for rule in packet_scope(packet)
+            for rule in packet_scope(packet, store=store)
         )
     ]
 

@@ -5,12 +5,15 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
-import tempfile
+import sys
 from pathlib import Path
 from typing import Any
 
-import yaml
+_PARENT = Path(__file__).resolve().parent.parent
+if str(_PARENT) not in sys.path:
+    sys.path.insert(0, str(_PARENT))
+
+from scripts.record_store import FileStore, RecordStore
 
 
 class MigrationError(ValueError):
@@ -25,21 +28,12 @@ DEFAULTS = {
 }
 
 
-def _load(path: Path) -> dict[str, Any]:
-    value = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-    if not isinstance(value, dict):
-        raise MigrationError(f"{path}: packet must be a mapping")
-    return value
-
-
-def plan(root: Path | str) -> list[dict[str, Any]]:
+def plan(root: Path | str, *, store: RecordStore | None = None) -> list[dict[str, Any]]:
     """Return proposed metadata changes without modifying any packet."""
-    packet_dir = Path(root) / "work-packets"
+    if store is None:
+        store = FileStore(root)
     results: list[dict[str, Any]] = []
-    if not packet_dir.is_dir():
-        return results
-    for path in sorted(packet_dir.glob("*.yaml")):
-        packet = _load(path)
+    for packet_id, packet in store.list_packets().items():
         changes = {
             key: value
             for key, value in DEFAULTS.items()
@@ -48,36 +42,30 @@ def plan(root: Path | str) -> list[dict[str, Any]]:
         if changes:
             results.append(
                 {
-                    "packet_id": packet.get("packet_id", path.stem),
-                    "path": str(path),
+                    "packet_id": packet.get("packet_id", packet_id),
                     "changes": changes,
                 }
             )
     return results
 
 
-def _write(path: Path, packet: dict[str, Any]) -> None:
-    fd, name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.")
-    try:
-        with os.fdopen(fd, "w", encoding="utf-8") as stream:
-            yaml.safe_dump(packet, stream, sort_keys=False)
-            stream.flush()
-            os.fsync(stream.fileno())
-        os.replace(name, path)
-    finally:
-        if os.path.exists(name):
-            os.unlink(name)
-
-
-def apply(root: Path | str, *, confirm: bool = False) -> list[dict[str, Any]]:
+def apply(
+    root: Path | str,
+    *,
+    confirm: bool = False,
+    store: RecordStore | None = None,
+) -> list[dict[str, Any]]:
     if not confirm:
         raise MigrationError("record migration requires --confirm")
-    changes = plan(root)
+    if store is None:
+        store = FileStore(root)
+    changes = plan(root, store=store)
     for item in changes:
-        path = Path(item["path"])
-        packet = _load(path)
-        packet.update(item["changes"])
-        _write(path, packet)
+        packet_id = item["packet_id"]
+        packet = store.get_packet(packet_id)
+        if packet is not None:
+            packet.update(item["changes"])
+            store.put_packet(packet_id, packet)
     return changes
 
 

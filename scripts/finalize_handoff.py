@@ -6,12 +6,17 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
-import tempfile
+import sys
 from pathlib import Path
 from typing import Any
 
 import yaml
+
+_PARENT = Path(__file__).resolve().parent.parent
+if str(_PARENT) not in sys.path:
+    sys.path.insert(0, str(_PARENT))
+
+from scripts.record_store import FileStore, RecordStore
 
 
 class HandoffError(ValueError):
@@ -28,22 +33,21 @@ def scope_digest(packet: dict[str, Any]) -> str:
     ).hexdigest()
 
 
-def _load_yaml(path: Path) -> dict[str, Any]:
-    value = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-    if not isinstance(value, dict):
-        raise HandoffError(f"{path}: expected a mapping")
-    return value
-
-
-def validate_handoff(root: Path | str, packet: dict[str, Any]) -> dict[str, Any]:
+def validate_handoff(
+    root: Path | str,
+    packet: dict[str, Any],
+    *,
+    store: RecordStore | None = None,
+) -> dict[str, Any]:
     """Validate the accepted handoff that permits a Complete transition."""
+    if store is None:
+        store = FileStore(root)
     handoff_ref = packet.get("handoff_ref")
     if not handoff_ref:
         raise HandoffError("handoff reference is required")
-    path = Path(root) / "handoffs" / f"{handoff_ref}.yaml"
-    if not path.is_file():
+    handoff = store.get_handoff(handoff_ref)
+    if handoff is None:
         raise HandoffError(f"handoff is missing: {handoff_ref}")
-    handoff = _load_yaml(path)
     if handoff.get("packet_id") != packet.get("packet_id"):
         raise HandoffError("handoff packet identity does not match")
     if handoff.get("receiver_status") != "accepted":
@@ -62,7 +66,7 @@ def validate_handoff(root: Path | str, packet: dict[str, Any]) -> dict[str, Any]
     if not required_evidence.issubset(accepted_evidence):
         raise HandoffError("handoff does not accept all packet evidence")
     for evidence_ref in required_evidence:
-        if not (Path(root) / "evidence" / f"{evidence_ref}.md").is_file():
+        if not store.evidence_exists(evidence_ref):
             raise HandoffError(f"packet evidence is missing: {evidence_ref}")
     return handoff
 
@@ -75,36 +79,23 @@ def finalize(
     head_revision: str,
     changed_resources: list[dict[str, str]],
     evidence_refs: list[str],
+    store: RecordStore | None = None,
 ) -> dict[str, Any]:
     """Bind a pending handoff to the current packet content."""
-    root_path = Path(root)
-    packet_path = root_path / "work-packets" / f"{packet_id}.yaml"
-    handoff_path = root_path / "handoffs" / f"{handoff_id}.yaml"
-    if not packet_path.is_file() or not handoff_path.is_file():
+    if store is None:
+        store = FileStore(root)
+    packet = store.get_packet(packet_id)
+    handoff = store.get_handoff(handoff_id)
+    if packet is None or handoff is None:
         raise HandoffError("packet and handoff files are required")
-    packet = _load_yaml(packet_path)
-    handoff = _load_yaml(handoff_path)
     if handoff.get("packet_id") != packet_id:
         raise HandoffError("handoff packet identity does not match")
     handoff["head_revision"] = head_revision
     handoff["scope_digest"] = scope_digest(packet)
     handoff["changed_resources"] = changed_resources
     handoff["evidence_refs"] = evidence_refs
-    _write(handoff_path, handoff)
+    store.put_handoff(handoff_id, handoff)
     return handoff
-
-
-def _write(path: Path, value: dict[str, Any]) -> None:
-    fd, name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.")
-    try:
-        with os.fdopen(fd, "w", encoding="utf-8") as stream:
-            yaml.safe_dump(value, stream, sort_keys=False)
-            stream.flush()
-            os.fsync(stream.fileno())
-        os.replace(name, path)
-    finally:
-        if os.path.exists(name):
-            os.unlink(name)
 
 
 def main() -> int:

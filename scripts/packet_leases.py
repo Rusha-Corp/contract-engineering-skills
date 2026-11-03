@@ -4,13 +4,18 @@
 from __future__ import annotations
 
 import argparse
-import os
-import tempfile
+import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
 import yaml
+
+_PARENT = Path(__file__).resolve().parent.parent
+if str(_PARENT) not in sys.path:
+    sys.path.insert(0, str(_PARENT))
+
+from scripts.record_store import FileStore, RecordStore
 
 
 class LeaseError(ValueError):
@@ -26,39 +31,19 @@ def _parse(value: str) -> datetime:
 
 
 class LeaseManager:
-    def __init__(self, root: Path | str):
+    def __init__(self, root: Path | str, *, store: RecordStore | None = None):
         self.root = Path(root)
-        self.directory = self.root / "leases"
-
-    def _path(self, packet_id: str) -> Path:
-        return self.directory / f"{packet_id}.yaml"
+        self.store = store or FileStore(self.root)
 
     def _load(self, packet_id: str) -> dict[str, Any] | None:
-        path = self._path(packet_id)
-        if not path.is_file():
-            return None
-        value = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-        if not isinstance(value, dict):
-            raise LeaseError(f"{path}: lease must be a mapping")
-        return value
+        return self.store.get_lease(packet_id)
 
     def _write(self, packet_id: str, lease: dict[str, Any]) -> None:
-        self.directory.mkdir(parents=True, exist_ok=True)
-        path = self._path(packet_id)
         stored = dict(lease)
         token = stored.pop("fencing_token", "")
         if token.startswith("epoch:"):
             stored["fencing_epoch"] = int(token.split(":", 1)[1])
-        fd, name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.")
-        try:
-            with os.fdopen(fd, "w", encoding="utf-8") as stream:
-                yaml.safe_dump(stored, stream, sort_keys=False)
-                stream.flush()
-                os.fsync(stream.fileno())
-            os.replace(name, path)
-        finally:
-            if os.path.exists(name):
-                os.unlink(name)
+        self.store.put_lease(packet_id, stored)
 
     def claim(
         self,

@@ -8,7 +8,6 @@ the same conformance suite.
 """
 from __future__ import annotations
 
-import json
 import os
 import sys
 import tempfile
@@ -355,7 +354,6 @@ class FileStore(RecordStore):
 
         # Search in index rows first, then in shards (active only).
         row: dict[str, Any] | None = None
-        found_in_shard: str | None = None
 
         for r in src_index.get("rows", []):
             if r.get("packet_id") == packet_id:
@@ -371,7 +369,6 @@ class FileStore(RecordStore):
                         row = r
                         shard["rows"].remove(r)
                         self.put_shard(shard_path, shard)
-                        found_in_shard = shard_path
                         break
                 if row is not None:
                     break

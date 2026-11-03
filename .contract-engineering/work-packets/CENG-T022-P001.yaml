@@ -34,6 +34,7 @@ scope:
   - .contract-engineering/tracker/index.yaml
   - .contract-engineering/execution-tracker.md
   - .contract-engineering/handoffs/CENG-T022-P001-HO001.yaml
+  - .gitignore
   out:
   - skills/*/SKILL.md
 state: Implementing

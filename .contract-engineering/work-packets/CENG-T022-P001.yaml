@@ -1,0 +1,99 @@
+packet_id: CENG-T022-P001
+task_id: CENG-T022
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: single-domain
+work_type: feature
+title: Add a storage-independent record store interface with a file backend
+objective: >
+  Define a RecordStore ABC with a FileStore implementation over today's YAML
+  directory layout, migrate every script onto the interface, and add a
+  conformance test suite so a future API backend (Task Master app) is a
+  non-breaking v3.x addition.
+open_questions: []
+scope:
+  in:
+  - scripts/record_store.py
+  - scripts/contract_engineering.py
+  - scripts/finalize_handoff.py
+  - scripts/migrate_records.py
+  - scripts/packet_leases.py
+  - scripts/packet_scope.py
+  - scripts/reconcile_worktrees.py
+  - scripts/render-tracker.py
+  - scripts/tracker_rollover.py
+  - scripts/validate-contract-records.py
+  - scripts/validate-tracker.py
+  - tests/test_record_store.py
+  - tests/test_rollover.py
+  - tests/test_tracker.py
+  - tests/test_worktrees.py
+  - templates/protocol-lock.yaml
+  - .contract-engineering/protocol.lock.yaml
+  - .contract-engineering/work-packets/CENG-T022-P001.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/handoffs/CENG-T022-P001-HO001.yaml
+  out:
+  - skills/*/SKILL.md
+state: Implementing
+owner:
+  identity: Emmanuel
+  identity_type: human
+  authentication_ref: gpg:34049E9E7A00440491D319FFF19051409C4115FB
+  signed_at: '2026-11-03T17:00:00Z'
+implementor:
+  agent_id: factory-droid
+  harness: Factory
+  model: glm-5.2
+  session_id: CENG-T022-P001-record-store-seam
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: low
+approval_policy: automatic
+external_effects: []
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: '2026-11-03T17:00:00Z'
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 3ee30ff
+design_decision_ref: null
+data_gate_ref: null
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+acceptance_criteria:
+- RecordStore ABC defines methods for packets, tracker, events, handoffs, leases, evidence, and snapshots
+- FileStore implements the ABC over the existing YAML directory layout
+- All 10 scripts accept an optional store parameter and fall back to FileStore(root)
+- Lock field project.record_store is present in both template and live lock
+- resolve_record_store constructs a RecordStore from the lock setting
+- Conformance test suite covers stale revision rejection, event idempotency, export/import round trip, missing-directory safety, and atomic tracker row moves
+- Existing tests pass with no new failures
+validation_plan:
+- id: CENG-T022-P001-VAL001
+  kind: type-check
+  skill: phased-engineering-execution
+  checks:
+  - unittest discover passes
+  - validate-contract-records.py passes
+  - validate-tracker.py passes
+  expected: all tests and validators pass with no new failures
+evidence_refs: []
+handoff_ref: CENG-T022-P001-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+updated_at: '2026-11-03'

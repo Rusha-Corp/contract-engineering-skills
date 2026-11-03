@@ -2,7 +2,27 @@
 
 ## Unreleased
 
-## 2.8.0 - 2026-10-21
+## 3.0.0 - 2026-11-03
+
+- Added a storage-independent record store interface (`RecordStore` ABC) with a
+  file backend (`FileStore`). All 10 protocol scripts now accept an optional
+  `store` parameter and fall back to `FileStore(root)`, enabling a future
+  API backend (Task Master app) as a non-breaking v3.x addition.
+- Added a conformance test suite (`RecordStoreConformance` mixin) that any
+  future backend must pass: stale revision rejection, event idempotency,
+  export/import round trip, missing-directory safety, and atomic tracker row
+  moves.
+- Added `project.record_store` lock field (`{backend: file}`) to both the
+  template and live lock, plus `resolve_record_store()` to construct a store
+  from the lock setting.
+- Added `get_event_document()` to the store interface for full event wrapper
+  access, and `move_packet()` for atomic packet partition moves.
+- Restored `schema_version` and `task_id` validation checks in
+  `validate_events` that were lost during the store migration, and fixed
+  `reconcile_worktrees.py` standalone CLI import ordering.
+- Full unittest suite: 167 tests pass.
+
+## 2.8.0 - 2026-11-03
 
 - Require a human-signed owner on every new packet. The `owner` field is now a
   structured object with `identity`, `identity_type` (must be `"human"`),

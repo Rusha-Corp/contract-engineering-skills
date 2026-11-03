@@ -35,9 +35,12 @@ scope:
   - .contract-engineering/execution-tracker.md
   - .contract-engineering/handoffs/CENG-T022-P001-HO001.yaml
   - .gitignore
+  - CHANGELOG.md
+  - .contract-engineering/release-attestation.yaml
+  - .contract-engineering/release-signing-key.asc
   out:
   - skills/*/SKILL.md
-state: Implementing
+state: Complete
 owner:
   identity: Emmanuel
   identity_type: human

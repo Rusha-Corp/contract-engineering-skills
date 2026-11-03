@@ -8,7 +8,7 @@ Canonical state: `tracker/index.yaml` and its declared task shards.
 | CENG-T019 | CENG-T019-P001 | Complete | Emmanuel | user | released |
 | CENG-T020 | CENG-T020-P001 | Handoff | Emmanuel | user | released |
 | CENG-T021 | CENG-T021-P001 | Complete | Emmanuel | user | released |
-| CENG-T022 | CENG-T022-P001 | Implementing | Emmanuel | user | released |
+| CENG-T022 | CENG-T022-P001 | Complete | Emmanuel | user | released |
 | CENG-T015 | CENG-T015-P001 | Complete | droid | user | released |
 | CENG-T015 | CENG-T015-P002 | Complete | droid | user | released |
 | CENG-T015 | CENG-T015-P003 | Complete | droid | user | released |

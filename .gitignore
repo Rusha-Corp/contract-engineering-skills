@@ -25,3 +25,5 @@ service-account*.json
 .worktrees/
 # SDD workspace scratch
 .superpowers/
+# Superpowers planning scratch (specs, plans, reviews)
+docs/superpowers/

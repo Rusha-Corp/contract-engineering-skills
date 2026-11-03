@@ -111,10 +111,15 @@ def apply_rollover(
     for item in plan["moves"]:
         packet_id = item["packet_id"]
         store.move_tracker_row(packet_id, "active", "archive")
-        packet = store.get_packet(packet_id)
-        if packet is not None:
-            store.put_packet(packet_id, packet, partition="archive")
-            store.delete_packet(packet_id)
+        store.move_packet(packet_id, "active", "archive")
+
+    # Keep archive rows sorted by packet_id for deterministic output.
+    archive_index = store.get_tracker_index("archive")
+    if archive_index is not None and archive_index.get("rows"):
+        archive_index["rows"] = sorted(
+            archive_index["rows"], key=lambda r: r.get("packet_id", "")
+        )
+        store.put_tracker_index(archive_index, partition="archive")
 
     if run_validation:
         scripts = Path(__file__).parent

@@ -71,6 +71,12 @@ class RecordStore(ABC):
     def delete_packet(self, packet_id: str, *, partition: str = "active") -> None:
         """Remove a packet from the store.  No-op if it does not exist."""
 
+    @abstractmethod
+    def move_packet(
+        self, packet_id: str, source_partition: str, dest_partition: str
+    ) -> None:
+        """Move a packet between partitions atomically.  Raises if not found."""
+
     # -- tracker -----------------------------------------------------------
 
     @abstractmethod
@@ -301,6 +307,17 @@ class FileStore(RecordStore):
         path = self._packet_path(packet_id, partition)
         if path.is_file():
             path.unlink()
+
+    def move_packet(
+        self, packet_id: str, source_partition: str, dest_partition: str
+    ) -> None:
+        packet = self.get_packet(packet_id, partition=source_partition)
+        if packet is None:
+            raise RecordStoreError(
+                f"packet {packet_id} not found in {source_partition}"
+            )
+        self.put_packet(packet_id, packet, partition=dest_partition)
+        self.delete_packet(packet_id, partition=source_partition)
 
     # -- tracker -----------------------------------------------------------
 

@@ -93,6 +93,19 @@ class FileStoreBasicTests(unittest.TestCase):
         # active should still be empty
         self.assertIsNone(self.store.get_packet("CENG-T013-P004"))
 
+    def test_move_packet_from_active_to_archive(self) -> None:
+        packet = {"packet_id": "CENG-T013-P004", "revision": 0}
+        self.store.put_packet("CENG-T013-P004", packet)
+        self.store.move_packet("CENG-T013-P004", "active", "archive")
+        self.assertIsNone(self.store.get_packet("CENG-T013-P004"))
+        result = self.store.get_packet("CENG-T013-P004", partition="archive")
+        assert result is not None
+        self.assertEqual(result["packet_id"], "CENG-T013-P004")
+
+    def test_move_packet_raises_when_missing(self) -> None:
+        with self.assertRaises(RecordStoreError):
+            self.store.move_packet("CENG-T999-P001", "active", "archive")
+
 
 class FileStoreExtendedTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -420,6 +433,12 @@ class FileStoreConformanceTests(unittest.TestCase):
         self.store.move_tracker_row("CENG-T001-P001", "active", "archive")
         self.assertEqual(len(self.store.get_tracker_rows("active")), 0)
         self.assertEqual(len(self.store.get_tracker_rows("archive")), 1)
+
+    def test_move_packet(self) -> None:
+        self.store.put_packet("CENG-T001-P001", {"packet_id": "CENG-T001-P001", "revision": 0})
+        self.store.move_packet("CENG-T001-P001", "active", "archive")
+        self.assertIsNone(self.store.get_packet("CENG-T001-P001"))
+        assert self.store.get_packet("CENG-T001-P001", partition="archive") is not None
 
     def test_export_import_round_trip(self) -> None:
         self.store.put_packet("CENG-T001-P001", {"packet_id": "CENG-T001-P001", "revision": 0})

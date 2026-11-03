@@ -119,6 +119,44 @@ class TrackerRolloverTests(unittest.TestCase):
         finally:
             directory.cleanup()
 
+    def test_confirmed_rollover_sorts_archive_rows_by_packet_id(self):
+        directory = tempfile.TemporaryDirectory()
+        root = Path(directory.name) / ".contract-engineering"
+        try:
+            # Active has one row to roll over.
+            write_yaml(
+                root / "tracker/index.yaml",
+                {
+                    "tracker_schema_version": 1,
+                    "partition": "active",
+                    "max_rows": 25,
+                    "shards": [],
+                    "rows": [row("CENG-T015-P003")],
+                },
+            )
+            # Archive already has rows that should sort AFTER the new one.
+            write_yaml(
+                root / "tracker/archive/index.yaml",
+                {
+                    "tracker_schema_version": 1,
+                    "partition": "archive",
+                    "max_rows": 50,
+                    "rows": [row("CENG-T015-P007"), row("CENG-T015-P010")],
+                },
+            )
+            write_yaml(
+                root / "work-packets/CENG-T015-P003.yaml",
+                packet("CENG-T015-P003"),
+            )
+            apply_rollover(root, confirm=True)
+            archive = yaml.safe_load(
+                (root / "tracker/archive/index.yaml").read_text()
+            )
+            ids = [r["packet_id"] for r in archive["rows"]]
+            self.assertEqual(ids, sorted(ids))
+        finally:
+            directory.cleanup()
+
     def test_terminal_row_with_active_packet_blocks_without_mutation(self):
         directory, root = self.make_root([row("CENG-T015-P006", "Complete")])
         try:

@@ -107,46 +107,14 @@ def apply_rollover(
     if not plan["moves"]:
         return plan
 
-    index = store.get_tracker_index()
-    archive = store.get_tracker_index(partition="archive") or {
-        "tracker_schema_version": 1,
-        "partition": "archive",
-        "max_rows": 50,
-        "rows": [],
-        "shards": [],
-    }
-    source_documents: dict[str, dict[str, Any]] = {"tracker/index.yaml": index}
-    for relative in index.get("shards", []):
-        source_documents[relative] = store.get_shard(relative)
-
-    move_ids = {item["packet_id"] for item in plan["moves"]}
-    for rel, document in source_documents.items():
-        document["rows"] = [
-            row for row in document.get("rows", []) if row.get("packet_id") not in move_ids
-        ]
-    archive["rows"] = list(archive.get("rows", [])) + [
-        item["row"] for item in plan["moves"]
-    ]
-    archive["rows"] = sorted(archive["rows"], key=lambda row: row["packet_id"])
-
-    for rel, document in source_documents.items():
-        if rel == "tracker/index.yaml":
-            store.put_tracker_index(document)
-        else:
-            store.put_shard(rel, document)
-    store.put_tracker_index(archive, partition="archive")
-
-    # Move packet YAML files from active to archive partition.
-    archive_dir = protocol_root / "archive/work-packets"
-    archive_dir.mkdir(parents=True, exist_ok=True)
+    # Move tracker rows and packet files from active to archive via the store.
     for item in plan["moves"]:
-        packet = store.get_packet(item["packet_id"])
+        packet_id = item["packet_id"]
+        store.move_tracker_row(packet_id, "active", "archive")
+        packet = store.get_packet(packet_id)
         if packet is not None:
-            store.put_packet(item["packet_id"], packet, partition="archive")
-            # Remove from active by deleting the file.
-            active_path = protocol_root / "work-packets" / f"{item['packet_id']}.yaml"
-            if active_path.exists():
-                active_path.unlink()
+            store.put_packet(packet_id, packet, partition="archive")
+            store.delete_packet(packet_id)
 
     if run_validation:
         scripts = Path(__file__).parent
@@ -158,7 +126,7 @@ def apply_rollover(
             [sys.executable, str(scripts / "validate-tracker.py"), "--root", str(protocol_root)],
             check=True,
         )
-    plan["moved"] = sorted(move_ids)
+    plan["moved"] = sorted(item["packet_id"] for item in plan["moves"])
     return plan
 
 

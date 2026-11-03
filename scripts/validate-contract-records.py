@@ -152,12 +152,19 @@ def resolve_protocol_root(
     return root if root.is_absolute() else project / root
 
 
-def _validate_records(root: Path, packet_path: Path | None, changed_paths: list[str]) -> None:
+def _validate_records(
+    root: Path,
+    packet_path: Path | None,
+    changed_paths: list[str],
+    *,
+    store: FileStore | None = None,
+) -> None:
     if not root.is_dir():
         fail(f"protocol root does not exist: {root}")
     configure_resource_limits()
 
-    store = FileStore(root)
+    if store is None:
+        store = FileStore(root)
     live_packets = store.list_packets("active")
     archive_packets = store.list_packets("archive")
     cross_dup = set(live_packets) & set(archive_packets)
@@ -177,7 +184,7 @@ def _validate_records(root: Path, packet_path: Path | None, changed_paths: list[
     validate_tracker(root, live_packets, archive_packets)
     validate_dependency_graph(packets)
     validate_locks(packets)
-    validate_references(root, packets)
+    validate_references(root, packets, store=store)
     validate_planning_records(root, packets)
     if packet_path:
         packet = packets.get(packet_path.stem)
@@ -318,6 +325,7 @@ def run_validation(
     environment: dict[str, str] | None = None,
     packet_path: Path | None = None,
     changed_paths: list[str] | None = None,
+    store: FileStore | None = None,
 ) -> ValidationResult:
     """Run local validation in explicit off, advisory, or enforced mode."""
 
@@ -331,7 +339,7 @@ def run_validation(
         project_dir, explicit_root=explicit_root, environment=environment
     )
     try:
-        _validate_records(root, packet_path, changed_paths or [])
+        _validate_records(root, packet_path, changed_paths or [], store=store)
     except ValueError as exc:
         if selected == "enforced":
             raise
@@ -990,23 +998,29 @@ def validate_dependency_graph(packets: dict[str, dict[str, Any]]) -> None:
         visit(packet_id)
 
 
-def validate_references(root: Path, packets: dict[str, dict[str, Any]]) -> None:
+def validate_references(
+    root: Path,
+    packets: dict[str, dict[str, Any]],
+    *,
+    store: FileStore | None = None,
+) -> None:
+    if store is None:
+        store = FileStore(root)
     handoffs_dir = root / "handoffs"
     evidence_dir = root / "evidence"
     for packet_id, packet in packets.items():
         for evidence_ref in packet.get("evidence_refs", []):
-            path = evidence_dir / f"{evidence_ref}.md"
-            if not path.is_file():
+            if not store.evidence_exists(evidence_ref):
                 fail(f"{packet_id}: missing evidence {evidence_ref}")
         handoff_ref = packet.get("handoff_ref")
-        if handoff_ref and not (handoffs_dir / f"{handoff_ref}.yaml").is_file():
+        if handoff_ref and store.get_handoff(handoff_ref) is None:
             fail(f"{packet_id}: missing handoff {handoff_ref}")
-    for path in sorted(handoffs_dir.glob("*.yaml")):
-        handoff = load_yaml(path)
+    for handoff_id, handoff in store.list_handoffs().items():
+        path = handoffs_dir / f"{handoff_id}.yaml"
         required = {"handoff_id", "packet_id", "sender", "receiver", "receiver_status"}
         if not isinstance(handoff, dict) or not required <= handoff.keys():
             fail(f"{path}: incomplete handoff")
-        if handoff["handoff_id"] != path.stem:
+        if handoff.get("handoff_id") != handoff_id:
             fail(f"{path}: handoff_id does not match filename")
         if handoff["packet_id"] not in packets:
             fail(f"{path}: unknown packet reference")

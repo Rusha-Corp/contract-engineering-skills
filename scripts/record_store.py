@@ -68,6 +68,10 @@ class RecordStore(ABC):
     def list_packets(self, partition: str = "active") -> dict[str, dict[str, Any]]:
         """Return ``{packet_id: record}`` for every packet in the partition."""
 
+    @abstractmethod
+    def delete_packet(self, packet_id: str, *, partition: str = "active") -> None:
+        """Remove a packet from the store.  No-op if it does not exist."""
+
     # -- tracker -----------------------------------------------------------
 
     @abstractmethod
@@ -289,6 +293,11 @@ class FileStore(RecordStore):
             pid = record.get("packet_id", path.stem)
             result[pid] = record
         return result
+
+    def delete_packet(self, packet_id: str, *, partition: str = "active") -> None:
+        path = self._packet_path(packet_id, partition)
+        if path.is_file():
+            path.unlink()
 
     # -- tracker -----------------------------------------------------------
 

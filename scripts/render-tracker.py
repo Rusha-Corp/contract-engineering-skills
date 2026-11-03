@@ -31,13 +31,6 @@ ARCHIVE_HEAD = (
 )
 
 
-def load(path: Path) -> dict[str, Any]:
-    value = yaml.safe_load(path.read_text())
-    if not isinstance(value, dict):
-        raise ValueError(f"{path}: expected a YAML mapping")
-    return value
-
-
 def rows_for(root: Path, relative: str, *, store: RecordStore | None = None) -> list[dict[str, Any]]:
     if store is None:
         store = FileStore(root)

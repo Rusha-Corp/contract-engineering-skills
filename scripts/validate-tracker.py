@@ -72,18 +72,6 @@ def fail(message: str) -> None:
     raise SystemExit(f"tracker validation failed: {message}")
 
 
-def load(path: Path) -> dict[str, Any]:
-    if not path.is_file():
-        fail(f"missing {path}")
-    try:
-        value = yaml.safe_load(path.read_text())
-    except yaml.YAMLError as exc:
-        fail(f"{path}: invalid YAML ({exc})")
-    if not isinstance(value, dict):
-        fail(f"{path}: expected a YAML mapping")
-    return value
-
-
 def validate_row(
     row: Any,
     source: Path,

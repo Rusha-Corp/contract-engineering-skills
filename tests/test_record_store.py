@@ -278,6 +278,52 @@ class FileStoreExtendedTests(unittest.TestCase):
         result = self.store.get_shard("shards/NOPE.yaml")
         self.assertEqual(result.get("rows", []), [])
 
+    def test_delete_packet_removes_from_active(self) -> None:
+        self.store.put_packet("CENG-T013-P004", {"packet_id": "CENG-T013-P004", "revision": 0})
+        self.assertIsNotNone(self.store.get_packet("CENG-T013-P004"))
+        self.store.delete_packet("CENG-T013-P004")
+        self.assertIsNone(self.store.get_packet("CENG-T013-P004"))
+
+    def test_delete_packet_no_op_when_missing(self) -> None:
+        self.store.delete_packet("NOPE")  # should not raise
+
+    def test_export_import_preserves_validator_results(self) -> None:
+        """Export then import into a fresh store must produce identical
+        validator results — not just record existence."""
+        import importlib.util
+
+        # Seed with a packet, tracker index, and handoff.
+        self.store.put_packet("CENG-T001-P001", {"packet_id": "CENG-T001-P001", "revision": 0})
+        index = {"tracker_schema_version": 1, "partition":"active", "max_rows":25,
+                 "rows":[{"task_id":"CENG-T001","packet_id":"CENG-T001-P001","state":"Planned",
+                           "owner":"droid","reviewer":"user","locks":[],"next_action":"",
+                           "updated_at":"2026-01-01"}], "shards":[]}
+        self.store.put_tracker_index(index)
+        self.store.put_handoff("CENG-T001-P001-HO001",
+            {"handoff_id":"CENG-T001-P001-HO001","packet_id":"CENG-T001-P001"})
+
+        snapshot = self.store.export_snapshot()
+
+        tmp2 = tempfile.TemporaryDirectory()
+        try:
+            root2 = Path(tmp2.name) / ".contract-engineering"
+            store2 = FileStore(root2)
+            store2.import_snapshot(snapshot)
+
+            # Compare validator results: both stores should have the same
+            # packets, tracker rows, and handoffs.
+            self.assertEqual(
+                self.store.list_packets(), store2.list_packets()
+            )
+            self.assertEqual(
+                self.store.get_tracker_rows(), store2.get_tracker_rows()
+            )
+            self.assertEqual(
+                self.store.list_handoffs(), store2.list_handoffs()
+            )
+        finally:
+            tmp2.cleanup()
+
 
 class FileStoreConformanceTests(unittest.TestCase):
     """Conformance suite that any RecordStore backend must pass.

@@ -7,12 +7,17 @@ import argparse
 import json
 import re
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any, Iterable
 
 from scripts.record_store import FileStore, RecordStore
 
 PACKET_ID = re.compile(r"(?P<packet>[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*-P[0-9]{3})")
+
+_PARENT = Path(__file__).resolve().parent.parent
+if str(_PARENT) not in sys.path:
+    sys.path.insert(0, str(_PARENT))
 
 
 def parse_worktrees(text: str) -> list[dict[str, Any]]:

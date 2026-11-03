@@ -7,7 +7,7 @@ import unittest
 from pathlib import Path
 from typing import Any, Callable
 
-from scripts.record_store import FileStore, RecordStore, RecordStoreError
+from scripts.record_store import FileStore, RecordStore, RecordStoreError, resolve_record_store
 
 
 class FileStoreBasicTests(unittest.TestCase):
@@ -364,6 +364,54 @@ class FileStoreConformanceTests(unittest.TestCase):
         self.assertEqual(self.store.get_tracker_rows(), [])
         self.assertEqual(self.store.list_events("NOPE"), [])
         self.assertEqual(self.store.list_packets(), {})
+
+
+class ResolveRecordStoreTests(unittest.TestCase):
+    def test_file_backend_from_lock(self) -> None:
+        tmp = tempfile.TemporaryDirectory()
+        try:
+            project_dir = Path(tmp.name)
+            protocol_root = project_dir / ".contract-engineering"
+            protocol_root.mkdir()
+            lock = {
+                "project": {
+                    "protocol_root": ".contract-engineering",
+                    "record_store": {"backend": "file"},
+                }
+            }
+            store = resolve_record_store(lock, project_dir)
+            self.assertIsInstance(store, FileStore)
+            self.assertEqual(store.root, protocol_root)
+        finally:
+            tmp.cleanup()
+
+    def test_defaults_to_file_when_record_store_absent(self) -> None:
+        tmp = tempfile.TemporaryDirectory()
+        try:
+            project_dir = Path(tmp.name)
+            protocol_root = project_dir / ".contract-engineering"
+            protocol_root.mkdir()
+            lock = {"project": {"protocol_root": ".contract-engineering"}}
+            store = resolve_record_store(lock, project_dir)
+            self.assertIsInstance(store, FileStore)
+        finally:
+            tmp.cleanup()
+
+    def test_unsupported_backend_raises(self) -> None:
+        lock = {"project": {"record_store": {"backend": "api"}}}
+        with self.assertRaises(RecordStoreError):
+            resolve_record_store(lock, Path("."))
+
+    def test_absolute_protocol_root_preserved(self) -> None:
+        tmp = tempfile.TemporaryDirectory()
+        try:
+            abs_root = Path(tmp.name) / "ce"
+            abs_root.mkdir()
+            lock = {"project": {"protocol_root": str(abs_root)}}
+            store = resolve_record_store(lock, Path("."))
+            self.assertEqual(store.root, abs_root)
+        finally:
+            tmp.cleanup()
 
 
 if __name__ == "__main__":

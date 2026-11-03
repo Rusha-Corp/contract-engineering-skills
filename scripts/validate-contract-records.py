@@ -21,6 +21,11 @@ from typing import Any
 import yaml
 import jsonschema
 from referencing import Registry, Resource
+
+_PARENT = Path(__file__).resolve().parent.parent
+if str(_PARENT) not in sys.path:
+    sys.path.insert(0, str(_PARENT))
+
 from scripts.record_store import FileStore
 from yaml.events import (
     AliasEvent,

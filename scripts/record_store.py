@@ -10,9 +10,15 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import tempfile
 from abc import ABC, abstractmethod
 from pathlib import Path
+
+# Ensure the scripts package is importable when run as a standalone script.
+_PARENT = Path(__file__).resolve().parent.parent
+if str(_PARENT) not in sys.path:
+    sys.path.insert(0, str(_PARENT))
 from typing import Any
 
 import yaml

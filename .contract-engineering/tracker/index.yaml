@@ -55,3 +55,11 @@ rows:
   locks: []
   next_action: Signed republication as v3.0.1 with key rotation and pre-push guard
   updated_at: '2026-11-05'
+- task_id: CENG-T025
+  packet_id: CENG-T025-P001
+  state: Claimed
+  owner: Emmanuel
+  reviewer: user
+  locks: []
+  next_action: Fix records scope gate false positives and gitleaks fingerprint allowlist
+  updated_at: '2026-11-05'

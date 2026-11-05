@@ -1,4 +1,4 @@
-attestation_version: 1
+attestation_version: 2
 attestation_id: CENG-T024-P006-ATT001
 issued_at: '2026-11-05T11:30:00Z'
 expires_at: '2028-11-04T00:00:00Z'
@@ -55,7 +55,6 @@ verification:
   verified_at: '2026-11-05T11:30:00Z'
   verifier: droid
   result: pass
-  transparency_ref: PENDING_HOSTED_VALIDATION
   revocation_checked_at: '2026-11-05T11:30:00Z'
 revocation:
   status: active

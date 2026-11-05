@@ -46,7 +46,7 @@ scope:
   out:
   - skills/*/SKILL.md
   - .github/workflows/*
-state: Claimed
+state: Handoff
 owner:
   identity: Emmanuel
   identity_type: human
@@ -104,8 +104,9 @@ validation_plan:
   - scope-gate replay of the packet diff passes
   - verify_release_tag.py --tag v3.1.0 regression passes
   expected: all tests and validators pass with no new failures
-evidence_refs: []
-handoff_ref: null
+evidence_refs:
+- CENG-T026-P001-EV001
+handoff_ref: CENG-T026-P001-HO001
 skill_gaps: []
 cleanup_scope:
   dead_refs: []

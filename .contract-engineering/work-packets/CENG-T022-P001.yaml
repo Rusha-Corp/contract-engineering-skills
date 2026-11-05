@@ -3,7 +3,7 @@ task_id: CENG-T022
 phase: P1_IMPLEMENTATION
 domain: coding
 packet_class: single-domain
-work_type: feature
+work_type: delivery
 title: Add a storage-independent record store interface with a file backend
 objective: >
   Define a RecordStore ABC with a FileStore implementation over today's YAML
@@ -65,7 +65,7 @@ locks: []
 claim_timestamp: '2026-11-03T17:00:00Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
-- 3ee30ff
+- 3ee30ff384bda0d7e000a4a86e94892930ea7e43
 design_decision_ref: null
 data_gate_ref: null
 trust_boundary_ref: null

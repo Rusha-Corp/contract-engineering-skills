@@ -1,0 +1,35 @@
+decision_version: 1
+decision_id: CENG-T023-P001-DEC002
+packet_id: CENG-T023-P001
+status: approved
+title: "Mark v3.0.0 as an incomplete publication"
+proposal: >
+  v3.0.0 was published with an unsigned annotated tag and no matching GitHub
+  Release. The stable release gate failed. Mark v3.0.0 as an incomplete
+  publication that must not be used in consumer locks. Republish the same
+  content as v3.0.1 with a signed tag and GitHub Release.
+alternatives_considered:
+  - "Force-push a signed v3.0.0 tag to replace the unsigned one."
+  - "Leave v3.0.0 as-is and tell consumers to verify manually."
+decision: >
+  Retain the v3.0.0 tag for the audit trail but mark it as incomplete.
+  Consumers must not update their lock to v3.0.0. Publish v3.0.1 as the first
+  signed stable release of the record store seam. The v3.0.0 content commit
+  (40cf8ce) is the direct parent of the v3.0.1 content commit, so the diff is
+  limited to the release remediation changes.
+scope:
+  - "CHANGELOG.md"
+  - "v3.0.1 release publication"
+controls:
+  - "The v3.0.0 tag is not deleted; it remains in history for audit."
+  - "Consumer locks must reference v3.0.1, not v3.0.0."
+  - "The v3.0.1 attestation and lock replace the v3.0.0 ones."
+approved_by: user
+approved_at: "2026-11-05T12:00:00Z"
+expires_at: ""
+success_measure: >
+  v3.0.1 is a complete stable release (signed tag + GitHub Release + verified
+  attestation) and no consumer lock references v3.0.0.
+rollback_ref: "92054ab"
+review_owner: user
+review_at: "2026-11-05T12:00:00Z"

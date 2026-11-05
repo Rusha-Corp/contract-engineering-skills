@@ -1,0 +1,109 @@
+packet_id: CENG-T023-P001
+task_id: CENG-T023
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: single-domain
+work_type: delivery
+priority: critical
+
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: ".worktrees/CENG-T023-P001"
+  branch: "agent/CENG-T023-P001"
+  base_revision: "92054ab3559657f02d6a98e2d4451387db027f66"
+  head_revision: "5a5084ee42a2715772fefbdaae5ca4afadcb7dad"
+  cleanup_status: active
+title: "Signed republication of v3.0.0 as v3.0.1 with key rotation and pre-push guard"
+objective: >
+  v3.0.0 was published with an unsigned tag and no GitHub Release, so the
+  stable release gate failed and consumers cannot adopt v3. This packet
+  rotates the publisher GPG key, adds a pre-push signature guard, fixes the
+  records CI failure, and republishes the v3.0.0 content as signed v3.0.1.
+open_questions: []
+scope:
+  in:
+  - scripts/verify_release_tag.py
+  - tests/test_release_tag.py
+  - .githooks/pre-push
+  - .github/workflows/protocol-validation.yml
+  - .contract-engineering/release-signing-key.asc
+  - .contract-engineering/release-attestation.yaml
+  - .contract-engineering/protocol.lock.yaml
+  - .contract-engineering/work-packets/CENG-T023-P001.yaml
+  - .contract-engineering/decisions/CENG-T023-P001-DEC001.yaml
+  - .contract-engineering/decisions/CENG-T023-P001-DEC002.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/handoffs/CENG-T023-P001-HO001.yaml
+  - .contract-engineering/handoffs/CENG-T022-P001-HO001.yaml
+  - .contract-engineering/work-packets/CENG-T022-P001.yaml
+  - docs/release-integrity.md
+  - CONTRIBUTING.md
+  - CHANGELOG.md
+  out:
+  - skills/*/SKILL.md
+state: Claimed
+owner:
+  identity: Emmanuel
+  identity_type: human
+  authentication_ref: "gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996"
+  signed_at: "2026-11-05T12:00:00Z"
+implementor:
+  agent_id: factory-droid
+  harness: Factory
+  model: glm-5.2
+  session_id: CENG-T023-P001-signed-republication
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: low
+approval_policy: user
+external_effects: []
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: "2026-11-05T12:00:00Z"
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 92054ab3559657f02d6a98e2d4451387db027f66
+design_decision_ref: CENG-T023-P001-DEC001
+data_gate_ref: null
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+acceptance_criteria:
+- v3.0.0 tag is recorded as an incomplete publication and must not be used in locks
+- v3.0.1 has a signed annotated tag with exactly one valid GPG signature matching the new publisher key
+- The stable release gate passes for v3.0.1 in CI
+- A non-draft GitHub Release exists for v3.0.1
+- scripts/verify_release_tag.py validates tag signature, publisher key match, release name, commit relationship, and artifact hashes
+- The pre-push git hook blocks unsigned or mismatched stable release tags before push
+- The records CI job passes on main (work_type schema violation fixed)
+- All existing tests continue to pass
+validation_plan:
+- id: CENG-T023-P001-VAL001
+  kind: type-check
+  skill: phased-engineering-execution
+  checks:
+  - unittest discover passes
+  - validate-contract-records.py passes
+  - validate-tracker.py passes
+  - verify_release_tag.py passes locally for v3.0.1
+  expected: all tests and validators pass with no new failures
+evidence_refs: []
+handoff_ref: null
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+updated_at: "2026-11-05"

@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+## 3.0.1 - 2026-11-05
+
+- Signed republication of v3.0.0, which was published with an unsigned tag and
+  no GitHub Release. v3.0.0 is marked as an incomplete publication; consumers
+  must not update their lock to it.
+- Rotated the publisher GPG key from `34049E9E…4115FB` (not available on the
+  release machine) to `038022B4…C3BC996` (ed25519, expires 2028-11-04). Both
+  public keys are retained in `release-signing-key.asc` so older signed tags
+  still verify.
+- Added `scripts/verify_release_tag.py`, extracting the stable-release-gate
+  logic from the inline workflow Python into a reusable, tested script. Both
+  CI and the local pre-push hook call it.
+- Added `.githooks/pre-push`, a local guard that blocks unsigned or mismatched
+  stable release tags before push. Install with
+  `git config --local core.hooksPath .githooks`.
+- Fixed the records CI failure: `CENG-T022-P001` used `work_type: feature`,
+  which is not in the schema enum. Corrected to `delivery`.
+- Documented the pre-push guard in `docs/release-integrity.md` and
+  `CONTRIBUTING.md`.
+
 ## 3.0.0 - 2026-11-03
 
 - Added a storage-independent record store interface (`RecordStore` ABC) with a

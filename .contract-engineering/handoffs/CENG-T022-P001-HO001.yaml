@@ -1,0 +1,65 @@
+handoff_id: CENG-T022-P001-HO001
+packet_id: CENG-T022-P001
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: session:CENG-T022-P001-record-store-seam
+  signature_ref: ""
+receiver:
+  identity: Emmanuel
+  identity_type: human
+  authenticated: true
+  authentication_ref: gpg:34049E9E7A00440491D319FFF19051409C4115FB
+  accepted_at: '2026-11-03T18:00:00Z'
+  acceptance_ref: USER-APPROVAL-v3.0.0
+summary: >
+  Added a storage-independent RecordStore ABC with a FileStore backend,
+  migrated all 10 protocol scripts onto the interface, and added a
+  conformance test suite. Released as v3.0.0 (subsequently found unsigned;
+  republished as v3.0.1 by CENG-T023-P001).
+changed_resources:
+  - path: scripts/record_store.py
+    change: 'New RecordStore ABC with FileStore backend'
+  - path: scripts/contract_engineering.py
+    change: 'Migrated to accept optional store parameter'
+  - path: scripts/finalize_handoff.py
+    change: 'Migrated to accept optional store parameter'
+  - path: scripts/migrate_records.py
+    change: 'Migrated to accept optional store parameter'
+  - path: scripts/packet_leases.py
+    change: 'Migrated to accept optional store parameter'
+  - path: scripts/packet_scope.py
+    change: 'Migrated to accept optional store parameter'
+  - path: scripts/reconcile_worktrees.py
+    change: 'Migrated to accept optional store parameter'
+  - path: scripts/render-tracker.py
+    change: 'Migrated to accept optional store parameter'
+  - path: scripts/tracker_rollover.py
+    change: 'Migrated to accept optional store parameter'
+  - path: scripts/validate-contract-records.py
+    change: 'Migrated to accept optional store parameter'
+  - path: scripts/validate-tracker.py
+    change: 'Migrated to accept optional store parameter'
+  - path: tests/test_record_store.py
+    change: 'New conformance test suite'
+  - path: tests/test_rollover.py
+    change: 'Updated for store interface'
+  - path: templates/protocol-lock.yaml
+    change: 'Added project.record_store field'
+  - path: .contract-engineering/protocol.lock.yaml
+    change: 'Added project.record_store field'
+validation_results:
+  - "unittest discover: 167 tests pass"
+  - "validate-contract-records.py: pass"
+  - "validate-tracker.py: pass"
+evidence_refs: []
+unresolved_items:
+  - "v3.0.0 tag was published unsigned; v3.0.1 (CENG-T023-P001) republishes with a signed tag"
+rollback_notes:
+  - "Revert to v2.8.0 lock and skill installation"
+requested_next_action: >
+  Accepted and released as v3.0.0. The unsigned tag issue is remediated
+  by CENG-T023-P001 (v3.0.1 signed republication).
+receiver_status: accepted
+receiver_notes: "User accepted the handoff and released as v3.0.0 on 2026-11-03."

@@ -99,6 +99,26 @@ main-branch validation and the stable-release-gate both trigger from the same
 push, and the stable-release-gate verifies the attestation that arrived with
 it. No window exists where unattested content is public.
 
+### Local pre-push signature guard
+
+The stable-release-gate runs only after a tag is pushed. To catch an
+unsigned or mismatched tag before it reaches the remote, install the
+repository's pre-push hook:
+
+```bash
+git config --local core.hooksPath .githooks
+```
+
+The hook (`.githooks/pre-push`) runs `scripts/verify_release_tag.py` for any
+stable `v*` tag being pushed (tags without a hyphen). Development tags are
+skipped. The script performs the same checks as the CI gate: tag signature
+verification, publisher key match, release name, commit relationship, and
+artifact hash verification. If the check fails, the push is blocked.
+
+`scripts/verify_release_tag.py` is the single source of truth for the gate
+logic. Both the CI workflow (`protocol-validation.yml`) and the local hook
+call it, so a local pass and a CI pass use identical checks.
+
 ## Verification
 
 A consumer verifies, in order:

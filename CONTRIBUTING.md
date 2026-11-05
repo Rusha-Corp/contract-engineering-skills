@@ -26,6 +26,16 @@ Release both exist, and the published artifacts resolve to that same release
 commit. A tag-only or Release-only version is incomplete and must not be
 described as released.
 
+Install the local pre-push guard before publishing a release tag:
+
+```bash
+git config --local core.hooksPath .githooks
+```
+
+The hook runs `scripts/verify_release_tag.py` for any stable `v*` tag and
+blocks the push if the tag is unsigned or does not match the release
+attestation. This catches signing failures before they reach CI.
+
 Adapters, tools, MCP servers, plugins, and external dependencies require an
 inventory from `templates/adapter-inventory.yaml`, explicit capabilities and
 endpoint allowlists, provenance, vulnerability/license checks, compatibility

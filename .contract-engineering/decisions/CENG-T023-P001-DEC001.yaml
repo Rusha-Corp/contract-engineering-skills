@@ -1,0 +1,38 @@
+decision_version: 1
+decision_id: CENG-T023-P001-DEC001
+packet_id: CENG-T023-P001
+status: approved
+title: "Rotate publisher GPG key from 34049E9E to 038022B4"
+proposal: >
+  The v3.0.0 publisher key (fingerprint 34049E9E7A00440491D319FFF19051409C4115FB)
+  is not available on the release machine. Rotate to a new ed25519 key
+  (fingerprint 038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996) generated on this
+  machine. The old key is not known to be compromised.
+alternatives_considered:
+  - "Restore the old key from backup or hardware token."
+  - "Continue publishing unsigned tags and weaken the stable release gate."
+  - "Switch to SSH-based signing and rewrite the gate."
+decision: >
+  Generate a new ed25519 GPG key on the release machine, append its public key
+  to release-signing-key.asc alongside the old key (so older signed tags still
+  verify), update the attestation publisher.authentication_ref and
+  signature_ref to the new fingerprint, and publish v3.0.1 with the new key.
+  The old key is retained for verification of v2.7.2 and v2.8.0.
+scope:
+  - ".contract-engineering/release-signing-key.asc"
+  - ".contract-engineering/release-attestation.yaml"
+  - "v3.0.1 release publication"
+controls:
+  - "The old key is not known to be compromised, so v2.7.2 and v2.8.0 remain valid."
+  - "Both public keys are present in release-signing-key.asc so CI can verify all signed tags."
+  - "The attestation references the new fingerprint as authentication_ref."
+  - "The new key expires 2028-11-04."
+approved_by: user
+approved_at: "2026-11-05T12:00:00Z"
+expires_at: ""
+success_measure: >
+  v3.0.1 has exactly one valid GPG signature from 038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996,
+  and v2.7.2 and v2.8.0 still verify with the old key.
+rollback_ref: "92054ab"
+review_owner: user
+review_at: "2026-11-05T12:00:00Z"

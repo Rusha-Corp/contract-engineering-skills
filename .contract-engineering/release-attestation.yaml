@@ -1,18 +1,18 @@
 attestation_version: 1
-attestation_id: CENG-T022-P002-ATT001
-issued_at: '2026-11-03T18:00:00Z'
-expires_at: '2027-11-03T18:00:00Z'
+attestation_id: CENG-T023-P001-ATT001
+issued_at: '2026-11-05T12:30:00Z'
+expires_at: '2027-11-05T12:30:00Z'
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: 40cf8ce321a4c69c9bed067ee771932fa934b202
-  release: 3.0.0
+  commit: 4079df4eb9d98971d0241ccba64eb10e89698817
+  release: 3.0.1
   artifacts:
   - path: CHANGELOG.md
-    sha256: 382dba7f70e10899f9d1dc01185fca675d99e879de9c728fb56b4a0841cdd57b
+    sha256: 35d4609d4c461f47ebac83328554bc6745783e53fab29d3f68aaa6a3b199f596
   - path: README.md
     sha256: 3f3aa16232590c2fe53a4ace61ecc9930888b1b443ecceaa40df3f6e60c1805c
   - path: docs/release-integrity.md
-    sha256: 75c1ae9df34538d3cb1d0e1be91fc49cd30878abe950ae42800b884d08197e8f
+    sha256: f55d524a23e2197faa63defbf08d189965aec5b21bc0c06a29b3d573413e374f
   - path: docs/protocol-configuration.md
     sha256: b5906a3ba21ec1e338e64e4c833b49ed9e050b7654df8813112e69919aa1b35b
   - path: docs/repository-development.md
@@ -58,7 +58,7 @@ subject:
   - path: docs/visual-identity.md
     sha256: fa438fc4e3da37d0a916bbf29949d2437617a9376a09ad57bbbefc18f0582523
   - path: requirements-ci.txt
-    sha256: 5263f5e1125c23298cd8559ff816708bdebb4ae9cb337d4dd47cc7455c69af7a
+    sha256: cf4f654904e61bfa63f4efa3eaa035f3b63d02228ef24c5858eb3ab5655eb0ae
   - path: schemas/work-packet.schema.json
     sha256: 010c9cc6cb2157688951a00dd968b0daf346a9dcec8f86f4603b93693f98299b
   - path: schemas/tracker.schema.json
@@ -85,6 +85,22 @@ subject:
     sha256: be99a3487867b775ad1798953ca3ff8a36d96d044b754ca9d5f4942ce3bbdcf1
   - path: scripts/validate-svg-assets.py
     sha256: deb75910df4b89abb4538e15682c24e52f922c9da6b4203fb83b8d884ee92962
+  - path: scripts/verify_release_tag.py
+    sha256: 1710b20a5001d56be3ea301b335cb8b78ba11220a5a6560624aea66cfe55dfc4
+  - path: scripts/record_store.py
+    sha256: beea3f9202fc9cd71021d9f923e44ab07fc3e9f8a6ca206202e44469f3af5c98
+  - path: scripts/finalize_handoff.py
+    sha256: 3a4cf60f33411ca4628be662f32ee4a984119ef06e204c70942f669fcf02f0ce
+  - path: scripts/migrate_records.py
+    sha256: cb8de651f0ae2e2da1c1405d46482ad99d279e1fe1d52002943d91da7b3c9e2b
+  - path: scripts/packet_leases.py
+    sha256: f0bfd0c1b299533d9197666f88fa52532705c7c6b6e279bf45fcadf62cb4abd0
+  - path: scripts/packet_scope.py
+    sha256: 1889f6b135493b51591dcb1719b7c104e23333177e8a6ddc4e640f85b9fed100
+  - path: scripts/reconcile_worktrees.py
+    sha256: f1a73ed6bca2e34ab19e489611846578a9d7f462765b6f5a4719913c51bca78c
+  - path: scripts/tracker_rollover.py
+    sha256: b36ad67b1cf23b04fc50bc00da4171e587fb8e6cf2d2c65f891b089545abc4b2
   - path: skills/phased-engineering-execution/SKILL.md
     sha256: f4ee096ef75ec38f06e10379d0f90366713dae21c8d6ab3c6c866de29bfdf995
   - path: skills/cleanup-protocol/SKILL.md
@@ -148,17 +164,19 @@ subject:
   - path: droids/contract-driven-handoff-acceptance-reviewer.md
     sha256: 4bcfc7769f6ae0b9b1f3c18b77021938ab3e1efb25d9b3ca1dac37c827875971
   - path: .github/workflows/protocol-validation.yml
-    sha256: eafbbe4ba86652d97a5689e4ae7b0f4d7f9a5d7b3d416d6bf3900bc8fa0cc5e4
+    sha256: dc141a52bc5e02fab09f4a8e54b16bd58df952b74eb9df4f6401569ad082a9e7
   - path: .github/workflows/secret-scanning.yml
     sha256: 6a37398aa251224083bba98116241e640b515a20af33a0319b873a509829a20d
   - path: .github/workflows/security.yml
-    sha256: 8da2186afe7fb5bbe5988b8b64e0f0b1f297c731e5b9337c6f149478cfa8a808
+    sha256: 4f1ab7e7b4faedc8d520c4d4dd9dae822b55ab3aa27043844a1a6da71bfd2652
   - path: .gitleaks.toml
     sha256: 7883026ea65018b3828382c1b6c7c646f84f94db0e8a5bdbc56b3f5cb18253c9
   - path: .gitignore
     sha256: 28b402cfd5ba9b7599fc594307dc02060f9886580ec8c1f8e56d4081850faefc
+  - path: .githooks/pre-push
+    sha256: f06d059fcdf6a0555614d56cc25631b8e50a0ecbc9e393b6d0ee8b8dd04793b6
   - path: CONTRIBUTING.md
-    sha256: 7236af086ba41449a01e923314427cdbee0794493c1d07967fc86b6e78326751
+    sha256: 445bda0ad2f870df112ad2660dc7264442bc1ede07fddd3f0c87d2e4ce2ab45f
   - path: SECURITY.md
     sha256: 3aa1514969852f33d68f1aa2d8b3e4adbb252490aac59da2ba3cdf01982a6fb2
   - path: tests/test_contract_records.py
@@ -171,22 +189,6 @@ subject:
     sha256: 811e9201679ddee2382da040ce1fcd3665346477c730fb767b3079568f5284bc
   - path: tests/test_transitions.py
     sha256: 9f78e61cc9916e7f9a2b7873280352eba5154919f78e8d13b1f98b9dc7f2a505
-  - path: .contract-engineering/release-signing-key.asc
-    sha256: f29750732190374f17da90c35117d778123f3a6917a9d61bd261c73b51fc69f2
-  - path: scripts/record_store.py
-    sha256: beea3f9202fc9cd71021d9f923e44ab07fc3e9f8a6ca206202e44469f3af5c98
-  - path: scripts/finalize_handoff.py
-    sha256: 3a4cf60f33411ca4628be662f32ee4a984119ef06e204c70942f669fcf02f0ce
-  - path: scripts/migrate_records.py
-    sha256: cb8de651f0ae2e2da1c1405d46482ad99d279e1fe1d52002943d91da7b3c9e2b
-  - path: scripts/packet_leases.py
-    sha256: f0bfd0c1b299533d9197666f88fa52532705c7c6b6e279bf45fcadf62cb4abd0
-  - path: scripts/packet_scope.py
-    sha256: 1889f6b135493b51591dcb1719b7c104e23333177e8a6ddc4e640f85b9fed100
-  - path: scripts/reconcile_worktrees.py
-    sha256: f1a73ed6bca2e34ab19e489611846578a9d7f462765b6f5a4719913c51bca78c
-  - path: scripts/tracker_rollover.py
-    sha256: b36ad67b1cf23b04fc50bc00da4171e587fb8e6cf2d2c65f891b089545abc4b2
   - path: tests/test_record_store.py
     sha256: 732389302f986b812b32acaadd3d63991912813abec7cc56d00a56bcd6c9bd9a
   - path: tests/test_rollover.py
@@ -201,35 +203,59 @@ subject:
     sha256: 3235de1941351afbc4fa41b140d7bbea1c71baa79bf4e14db74fee0e07c23f9d
   - path: tests/test_ci_validation.py
     sha256: fa90db9e08106a6681fecc07cde8acaf3e58f2b22c636f652ce0a2dc83c3bd9d
+  - path: tests/test_planning_records.py
+    sha256: c4718000128f33e3b8b48db3f49830138ade9f2d4a3b1cd5c7020b2678b3b4e5
+  - path: tests/test_acceptance_contracts.py
+    sha256: 260000d05b3f4f65316a486a15fd8a9beb206160be28f218c9e1a7093f801659
+  - path: tests/test_release_tag.py
+    sha256: e449e34f4fa04f0f8271918f8436cdb8efe9e2cf8cc1898792b83c580c22ca0a
+  - path: .contract-engineering/release-signing-key.asc
+    sha256: 1a249899b3ab4c4a6a8a4b9bc11dc5c1d6c1b3c666bd709cf77a2925618b4717
+  - path: .contract-engineering/tracker/index.yaml
+    sha256: f17ae209363c345a7d0e78fb27db29a52a7fbdb17aa2e1aa86f81b3fe8ad4fb1
+  - path: .contract-engineering/execution-tracker.md
+    sha256: c87937de149c116a1309ee6b4c19c55ab65586cee5a0d5e06c6591ed380b8bbe
+  - path: .contract-engineering/protocol.lock.yaml
+    sha256: a04c87d47ac4f1e050bf7da09da82f0019035dc3fe386875b5d3e993b3c5cc1e
+  - path: .contract-engineering/work-packets/CENG-T022-P001.yaml
+    sha256: 927a81eac2e1f7a28ee980b292c35faed2035665daa108ecfc4b377d02190316
+  - path: .contract-engineering/work-packets/CENG-T023-P001.yaml
+    sha256: 214fb6d7b2861da78391f030fafa9417730bfe8042546ecaf9093c00348cd6ca
+  - path: .contract-engineering/decisions/CENG-T023-P001-DEC001.yaml
+    sha256: 6fb5702e5847ab047a450d1639842c4c7eb115029629870bb6cc3f06665055c2
+  - path: .contract-engineering/decisions/CENG-T023-P001-DEC002.yaml
+    sha256: 1f5833117acdceee879de4830cdbb91813cd43a237eed945143dea88e108c8bb
+  - path: .contract-engineering/handoffs/CENG-T022-P001-HO001.yaml
+    sha256: 8dacd59ed1a0d99d049004550cadecd5ac9a262a2ced0ccd54cd2ad68215a845
 publisher:
   identity: Emmanuel
   identity_type: human
-  authentication_ref: 34049E9E7A00440491D319FFF19051409C4115FB
-  workflow: Factory Droid v3.0.0 release workflow
+  authentication_ref: 038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  workflow: Factory Droid v3.0.1 release workflow
   signing_system: gpg
-  signature_ref: gpg:tag:v3.0.0:34049E9E7A00440491D319FFF19051409C4115FB
+  signature_ref: gpg:tag:v3.0.1:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:40cf8ce321a4c69c9bed067ee771932fa934b202
+  builder_digest: git-tree:4079df4eb9d98971d0241ccba64eb10e89698817
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: 40cf8ce321a4c69c9bed067ee771932fa934b202
+  source_commit: 4079df4eb9d98971d0241ccba64eb10e89698817
   dependencies:
   - PyYAML 6.0.3 and runtime dependencies, hash-pinned in requirements-ci.txt
-  - rpds-py 0.17.1 CPython 3.8 and 3.12 wheel hashes directly verified
+  - jsonschema 4.21.1 with referencing and rpds-py, hash-pinned in requirements-ci.txt
   - GitHub CodeQL and secret-scanning workflows
   reproducible: true
 review:
   author: droid
   independent_approver: Emmanuel
-  approval_ref: USER-APPROVAL-REF
-  approved_at: '2026-11-03T18:00:00Z'
+  approval_ref: USER-APPROVAL-v3.0.1
+  approved_at: '2026-11-05T12:30:00Z'
 verification:
-  verified_at: '2026-11-03T18:00:00Z'
+  verified_at: '2026-11-05T12:30:00Z'
   verifier: droid
   result: pass
   transparency_ref: PENDING_HOSTED_VALIDATION
-  revocation_checked_at: '2026-11-03T18:00:00Z'
+  revocation_checked_at: '2026-11-05T12:30:00Z'
 revocation:
   status: active
   revocation_ref: null
-  rollback_ref: d9ec5be
+  rollback_ref: 56763842f5829ee69cbf763507230b33b6efc578

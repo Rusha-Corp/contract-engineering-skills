@@ -1,0 +1,37 @@
+#!/bin/sh
+# Pre-push hook: blocks unsigned or mismatched stable release tags.
+#
+# Install with:  git config --local core.hooksPath .githooks
+#
+# This hook runs scripts/verify_release_tag.py for any stable v* tag
+# being pushed (tags without a hyphen). Development tags (with a hyphen)
+# are skipped. The script checks tag signature, publisher key match,
+# release name, commit relationship, and artifact hashes.
+#
+# Reads stdin lines of the form:
+#   <local ref> <local sha> <remote ref> <remote sha>
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+    # Only check tag refs
+    case "$remote_ref" in
+        refs/tags/v*)
+            tag=$(echo "$remote_ref" | sed 's|^refs/tags/||')
+            # Skip development tags (containing a hyphen)
+            case "$tag" in
+                *-*) continue ;;
+            esac
+            # Run the verification script
+            if ! python3 scripts/verify_release_tag.py --tag "$tag" --project-root . 2>&1; then
+                echo ""
+                echo "pre-push: stable release tag $tag failed verification."
+                echo "The tag must be signed with the publisher GPG key and match"
+                echo "the release attestation. See docs/release-integrity.md."
+                echo ""
+                exit 1
+            fi
+            echo "pre-push: stable release tag $tag verified."
+            ;;
+    esac
+done
+
+exit 0

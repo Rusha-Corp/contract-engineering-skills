@@ -1,0 +1,101 @@
+packet_id: CENG-T024-P004
+task_id: CENG-T024
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: single-domain
+work_type: delivery
+priority: high
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: "../contract-engineering-skills-CENG-T024-P004"
+  branch: "agent/CENG-T024-P004"
+  base_revision: "7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0"
+  head_revision: "af0adc747133c013c10e53031eb541e935ef2f14"
+  cleanup_status: active
+title: "Lock v2 per-file hashing for skill folders"
+objective: >
+  Extend the protocol lock to support per-file hashing of skill folders via
+  lock_version 2. This enables skills to be split into reference files
+  (needed by P005) while maintaining hash-verified integrity.
+  lock_version 1 remains fully supported for backward compatibility.
+open_questions: []
+scope:
+  in:
+  - scripts/contract_records/lock_rules.py
+  - .github/workflows/protocol-validation.yml
+  - templates/protocol-lock.yaml
+  - tests/test_lock_v2.py
+  - docs/protocol-configuration.md
+  - .contract-engineering/work-packets/CENG-T024-P004.yaml
+  - .contract-engineering/evidence/CENG-T024-P004-EV001.md
+  - .contract-engineering/handoffs/CENG-T024-P004-HO001.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/execution-tracker.md
+  out:
+  - skills/*/SKILL.md
+state: Handoff
+owner:
+  identity: Emmanuel
+  identity_type: human
+  authentication_ref: "gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996"
+  signed_at: "2026-11-05T18:00:00Z"
+implementor:
+  agent_id: factory-droid
+  harness: Factory
+  model: glm-5.2
+  session_id: CENG-T024-P004-lock-v2
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: low
+approval_policy: user
+external_effects: []
+reviewer: user
+cleanup_owner: droid
+dependencies:
+- CENG-T024-P003
+locks: []
+claim_timestamp: "2026-11-05T18:00:00Z"
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0
+design_decision_ref: null
+data_gate_ref: null
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+acceptance_criteria:
+- lock_version 2 is accepted by the validator
+- lock_version 1 still works (backward compatible)
+- v2 files map entries are hash-validated
+- CI workflow verifies per-file hashes when files map is present
+- Template and preflight docs updated
+validation_plan:
+- id: CENG-T024-P004-VAL001
+  kind: type-check
+  skill: phased-engineering-execution
+  checks:
+  - unittest discover passes (1 pre-existing failure)
+  - validate-contract-records.py passes
+  expected: all validators pass with no new failures
+evidence_refs:
+- CENG-T024-P004-EV001
+handoff_ref: CENG-T024-P004-HO001
+skill_gaps: []
+cleanup_scope:
+  size_reviews: []
+  dead_code_review:
+  - baseline
+  - handoff
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+updated_at: "2026-11-05"

@@ -1,0 +1,48 @@
+handoff_id: CENG-T024-P004-HO001
+packet_id: CENG-T024-P004
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: session:CENG-T024-P004-lock-v2
+  signature_ref: ""
+receiver:
+  identity: Emmanuel
+  identity_type: human
+  authenticated: false
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  accepted_at: ""
+  acceptance_ref: ""
+base_revision: 7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0
+head_revision: af0adc747133c013c10e53031eb541e935ef2f14
+scope_digest: ""
+changed_resources:
+  - path: scripts/contract_records/lock_rules.py
+    change: "Accept lock_version 2 with optional per-file hashing"
+  - path: .github/workflows/protocol-validation.yml
+    change: "Verify per-file hashes when files map is present"
+  - path: templates/protocol-lock.yaml
+    change: "Added v2 documentation comments"
+  - path: tests/test_lock_v2.py
+    change: "5 new tests for v1 compat, v2 files map, invalid hash rejection"
+  - path: docs/protocol-configuration.md
+    change: "Updated lock contract and preflight script for v2"
+summary: >
+  Extended the protocol lock to support per-file hashing via lock_version 2.
+  Enables skill splits in P005 while maintaining integrity. v1 remains
+  fully backward compatible.
+validation_results:
+  - "Unit tests: 206 tests (5 new), 1 pre-existing macOS tempdir failure"
+  - "validate-contract-records.py: valid (mode=enforced)"
+evidence_refs:
+  - CENG-T024-P004-EV001
+unresolved_items:
+  - "Pre-existing macOS /private/var tempdir test failure unrelated to this packet"
+  - "The actual lock upgrade to v2 with files maps will happen in P006 (release)"
+rollback_notes:
+  - "Revert commit on agent/CENG-T024-P004 to restore v1-only lock validation"
+requested_next_action: >
+  Review and accept. After acceptance, merge. Then proceed with P005
+  (skill updates and skill splits).
+receiver_status: pending
+receiver_notes: ""

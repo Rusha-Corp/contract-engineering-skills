@@ -122,12 +122,15 @@ authority for protocol selection.
 
 `protocol.lock.yaml` contains:
 
-- `lock_version`: lock schema version;
+- `lock_version`: lock schema version (1 or 2);
 - `protocol.repository`: canonical repository URL;
 - `protocol.ref`: immutable commit SHA, not a floating branch;
 - `protocol.release`: human-readable release associated with the commit;
 - `skills.<name>.version`: front-matter version for each governed skill;
 - `skills.<name>.sha256`: hash of the installed `SKILL.md`;
+- `skills.<name>.files`: optional map of `{file_path: sha256}` for per-file
+  hashing (lock_version 2 only); when present, every listed file is
+  hash-verified against the locked ref;
 - `project.protocol_root`: project-relative directory for shared records.
 
 The lock must list all six governed skills. The release field is descriptive;
@@ -231,6 +234,16 @@ for name, pin in skills.items():
     match = re.search(r"^version:\s*(\S+)\s*$", skill_file.read_text(), re.MULTILINE)
     if not match or match.group(1) != str(pin["version"]):
         raise SystemExit(f"version mismatch: {name}")
+    # lock_version 2: verify per-file hashes when a files map is present.
+    files_map = pin.get("files")
+    if files_map:
+        for file_rel, expected_hash in files_map.items():
+            file_path = skills_dir / name / file_rel
+            if not file_path.is_file():
+                raise SystemExit(f"missing installed skill file: {name}/{file_rel}")
+            actual_file_hash = hashlib.sha256(file_path.read_bytes()).hexdigest()
+            if actual_file_hash != expected_hash:
+                raise SystemExit(f"hash mismatch: {name}/{file_rel}")
 
 print("protocol preflight passed")
 PY

@@ -1,0 +1,100 @@
+packet_id: CENG-T024-P006
+task_id: CENG-T024
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: single-domain
+work_type: delivery
+priority: high
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: "../contract-engineering-skills-CENG-T024-P006"
+  branch: "agent/CENG-T024-P006"
+  base_revision: "7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0"
+  head_revision: "5d890d4798b08efaeecd0fd5a9a462eb26a235a9"
+  cleanup_status: active
+title: "Release v3.1.0"
+objective: >
+  Publish v3.1.0 with the code-health gate, lock v2 per-file hashing,
+  validator decomposition, record store split, skill updates and splits,
+  and CI fix. Update protocol lock to v2 with per-file hashes for all
+  skill files. Record release attestation.
+open_questions: []
+scope:
+  in:
+  - .contract-engineering/protocol.lock.yaml
+  - .contract-engineering/release-attestation.yaml
+  - CHANGELOG.md
+  - .contract-engineering/work-packets/CENG-T024-P006.yaml
+  - .contract-engineering/evidence/CENG-T024-P006-EV001.md
+  - .contract-engineering/handoffs/CENG-T024-P006-HO001.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/execution-tracker.md
+  out:
+  - skills/*/SKILL.md
+state: Handoff
+owner:
+  identity: Emmanuel
+  identity_type: human
+  authentication_ref: "gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996"
+  signed_at: "2026-11-05T20:00:00Z"
+implementor:
+  agent_id: factory-droid
+  harness: Factory
+  model: glm-5.2
+  session_id: CENG-T024-P006-release
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: medium
+approval_policy: user
+external_effects: []
+reviewer: user
+cleanup_owner: droid
+dependencies:
+- CENG-T024-P005
+locks: []
+claim_timestamp: "2026-11-05T20:00:00Z"
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0
+design_decision_ref: null
+data_gate_ref: null
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+acceptance_criteria:
+- Protocol lock updated to v2 with per-file hashes
+- CHANGELOG has v3.1.0 entry
+- Release attestation recorded
+- All tests pass (1 pre-existing failure)
+- Tag v3.1.0 signed and pushed (requires user approval)
+validation_plan:
+- id: CENG-T024-P006-VAL001
+  kind: type-check
+  skill: phased-engineering-execution
+  checks:
+  - unittest discover passes (1 pre-existing failure)
+  - validate-contract-records.py passes
+  - verify_release_tag.py passes for v3.1.0
+  expected: all validators pass, tag signed
+evidence_refs:
+- CENG-T024-P006-EV001
+handoff_ref: CENG-T024-P006-HO001
+skill_gaps: []
+cleanup_scope:
+  size_reviews: []
+  dead_code_review:
+  - baseline
+  - handoff
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+updated_at: "2026-11-05"

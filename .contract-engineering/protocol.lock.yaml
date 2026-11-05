@@ -1,53 +1,67 @@
-lock_version: 1
+lock_version: 2
 protocol:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  ref: 55c993223e1f4749a8334dad3062377ef86f235c
-  release: 3.0.1
+  ref: 9470f30fc7d82aa87430da7f96b78a00364a6692
+  release: 3.1.0
 skills:
   phased-engineering-execution:
-    version: 2.6.0
-    sha256: f4ee096ef75ec38f06e10379d0f90366713dae21c8d6ab3c6c866de29bfdf995
+    version: 2.7.0
+    sha256: acd8bac74248d2aadc280fe88be8c108049c5e34f936524ec034fd00d6504e9d
+    files:
+      SKILL.md: acd8bac74248d2aadc280fe88be8c108049c5e34f936524ec034fd00d6504e9d
+      references/approval-gates.md: 0bea82aba65b6696a31728f7ea6210bf40117854e3dd438c86032e46cf9c3b26
+      references/handoff-schema.md: 7cb61efe5020d47bae90802d29238766ca3a4adedd0a05ac78caa5f30cddf272
+      references/packet-schema.md: eba8a11701c3baefa91a4917961fa78e4fff47fca44b523b7a3716552ae99326
   cleanup-protocol:
-    version: 2.4.0
-    sha256: 79af8387cc3219bc1a169561ec77a3349f435bcf0ce61c051f4692ec619765ec
+    version: 2.5.0
+    sha256: ffb8b0d7a1648760a31ee92c6504332b471bccd7912925f22dfac03f22cf6d09
   project-lifecycle:
-    version: 2.4.0
-    sha256: 37b2793346c8d38180d43486ed7ec0f8bb5f657fd01e9cae0da4650077335136
+    version: 2.5.0
+    sha256: 0ee3bd5145ddac42abb718d6f0f1e5a4474514c044c34231fff07e4027f8fe54
   skill-evolution:
     version: 1.2.0
     sha256: 149be48373c05e58e1127efd4dc329f3f0af516a836d31b99cb62b64e0a2cafd
   coding-principles:
-    version: 1.2.0
-    sha256: 7b4fb4e71e18e6e256776ff0918c8693815f060088485b5a72c2d886ee0c3770
+    version: 1.3.0
+    sha256: ae998994c81ce4f178ebcafca357e216005e9b2696d5923ba3a92a7f569c9f94
   security-assurance:
-    version: 1.0.0
-    sha256: c0e4226a0c8630d25b234a52097fad7dd08fe817eb3a22e1f5045fb1faffc847
+    version: 1.1.0
+    sha256: c44e83a921d1b3f22289247c57c97952d47cb846dd758dfeea98efe960ac6ab9
+    files:
+      SKILL.md: c44e83a921d1b3f22289247c57c97952d47cb846dd758dfeea98efe960ac6ab9
+      references/secure-controls.md: f950ffca1a41fb05e5512f9848198dc43f492865fb1dc82d26b012f8b5926521
+      references/security-verification.md: 4731e8b6dac0e99812a55cfd8651b61240cb9bd298fd2947490609c0ccdc15b7
+      references/threat-model.md: 3409cabba62d51e601400801671e074d6b9c774d55f0dffd0751e02e9292a397
 project:
   protocol_root: .contract-engineering
   record_store:
     backend: file
+  code_health:
+    max_file_lines: 500
+    exclude:
+      - .contract-engineering/
 development:
   status: released
-  ref: 55c993223e1f4749a8334dad3062377ef86f235c
-  based_on_release: 3.0.1
-  reason: v3.0.1 is the signed republication of v3.0.0 with key rotation, pre-push guard, and records CI fix.
-  consumer_action: Synchronize from the locked ref after running the protocol preflight. Do not use v3.0.0 (unsigned tag, incomplete publication).
+  ref: 9470f30fc7d82aa87430da7f96b78a00364a6692
+  based_on_release: 3.1.0
+  reason: v3.1.0 adds the code-health gate, lock v2 per-file hashing, validator decomposition, and skill splits.
+  consumer_action: Synchronize from the locked ref after running the protocol preflight. Lock v1 consumers continue to work; lock v2 adds per-file verification.
   skills:
     phased-engineering-execution:
-      version: 2.5.0
-      sha256: e67e9f5b9c99d0122b1058c8e5a86c9a283d5b560b2acf2937312b0f858b9d43
+      version: 2.7.0
+      sha256: acd8bac74248d2aadc280fe88be8c108049c5e34f936524ec034fd00d6504e9d
     cleanup-protocol:
-      version: 2.4.0
-      sha256: 79af8387cc3219bc1a169561ec77a3349f435bcf0ce61c051f4692ec619765ec
+      version: 2.5.0
+      sha256: ffb8b0d7a1648760a31ee92c6504332b471bccd7912925f22dfac03f22cf6d09
     project-lifecycle:
-      version: 2.4.0
-      sha256: 37b2793346c8d38180d43486ed7ec0f8bb5f657fd01e9cae0da4650077335136
+      version: 2.5.0
+      sha256: 0ee3bd5145ddac42abb718d6f0f1e5a4474514c044c34231fff07e4027f8fe54
     skill-evolution:
       version: 1.2.0
       sha256: 149be48373c05e58e1127efd4dc329f3f0af516a836d31b99cb62b64e0a2cafd
     coding-principles:
-      version: 1.2.0
-      sha256: 7b4fb4e71e18e6e256776ff0918c8693815f060088485b5a72c2d886ee0c3770
+      version: 1.3.0
+      sha256: ae998994c81ce4f178ebcafca357e216005e9b2696d5923ba3a92a7f569c9f94
     security-assurance:
-      version: 1.0.0
-      sha256: c0e4226a0c8630d25b234a52097fad7dd08fe817eb3a22e1f5045fb1faffc847
+      version: 1.1.0
+      sha256: c44e83a921d1b3f22289247c57c97952d47cb846dd758dfeea98efe960ac6ab9

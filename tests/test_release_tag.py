@@ -26,6 +26,7 @@ SPEC.loader.exec_module(vrt)
 
 def _make_attestation(
     *,
+    attestation_version=1,
     release="3.0.1",
     commit="a" * 40,
     auth_ref="038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996",
@@ -34,11 +35,20 @@ def _make_attestation(
     result="pass",
     revocation_status="active",
     independent_approver="user",
+    transparency_ref="test",
 ):
     if artifacts is None:
         artifacts = [{"path": "CHANGELOG.md", "sha256": "b" * 64}]
+    verification = {
+        "verified_at": "2026-11-05T12:00:00Z",
+        "verifier": "droid",
+        "result": result,
+        "revocation_checked_at": "2026-11-05T12:00:00Z",
+    }
+    if transparency_ref is not None:
+        verification["transparency_ref"] = transparency_ref
     return {
-        "attestation_version": 1,
+        "attestation_version": attestation_version,
         "subject": {
             "repository": "https://github.com/test/repo.git",
             "commit": commit,
@@ -67,13 +77,7 @@ def _make_attestation(
             "approval_ref": "TEST-APPROVAL",
             "approved_at": "2026-11-05T12:00:00Z",
         },
-        "verification": {
-            "verified_at": "2026-11-05T12:00:00Z",
-            "verifier": "droid",
-            "result": result,
-            "transparency_ref": "test",
-            "revocation_checked_at": "2026-11-05T12:00:00Z",
-        },
+        "verification": verification,
         "revocation": {
             "status": revocation_status,
             "revocation_ref": None,
@@ -269,6 +273,101 @@ class VerifyReleaseTagTests(unittest.TestCase):
                     git_verify_tag_fn=lambda t: (raw, 0),
                 )
         self.assertIn("direct parent", str(ctx.exception))
+
+
+class AttestationVersionTests(unittest.TestCase):
+    """Attestation version 2: no transparency_ref, no PENDING placeholders.
+
+    Version 1 attestations (v3.0.1, v3.1.0) carry
+    ``transparency_ref: PENDING_HOSTED_VALIDATION`` because the hosted
+    validation run is triggered by the tag the attestation is signed into —
+    it can never cite its own run. Version 2 drops the field entirely;
+    transparency evidence lives in the public CI run and the GitHub
+    Release body.
+    """
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.project = Path(self.tmp.name)
+        self.ce = self.project / ".contract-engineering"
+        self.ce.mkdir()
+        (self.project / "CHANGELOG.md").write_text("# Changelog\n", encoding="utf-8")
+        self.attestation_path = self.ce / "release-attestation.yaml"
+        self.key_path = self.ce / "release-signing-key.asc"
+        self.key_path.write_text("dummy key", encoding="utf-8")
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def _write_and_run(self, att, tag="v3.1.0"):
+        self.attestation_path.write_text(
+            yaml.safe_dump(att), encoding="utf-8"
+        )
+        raw = f"[GNUPG:] VALIDSIG {att['publisher']['authentication_ref']} 2026-11-05"
+        return vrt.verify_release_tag(
+            tag=tag,
+            tag_commit=att["subject"]["commit"],
+            attestation_path=self.attestation_path,
+            key_path=self.key_path,
+            project_root=self.project,
+            git_verify_tag_fn=lambda t: (raw, 0),
+        )
+
+    def test_v2_valid_without_transparency_ref_passes(self):
+        import hashlib
+        real_hash = hashlib.sha256(
+            (self.project / "CHANGELOG.md").read_bytes()
+        ).hexdigest()
+        att = _make_attestation(
+            attestation_version=2,
+            release="3.1.0",
+            transparency_ref=None,
+            artifacts=[{"path": "CHANGELOG.md", "sha256": real_hash}],
+        )
+        result = self._write_and_run(att)
+        self.assertTrue(result == "OK" or result.startswith("OK"))
+
+    def test_v2_with_transparency_ref_fails(self):
+        att = _make_attestation(
+            attestation_version=2,
+            release="3.1.0",
+            transparency_ref="https://ci.example/run/1",
+        )
+        with self.assertRaises(SystemExit) as ctx:
+            self._write_and_run(att)
+        self.assertIn("transparency_ref", str(ctx.exception))
+        self.assertIn("version 2", str(ctx.exception))
+
+    def test_v2_with_pending_placeholder_fails(self):
+        import hashlib
+        real_hash = hashlib.sha256(
+            (self.project / "CHANGELOG.md").read_bytes()
+        ).hexdigest()
+        att = _make_attestation(
+            attestation_version=2,
+            release="3.1.0",
+            transparency_ref=None,
+            artifacts=[{"path": "CHANGELOG.md", "sha256": real_hash}],
+        )
+        att["revocation"]["rollback_ref"] = "PENDING"
+        with self.assertRaises(SystemExit) as ctx:
+            self._write_and_run(att)
+        self.assertIn("PENDING", str(ctx.exception))
+
+    def test_v1_legacy_pending_transparency_ref_passes(self):
+        """The published v3.0.1 and v3.1.0 attestations must keep verifying."""
+        import hashlib
+        real_hash = hashlib.sha256(
+            (self.project / "CHANGELOG.md").read_bytes()
+        ).hexdigest()
+        att = _make_attestation(
+            attestation_version=1,
+            release="3.1.0",
+            transparency_ref="PENDING_HOSTED_VALIDATION",
+            artifacts=[{"path": "CHANGELOG.md", "sha256": real_hash}],
+        )
+        result = self._write_and_run(att)
+        self.assertTrue(result == "OK" or result.startswith("OK"))
 
 
 if __name__ == "__main__":

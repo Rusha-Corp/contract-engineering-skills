@@ -68,11 +68,20 @@ identity, signature reference, and active revocation status. Development tags
 
 The attestation is valid only when it includes an authenticated publisher,
 immutable source commit, artifact hashes, builder/workflow identity,
-dependencies, independent approval, signature/transparency references,
-verification time, and revocation status. The independent approver must not
+dependencies, independent approval, signature reference, verification time,
+and revocation status. The independent approver must not
 be the release author or publisher. Attestations are bound to the exact
 repository, commit, release, and artifact bytes; changing any subject field
 requires a new signature and approval.
+
+Attestation version 2 drops `verification.transparency_ref`. Hosted
+validation evidence cannot live inside the signed attestation: the CI run
+that validates the release is triggered by the tag push, and the attestation
+is signed into that same tag, so it can structurally never cite its own
+run — a chicken-and-egg loop. Version 1 attestations (v3.0.1, v3.1.0)
+carry `transparency_ref: PENDING_HOSTED_VALIDATION` and remain verifiable
+under the legacy rules; version 2 forbids the field and any `PENDING`
+placeholder value, enforced by `scripts/verify_release_tag.py`.
 
 ### Atomic publication sequence
 
@@ -98,6 +107,38 @@ simultaneously. A consumer who clones after the push gets both at once. CI's
 main-branch validation and the stable-release-gate both trigger from the same
 push, and the stable-release-gate verifies the attestation that arrived with
 it. No window exists where unattested content is public.
+
+### Release finalization and lock pinning
+
+The protocol lock pins an immutable commit, but this repository develops
+itself on mutable history: release branches may be rebased before merging,
+which strands any SHA pinned inside a pre-merge release-packet commit. The
+lock therefore gets its final value only after release content lands on
+main in final form.
+
+`scripts/finalize_release.py` is the scripted finalization step. Run it
+against the merged content commit (default `HEAD`) after the release
+content merge:
+
+1. It verifies the content commit is an ancestor of `HEAD`.
+2. It verifies every pinned skill hash — including lock v2 per-file
+   hashes — against the content commit's tree.
+3. It rewrites `protocol.lock.yaml`'s `protocol.ref` and
+   `development.ref` to the content commit's full SHA.
+4. It recomputes the attestation's artifact hashes from the content
+   commit's tree, sets `subject.commit`, `provenance.source_commit`, and
+   `builder_digest`, writes `attestation_version: 2` without
+   `transparency_ref`, and rejects future timestamps or `PENDING`
+   placeholders.
+5. It prints the follow-up commands.
+
+The lock and attestation changes must be committed together as ONE commit
+whose parent is the content commit. Any other shape breaks either the
+stable gate (the subject must be the direct parent of the tag target) or
+the lock verifier (the pinned ref must be an ancestor of `HEAD`). A rebase
+after finalization can no longer strand the pin: finalization is the last
+step before the tag, and rewriting published main is out of scope for the
+protocol.
 
 ### Local pre-push signature guard
 
@@ -125,11 +166,17 @@ A consumer verifies, in order:
 
 - the canonical repository identity;
 - the immutable commit and release association;
-- the publisher signature and transparency or verification reference;
+- the publisher signature and verification reference;
 - the attestation subject and artifact hashes;
 - the independent approval;
 - the protocol and skill versions;
 - the migration and compatibility requirements.
+
+Hosted validation transparency evidence lives outside the signed
+attestation: the public CI run for the tag push (visible in the repository's
+Actions history) and the GitHub Release body, which links the passing run
+when the release is published. Auditors bind the evidence to the release
+through the run's commit SHA.
 
 Verification must check the signature against the publisher identity, confirm
 the source and artifact hashes, validate the independent approval and its

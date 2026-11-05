@@ -101,6 +101,27 @@ Before handoff:
 Scope expansion creates a new packet or an explicit decision. It is not
 silently added to the current packet.
 
+### CI scope gate
+
+The `records` job in `.github/workflows/protocol-validation.yml` runs
+`scripts/enforce_packet_scope.py` to verify that every changed path is
+claimed by a work-packet scope. The gate applies three rules:
+
+1. **Non-records diffs pass.** If no changed path lives under
+   `.contract-engineering/`, the diff cannot violate packet scope.
+   Dependency-only PRs (e.g. dependabot) pass immediately.
+2. **Artifact-filename claiming.** Evidence, handoff, and decision files
+   are named after their owning packet (e.g. `CENG-T023-P001-EV001.md`).
+   The gate treats the packet ID extracted from the filename as a
+   claiming packet, provided that packet exists on HEAD. This unblocks
+   evidence and handoff pushes that do not also modify the packet file.
+3. **Force-push skip.** When the base SHA is unreachable (a force-push
+   rewrote history), the diff cannot be computed reliably. The gate warns
+   and passes instead of enforcing against a garbage diff.
+
+Real scope violations still fail: unclaimed paths and artifact filenames
+referencing packets that do not exist on HEAD are rejected.
+
 ## Handoffs and recovery
 
 A handoff transfers work, not completion. The receiver checks the base

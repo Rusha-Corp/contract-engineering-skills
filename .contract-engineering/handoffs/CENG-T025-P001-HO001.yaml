@@ -1,0 +1,66 @@
+handoff_id: CENG-T025-P001-HO001
+packet_id: CENG-T025-P001
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: session:CENG-T025-P001-scope-gate-fix
+  signature_ref: ""
+receiver:
+  identity: Emmanuel
+  identity_type: human
+  authenticated: false
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  accepted_at: ""
+  acceptance_ref: ""
+base_revision: 7664a6aa70631a6487e1fd7c11967471ae22f044
+head_revision: f7f276a4b880da89324f6ae7b591126d9bf29d55
+scope_digest: ""
+changed_resources:
+  - path: scripts/enforce_packet_scope.py
+    change: "New scope gate script with skip logic for non-records diffs, artifact claiming, and force-push handling"
+  - path: tests/test_enforce_packet_scope.py
+    change: "249 lines of tests covering all skip paths and enforcement scenarios"
+  - path: .github/workflows/protocol-validation.yml
+    change: "Replaced inline gate Python with enforce_packet_scope.py call"
+  - path: tests/test_ci_validation.py
+    change: "Updated for new workflow structure"
+  - path: .gitleaks.toml
+    change: "Allowlisted both public GPG key fingerprints (34049E9E and 038022B4)"
+  - path: docs/repository-development.md
+    change: "Documented packet-scope gate rules"
+  - path: .contract-engineering/work-packets/CENG-T025-P001.yaml
+    change: "New packet for scope gate fix"
+  - path: .contract-engineering/evidence/CENG-T025-P001-EV001.md
+    change: "Validation evidence"
+  - path: .contract-engineering/evidence/CENG-T023-P001-EV001.md
+    change: "Minor update to unresolved items note"
+  - path: .contract-engineering/tracker/index.yaml
+    change: "Added CENG-T025 row"
+  - path: .contract-engineering/execution-tracker.md
+    change: "Added CENG-T025 row"
+summary: >
+  The records CI job failed on dependency-only PRs, evidence/handoff pushes,
+  and force-pushes because the scope gate required a work-packet file in every
+  diff. This packet extracts the gate logic into a tested script that skips
+  non-records diffs, claims artifacts by filename, and skips unreachable base
+  SHAs. Also allowlists both public GPG key fingerprints in gitleaks.
+validation_results:
+  - "Unit tests: 192/193 pass (1 pre-existing macOS tempdir symlink failure; passes on Linux CI)"
+  - "Contract records validator: valid (mode=enforced)"
+  - "Tracker validator: valid (14 active rows, 48 archive rows, 3 YAML partitions)"
+  - "Render tracker check: passes"
+  - "Scope gate replay (PR #30 diff): scope gate skipped — no .contract-engineering paths in diff"
+evidence_refs:
+  - CENG-T025-P001-EV001
+unresolved_items:
+  - "Pre-existing macOS tempdir test failure unrelated to this packet"
+  - "PR #30 (dependabot) needs rebase onto fixed main, then records CI check will pass"
+rollback_notes:
+  - "Revert the 4 commits on agent/CENG-T025-P001 to restore inline gate logic"
+  - "Re-add GPG fingerprints to gitleaks allowlist if reverted"
+requested_next_action: >
+  Review the scope gate fix. If accepted, merge to main so PR #30 (dependabot)
+  can rebase and pass CI. Then proceed with the T024 release chain merge.
+receiver_status: pending
+receiver_notes: ""

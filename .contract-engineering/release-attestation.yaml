@@ -4,7 +4,7 @@ issued_at: '2026-11-05T12:30:00Z'
 expires_at: '2027-11-05T12:30:00Z'
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: 4079df4eb9d98971d0241ccba64eb10e89698817
+  commit: 55c993223e1f4749a8334dad3062377ef86f235c
   release: 3.0.1
   artifacts:
   - path: CHANGELOG.md
@@ -216,7 +216,7 @@ subject:
   - path: .contract-engineering/execution-tracker.md
     sha256: c87937de149c116a1309ee6b4c19c55ab65586cee5a0d5e06c6591ed380b8bbe
   - path: .contract-engineering/protocol.lock.yaml
-    sha256: a04c87d47ac4f1e050bf7da09da82f0019035dc3fe386875b5d3e993b3c5cc1e
+    sha256: e83daf48b1d22d5eb19f7a721c596f94ea09ee620d9d288515596ac3c53b0f40
   - path: .contract-engineering/work-packets/CENG-T022-P001.yaml
     sha256: 927a81eac2e1f7a28ee980b292c35faed2035665daa108ecfc4b377d02190316
   - path: .contract-engineering/work-packets/CENG-T023-P001.yaml
@@ -236,9 +236,9 @@ publisher:
   signature_ref: gpg:tag:v3.0.1:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:4079df4eb9d98971d0241ccba64eb10e89698817
+  builder_digest: git-tree:55c993223e1f4749a8334dad3062377ef86f235c
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: 4079df4eb9d98971d0241ccba64eb10e89698817
+  source_commit: 55c993223e1f4749a8334dad3062377ef86f235c
   dependencies:
   - PyYAML 6.0.3 and runtime dependencies, hash-pinned in requirements-ci.txt
   - jsonschema 4.21.1 with referencing and rpds-py, hash-pinned in requirements-ci.txt

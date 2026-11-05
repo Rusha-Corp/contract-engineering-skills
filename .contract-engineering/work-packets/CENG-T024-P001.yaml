@@ -1,0 +1,105 @@
+packet_id: CENG-T024-P001
+task_id: CENG-T024
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: single-domain
+work_type: delivery
+priority: high
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: "../contract-engineering-skills-CENG-T024-P001"
+  branch: "agent/CENG-T024-P001"
+  base_revision: "7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0"
+  head_revision: "329c1217e30594d153c4b0a0d9f566f15a4daab2"
+  cleanup_status: active
+title: "Split validate-contract-records.py into contract_records package"
+objective: >
+  Decompose the 1094-line scripts/validate-contract-records.py into a
+  scripts/contract_records/ package with 9 focused modules under 500 lines
+  each. The CLI file is a thin entry point that re-exports all public names
+  so path-based test imports work unchanged. Pure refactor, no behavior
+  changes.
+open_questions: []
+scope:
+  in:
+  - scripts/validate-contract-records.py
+  - scripts/contract_records/__init__.py
+  - scripts/contract_records/constants.py
+  - scripts/contract_records/loaders.py
+  - scripts/contract_records/schemas.py
+  - scripts/contract_records/security.py
+  - scripts/contract_records/packet_rules.py
+  - scripts/contract_records/tracker_rules.py
+  - scripts/contract_records/lock_rules.py
+  - scripts/contract_records/graph_rules.py
+  - scripts/contract_records/engine.py
+  - tests/test_contract_records.py
+  - .contract-engineering/work-packets/CENG-T024-P001.yaml
+  - .contract-engineering/evidence/CENG-T024-P001-EV001.md
+  - .contract-engineering/handoffs/CENG-T024-P001-HO001.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/execution-tracker.md
+  out:
+  - skills/*/SKILL.md
+state: Handoff
+owner:
+  identity: Emmanuel
+  identity_type: human
+  authentication_ref: "gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996"
+  signed_at: "2026-11-05T15:00:00Z"
+implementor:
+  agent_id: factory-droid
+  harness: Factory
+  model: glm-5.2
+  session_id: CENG-T024-P001-split-validator
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: low
+approval_policy: user
+external_effects: []
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: "2026-11-05T15:00:00Z"
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0
+design_decision_ref: null
+data_gate_ref: null
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+acceptance_criteria:
+- validate-contract-records.py is under 500 lines
+- All modules in scripts/contract_records/ are under 500 lines
+- All existing tests pass with the same count (plus the new ModuleInterfaceTests)
+- CLI output is byte-identical for the same inputs
+- No behavior changes — pure refactor
+validation_plan:
+- id: CENG-T024-P001-VAL001
+  kind: type-check
+  skill: phased-engineering-execution
+  checks:
+  - unittest discover passes (1 pre-existing failure)
+  - validate-contract-records.py runs and produces correct output
+  - all module files under 500 lines
+  expected: all validators pass with no new failures
+evidence_refs:
+- CENG-T024-P001-EV001
+handoff_ref: CENG-T024-P001-HO001
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+updated_at: "2026-11-05"

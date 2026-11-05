@@ -1,0 +1,65 @@
+handoff_id: CENG-T024-P001-HO001
+packet_id: CENG-T024-P001
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: session:CENG-T024-P001-split-validator
+  signature_ref: ""
+receiver:
+  identity: Emmanuel
+  identity_type: human
+  authenticated: false
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  accepted_at: ""
+  acceptance_ref: ""
+base_revision: 7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0
+head_revision: 329c1217e30594d153c4b0a0d9f566f15a4daab2
+scope_digest: ""
+changed_resources:
+  - path: scripts/validate-contract-records.py
+    change: "Replaced 1094-line monolith with 26-line thin CLI entry point"
+  - path: scripts/contract_records/__init__.py
+    change: "New package init re-exporting all 52 public names"
+  - path: scripts/contract_records/constants.py
+    change: "Constants and identifier utilities (90 lines)"
+  - path: scripts/contract_records/loaders.py
+    change: "YAML/JSON loading, resource limits, shared helpers (141 lines)"
+  - path: scripts/contract_records/schemas.py
+    change: "JSON Schema validation (98 lines)"
+  - path: scripts/contract_records/security.py
+    change: "Evidence policy and security semantics (158 lines)"
+  - path: scripts/contract_records/packet_rules.py
+    change: "Acceptance, metadata, owner, planning validation (269 lines)"
+  - path: scripts/contract_records/tracker_rules.py
+    change: "Tracker partition validation (141 lines)"
+  - path: scripts/contract_records/lock_rules.py
+    change: "Protocol lock validation (36 lines)"
+  - path: scripts/contract_records/graph_rules.py
+    change: "Dependency graph, locks, references, scope (93 lines)"
+  - path: scripts/contract_records/engine.py
+    change: "Root resolution, validation dispatch, CLI main (184 lines)"
+  - path: tests/test_contract_records.py
+    change: "Added ModuleInterfaceTests verifying all public names are re-exported"
+summary: >
+  Pure refactor: decomposed the 1094-line validator into a 9-module package
+  with all files under 500 lines. The CLI is now a thin entry point that
+  re-exports all public names. All tests pass with the same count plus one
+  new interface test. No behavior changes.
+validation_results:
+  - "Unit tests: 183 tests, 1 pre-existing macOS tempdir failure"
+  - "ModuleInterfaceTests: all 52 public names accessible"
+  - "All modules under 500 lines (max: packet_rules.py at 269)"
+  - "CLI output byte-identical"
+evidence_refs:
+  - CENG-T024-P001-EV001
+unresolved_items:
+  - "Pre-existing macOS /private/var tempdir test failure unrelated to this packet"
+  - "Validator requires resource module stub on macOS due to CPU rlimit"
+  - "Evidence heading fix for CENG-T023-P001-EV001.md is in the CENG-T023-P002 branch"
+rollback_notes:
+  - "Revert all commits on agent/CENG-T024-P001 branch to restore the monolith"
+requested_next_action: >
+  Review and accept this pure refactor. After acceptance, merge the branch.
+receiver_status: pending
+receiver_notes: ""

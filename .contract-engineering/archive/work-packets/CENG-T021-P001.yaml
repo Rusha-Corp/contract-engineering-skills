@@ -5,10 +5,11 @@ domain: coding
 packet_class: single-domain
 work_type: bugfix
 title: Fix missing Interrupted state transitions in contract_engineering.py
-objective: >
-  Add the Interrupted state to the ALLOWED dict in contract_engineering.py
-  so that explain-block and transition correctly handle recovery
-  transitions defined by the SKILL.md state machine.
+objective: 'Add the Interrupted state to the ALLOWED dict in contract_engineering.py
+  so that explain-block and transition correctly handle recovery transitions defined
+  by the SKILL.md state machine.
+
+  '
 open_questions: []
 scope:
   in:
@@ -59,9 +60,11 @@ agent_run_ref: null
 observability_refs: []
 incident_refs: []
 acceptance_criteria:
-- The ALLOWED dict in contract_engineering.py includes Interrupted with transitions to Claimed, Implementing, and Cancelled
+- The ALLOWED dict in contract_engineering.py includes Interrupted with transitions
+  to Claimed, Implementing, and Cancelled
 - explain-block reports legal Interrupted transitions correctly
-- transition() accepts Interrupted → Claimed, Interrupted → Implementing, and Interrupted → Cancelled
+- "transition() accepts Interrupted \u2192 Claimed, Interrupted \u2192 Implementing,\
+  \ and Interrupted \u2192 Cancelled"
 - All existing tests pass plus new tests for the Interrupted transitions
 validation_plan:
 - id: CENG-T021-P001-VAL001

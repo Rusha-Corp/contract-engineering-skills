@@ -41,6 +41,7 @@ controls:
   - "The check requires resolvability, not ancestry, so pre-rebase orphan heads that still exist as objects are unaffected."
   - "The check caught 17 unresolvable 40-hex revisions in 14 legacy handoffs whose objects were destroyed by early-era history rewrites; heads were repointed at each handoff's surviving records commit and unverifiable bases blanked."
   - "All 20 moved packets are terminal (Complete or Cancelled); the lock graph ignores terminal packets, so no ownership is taken."
+  - "The archive index max_rows rises from 50 to 200 for this rollover: the archive is append-only history, and the 50-row cap would reject the 68-row archive the rollover produces."
 approved_by: user
 approved_at: "2026-11-05T15:30:00Z"
 expires_at: ""

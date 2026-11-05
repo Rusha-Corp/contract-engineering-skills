@@ -7,19 +7,19 @@ work_type: delivery
 priority: high
 revision: 0
 lease_ref: null
-fencing_token: ""
+fencing_token: ''
 worktree:
-  path: "../contract-engineering-skills-CENG-T024-P006"
-  branch: "agent/CENG-T024-P006"
-  base_revision: "6342cea2dc8c4aef5bdf947a7efd122d91e0dee2"
-  head_revision: "bc5f73be9cdab4cf8aaf2b81a0dc3e893699db27"
+  path: ../contract-engineering-skills-CENG-T024-P006
+  branch: agent/CENG-T024-P006
+  base_revision: 6342cea2dc8c4aef5bdf947a7efd122d91e0dee2
+  head_revision: bc5f73be9cdab4cf8aaf2b81a0dc3e893699db27
   cleanup_status: removed
-title: "Release v3.1.0"
-objective: >
-  Publish v3.1.0 with the code-health gate, lock v2 per-file hashing,
-  validator decomposition, record store split, skill updates and splits,
-  and CI fix. Update protocol lock to v2 with per-file hashes for all
-  skill files. Record release attestation.
+title: Release v3.1.0
+objective: 'Publish v3.1.0 with the code-health gate, lock v2 per-file hashing, validator
+  decomposition, record store split, skill updates and splits, and CI fix. Update
+  protocol lock to v2 with per-file hashes for all skill files. Record release attestation.
+
+  '
 open_questions: []
 scope:
   in:
@@ -37,8 +37,8 @@ state: Complete
 owner:
   identity: Emmanuel
   identity_type: human
-  authentication_ref: "gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996"
-  signed_at: "2026-11-05T20:00:00Z"
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  signed_at: '2026-11-05T20:00:00Z'
 implementor:
   agent_id: factory-droid
   harness: Factory
@@ -56,7 +56,7 @@ cleanup_owner: droid
 dependencies:
 - CENG-T024-P005
 locks: []
-claim_timestamp: "2026-11-05T20:00:00Z"
+claim_timestamp: '2026-11-05T20:00:00Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
 - 6342cea2dc8c4aef5bdf947a7efd122d91e0dee2

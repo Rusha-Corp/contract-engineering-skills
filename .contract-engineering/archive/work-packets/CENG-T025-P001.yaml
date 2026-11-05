@@ -5,25 +5,24 @@ domain: coding
 packet_class: single-domain
 work_type: bugfix
 priority: critical
-
 revision: 1
 lease_ref: null
-fencing_token: ""
+fencing_token: ''
 worktree:
-  path: ".worktrees/CENG-T025-P001"
-  branch: "agent/CENG-T025-P001"
-  base_revision: "7664a6aa70631a6487e1fd7c11967471ae22f044"
-  head_revision: "48c8e2442181b78c64df8bdcbff0f7158a3e482e"
+  path: .worktrees/CENG-T025-P001
+  branch: agent/CENG-T025-P001
+  base_revision: 7664a6aa70631a6487e1fd7c11967471ae22f044
+  head_revision: 48c8e2442181b78c64df8bdcbff0f7158a3e482e
   cleanup_status: removed
-title: "Fix records scope gate false positives and gitleaks fingerprint allowlist"
-objective: >
-  The records CI job fails on dependency-only PRs, evidence/handoff pushes,
-  and force-pushes because the "Enforce changed packet scope" step requires a
-  work-packet file in every diff. Secret scanning fails because the new GPG
-  key fingerprint is not allowlisted. This packet extracts the gate logic
-  into a tested script that skips non-records diffs, claims artifacts by
-  filename, and skips unreachable base SHAs, and updates the gitleaks
-  allowlist for both public GPG key fingerprints.
+title: Fix records scope gate false positives and gitleaks fingerprint allowlist
+objective: 'The records CI job fails on dependency-only PRs, evidence/handoff pushes,
+  and force-pushes because the "Enforce changed packet scope" step requires a work-packet
+  file in every diff. Secret scanning fails because the new GPG key fingerprint is
+  not allowlisted. This packet extracts the gate logic into a tested script that skips
+  non-records diffs, claims artifacts by filename, and skips unreachable base SHAs,
+  and updates the gitleaks allowlist for both public GPG key fingerprints.
+
+  '
 open_questions: []
 scope:
   in:
@@ -47,8 +46,8 @@ state: Complete
 owner:
   identity: Emmanuel
   identity_type: human
-  authentication_ref: "gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996"
-  signed_at: "2026-11-05T18:00:00Z"
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  signed_at: '2026-11-05T18:00:00Z'
 implementor:
   agent_id: factory-droid
   harness: Factory
@@ -66,7 +65,7 @@ cleanup_owner: droid
 dependencies:
 - CENG-T023-P001
 locks: []
-claim_timestamp: "2026-11-05T18:00:00Z"
+claim_timestamp: '2026-11-05T18:00:00Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
 - 7664a6aa70631a6487e1fd7c11967471ae22f044
@@ -80,9 +79,10 @@ agent_run_ref: null
 observability_refs: []
 incident_refs: []
 acceptance_criteria:
-- PR #30 (dependabot setup-python bump) becomes mergeable after rebasing onto the fixed main
+- PR
 - The records CI job passes on diffs that touch no .contract-engineering paths
-- The records CI job passes on evidence/handoff-only pushes when the referenced packet exists
+- The records CI job passes on evidence/handoff-only pushes when the referenced packet
+  exists
 - The records CI job passes on force-pushes where github.event.before is unreachable
 - The records CI job still fails on real scope violations (unclaimed paths)
 - The scan CI job passes with both GPG key fingerprints allowlisted
@@ -96,7 +96,7 @@ validation_plan:
   - validate-contract-records.py passes
   - validate-tracker.py passes
   - render-tracker.py --check passes
-  - enforce_packet_scope.py replayed against PR #30, 7664a6a, and 7a75e8e diffs
+  - enforce_packet_scope.py replayed against PR
   expected: all tests and validators pass with no new failures
 evidence_refs:
 - CENG-T025-P001-EV001

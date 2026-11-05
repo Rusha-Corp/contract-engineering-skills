@@ -7,19 +7,20 @@ work_type: delivery
 priority: high
 revision: 0
 lease_ref: null
-fencing_token: ""
+fencing_token: ''
 worktree:
-  path: "../contract-engineering-skills-CENG-T024-P005"
-  branch: "agent/CENG-T024-P005"
-  base_revision: "6342cea2dc8c4aef5bdf947a7efd122d91e0dee2"
-  head_revision: "c4fdce1aeca6ec81101724fcf24b3ff05bcbbc5f"
+  path: ../contract-engineering-skills-CENG-T024-P005
+  branch: agent/CENG-T024-P005
+  base_revision: 6342cea2dc8c4aef5bdf947a7efd122d91e0dee2
+  head_revision: c4fdce1aeca6ec81101724fcf24b3ff05bcbbc5f
   cleanup_status: removed
-title: "Update skills with code-health guidance and split oversized files"
-objective: >
-  Update all six governed skills with code-health guidance (file-size
-  review, continuous dead-code finding). Split the two oversized SKILL.md
-  files (phased-engineering-execution 549L, security-assurance 511L) by
-  moving detail into references/ files. Requires lock v2 per-file hashing.
+title: Update skills with code-health guidance and split oversized files
+objective: 'Update all six governed skills with code-health guidance (file-size review,
+  continuous dead-code finding). Split the two oversized SKILL.md files (phased-engineering-execution
+  549L, security-assurance 511L) by moving detail into references/ files. Requires
+  lock v2 per-file hashing.
+
+  '
 open_questions: []
 scope:
   in:
@@ -44,8 +45,8 @@ state: Complete
 owner:
   identity: Emmanuel
   identity_type: human
-  authentication_ref: "gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996"
-  signed_at: "2026-11-05T19:00:00Z"
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  signed_at: '2026-11-05T19:00:00Z'
 implementor:
   agent_id: factory-droid
   harness: Factory
@@ -63,7 +64,7 @@ cleanup_owner: droid
 dependencies:
 - CENG-T024-P004
 locks: []
-claim_timestamp: "2026-11-05T19:00:00Z"
+claim_timestamp: '2026-11-05T19:00:00Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
 - 6342cea2dc8c4aef5bdf947a7efd122d91e0dee2
@@ -100,11 +101,11 @@ cleanup_scope:
   - path: skills/phased-engineering-execution/SKILL.md
     lines: 549
     decision: decompose
-    rationale: "moved detail into references/ files"
+    rationale: moved detail into references/ files
   - path: skills/security-assurance/SKILL.md
     lines: 511
     decision: decompose
-    rationale: "moved detail into references/ files"
+    rationale: moved detail into references/ files
   dead_code_review:
   - baseline
   - handoff

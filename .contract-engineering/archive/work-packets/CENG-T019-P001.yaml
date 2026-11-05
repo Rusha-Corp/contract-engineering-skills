@@ -4,12 +4,13 @@ phase: P1_IMPLEMENTATION
 domain: security
 packet_class: cross-cutting
 title: Remediate protocol governance drift and security gaps
-objective: >
-  Fix 9 governance and security defects: re-pin lock to v2.7.2, update
-  attestation with user as independent approver, gitignore devcontainer,
-  roll terminal packets to archive, fix duplicate locks key and stale P017,
-  strengthen CI lock-ancestry assertion, make staleness check deterministic,
-  update template lock, and narrow reviewer droid tools.
+objective: 'Fix 9 governance and security defects: re-pin lock to v2.7.2, update attestation
+  with user as independent approver, gitignore devcontainer, roll terminal packets
+  to archive, fix duplicate locks key and stale P017, strengthen CI lock-ancestry
+  assertion, make staleness check deterministic, update template lock, and narrow
+  reviewer droid tools.
+
+  '
 open_questions: []
 scope:
   in:
@@ -107,10 +108,8 @@ skill_gaps:
   skill_file: scripts/contract_engineering.py
   gap_type: missing
   severity: medium
-  description: >
-    The ALLOWED dict is missing Interrupted state transitions
-    (Interrupted → Claimed, Implementing, Cancelled) defined by the
-    SKILL.md state machine.
+  description: "The ALLOWED dict is missing Interrupted state transitions (Interrupted\
+    \ \u2192 Claimed, Implementing, Cancelled) defined by the SKILL.md state machine.\n"
   impact: explain-block incorrectly reports legal recovery transitions as blocked
   proposed_change: Add Interrupted to ALLOWED with Claimed, Implementing, Cancelled
   evidence_refs: []

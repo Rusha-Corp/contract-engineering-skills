@@ -4,9 +4,10 @@ phase: P1_IMPLEMENTATION
 domain: coding
 packet_class: cross-cutting
 title: Implement human-signed owner model
-objective: >
-  Make the packet owner a signed human identity and introduce implementor
+objective: 'Make the packet owner a signed human identity and introduce implementor
   as the agent role, separating human authority from agent execution.
+
+  '
 open_questions: []
 scope:
   in:
@@ -65,7 +66,8 @@ observability_refs:
 incident_refs:
 - templates/agent-incident.yaml
 acceptance_criteria:
-- Packet owner is a structured object with identity, identity_type=human, authentication_ref, and signed_at
+- Packet owner is a structured object with identity, identity_type=human, authentication_ref,
+  and signed_at
 - Implementor block captures agent identity (agent_id, harness, model, session_id)
 - Validator rejects bare string owners for non-terminal packets
 - Validator rejects owner identity matching implementor agent_id

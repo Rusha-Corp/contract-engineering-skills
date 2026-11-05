@@ -7,19 +7,20 @@ work_type: delivery
 priority: high
 revision: 0
 lease_ref: null
-fencing_token: ""
+fencing_token: ''
 worktree:
-  path: "../contract-engineering-skills-CENG-T024-P003"
-  branch: "agent/CENG-T024-P003"
-  base_revision: "6342cea2dc8c4aef5bdf947a7efd122d91e0dee2"
-  head_revision: "55a0888cd44e94bc351ca491ae5f09b7b2ff2933"
+  path: ../contract-engineering-skills-CENG-T024-P003
+  branch: agent/CENG-T024-P003
+  base_revision: 6342cea2dc8c4aef5bdf947a7efd122d91e0dee2
+  head_revision: 55a0888cd44e94bc351ca491ae5f09b7b2ff2933
   cleanup_status: removed
-title: "Code-health gate for file-size limits and dead-code review"
-objective: >
-  Add a validator gate that hard-fails when a packet touching a file over
-  500 lines has no size_reviews decision, and when a Handoff/Complete packet
-  has no dead_code_review or undecided dead_refs. The recorded decision is
-  hard-gated; the outcome is left to judgment. Issue #21.
+title: Code-health gate for file-size limits and dead-code review
+objective: 'Add a validator gate that hard-fails when a packet touching a file over
+  500 lines has no size_reviews decision, and when a Handoff/Complete packet has no
+  dead_code_review or undecided dead_refs. The recorded decision is hard-gated; the
+  outcome is left to judgment. Issue #21.
+
+  '
 open_questions: []
 scope:
   in:
@@ -42,8 +43,8 @@ state: Complete
 owner:
   identity: Emmanuel
   identity_type: human
-  authentication_ref: "gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996"
-  signed_at: "2026-11-05T17:00:00Z"
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  signed_at: '2026-11-05T17:00:00Z'
 implementor:
   agent_id: factory-droid
   harness: Factory
@@ -61,7 +62,7 @@ cleanup_owner: droid
 dependencies:
 - CENG-T024-P001
 locks: []
-claim_timestamp: "2026-11-05T17:00:00Z"
+claim_timestamp: '2026-11-05T17:00:00Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
 - 6342cea2dc8c4aef5bdf947a7efd122d91e0dee2

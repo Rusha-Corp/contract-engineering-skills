@@ -7,20 +7,20 @@ work_type: delivery
 priority: high
 revision: 0
 lease_ref: null
-fencing_token: ""
+fencing_token: ''
 worktree:
-  path: "../contract-engineering-skills-CENG-T024-P001"
-  branch: "agent/CENG-T024-P001"
-  base_revision: "6342cea2dc8c4aef5bdf947a7efd122d91e0dee2"
-  head_revision: "19f7f254bc91c7c37122616d28131726e167a154"
+  path: ../contract-engineering-skills-CENG-T024-P001
+  branch: agent/CENG-T024-P001
+  base_revision: 6342cea2dc8c4aef5bdf947a7efd122d91e0dee2
+  head_revision: 19f7f254bc91c7c37122616d28131726e167a154
   cleanup_status: removed
-title: "Split validate-contract-records.py into contract_records package"
-objective: >
-  Decompose the 1094-line scripts/validate-contract-records.py into a
-  scripts/contract_records/ package with 9 focused modules under 500 lines
-  each. The CLI file is a thin entry point that re-exports all public names
-  so path-based test imports work unchanged. Pure refactor, no behavior
-  changes.
+title: Split validate-contract-records.py into contract_records package
+objective: 'Decompose the 1094-line scripts/validate-contract-records.py into a scripts/contract_records/
+  package with 9 focused modules under 500 lines each. The CLI file is a thin entry
+  point that re-exports all public names so path-based test imports work unchanged.
+  Pure refactor, no behavior changes.
+
+  '
 open_questions: []
 scope:
   in:
@@ -47,8 +47,8 @@ state: Complete
 owner:
   identity: Emmanuel
   identity_type: human
-  authentication_ref: "gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996"
-  signed_at: "2026-11-05T15:00:00Z"
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  signed_at: '2026-11-05T15:00:00Z'
 implementor:
   agent_id: factory-droid
   harness: Factory
@@ -65,7 +65,7 @@ reviewer: user
 cleanup_owner: droid
 dependencies: []
 locks: []
-claim_timestamp: "2026-11-05T15:00:00Z"
+claim_timestamp: '2026-11-05T15:00:00Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
 - 6342cea2dc8c4aef5bdf947a7efd122d91e0dee2
@@ -83,7 +83,7 @@ acceptance_criteria:
 - All modules in scripts/contract_records/ are under 500 lines
 - All existing tests pass with the same count (plus the new ModuleInterfaceTests)
 - CLI output is byte-identical for the same inputs
-- No behavior changes — pure refactor
+- "No behavior changes \u2014 pure refactor"
 validation_plan:
 - id: CENG-T024-P001-VAL001
   kind: type-check

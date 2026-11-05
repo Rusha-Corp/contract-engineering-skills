@@ -1,0 +1,54 @@
+decision_version: 1
+decision_id: CENG-T027-P001-DEC001
+packet_id: CENG-T027-P001
+status: approved
+title: "Scope-gate archive fallback fix, revision existence check, terminal rollover"
+proposal: >
+  Three protocol-tooling gaps surfaced while closing the accepted packets:
+  (1) enforce_packet_scope.py builds an archive-partition fallback for
+  claiming packets but packet_scope() resolves claiming packets from the
+  active partition only, so the fallback is dead code and archival diffs
+  cannot pass the gate; (2) no validator checks that handoff base/head
+  revisions resolve to real Git objects, so five CENG-T024 handoffs shipped
+  a fabricated base SHA; (3) 20 terminal packets still occupy the active
+  partition because the bulk rollover has never run through the new gate.
+alternatives_considered:
+  - "Fix the fallback inside enforce_packet_scope.py only (rejected: duplicates partition-resolution logic that packet_scope.py already owns)."
+  - "Also enforce ancestor-of-HEAD for handoff revisions (deferred: stricter than needed to catch fabricated SHAs; orphan pre-rebase heads deserve their own design pass)."
+  - "Archive only CENG-T004-P017 and defer the bulk rollover again (rejected: the gate fix makes the full rollover safe, and every terminal row in the active index is backlog)."
+decision: >
+  Fix packet_scope.packet_scope() to resolve a claiming packet from the
+  archive partition when the active partition misses it, so the gate's
+  existing archive fallback works as designed. Add a graph-rules check in
+  the contract-records validator: when the records root sits inside a Git
+  work tree, any handoff base_revision or head_revision in the canonical
+  40-hex form must resolve to an existing object, checked with
+  git cat-file -e (git rev-parse --verify accepts well-formed 40-hex
+  strings without an existence check, observed on git 2.39). Then run
+  tracker_rollover.py --confirm to move CENG-T004-P017 (Cancelled) and
+  every Complete packet to the archive partition in the same packet,
+  leaving only CENG-T027-P001 active.
+scope:
+  - "scripts/packet_scope.py"
+  - "scripts/enforce_packet_scope.py"
+  - "scripts/contract_records/graph_rules.py"
+  - ".contract-engineering/handoffs/"
+  - ".contract-engineering/archive/work-packets/"
+  - ".contract-engineering/tracker/archive/"
+controls:
+  - "The rollover script already refuses to move packets whose tracker and packet states disagree or that already exist in the archive."
+  - "The revision check applies only to canonical 40-hex values, so the historical 'worktree' placeholders (23 legacy handoffs) and legacy short SHAs (5 CENG-T015 handoffs) are exempt and recorded as follow-up cleanup."
+  - "The check requires resolvability, not ancestry, so pre-rebase orphan heads that still exist as objects are unaffected."
+  - "The check caught 17 unresolvable 40-hex revisions in 14 legacy handoffs whose objects were destroyed by early-era history rewrites; heads were repointed at each handoff's surviving records commit and unverifiable bases blanked."
+  - "All 20 moved packets are terminal (Complete or Cancelled); the lock graph ignores terminal packets, so no ownership is taken."
+  - "The archive index max_rows rises from 50 to 200 for this rollover: the archive is append-only history, and the 50-row cap would reject the 68-row archive the rollover produces."
+approved_by: user
+approved_at: "2026-11-05T15:30:00Z"
+expires_at: ""
+success_measure: >
+  The scope-gate replay of the full packet diff (gate fix, validator
+  check, and the 20-packet rollover) passes, tracker_rollover.py dry-run
+  reports zero pending moves, and all validators are green.
+rollback_ref: "b0500ca"
+review_owner: user
+review_at: "2026-11-05T15:30:00Z"

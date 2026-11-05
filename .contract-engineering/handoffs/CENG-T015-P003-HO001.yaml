@@ -20,8 +20,8 @@ receiver:
   accepted_at: '2026-09-24T01:00:00Z'
   acceptance_ref: USER-APPROVAL-REF
   signature_ref: ''
-base_revision: 6545301cc1c0c6cabdd45adffdd9e8d38b2cfd37
-head_revision: 08279bb59098c50efad89d3072905d1cdece6b7a
+base_revision: ""
+head_revision: 331a77db5503fbdc64b1416d7bb2227905d237e3
 scope_digest: 280a1f911896eb0d5e35568c71f47bce5eb29aee8a9e7f06ab417be401b5206b
 changed_resources:
 - path: .contract-engineering/evidence/CENG-T015-P003-EV001.md

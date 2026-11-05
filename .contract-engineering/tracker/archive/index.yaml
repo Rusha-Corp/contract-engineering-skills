@@ -1,16 +1,8 @@
 tracker_schema_version: 1
 partition: archive
-max_rows: 50
+max_rows: 200
 updated_at: '2026-10-21'
 rows:
-- task_id: CENG-T008
-  packet_id: CENG-T008-P001
-  state: Complete
-  owner: agent
-  reviewer: user
-  locks: []
-  next_action: Retained in archive at iteration closure
-  updated_at: '2026-09-03'
 - task_id: CENG-T003
   packet_id: CENG-T003-P001
   state: Complete
@@ -139,6 +131,71 @@ rows:
   locks: []
   next_action: Retained in archive at iteration closure
   updated_at: '2026-09-03'
+- task_id: CENG-T004
+  packet_id: CENG-T004-P016
+  state: Complete
+  owner: agent
+  reviewer: contract-driven-handoff-acceptance-reviewer
+  locks: []
+  next_action: Retain in archive at iteration closure
+  updated_at: '2026-09-24'
+- task_id: CENG-T004
+  packet_id: CENG-T004-P017
+  state: Cancelled
+  owner: Emmanuel
+  reviewer: contract-driven-handoff-acceptance-reviewer
+  locks: []
+  next_action: Cancelled per CENG-T004-P017-DEC001; superseded by v3.0.1 (CENG-T023-P001);
+    archival deferred until the scope gate can attribute archive-partition moves
+  updated_at: '2026-11-05'
+- task_id: CENG-T004
+  packet_id: CENG-T004-P018
+  state: Complete
+  owner: agent
+  reviewer: contract-driven-handoff-acceptance-reviewer
+  locks: []
+  next_action: Retain in archive at iteration closure
+  updated_at: '2026-09-24'
+- task_id: CENG-T004
+  packet_id: CENG-T004-P019
+  state: Complete
+  owner: agent
+  reviewer: contract-driven-handoff-acceptance-reviewer
+  locks: []
+  next_action: Retain in archive at iteration closure
+  updated_at: '2026-09-24'
+- task_id: CENG-T004
+  packet_id: CENG-T004-P020
+  state: Complete
+  owner: agent
+  reviewer: contract-driven-handoff-acceptance-reviewer
+  locks: []
+  next_action: Retain in archive at iteration closure
+  updated_at: '2026-09-24'
+- task_id: CENG-T004
+  packet_id: CENG-T004-P021
+  state: Complete
+  owner: agent
+  reviewer: contract-driven-handoff-acceptance-reviewer
+  locks: []
+  next_action: Retain in archive at iteration closure
+  updated_at: '2026-09-24'
+- task_id: CENG-T004
+  packet_id: CENG-T004-P022
+  state: Complete
+  owner: agent
+  reviewer: contract-driven-handoff-acceptance-reviewer
+  locks: []
+  next_action: Retain in archive at iteration closure
+  updated_at: '2026-09-24'
+- task_id: CENG-T004
+  packet_id: CENG-T004-P023
+  state: Complete
+  owner: agent
+  reviewer: contract-driven-handoff-acceptance-reviewer
+  locks: []
+  next_action: Retain in archive at iteration closure
+  updated_at: '2026-09-24'
 - task_id: CENG-T005
   packet_id: CENG-T005-P001
   state: Complete
@@ -195,23 +252,37 @@ rows:
   locks: []
   next_action: Retained in archive at iteration closure
   updated_at: '2026-09-03'
-- task_id: CENG-T017
-  packet_id: CENG-T017-P001
+- task_id: CENG-T007
+  packet_id: CENG-T007-P003
   state: Complete
-  owner: droid
-  reviewer: contract-driven-handoff-acceptance-reviewer
+  owner: agent
+  reviewer: user
   locks: []
-  next_action: Verify the final publication parity gate before publishing the signed
-    tag and matching GitHub Release.
+  next_action: Retain in archive at iteration closure
   updated_at: '2026-09-24'
-- task_id: CENG-T018
-  packet_id: CENG-T018-P001
+- task_id: CENG-T008
+  packet_id: CENG-T008-P001
   state: Complete
-  owner: droid
-  reviewer: contract-driven-handoff-acceptance-reviewer
+  owner: agent
+  reviewer: user
   locks: []
-  next_action: Recreate the signed v2.7.2 tag and publish the matching GitHub Release
-    only after hosted gates and artifact parity pass.
+  next_action: Retained in archive at iteration closure
+  updated_at: '2026-09-03'
+- task_id: CENG-T009
+  packet_id: CENG-T009-P001
+  state: Complete
+  owner: agent
+  reviewer: user
+  locks: []
+  next_action: Retain in archive at iteration closure
+  updated_at: '2026-09-24'
+- task_id: CENG-T010
+  packet_id: CENG-T010-P001
+  state: Complete
+  owner: agent
+  reviewer: user
+  locks: []
+  next_action: Retain in archive at iteration closure
   updated_at: '2026-09-24'
 - task_id: CENG-T011
   packet_id: CENG-T011-P001
@@ -258,86 +329,6 @@ rows:
   state: Complete
   owner: agent
   reviewer: user
-  locks: []
-  next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-24'
-- task_id: CENG-T010
-  packet_id: CENG-T010-P001
-  state: Complete
-  owner: agent
-  reviewer: user
-  locks: []
-  next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-24'
-- task_id: CENG-T007
-  packet_id: CENG-T007-P003
-  state: Complete
-  owner: agent
-  reviewer: user
-  locks: []
-  next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-24'
-- task_id: CENG-T009
-  packet_id: CENG-T009-P001
-  state: Complete
-  owner: agent
-  reviewer: user
-  locks: []
-  next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-24'
-- task_id: CENG-T004
-  packet_id: CENG-T004-P016
-  state: Complete
-  owner: agent
-  reviewer: contract-driven-handoff-acceptance-reviewer
-  locks: []
-  next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-24'
-- task_id: CENG-T004
-  packet_id: CENG-T004-P018
-  state: Complete
-  owner: agent
-  reviewer: contract-driven-handoff-acceptance-reviewer
-  locks: []
-  next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-24'
-- task_id: CENG-T004
-  packet_id: CENG-T004-P019
-  state: Complete
-  owner: agent
-  reviewer: contract-driven-handoff-acceptance-reviewer
-  locks: []
-  next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-24'
-- task_id: CENG-T004
-  packet_id: CENG-T004-P020
-  state: Complete
-  owner: agent
-  reviewer: contract-driven-handoff-acceptance-reviewer
-  locks: []
-  next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-24'
-- task_id: CENG-T004
-  packet_id: CENG-T004-P021
-  state: Complete
-  owner: agent
-  reviewer: contract-driven-handoff-acceptance-reviewer
-  locks: []
-  next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-24'
-- task_id: CENG-T004
-  packet_id: CENG-T004-P022
-  state: Complete
-  owner: agent
-  reviewer: contract-driven-handoff-acceptance-reviewer
-  locks: []
-  next_action: Retain in archive at iteration closure
-  updated_at: '2026-09-24'
-- task_id: CENG-T004
-  packet_id: CENG-T004-P023
-  state: Complete
-  owner: agent
-  reviewer: contract-driven-handoff-acceptance-reviewer
   locks: []
   next_action: Retain in archive at iteration closure
   updated_at: '2026-09-24'
@@ -389,3 +380,174 @@ rows:
   locks: []
   next_action: Retain in active index until iteration closure
   updated_at: '2026-09-16'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P001
+  state: Complete
+  owner: droid
+  reviewer: user
+  locks: []
+  next_action: Coordinate child packet implementation and acceptance.
+  updated_at: '2026-09-24'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P002
+  state: Complete
+  owner: droid
+  reviewer: user
+  locks: []
+  next_action: Retain in active shard until iteration closure.
+  updated_at: '2026-09-24'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P003
+  state: Complete
+  owner: droid
+  reviewer: user
+  locks: []
+  next_action: Retain in active shard until iteration closure.
+  updated_at: '2026-09-24'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P004
+  state: Complete
+  owner: droid
+  reviewer: user
+  locks: []
+  next_action: Retain in active shard until iteration closure.
+  updated_at: '2026-09-24'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P005
+  state: Complete
+  owner: droid
+  reviewer: user
+  locks: []
+  next_action: Retain in active shard until iteration closure.
+  updated_at: '2026-09-24'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P006
+  state: Complete
+  owner: droid
+  reviewer: user
+  locks: []
+  next_action: Retain in active shard until iteration closure.
+  updated_at: '2026-09-24'
+- task_id: CENG-T015
+  packet_id: CENG-T015-P007
+  state: Complete
+  owner: droid
+  reviewer: user
+  locks: []
+  next_action: Obtain receiver acceptance for the P007 handoff.
+  updated_at: '2026-09-24'
+- task_id: CENG-T017
+  packet_id: CENG-T017-P001
+  state: Complete
+  owner: droid
+  reviewer: contract-driven-handoff-acceptance-reviewer
+  locks: []
+  next_action: Verify the final publication parity gate before publishing the signed
+    tag and matching GitHub Release.
+  updated_at: '2026-09-24'
+- task_id: CENG-T018
+  packet_id: CENG-T018-P001
+  state: Complete
+  owner: droid
+  reviewer: contract-driven-handoff-acceptance-reviewer
+  locks: []
+  next_action: Recreate the signed v2.7.2 tag and publish the matching GitHub Release
+    only after hosted gates and artifact parity pass.
+  updated_at: '2026-09-24'
+- task_id: CENG-T019
+  packet_id: CENG-T019-P001
+  state: Complete
+  owner: Emmanuel
+  reviewer: user
+  locks: []
+  next_action: User accepted handoff; push to origin and publish new release
+  updated_at: '2026-10-21'
+- task_id: CENG-T020
+  packet_id: CENG-T020-P001
+  state: Complete
+  owner: Emmanuel
+  reviewer: user
+  locks: []
+  next_action: Accepted; owner-model follow-ups deferred to a future cleanup packet
+  updated_at: '2026-11-05'
+- task_id: CENG-T021
+  packet_id: CENG-T021-P001
+  state: Complete
+  owner: Emmanuel
+  reviewer: user
+  locks: []
+  next_action: Ready for release packaging
+  updated_at: '2026-10-21'
+- task_id: CENG-T022
+  packet_id: CENG-T022-P001
+  state: Complete
+  owner: Emmanuel
+  reviewer: user
+  locks: []
+  next_action: "Released as v3.0.0 (incomplete \u2014 unsigned tag; superseded by\
+    \ v3.0.1)"
+  updated_at: '2026-11-03'
+- task_id: CENG-T023
+  packet_id: CENG-T023-P001
+  state: Complete
+  owner: Emmanuel
+  reviewer: user
+  locks: []
+  next_action: Accepted; v3.0.1 published and verified
+  updated_at: '2026-11-05'
+- task_id: CENG-T024
+  packet_id: CENG-T024-P001
+  state: Complete
+  owner: Emmanuel
+  reviewer: user
+  locks: []
+  next_action: Accepted; validator decomposition live in v3.1.0
+  updated_at: '2026-11-05'
+- task_id: CENG-T024
+  packet_id: CENG-T024-P003
+  state: Complete
+  owner: Emmanuel
+  reviewer: user
+  locks: []
+  next_action: Accepted; code-health gate live in v3.1.0
+  updated_at: '2026-11-05'
+- task_id: CENG-T024
+  packet_id: CENG-T024-P004
+  state: Complete
+  owner: Emmanuel
+  reviewer: user
+  locks: []
+  next_action: Accepted; lock v2 per-file hashing live in v3.1.0
+  updated_at: '2026-11-05'
+- task_id: CENG-T024
+  packet_id: CENG-T024-P005
+  state: Complete
+  owner: Emmanuel
+  reviewer: user
+  locks: []
+  next_action: Accepted; skill updates live in v3.1.0
+  updated_at: '2026-11-05'
+- task_id: CENG-T024
+  packet_id: CENG-T024-P006
+  state: Complete
+  owner: Emmanuel
+  reviewer: user
+  locks: []
+  next_action: Accepted; v3.1.0 released; release-flow flaws fixed in CENG-T026-P001
+  updated_at: '2026-11-05'
+- task_id: CENG-T025
+  packet_id: CENG-T025-P001
+  state: Complete
+  owner: Emmanuel
+  reviewer: user
+  locks: []
+  next_action: Accepted; post-merge addendum recorded in EV002
+  updated_at: '2026-11-05'
+- task_id: CENG-T026
+  packet_id: CENG-T026-P001
+  state: Complete
+  owner: Emmanuel
+  reviewer: user
+  locks: []
+  next_action: Accepted; next release (v3.2.0+) runs finalize_release.py
+  updated_at: '2026-11-05'

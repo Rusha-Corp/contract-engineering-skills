@@ -4,7 +4,8 @@ phase: P0_FOUNDATIONS
 domain: coding
 packet_class: child-implementation
 title: Add acceptance-first discovery records
-objective: Add work types, priorities, criterion-linked unknowns, and state-aware acceptance validation.
+objective: Add work types, priorities, criterion-linked unknowns, and state-aware
+  acceptance validation.
 open_questions: []
 state: Complete
 scope:
@@ -50,16 +51,21 @@ baseline_refs:
 design_decision_ref: null
 data_gate_ref: null
 acceptance_criteria:
-- Packets distinguish discovery, delivery, bugfix, and enabler work with explicit priority and parent task references.
+- Packets distinguish discovery, delivery, bugfix, and enabler work with explicit
+  priority and parent task references.
 - Criterion-affecting unknowns have owners, dispositions, and resolution references.
-- Ready requires a complete acceptance contract while Complete requires criterion-level evidence and an accepted handoff.
-- Record migration has a dry-run mode and does not mutate records without explicit confirmation.
+- Ready requires a complete acceptance contract while Complete requires criterion-level
+  evidence and an accepted handoff.
+- Record migration has a dry-run mode and does not mutate records without explicit
+  confirmation.
 acceptance_contract:
   version: 1
   criteria:
   - id: CENG-T015-P002-AC001
-    statement: New packet records express work type, priority, parent task, iteration, and criterion-linked unknowns.
-    expected_result: Valid records pass schema and semantic validation; invalid values produce actionable diagnostics.
+    statement: New packet records express work type, priority, parent task, iteration,
+      and criterion-linked unknowns.
+    expected_result: Valid records pass schema and semantic validation; invalid values
+      produce actionable diagnostics.
     verification_method: execute
     verification_command: python3 -m unittest tests.test_acceptance_contracts -v
     evidence_refs:
@@ -68,16 +74,19 @@ acceptance_contract:
     validation_ref: CENG-T015-P002-VAL001
   - id: CENG-T015-P002-AC002
     statement: Acceptance contracts enforce different requirements at Ready and Complete.
-    expected_result: Ready rejects incomplete contracts; Complete rejects missing evidence or unaccepted handoffs.
+    expected_result: Ready rejects incomplete contracts; Complete rejects missing
+      evidence or unaccepted handoffs.
     verification_method: execute
     verification_command: python3 -m unittest tests.test_acceptance_contracts -v
     evidence_refs:
     - CENG-T015-P002-EV001
-    failure_result: Packets either stall before implementation or complete without proof.
+    failure_result: Packets either stall before implementation or complete without
+      proof.
     validation_ref: CENG-T015-P002-VAL001
   - id: CENG-T015-P002-AC003
     statement: Record migration is previewable before it changes repository files.
-    expected_result: Dry-run reports proposed changes and leaves packet, tracker, and event files unchanged.
+    expected_result: Dry-run reports proposed changes and leaves packet, tracker,
+      and event files unchanged.
     verification_method: execute
     verification_command: python3 -m unittest tests.test_record_migration -v
     evidence_refs:

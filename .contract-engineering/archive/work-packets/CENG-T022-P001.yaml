@@ -5,11 +5,11 @@ domain: coding
 packet_class: single-domain
 work_type: delivery
 title: Add a storage-independent record store interface with a file backend
-objective: >
-  Define a RecordStore ABC with a FileStore implementation over today's YAML
-  directory layout, migrate every script onto the interface, and add a
-  conformance test suite so a future API backend (Task Master app) is a
-  non-breaking v3.x addition.
+objective: 'Define a RecordStore ABC with a FileStore implementation over today''s
+  YAML directory layout, migrate every script onto the interface, and add a conformance
+  test suite so a future API backend (Task Master app) is a non-breaking v3.x addition.
+
+  '
 open_questions: []
 scope:
   in:
@@ -76,12 +76,14 @@ agent_run_ref: null
 observability_refs: []
 incident_refs: []
 acceptance_criteria:
-- RecordStore ABC defines methods for packets, tracker, events, handoffs, leases, evidence, and snapshots
+- RecordStore ABC defines methods for packets, tracker, events, handoffs, leases,
+  evidence, and snapshots
 - FileStore implements the ABC over the existing YAML directory layout
 - All 10 scripts accept an optional store parameter and fall back to FileStore(root)
 - Lock field project.record_store is present in both template and live lock
 - resolve_record_store constructs a RecordStore from the lock setting
-- Conformance test suite covers stale revision rejection, event idempotency, export/import round trip, missing-directory safety, and atomic tracker row moves
+- Conformance test suite covers stale revision rejection, event idempotency, export/import
+  round trip, missing-directory safety, and atomic tracker row moves
 - Existing tests pass with no new failures
 validation_plan:
 - id: CENG-T022-P001-VAL001

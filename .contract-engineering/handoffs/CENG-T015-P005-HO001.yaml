@@ -20,7 +20,7 @@ receiver:
   accepted_at: '2026-09-24T18:00:00Z'
   acceptance_ref: USER-APPROVAL-REF
   signature_ref: ''
-base_revision: 099450d292ca470f58f5ec19d51139a9ac992e1c
+base_revision: ""
 head_revision: 1d4a07b
 scope_digest: 2b7298cce4ecdaf591ff3d57313669842ce4877662dbb4c69bd4d6c8b6ea59db
 changed_resources:

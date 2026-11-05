@@ -8,7 +8,8 @@ parent_task_id: CENG-T015
 priority: high
 iteration: acceptance-first-rollout
 title: Make lifecycle transitions revision-safe
-objective: Coordinate packet, tracker, event, and recovery updates through a revision-aware transition path.
+objective: Coordinate packet, tracker, event, and recovery updates through a revision-aware
+  transition path.
 open_questions: []
 state: Complete
 scope:
@@ -53,16 +54,19 @@ acceptance_contract:
   criteria:
   - id: CENG-T015-P003-AC001
     statement: Lifecycle transitions are revision-safe and projection-aware.
-    expected_result: Valid transitions update packet revision, tracker row, and event stream; stale revisions are rejected.
+    expected_result: Valid transitions update packet revision, tracker row, and event
+      stream; stale revisions are rejected.
     verification_method: execute
     verification_command: python3 -m unittest tests.test_transitions -v
     evidence_refs:
     - CENG-T015-P003-EV001
-    failure_result: Concurrent agents can overwrite packet state or lose transition history.
+    failure_result: Concurrent agents can overwrite packet state or lose transition
+      history.
     validation_ref: CENG-T015-P003-VAL001
   - id: CENG-T015-P003-AC002
     statement: Prepared transition recovery is idempotent.
-    expected_result: Replaying a prepared operation completes missing projection work once and does not duplicate events.
+    expected_result: Replaying a prepared operation completes missing projection work
+      once and does not duplicate events.
     verification_method: execute
     verification_command: python3 -m unittest tests.test_transitions -v
     evidence_refs:

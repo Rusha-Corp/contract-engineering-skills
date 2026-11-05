@@ -5,22 +5,22 @@ domain: coding
 packet_class: single-domain
 work_type: delivery
 priority: critical
-
 revision: 0
 lease_ref: null
-fencing_token: ""
+fencing_token: ''
 worktree:
-  path: ".worktrees/CENG-T023-P001"
-  branch: "agent/CENG-T023-P001"
-  base_revision: "92054ab3559657f02d6a98e2d4451387db027f66"
-  head_revision: "7664a6aa70631a6487e1fd7c11967471ae22f044"
+  path: .worktrees/CENG-T023-P001
+  branch: agent/CENG-T023-P001
+  base_revision: 92054ab3559657f02d6a98e2d4451387db027f66
+  head_revision: 7664a6aa70631a6487e1fd7c11967471ae22f044
   cleanup_status: removed
-title: "Signed republication of v3.0.0 as v3.0.1 with key rotation and pre-push guard"
-objective: >
-  v3.0.0 was published with an unsigned tag and no GitHub Release, so the
-  stable release gate failed and consumers cannot adopt v3. This packet
-  rotates the publisher GPG key, adds a pre-push signature guard, fixes the
-  records CI failure, and republishes the v3.0.0 content as signed v3.0.1.
+title: Signed republication of v3.0.0 as v3.0.1 with key rotation and pre-push guard
+objective: 'v3.0.0 was published with an unsigned tag and no GitHub Release, so the
+  stable release gate failed and consumers cannot adopt v3. This packet rotates the
+  publisher GPG key, adds a pre-push signature guard, fixes the records CI failure,
+  and republishes the v3.0.0 content as signed v3.0.1.
+
+  '
 open_questions: []
 scope:
   in:
@@ -48,8 +48,8 @@ state: Complete
 owner:
   identity: Emmanuel
   identity_type: human
-  authentication_ref: "gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996"
-  signed_at: "2026-11-05T12:00:00Z"
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  signed_at: '2026-11-05T12:00:00Z'
 implementor:
   agent_id: factory-droid
   harness: Factory
@@ -66,7 +66,7 @@ reviewer: user
 cleanup_owner: droid
 dependencies: []
 locks: []
-claim_timestamp: "2026-11-05T12:00:00Z"
+claim_timestamp: '2026-11-05T12:00:00Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
 - 92054ab3559657f02d6a98e2d4451387db027f66
@@ -81,10 +81,12 @@ observability_refs: []
 incident_refs: []
 acceptance_criteria:
 - v3.0.0 tag is recorded as an incomplete publication and must not be used in locks
-- v3.0.1 has a signed annotated tag with exactly one valid GPG signature matching the new publisher key
+- v3.0.1 has a signed annotated tag with exactly one valid GPG signature matching
+  the new publisher key
 - The stable release gate passes for v3.0.1 in CI
 - A non-draft GitHub Release exists for v3.0.1
-- scripts/verify_release_tag.py validates tag signature, publisher key match, release name, commit relationship, and artifact hashes
+- scripts/verify_release_tag.py validates tag signature, publisher key match, release
+  name, commit relationship, and artifact hashes
 - The pre-push git hook blocks unsigned or mismatched stable release tags before push
 - The records CI job passes on main (work_type schema violation fixed)
 - All existing tests continue to pass

@@ -21,7 +21,7 @@ receiver:
   acceptance_ref: REVIEWER-ACCEPT-CENG-T004-P021-20260901
   signature_ref: ''
 base_revision: e7a7177f09946afc3137f4798b1cd406f015b1fe
-head_revision: b7c84d5231101afc5d20574cd6830a129706c72d
+head_revision: d2828d9bd17b120b8148eb0c4cb2e5b68ef6efd4
 scope_digest: 258bef7c109cc93b6bf458c7a35e43708f2f6d5de5cf99aa1b6d186d866e7573
 changed_resources:
 - path: schemas/work-packet.schema.json

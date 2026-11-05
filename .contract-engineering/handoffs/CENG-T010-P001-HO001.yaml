@@ -16,7 +16,7 @@ receiver:
   accepted_at: '2026-08-31T20:13:06Z'
   acceptance_ref: USER-ACCEPT-20260831-ALL-REWORK
 base_revision: 21539bd876eb7af9bd71f394e494314bb6762573
-head_revision: f942d064dd4d4b2e196c8c0f8db767735c6b7e2b
+head_revision: b31526bcd2d8701af616bd0086623f34ea5c03d1
 scope_digest: b21fd4fd62fb0f01610730289e3a0c52b712227e541266637c71aadaee8808a1
 changed_resources:
 - path: .contract-engineering/evidence/CENG-T010-P001-EV002.md

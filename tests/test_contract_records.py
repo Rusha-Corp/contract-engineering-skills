@@ -1,5 +1,6 @@
 import importlib.util
 import shutil
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -647,3 +648,82 @@ class ModuleInterfaceTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class HandoffRevisionTests(unittest.TestCase):
+    """validate_references rejects fabricated full-length handoff revisions.
+
+    Five CENG-T024 handoffs shipped a fabricated 40-hex base_revision that
+    no validator caught. A set base_revision or head_revision in the
+    canonical 40-hex form must resolve to a real Git object when the
+    records root lives in a Git work tree. Legacy values (the historical
+    ``worktree`` placeholder and short SHAs) are exempt, and the check is
+    skipped entirely outside a work tree.
+    """
+
+    FABRICATED = "7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0"
+    PACKETS = None  # set in setUpClass via _packet
+
+    def _git_repo_with_commit(self):
+        repo = Path(tempfile.mkdtemp())
+        subprocess.run(["git", "init", "-q", str(repo)], check=True)
+        (repo / "file.txt").write_text("content\n")
+        subprocess.run(["git", "-C", str(repo), "add", "-A"], check=True)
+        subprocess.run(
+            [
+                "git", "-C", str(repo),
+                "-c", "user.name=test",
+                "-c", "user.email=test@example.com",
+                "commit", "-q", "-m", "init",
+            ],
+            check=True,
+        )
+        sha = subprocess.run(
+            ["git", "-C", str(repo), "rev-parse", "HEAD"],
+            capture_output=True, text=True, check=True,
+        ).stdout.strip()
+        return repo, sha
+
+    def _root_with_handoff(self, parent, base_revision, head_revision):
+        root = parent / "ce"
+        (root / "handoffs").mkdir(parents=True)
+        (root / "handoffs" / "TEST-T001-P001-HO001.yaml").write_text(
+            "handoff_id: TEST-T001-P001-HO001\n"
+            "packet_id: TEST-T001-P001\n"
+            "sender: droid\n"
+            "receiver: user\n"
+            "receiver_status: pending\n"
+            f"base_revision: {base_revision}\n"
+            f"head_revision: {head_revision}\n"
+        )
+        return root
+
+    def test_fabricated_full_length_revision_fails(self):
+        repo, sha = self._git_repo_with_commit()
+        root = self._root_with_handoff(repo, self.FABRICATED, sha)
+        with self.assertRaises(ValueError) as ctx:
+            validator.validate_references(
+                root, {"TEST-T001-P001": _packet("TEST-T001-P001", "Handoff")}
+            )
+        self.assertIn("base_revision", str(ctx.exception))
+
+    def test_resolvable_full_length_revision_passes(self):
+        repo, sha = self._git_repo_with_commit()
+        root = self._root_with_handoff(repo, sha, sha)
+        validator.validate_references(
+            root, {"TEST-T001-P001": _packet("TEST-T001-P001", "Handoff")}
+        )
+
+    def test_legacy_placeholder_and_short_revisions_skip_check(self):
+        repo, sha = self._git_repo_with_commit()
+        root = self._root_with_handoff(repo, "worktree", sha[:7])
+        validator.validate_references(
+            root, {"TEST-T001-P001": _packet("TEST-T001-P001", "Handoff")}
+        )
+
+    def test_check_skipped_outside_git_work_tree(self):
+        parent = Path(tempfile.mkdtemp())
+        root = self._root_with_handoff(parent, self.FABRICATED, self.FABRICATED)
+        validator.validate_references(
+            root, {"TEST-T001-P001": _packet("TEST-T001-P001", "Handoff")}
+        )

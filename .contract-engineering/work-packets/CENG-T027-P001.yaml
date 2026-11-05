@@ -58,7 +58,7 @@ scope:
   - global installed skills
   - .github/workflows/*
   - consumer lock updates
-state: Claimed
+state: Implementing
 owner:
   identity: Emmanuel
   identity_type: human

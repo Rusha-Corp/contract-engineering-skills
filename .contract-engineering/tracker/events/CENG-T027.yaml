@@ -19,3 +19,10 @@ events:
   actor: droid
   occurred_at: '2026-11-05T15:30:02Z'
   summary: Started the test-first gate fix and validator revision check.
+- event_id: CENG-T027-E004
+  packet_id: CENG-T027-P001
+  type: transition
+  actor: droid
+  occurred_at: '2026-11-05T16:20:00Z'
+  summary: Transitioned to Implementing after the archive-fallback gate fix and handoff revision existence check landed.
+

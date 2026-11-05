@@ -112,9 +112,9 @@ rows:
   updated_at: '2026-11-05'
 - task_id: CENG-T027
   packet_id: CENG-T027-P001
-  state: Claimed
+  state: Implementing
   owner: Emmanuel
   reviewer: user
   locks: []
-  next_action: Implement gate fix, revision check, and terminal rollover
+  next_action: Gate fix and revision check landed; terminal rollover next
   updated_at: '2026-11-05'

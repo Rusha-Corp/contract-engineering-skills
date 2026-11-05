@@ -1,10 +1,10 @@
 attestation_version: 1
 attestation_id: CENG-T024-P006-ATT001
-issued_at: '2026-11-05T11:20:00Z'
+issued_at: '2026-11-05T11:30:00Z'
 expires_at: '2028-11-04T00:00:00Z'
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: 91d449e041b6dc4021f657c3f9b26b805b36fd3d
+  commit: d9649f62cc20f0561b2eb7a8084eacedb4032365
   release: 3.1.0
   artifacts:
   - path: CHANGELOG.md
@@ -38,9 +38,9 @@ publisher:
   signature_ref: gpg:tag:v3.1.0:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:01440846de7cc7c71966c43becd35536e0a4e720
+  builder_digest: git-tree:de7d1d16932383a60d87ed7d09f1fe6dd8a574a3
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: 91d449e041b6dc4021f657c3f9b26b805b36fd3d
+  source_commit: d9649f62cc20f0561b2eb7a8084eacedb4032365
   dependencies:
   - PyYAML 6.0.3 and runtime dependencies, hash-pinned in requirements-ci.txt
   - jsonschema 4.21.1 with referencing and rpds-py, hash-pinned in requirements-ci.txt
@@ -52,11 +52,11 @@ review:
   approval_ref: USER-APPROVAL-v3.1.0
   approved_at: '2026-11-05T10:00:00Z'
 verification:
-  verified_at: '2026-11-05T11:20:00Z'
+  verified_at: '2026-11-05T11:30:00Z'
   verifier: droid
   result: pass
   transparency_ref: PENDING_HOSTED_VALIDATION
-  revocation_checked_at: '2026-11-05T11:20:00Z'
+  revocation_checked_at: '2026-11-05T11:30:00Z'
 revocation:
   status: active
   revocation_ref: null

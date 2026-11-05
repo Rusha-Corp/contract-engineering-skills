@@ -105,9 +105,9 @@ rows:
   updated_at: '2026-11-05'
 - task_id: CENG-T026
   packet_id: CENG-T026-P001
-  state: Handoff
+  state: Complete
   owner: Emmanuel
   reviewer: user
   locks: []
-  next_action: User reviews and accepts handoff; merge to main
+  next_action: Accepted; next release (v3.2.0+) runs finalize_release.py
   updated_at: '2026-11-05'

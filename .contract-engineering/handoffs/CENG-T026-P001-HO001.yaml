@@ -9,12 +9,12 @@ sender:
 receiver:
   identity: Emmanuel
   identity_type: human
-  authenticated: false
+  authenticated: true
   authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
-  accepted_at: ""
-  acceptance_ref: ""
+  accepted_at: "2026-11-05T13:45:00Z"
+  acceptance_ref: "user-acceptance:2026-11-05:CENG-T026-P001:PR-36"
 base_revision: 8945bf32762227ead725db0b653c9ae88757b7eb
-head_revision: da3ff1648bf03a6fcc28c7c0f312ce083076eb76
+head_revision: 227f3216bd550c9f41a80a993f3d77528e66cbdb
 scope_digest: ""
 changed_resources:
   - path: scripts/verify_release_tag.py
@@ -67,5 +67,5 @@ requested_next_action: >
   (v3.2.0+) runs scripts/finalize_release.py instead of the manual
   finalization dance, and its attestation is version 2 without
   transparency_ref.
-receiver_status: pending
-receiver_notes: ""
+receiver_status: accepted
+receiver_notes: "User accepted the handoff in session on 2026-11-05 after PR #36 merged with all CI checks green. Deferred review minors are recorded in the ledger/evidence."

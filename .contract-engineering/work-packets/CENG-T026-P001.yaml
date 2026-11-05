@@ -13,7 +13,7 @@ worktree:
   path: ".worktrees/CENG-T026-P001"
   branch: "agent/CENG-T026-P001"
   base_revision: "8945bf32762227ead725db0b653c9ae88757b7eb"
-  cleanup_status: active
+  cleanup_status: removed
 title: "Release flow hardening: drop transparency_ref, script lock finalization"
 objective: >
   Two release-machinery flaws surfaced during the v3.1.0 release. First, the
@@ -46,7 +46,7 @@ scope:
   out:
   - skills/*/SKILL.md
   - .github/workflows/*
-state: Handoff
+state: Complete
 owner:
   identity: Emmanuel
   identity_type: human

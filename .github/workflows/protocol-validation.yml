@@ -162,6 +162,26 @@ jobs:
               )
               if not version or version.group(1).decode() != str(pin["version"]):
                   raise SystemExit(f"{name}: lock version does not match {ref}")
+              # lock_version 2: verify per-file hashes if a files map is present.
+              files_map = pin.get("files")
+              if files_map:
+                  for file_rel, expected_hash in files_map.items():
+                      file_content = subprocess.check_output(
+                          ["git", "show", f"{ref}:skills/{name}/{file_rel}"],
+                          text=False,
+                      )
+                      actual_file_hash = hashlib.sha256(file_content).hexdigest()
+                      if actual_file_hash != expected_hash:
+                          raise SystemExit(
+                              f"{name}/{file_rel}: lock hash does not match {ref}"
+                          )
+                      wt_file_hash = hashlib.sha256(
+                          Path(f"skills/{name}/{file_rel}").read_bytes()
+                      ).hexdigest()
+                      if wt_file_hash != expected_hash:
+                          raise SystemExit(
+                              f"{name}/{file_rel}: working-tree hash does not match lock"
+                          )
           print(f"verified six skill pins against {ref} (ancestry + working-tree aligned)")
           PY
 

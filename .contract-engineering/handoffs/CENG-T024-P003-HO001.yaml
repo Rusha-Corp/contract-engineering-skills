@@ -1,0 +1,58 @@
+handoff_id: CENG-T024-P003-HO001
+packet_id: CENG-T024-P003
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: session:CENG-T024-P003-code-health
+  signature_ref: ""
+receiver:
+  identity: Emmanuel
+  identity_type: human
+  authenticated: false
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  accepted_at: ""
+  acceptance_ref: ""
+base_revision: 7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0
+head_revision: e26b6d56b8d0db4498ce92c3c50ee13beec08d1a
+scope_digest: ""
+changed_resources:
+  - path: scripts/contract_records/code_health.py
+    change: "New module: size review and dead-code review validation (166L)"
+  - path: scripts/contract_records/__init__.py
+    change: "Re-export code_health names and submodule"
+  - path: scripts/contract_records/engine.py
+    change: "Add _validate_code_health_for_packet integration (230L)"
+  - path: scripts/validate-contract-records.py
+    change: "Import code_health submodule for test access"
+  - path: schemas/work-packet.schema.json
+    change: "Typed cleanup_scope with size_reviews, dead_code_review, dead_refs"
+  - path: templates/work-packet.yaml
+    change: "Updated cleanup_scope template with new fields"
+  - path: tests/test_code_health.py
+    change: "18 new tests covering all rules and defaults"
+  - path: docs/repository-development.md
+    change: "New Code-health gate section"
+summary: >
+  Added the code-health gate: file-size review for changed files over 500
+  lines, and dead-code review checkpoints for Handoff/Complete packets.
+  The recorded decision is hard-gated; the outcome is left to judgment.
+  Addresses issue #21.
+validation_results:
+  - "Unit tests: 201 tests (18 new), 1 pre-existing macOS tempdir failure"
+  - "validate-contract-records.py: valid (mode=enforced)"
+  - "All module files under 500 lines"
+evidence_refs:
+  - CENG-T024-P003-EV001
+unresolved_items:
+  - "Pre-existing macOS /private/var tempdir test failure unrelated to this packet"
+  - "Validator requires resource module stub on macOS due to CPU rlimit"
+  - "Lock v2 per-file hashing (P004) and skill updates (P005) are separate packets"
+rollback_notes:
+  - "Revert commit on agent/CENG-T024-P003 to remove the code-health gate"
+  - "Schema change is backward-compatible: cleanup_scope still accepts untyped objects"
+requested_next_action: >
+  Review and accept the code-health gate. After acceptance, merge the branch.
+  Then proceed with P004 (lock v2) and P005 (skill updates).
+receiver_status: pending
+receiver_notes: ""

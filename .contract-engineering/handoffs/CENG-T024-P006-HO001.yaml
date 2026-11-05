@@ -1,0 +1,50 @@
+handoff_id: CENG-T024-P006-HO001
+packet_id: CENG-T024-P006
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: session:CENG-T024-P006-release
+  signature_ref: ""
+receiver:
+  identity: Emmanuel
+  identity_type: human
+  authenticated: false
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  accepted_at: ""
+  acceptance_ref: ""
+base_revision: 7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0
+head_revision: 5d890d4798b08efaeecd0fd5a9a462eb26a235a9
+scope_digest: ""
+changed_resources:
+  - path: .contract-engineering/protocol.lock.yaml
+    change: "Updated to lock_version 2 with per-file hashes and code_health config"
+  - path: .contract-engineering/release-attestation.yaml
+    change: "New attestation for v3.1.0"
+  - path: CHANGELOG.md
+    change: "v3.1.0 entry"
+summary: >
+  Release v3.1.0 with code-health gate, lock v2 per-file hashing, validator
+  decomposition, record store split, skill updates and splits, and CI fix.
+validation_results:
+  - "Unit tests: 206 tests, 1 pre-existing macOS tempdir failure"
+  - "validate-contract-records.py: valid (mode=enforced)"
+evidence_refs:
+  - CENG-T024-P006-EV001
+unresolved_items:
+  - "Tag v3.1.0 must be signed and pushed (requires user approval)"
+  - "GitHub Release v3.1.0 must be created manually"
+  - "Attestation has PENDING placeholders for commit SHA and artifact hashes"
+  - "Pre-existing macOS /private/var tempdir test failure"
+rollback_notes:
+  - "Revert the release commit to restore v3.0.1 lock"
+  - "Tag v3.1.0 can be deleted if not yet pushed"
+requested_next_action: >
+  Review and accept. After acceptance:
+  1. Merge all branches (P002 through P006) into main
+  2. Finalize the lock ref and attestation with the merge commit SHA
+  3. Sign tag v3.1.0 with GPG
+  4. Push main and tag (requires user approval)
+  5. Create GitHub Release v3.1.0
+receiver_status: pending
+receiver_notes: ""

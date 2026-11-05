@@ -310,7 +310,51 @@
     "evidence_refs": {"type": "array", "items": {"type": "string"}},
     "handoff_ref": {"type": ["string", "null"]},
     "skill_gaps": {"type": "array"},
-    "cleanup_scope": {"type": "object"},
+    "cleanup_scope": {
+        "type": "object",
+        "properties": {
+            "size_reviews": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "path": {"type": "string"},
+                        "lines": {"type": "integer"},
+                        "decision": {"enum": ["decompose", "retain", "defer"]},
+                        "rationale": {"type": "string"},
+                        "follow_up_ref": {"type": "string"}
+                    },
+                    "required": ["path", "lines", "decision"]
+                }
+            },
+            "dead_code_review": {
+                "type": "array",
+                "items": {"type": "string"}
+            },
+            "dead_refs": {
+                "type": "array",
+                "items": {
+                    "oneOf": [
+                        {"type": "string"},
+                        {
+                            "type": "object",
+                            "properties": {
+                                "ref": {"type": "string"},
+                                "evidence": {"type": "string"},
+                                "risk": {"enum": ["low", "medium", "high"]},
+                                "decision": {
+                                    "enum": ["remove", "deprecate", "retain", "archive", "false_positive", "needs_evidence"]
+                                },
+                                "follow_up_ref": {"type": ["string", "null"]}
+                            }
+                        }
+                    ]
+                }
+            },
+            "stale_refs": {"type": "array"},
+            "temp_refs": {"type": "array"}
+        }
+    },
     "stability": {"enum": ["stable", "beta", "experimental", "deprecated"]},
     "state": {
       "enum": [

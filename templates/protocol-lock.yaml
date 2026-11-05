@@ -1,6 +1,14 @@
 # Example lock for the currently published v2.7.2 release. Replace the
 # protocol ref, release, versions, and hashes together when selecting another
 # release.
+#
+# lock_version 1 hashes only SKILL.md per skill (backward compatible).
+# lock_version 2 adds an optional files map per skill:
+#   skills.<name>.files:
+#     SKILL.md: <sha256>
+#     references/example.md: <sha256>
+# When a files map is present, every file it lists is hash-verified against
+# the locked ref. Files not listed in the map are not checked.
 lock_version: 1
 protocol:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git

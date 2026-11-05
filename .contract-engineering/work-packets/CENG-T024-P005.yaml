@@ -1,0 +1,115 @@
+packet_id: CENG-T024-P005
+task_id: CENG-T024
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: single-domain
+work_type: delivery
+priority: high
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: "../contract-engineering-skills-CENG-T024-P005"
+  branch: "agent/CENG-T024-P005"
+  base_revision: "7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0"
+  head_revision: "60fe63dd5e6d9a4b19d554f2381d67477f32002f"
+  cleanup_status: active
+title: "Update skills with code-health guidance and split oversized files"
+objective: >
+  Update all six governed skills with code-health guidance (file-size
+  review, continuous dead-code finding). Split the two oversized SKILL.md
+  files (phased-engineering-execution 549L, security-assurance 511L) by
+  moving detail into references/ files. Requires lock v2 per-file hashing.
+open_questions: []
+scope:
+  in:
+  - skills/phased-engineering-execution/SKILL.md
+  - skills/phased-engineering-execution/references/packet-schema.md
+  - skills/phased-engineering-execution/references/approval-gates.md
+  - skills/phased-engineering-execution/references/handoff-schema.md
+  - skills/security-assurance/SKILL.md
+  - skills/security-assurance/references/threat-model.md
+  - skills/security-assurance/references/secure-controls.md
+  - skills/security-assurance/references/security-verification.md
+  - skills/cleanup-protocol/SKILL.md
+  - skills/coding-principles/SKILL.md
+  - skills/project-lifecycle/SKILL.md
+  - .contract-engineering/work-packets/CENG-T024-P005.yaml
+  - .contract-engineering/evidence/CENG-T024-P005-EV001.md
+  - .contract-engineering/handoffs/CENG-T024-P005-HO001.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/execution-tracker.md
+  out: []
+state: Handoff
+owner:
+  identity: Emmanuel
+  identity_type: human
+  authentication_ref: "gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996"
+  signed_at: "2026-11-05T19:00:00Z"
+implementor:
+  agent_id: factory-droid
+  harness: Factory
+  model: glm-5.2
+  session_id: CENG-T024-P005-skills
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: low
+approval_policy: user
+external_effects: []
+reviewer: user
+cleanup_owner: droid
+dependencies:
+- CENG-T024-P004
+locks: []
+claim_timestamp: "2026-11-05T19:00:00Z"
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- 7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0
+design_decision_ref: null
+data_gate_ref: null
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+acceptance_criteria:
+- All SKILL.md files are under 500 lines
+- phased-engineering-execution has code-health gate in baseline and finish steps
+- security-assurance detail moved to references/ files
+- cleanup-protocol makes dead-code finding continuous
+- coding-principles has file-size and dead-code rules
+- project-lifecycle P3 Cleanup points at code-health checkpoints
+validation_plan:
+- id: CENG-T024-P005-VAL001
+  kind: type-check
+  skill: phased-engineering-execution
+  checks:
+  - unittest discover passes (1 pre-existing failure)
+  - all SKILL.md files under 500 lines
+  expected: all validators pass with no new failures
+evidence_refs:
+- CENG-T024-P005-EV001
+handoff_ref: CENG-T024-P005-HO001
+skill_gaps: []
+cleanup_scope:
+  size_reviews:
+  - path: skills/phased-engineering-execution/SKILL.md
+    lines: 549
+    decision: decompose
+    rationale: "moved detail into references/ files"
+  - path: skills/security-assurance/SKILL.md
+    lines: 511
+    decision: decompose
+    rationale: "moved detail into references/ files"
+  dead_code_review:
+  - baseline
+  - handoff
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+updated_at: "2026-11-05"

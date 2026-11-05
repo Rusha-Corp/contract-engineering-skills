@@ -621,5 +621,29 @@ class AcceptanceContractTests(unittest.TestCase):
         )
 
 
+class ModuleInterfaceTests(unittest.TestCase):
+    def test_validator_reexports_all_public_names(self):
+        for name in [
+            "STATES", "DOMAINS", "TASK_ID", "PACKET_ID", "BASE_REVISION", "SHA256",
+            "MAX_YAML_BYTES", "MAX_YAML_ALIASES", "MAX_YAML_DEPTH",
+            "SECURITY_SCOPE_PATTERNS", "PACKET_CLASSES", "WORK_TYPES", "PRIORITIES",
+            "QUESTION_DISPOSITIONS", "EXECUTION_CONTROL_REFS", "FORBIDDEN_CAPABILITIES",
+            "ACCEPTANCE_CRITERION_ID", "VALIDATION_PLAN_ID", "OPEN_QUESTION_ID", "EPIC_ID",
+            "fail", "ValidationResult", "load_yaml", "load_json_schema",
+            "validate_instance", "validate_identifier", "configure_resource_limits",
+            "path_matches", "resolve_protocol_root", "run_validation",
+            "validate_json_schemas", "validate_evidence_policy",
+            "validate_security_semantics", "validate_acceptance_contract",
+            "validate_work_metadata", "validate_open_questions",
+            "validate_planning_records", "validate_owner", "validate_packet",
+            "validate_tracker", "validate_project_lock", "validate_locks",
+            "validate_dependency_graph", "validate_references", "enforce_scope",
+            "validate_canonical_tracker", "is_task_or_packet_identifier",
+            "ARCHIVE_PACKET_DIR", "ARCHIVE_TRACKER", "TRACKER_SHARD_DIR",
+            "MAX_INDEX_PACKET_ROWS", "MAX_SHARD_PACKET_ROWS", "TERMINAL_STATES",
+        ]:
+            self.assertTrue(hasattr(validator, name), f"missing: {name}")
+
+
 if __name__ == "__main__":
     unittest.main()

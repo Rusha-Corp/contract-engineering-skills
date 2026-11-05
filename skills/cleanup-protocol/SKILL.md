@@ -1,6 +1,6 @@
 ---
 name: cleanup-protocol
-version: 2.4.0
+version: 2.5.0
 description: Remove dead code, stale artifacts, and temporary debris after validation using risk-tiered, auditable procedures.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,10 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.5.0 (2026-11-05): Made dead-code finding continuous (required at
+  baseline and handoff, not just P3 Cleanup). Removal still happens only
+  after validation. Low-risk removal of code the packet itself orphaned is
+  done in the same packet; anything else goes to a named follow-up packet.
 - 2.4.0 (2026-09-03): Made YAML tracker partitions canonical and Markdown
   files generated projections; added event-stream and database-consumer
   archive guidance.
@@ -37,9 +41,15 @@ it were project records.
 
 ## When to use
 
-- After a packet reaches `Validation` with passing results.
-- During the execution framework's `P3 Cleanup` phase.
-- Before iteration closure and tracker archival.
+- **Finding is continuous:** inventory dead code, stale artifacts, and
+  oversized files during the baseline step and at handoff, not just during
+  P3 Cleanup. Record findings in `cleanup_scope` as they are discovered.
+- **Removal is gated:** execute removal only after a packet reaches
+  `Validation` with passing results, during P3 Cleanup, or at iteration
+  closure.
+- Low-risk removal of code the packet itself orphaned may be done in the
+  same packet after validation. Anything else goes to a named follow-up
+  packet.
 - When active packet, evidence, or generated-file directories show bloat.
 
 ## Inventory before action
@@ -56,7 +66,21 @@ Identify and record:
 - empty or boilerplate-only files.
 - duplicate utilities introduced by DRY violations.
 
-Record candidates in the packet's `cleanup_scope.dead_refs` with evidence, risk, and proposed action. Candidate inventory is separate from execution; do not describe a removed item as merely identified.
+Record candidates in the packet's `cleanup_scope.dead_refs` with evidence, risk, and proposed action. Each entry SHALL have a `decision`: `remove`, `deprecate`, `retain`, `archive`, `false_positive`, or `needs_evidence`. A `needs_evidence` decision blocks packet `Complete`. Candidate inventory is separate from execution; do not describe a removed item as merely identified.
+
+### File size review
+
+Identify any file in the packet's `scope.in` that exceeds the configured
+line limit (default 500, configurable via `project.code_health.max_file_lines`
+in `protocol.lock.yaml`). For each oversized file, record a
+`cleanup_scope.size_reviews` entry with a `decision`:
+
+- `decompose` — the file will be split;
+- `retain` — requires a `rationale` explaining why it stays;
+- `defer` — requires a `follow_up_ref` naming the packet that will handle it.
+
+The recorded decision is hard-gated by the validator. Whether to actually
+split is the agent's judgment, checked by the reviewer at handoff.
 
 ### Stale artifacts
 

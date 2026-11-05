@@ -66,9 +66,7 @@ reviewer: contract-driven-handoff-acceptance-reviewer
 cleanup_owner: agent
 dependencies:
 - CENG-T004-P016
-locks:
-- release-path:v2.2.0
-- release-attestation
+locks: []
 claim_timestamp: '2026-08-31T21:17:48Z'
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
@@ -126,8 +124,8 @@ migration_dependencies:
 removal_criteria: []
 exception_refs: []
 sunset_target: ''
-state: Interrupted
-updated_at: '2026-10-21'
+state: Cancelled
+updated_at: '2026-11-05'
 recovery_note: >
   Packet was in Rework since 2026-09-16 with unresolved hosted security gate
   failures and signing limitations (passphrase-protected key, no TTY). The

@@ -11,9 +11,9 @@ fencing_token: ""
 worktree:
   path: "../contract-engineering-skills-CENG-T024-P005"
   branch: "agent/CENG-T024-P005"
-  base_revision: "7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0"
-  head_revision: "60fe63dd5e6d9a4b19d554f2381d67477f32002f"
-  cleanup_status: active
+  base_revision: "6342cea2dc8c4aef5bdf947a7efd122d91e0dee2"
+  head_revision: "c4fdce1aeca6ec81101724fcf24b3ff05bcbbc5f"
+  cleanup_status: removed
 title: "Update skills with code-health guidance and split oversized files"
 objective: >
   Update all six governed skills with code-health guidance (file-size
@@ -40,7 +40,7 @@ scope:
   - .contract-engineering/tracker/index.yaml
   - .contract-engineering/execution-tracker.md
   out: []
-state: Handoff
+state: Complete
 owner:
   identity: Emmanuel
   identity_type: human
@@ -66,7 +66,7 @@ locks: []
 claim_timestamp: "2026-11-05T19:00:00Z"
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
-- 7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0
+- 6342cea2dc8c4aef5bdf947a7efd122d91e0dee2
 design_decision_ref: null
 data_gate_ref: null
 trust_boundary_ref: null
@@ -112,4 +112,4 @@ cleanup_scope:
   stale_refs: []
   temp_refs: []
 stability: stable
-updated_at: "2026-11-05"
+updated_at: '2026-11-05'

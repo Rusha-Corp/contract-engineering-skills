@@ -1,0 +1,31 @@
+decision_version: 1
+decision_id: CENG-T020-P001-DEC001
+packet_id: CENG-T020-P001
+status: approved
+title: "Add the packet's own record path to scope.in for closure"
+proposal: >
+  CENG-T020-P001 predates the convention that a packet's scope.in includes
+  its own work-packet record. Closing the packet (state Complete with the
+  user's batch acceptance) requires editing
+  work-packets/CENG-T020-P001.yaml, which the scope gate cannot attribute
+  to this packet without the self-reference.
+alternatives_considered:
+  - "Leave T020 in Handoff indefinitely (rejected: stale row; user accepted the handoff)."
+  - "Rely on another packet's scope to cover the path (rejected: no other packet claims it)."
+decision: >
+  Add .contract-engineering/work-packets/CENG-T020-P001.yaml to scope.in so
+  the closure edit is in scope, then record the user's batch acceptance
+  dated 2026-11-05.
+scope:
+  - ".contract-engineering/work-packets/CENG-T020-P001.yaml"
+controls:
+  - "Purely additive self-reference; no other resource's ownership changes."
+  - "Every other active packet already follows this convention."
+approved_by: user
+approved_at: "2026-11-05T14:30:00Z"
+expires_at: ""
+success_measure: >
+  The scope gate passes with CENG-T020-P001 among the claiming packets.
+rollback_ref: "dad05c0"
+review_owner: user
+review_at: "2026-11-05T14:30:00Z"

@@ -9,12 +9,12 @@ sender:
 receiver:
   identity: Emmanuel
   identity_type: human
-  authenticated: false
+  authenticated: true
   authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
-  accepted_at: ""
-  acceptance_ref: ""
+  accepted_at: "2026-11-05T14:30:00Z"
+  acceptance_ref: "user-acceptance:2026-11-05:CENG-T025-P001:PR-34"
 base_revision: 7664a6aa70631a6487e1fd7c11967471ae22f044
-head_revision: f7f276a4b880da89324f6ae7b591126d9bf29d55
+head_revision: 48c8e2442181b78c64df8bdcbff0f7158a3e482e
 scope_digest: ""
 changed_resources:
   - path: scripts/enforce_packet_scope.py
@@ -62,5 +62,5 @@ rollback_notes:
 requested_next_action: >
   Review the scope gate fix. If accepted, merge to main so PR #30 (dependabot)
   can rebase and pass CI. Then proceed with the T024 release chain merge.
-receiver_status: pending
-receiver_notes: ""
+receiver_status: accepted
+receiver_notes: "User accepted in session on 2026-11-05. Scope-gate false-positive fixes and gitleaks allowlist are live; the post-merge CI crash fix is recorded as the EV002 addendum."

@@ -5,16 +5,7 @@ updated_at: '2026-11-05'
 shards:
 - tracker/shards/CENG-T015.yaml
 rows:
-- task_id: CENG-T004
-  packet_id: CENG-T004-P017
-  state: Interrupted
-  owner: Emmanuel
-  reviewer: contract-driven-handoff-acceptance-reviewer
-  locks:
-  - release-path:v2.2.0
-  - release-attestation
-  next_action: Recovery — resolve hosted security gate failures and signing limitations; re-claim before resubmission.
-  updated_at: '2026-11-05'
+
 - task_id: CENG-T019
   packet_id: CENG-T019-P001
   state: Complete
@@ -23,13 +14,21 @@ rows:
   locks: []
   next_action: User accepted handoff; push to origin and publish new release
   updated_at: '2026-10-21'
+- task_id: CENG-T004
+  packet_id: CENG-T004-P017
+  state: Cancelled
+  owner: Emmanuel
+  reviewer: contract-driven-handoff-acceptance-reviewer
+  locks: []
+  next_action: Cancelled per CENG-T004-P017-DEC001; superseded by v3.0.1 (CENG-T023-P001); archival deferred until the scope gate can attribute archive-partition moves
+  updated_at: '2026-11-05'
 - task_id: CENG-T020
   packet_id: CENG-T020-P001
-  state: Handoff
+  state: Complete
   owner: Emmanuel
   reviewer: user
   locks: []
-  next_action: User reviews and accepts the human-signed owner model handoff
+  next_action: Accepted; owner-model follow-ups deferred to a future cleanup packet
   updated_at: '2026-11-05'
 - task_id: CENG-T021
   packet_id: CENG-T021-P001
@@ -49,59 +48,59 @@ rows:
   updated_at: '2026-11-03'
 - task_id: CENG-T023
   packet_id: CENG-T023-P001
-  state: Claimed
+  state: Complete
   owner: Emmanuel
   reviewer: user
   locks: []
-  next_action: Signed republication as v3.0.1 with key rotation and pre-push guard
+  next_action: Accepted; v3.0.1 published and verified
   updated_at: '2026-11-05'
 - task_id: CENG-T025
   packet_id: CENG-T025-P001
-  state: Handoff
+  state: Complete
   owner: Emmanuel
   reviewer: user
   locks: []
-  next_action: User reviews and accepts handoff; merge to main to unblock PR #30
+  next_action: Accepted; post-merge addendum recorded in EV002
   updated_at: '2026-11-05'
 - task_id: CENG-T024
   packet_id: CENG-T024-P001
-  state: Handoff
+  state: Complete
   owner: Emmanuel
   reviewer: user
   locks: []
-  next_action: User reviews and accepts the validator decomposition
+  next_action: Accepted; validator decomposition live in v3.1.0
   updated_at: '2026-11-05'
 - task_id: CENG-T024
   packet_id: CENG-T024-P003
-  state: Handoff
+  state: Complete
   owner: Emmanuel
   reviewer: user
   locks: []
-  next_action: User reviews and accepts the code-health gate
+  next_action: Accepted; code-health gate live in v3.1.0
   updated_at: '2026-11-05'
 - task_id: CENG-T024
   packet_id: CENG-T024-P004
-  state: Handoff
+  state: Complete
   owner: Emmanuel
   reviewer: user
   locks: []
-  next_action: User reviews and accepts the lock v2 per-file hashing
+  next_action: Accepted; lock v2 per-file hashing live in v3.1.0
   updated_at: '2026-11-05'
 - task_id: CENG-T024
   packet_id: CENG-T024-P005
-  state: Handoff
+  state: Complete
   owner: Emmanuel
   reviewer: user
   locks: []
-  next_action: User reviews and accepts the skill updates and splits
+  next_action: Accepted; skill updates live in v3.1.0
   updated_at: '2026-11-05'
 - task_id: CENG-T024
   packet_id: CENG-T024-P006
-  state: Handoff
+  state: Complete
   owner: Emmanuel
   reviewer: user
   locks: []
-  next_action: User reviews and accepts the v3.1.0 release
+  next_action: Accepted; v3.1.0 released; release-flow flaws fixed in CENG-T026-P001
   updated_at: '2026-11-05'
 - task_id: CENG-T026
   packet_id: CENG-T026-P001

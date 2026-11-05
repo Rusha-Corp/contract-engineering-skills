@@ -13,8 +13,8 @@ worktree:
   path: ".worktrees/CENG-T023-P001"
   branch: "agent/CENG-T023-P001"
   base_revision: "92054ab3559657f02d6a98e2d4451387db027f66"
-  head_revision: "5a5084ee42a2715772fefbdaae5ca4afadcb7dad"
-  cleanup_status: active
+  head_revision: "7664a6aa70631a6487e1fd7c11967471ae22f044"
+  cleanup_status: removed
 title: "Signed republication of v3.0.0 as v3.0.1 with key rotation and pre-push guard"
 objective: >
   v3.0.0 was published with an unsigned tag and no GitHub Release, so the
@@ -44,7 +44,7 @@ scope:
   - CHANGELOG.md
   out:
   - skills/*/SKILL.md
-state: Claimed
+state: Complete
 owner:
   identity: Emmanuel
   identity_type: human
@@ -99,11 +99,11 @@ validation_plan:
   - verify_release_tag.py passes locally for v3.0.1
   expected: all tests and validators pass with no new failures
 evidence_refs: []
-handoff_ref: null
+handoff_ref: CENG-T023-P001-HO001
 skill_gaps: []
 cleanup_scope:
   dead_refs: []
   stale_refs: []
   temp_refs: []
 stability: stable
-updated_at: "2026-11-05"
+updated_at: '2026-11-05'

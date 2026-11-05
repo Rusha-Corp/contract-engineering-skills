@@ -18,6 +18,7 @@ scope:
   - skills/phased-engineering-execution/SKILL.md
   - .contract-engineering/protocol.lock.yaml
   - droids/contract-driven-handoff-acceptance-reviewer.md
+  - .contract-engineering/work-packets/CENG-T020-P001.yaml
   - .contract-engineering/work-packets/CENG-T004-P017.yaml
   - .contract-engineering/work-packets/CENG-T019-P001.yaml
   - .contract-engineering/tracker/index.yaml
@@ -26,7 +27,7 @@ scope:
   - global installed skills
   - skills/*/SKILL.md (except phased-engineering-execution)
   - consumer lock updates before release verification
-state: Handoff
+state: Complete
 owner:
   identity: Emmanuel
   identity_type: human
@@ -92,4 +93,4 @@ cleanup_scope:
   stale_refs: []
   temp_refs: []
 stability: stable
-updated_at: '2026-10-21'
+updated_at: '2026-11-05'

@@ -9,12 +9,12 @@ sender:
 receiver:
   identity: Emmanuel
   identity_type: human
-  authenticated: false
+  authenticated: true
   authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
-  accepted_at: ""
-  acceptance_ref: ""
-base_revision: 7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0
-head_revision: e26b6d56b8d0db4498ce92c3c50ee13beec08d1a
+  accepted_at: "2026-11-05T14:30:00Z"
+  acceptance_ref: "user-acceptance:2026-11-05:CENG-T024-P003:PR-35"
+base_revision: 6342cea2dc8c4aef5bdf947a7efd122d91e0dee2
+head_revision: 55a0888cd44e94bc351ca491ae5f09b7b2ff2933
 scope_digest: ""
 changed_resources:
   - path: scripts/contract_records/code_health.py
@@ -54,5 +54,5 @@ rollback_notes:
 requested_next_action: >
   Review and accept the code-health gate. After acceptance, merge the branch.
   Then proceed with P004 (lock v2) and P005 (skill updates).
-receiver_status: pending
-receiver_notes: ""
+receiver_status: accepted
+receiver_notes: "User accepted in session on 2026-11-05. Code-health gate is live in v3.1.0."

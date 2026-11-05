@@ -9,12 +9,12 @@ sender:
 receiver:
   identity: Emmanuel
   identity_type: human
-  authenticated: false
+  authenticated: true
   authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
-  accepted_at: ""
-  acceptance_ref: ""
-base_revision: 7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0
-head_revision: af0adc747133c013c10e53031eb541e935ef2f14
+  accepted_at: "2026-11-05T14:30:00Z"
+  acceptance_ref: "user-acceptance:2026-11-05:CENG-T024-P004:PR-35"
+base_revision: 6342cea2dc8c4aef5bdf947a7efd122d91e0dee2
+head_revision: 69f99a75546ac907574870a522f9546e5211fcce
 scope_digest: ""
 changed_resources:
   - path: scripts/contract_records/lock_rules.py
@@ -44,5 +44,5 @@ rollback_notes:
 requested_next_action: >
   Review and accept. After acceptance, merge. Then proceed with P005
   (skill updates and skill splits).
-receiver_status: pending
-receiver_notes: ""
+receiver_status: accepted
+receiver_notes: "User accepted in session on 2026-11-05. Lock v2 per-file hashing is live in v3.1.0."

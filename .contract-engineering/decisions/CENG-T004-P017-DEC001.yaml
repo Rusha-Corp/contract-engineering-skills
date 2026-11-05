@@ -1,0 +1,48 @@
+decision_version: 1
+decision_id: CENG-T004-P017-DEC001
+packet_id: CENG-T004-P017
+status: approved
+title: "Cancel CENG-T004-P017 as superseded by the signed stable releases"
+proposal: >
+  CENG-T004-P017 (attest and publish stable 2.2.0 protocol release) has been
+  Interrupted since 2026-10-21. Its blockers were resolved by later packets:
+  the signing key was rotated and the release republished signed as v3.0.1
+  (CENG-T023-P001), the stable release gate and attestation shape were
+  hardened (CENG-T024-P006, CENG-T026-P001), and v3.1.0 shipped with a valid
+  signature and green hosted gates. No v2.2.0 release will ever be cut from
+  this packet; the failed immutable v2.2.0 tag (90f29dc) is already
+  superseded by v3.0.1 and v3.1.0.
+alternatives_considered:
+  - "Resume the packet and cut a v2.2.0 release (rejected: meaningless after v3.0.0/v3.0.1/v3.1.0)."
+  - "Leave the packet Interrupted indefinitely (rejected: stale row with a stale recovery action)."
+decision: >
+  Cancel the packet and release its locks (release-path:v2.2.0,
+  release-attestation). The tracker row records state Cancelled in the
+  active index. The archival move (packet YAML to
+  archive/work-packets/, tracker row to tracker/archive/index.yaml) is
+  deferred to a follow-up packet: enforce_packet_scope.py builds an
+  archive-partition fallback for claiming packets, but packet_scope()
+  resolves claiming packets from the active partition only, so an
+  archived claiming packet contributes no scope rules and the archival
+  diff cannot pass the scope gate. The follow-up packet must fix the
+  fallback and then perform the archival move.
+scope:
+  - ".contract-engineering/work-packets/CENG-T004-P017.yaml"
+  - ".contract-engineering/tracker/index.yaml"
+  - ".contract-engineering/decisions/CENG-T004-P017-DEC001.yaml"
+controls:
+  - "The packet objective (a signed, verified stable release) was achieved by v3.0.1 and v3.1.0; both tags verify."
+  - "Cancelled is a terminal state in the work-packet schema; terminal packets may remain in the active partition (established by the Complete packets already there)."
+  - "The lock graph only enforces locks on non-terminal packets, so cancellation releases ownership."
+  - "No worktree exists for this packet; nothing to clean up."
+approved_by: user
+approved_at: "2026-11-05T14:30:00Z"
+expires_at: ""
+success_measure: >
+  The active tracker contains no Interrupted rows, the Cancelled row and
+  packet agree, and all validators plus the scope gate pass. Archival
+  completes in the follow-up packet that fixes the scope gate's archive
+  fallback.
+rollback_ref: "dad05c0"
+review_owner: user
+review_at: "2026-11-05T14:30:00Z"

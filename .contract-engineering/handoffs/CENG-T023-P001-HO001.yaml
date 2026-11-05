@@ -9,12 +9,12 @@ sender:
 receiver:
   identity: Emmanuel
   identity_type: human
-  authenticated: false
+  authenticated: true
   authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
-  accepted_at: ""
-  acceptance_ref: ""
+  accepted_at: "2026-11-05T14:30:00Z"
+  acceptance_ref: "user-acceptance:2026-11-05:CENG-T023-P001:direct-main:7664a6a"
 base_revision: 92054ab3559657f02d6a98e2d4451387db027f66
-head_revision: 7a75e8efa0ffb96a21df5abadd6588ca93656c70
+head_revision: 7664a6aa70631a6487e1fd7c11967471ae22f044
 scope_digest: ""
 changed_resources:
   - path: scripts/verify_release_tag.py
@@ -78,5 +78,5 @@ requested_next_action: >
   Review the v3.0.1 release. If accepted, create the non-draft GitHub Release
   for v3.0.1 and sign the handoff acceptance. The stable release gate has
   already passed in CI.
-receiver_status: pending
-receiver_notes: ""
+receiver_status: accepted
+receiver_notes: "User accepted in session on 2026-11-05. v3.0.1 published with the rotated key; the tag verifies. Release-flow flaws later found in this attestation shape (transparency_ref, lock drift) were fixed in CENG-T026-P001."

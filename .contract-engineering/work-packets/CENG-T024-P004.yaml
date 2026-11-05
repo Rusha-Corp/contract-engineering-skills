@@ -11,9 +11,9 @@ fencing_token: ""
 worktree:
   path: "../contract-engineering-skills-CENG-T024-P004"
   branch: "agent/CENG-T024-P004"
-  base_revision: "7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0"
-  head_revision: "af0adc747133c013c10e53031eb541e935ef2f14"
-  cleanup_status: active
+  base_revision: "6342cea2dc8c4aef5bdf947a7efd122d91e0dee2"
+  head_revision: "69f99a75546ac907574870a522f9546e5211fcce"
+  cleanup_status: removed
 title: "Lock v2 per-file hashing for skill folders"
 objective: >
   Extend the protocol lock to support per-file hashing of skill folders via
@@ -35,7 +35,7 @@ scope:
   - .contract-engineering/execution-tracker.md
   out:
   - skills/*/SKILL.md
-state: Handoff
+state: Complete
 owner:
   identity: Emmanuel
   identity_type: human
@@ -61,7 +61,7 @@ locks: []
 claim_timestamp: "2026-11-05T18:00:00Z"
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
-- 7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0
+- 6342cea2dc8c4aef5bdf947a7efd122d91e0dee2
 design_decision_ref: null
 data_gate_ref: null
 trust_boundary_ref: null
@@ -98,4 +98,4 @@ cleanup_scope:
   stale_refs: []
   temp_refs: []
 stability: stable
-updated_at: "2026-11-05"
+updated_at: '2026-11-05'

@@ -51,6 +51,16 @@ _ARTIFACT_RE = re.compile(
     r"\.(?:md|yaml)$"
 )
 
+# Protocol-level files that are not owned by any single packet.  They are
+# release artifacts or cross-cutting configuration that every packet may
+# touch.  The scope gate allows them without a claiming work-packet.
+_PROTOCOL_LEVEL_FILES = frozenset({
+    ".contract-engineering/release-attestation.yaml",
+    ".contract-engineering/release-signing-key.asc",
+    ".contract-engineering/protocol.lock.yaml",
+    ".contract-engineering/skill-feedback.md",
+})
+
 _PACKET_FILE_RE = re.compile(
     r"^\.contract-engineering/work-packets/(CENG-\w+-P\d+)\.yaml$"
 )
@@ -91,8 +101,8 @@ def _filter_records_paths(changed_paths: Iterable[str]) -> list[str]:
 
 
 def _is_artifact_path(path: str) -> bool:
-    """Return True if *path* is an evidence/handoff/decision artifact."""
-    return _ARTIFACT_RE.match(path) is not None
+    """Return True if *path* is an evidence/handoff/decision or protocol-level artifact."""
+    return _ARTIFACT_RE.match(path) is not None or path in _PROTOCOL_LEVEL_FILES
 
 
 def evaluate(
@@ -146,9 +156,20 @@ def evaluate(
         )
 
     if not claiming_ids:
+        # If every records path is a protocol-level file (release attestation,
+        # lock, etc.), the diff is allowed without a claiming work-packet.
+        records_paths = _filter_records_paths(changed_paths)
+        non_protocol = [
+            p for p in records_paths if not _is_artifact_path(p)
+        ]
+        if non_protocol:
+            return GateResult(
+                "fail",
+                "records paths changed but no claiming packet found in diff or artifact filenames",
+            )
         return GateResult(
-            "fail",
-            "records paths changed but no claiming packet found in diff or artifact filenames",
+            "pass",
+            "scope gate passed; only protocol-level records changed",
         )
 
     # Build packet Path objects for the scope check.

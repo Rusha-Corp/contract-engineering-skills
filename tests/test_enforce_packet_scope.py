@@ -223,6 +223,51 @@ class PacketClaimingTests(unittest.TestCase):
             self.assertEqual(result.decision, "fail")
 
 
+class ProtocolLevelRecordsTests(unittest.TestCase):
+    """Protocol-level records (attestation, lock) pass without a claiming packet."""
+
+    def test_release_attestation_only_diff_passes(self):
+        """A release attestation push is protocol-level, not packet-scoped."""
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            (project / ".contract-engineering").mkdir()
+            changed = [
+                ".contract-engineering/release-attestation.yaml",
+            ]
+            result = gate.evaluate(project, changed, base_reachable=True)
+            self.assertEqual(result.decision, "pass")
+
+    def test_all_protocol_level_files_pass(self):
+        """Every protocol-level file passes without a claiming packet."""
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            (project / ".contract-engineering").mkdir()
+            changed = [
+                ".contract-engineering/release-attestation.yaml",
+                ".contract-engineering/release-signing-key.asc",
+                ".contract-engineering/protocol.lock.yaml",
+                ".contract-engineering/skill-feedback.md",
+            ]
+            result = gate.evaluate(project, changed, base_reachable=True)
+            self.assertEqual(result.decision, "pass")
+
+    def test_protocol_level_plus_unclaimed_records_path_fails(self):
+        """A protocol-level file does not excuse other unclaimed records paths."""
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            _make_packet(
+                project,
+                "CENG-T999-P001",
+                [".contract-engineering/work-packets/CENG-T999-P001.yaml"],
+            )
+            changed = [
+                ".contract-engineering/release-attestation.yaml",
+                ".contract-engineering/tracker/index.yaml",
+            ]
+            result = gate.evaluate(project, changed, base_reachable=True)
+            self.assertEqual(result.decision, "fail")
+
+
 class RealRepoReplayTests(unittest.TestCase):
     """Replay the three real failing diffs that motivated this packet."""
 
@@ -240,6 +285,14 @@ class RealRepoReplayTests(unittest.TestCase):
         changed = [
             ".contract-engineering/evidence/CENG-T023-P001-EV001.md",
             ".contract-engineering/handoffs/CENG-T023-P001-HO001.yaml",
+        ]
+        result = gate.evaluate(ROOT, changed, base_reachable=True)
+        self.assertEqual(result.decision, "pass")
+
+    def test_release_attestation_push(self):
+        """A release attestation commit changes only protocol-level records."""
+        changed = [
+            ".contract-engineering/release-attestation.yaml",
         ]
         result = gate.evaluate(ROOT, changed, base_reachable=True)
         self.assertEqual(result.decision, "pass")

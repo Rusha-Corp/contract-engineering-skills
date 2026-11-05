@@ -10,6 +10,8 @@ from __future__ import annotations
 
 import importlib.util
 import shutil
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -125,6 +127,31 @@ class ForcePushSkipTests(unittest.TestCase):
             result = gate.evaluate(project, changed, base_reachable=False)
             self.assertEqual(result.decision, "pass")
             self.assertIn("force-push", result.message.lower())
+
+    def test_script_with_unreachable_base_exits_zero(self):
+        """Regression: the CLI must not crash on an unreachable base SHA.
+
+        A tag move (force-push) in a shallow CI checkout leaves the base
+        unreachable.  The old fallback diffed against the full multi-line
+        ``git rev-list`` output and crashed before the skip rule could run.
+        """
+        bogus = "0" * 40
+        proc = subprocess.run(
+            [
+                sys.executable,
+                str(ROOT / "scripts" / "enforce_packet_scope.py"),
+                "--project-dir",
+                str(ROOT),
+                "--base-sha",
+                bogus,
+                "--head-sha",
+                "HEAD",
+            ],
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        self.assertIn("unreachable", proc.stdout.lower())
 
 
 class PacketClaimingTests(unittest.TestCase):

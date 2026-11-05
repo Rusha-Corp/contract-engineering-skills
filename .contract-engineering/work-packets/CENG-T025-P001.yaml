@@ -6,7 +6,7 @@ packet_class: single-domain
 work_type: bugfix
 priority: critical
 
-revision: 0
+revision: 1
 lease_ref: null
 fencing_token: ""
 worktree:
@@ -99,6 +99,7 @@ validation_plan:
   expected: all tests and validators pass with no new failures
 evidence_refs:
 - CENG-T025-P001-EV001
+- CENG-T025-P001-EV002
 handoff_ref: CENG-T025-P001-HO001
 skill_gaps: []
 cleanup_scope:

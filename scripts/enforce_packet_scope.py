@@ -126,13 +126,15 @@ def evaluate(
     store
         Optional pre-built record store (for testing).
     """
+    # Rule 3: unreachable base SHA (force-push) -> warn and pass.
+    # Checked first: with an unreachable base the diff cannot be computed,
+    # so claiming "no records paths changed" would be misleading.
+    if not base_reachable:
+        return GateResult("pass", "base SHA unreachable (force-push); scope gate skipped with warning")
+
     # Rule 1: no records paths -> pass.
     if not _has_records_path(changed_paths):
         return GateResult("pass", "no .contract-engineering paths in diff; scope gate skipped")
-
-    # Rule 3: unreachable base SHA (force-push) -> warn and pass.
-    if not base_reachable:
-        return GateResult("pass", "base SHA unreachable (force-push); scope gate skipped with warning")
 
     # Resolve the protocol root and record store.
     project = Path(project_dir)
@@ -257,12 +259,12 @@ def main() -> int:
         if reachable:
             changed = _changed_paths(args.base_sha, args.head_sha)
         else:
-            # Still need to know what changed; fall back to first-parent diff.
-            fp = subprocess.check_output(
-                ["git", "rev-list", "--max-parents=1", "HEAD"],
-                text=True,
-            ).strip()
-            changed = _changed_paths(fp, args.head_sha)
+            # Unreachable base (force-push or tag move): evaluate() skips
+            # per the force-push rule, so no diff is computed.  Computing a
+            # first-parent diff here previously crashed because
+            # ``git rev-list --max-parents=1 HEAD`` returns every commit in
+            # the history as one multi-line string, which git diff rejects.
+            changed = []
 
     result = evaluate(args.project_dir, changed, base_reachable=reachable)
     if result.decision == "pass":

@@ -4,11 +4,11 @@ issued_at: '2026-11-05T20:00:00Z'
 expires_at: '2028-11-05T20:00:00Z'
 subject:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  commit: PENDING_RELEASE_COMMIT
+  commit: bc5f73be9cdab4cf8aaf2b81a0dc3e893699db27
   release: 3.1.0
   artifacts:
   - path: CHANGELOG.md
-    sha256: PENDING
+    sha256: ab250373b64729bebafa2abdb9bb44ff20e20435b1b2781ab0bd7cc3bf8a95cc
   - path: skills/phased-engineering-execution/SKILL.md
     sha256: acd8bac74248d2aadc280fe88be8c108049c5e34f936524ec034fd00d6504e9d
   - path: skills/cleanup-protocol/SKILL.md
@@ -22,13 +22,13 @@ subject:
   - path: skills/skill-evolution/SKILL.md
     sha256: 149be48373c05e58e1127efd4dc329f3f0af516a836d31b99cb62b64e0a2cafd
   - path: scripts/validate-contract-records.py
-    sha256: PENDING
+    sha256: 4b7770bfd1756f004d1ddf92bc3beb645922c5422a49cf5021dab03b6ff62d89
   - path: scripts/contract_records/code_health.py
-    sha256: PENDING
+    sha256: 869fde20e0a1674a5d6f9b0c6c86961a01578f9098bfec723900f03a072d1c3e
   - path: schemas/work-packet.schema.json
-    sha256: PENDING
+    sha256: fe0b2d159e9a8df0a21301271a6d77f7473fe5417f6540405dfad7ef1c9db8e4
   - path: .github/workflows/protocol-validation.yml
-    sha256: PENDING
+    sha256: 4f8e76a8c65afd502ecf006dfa71126e83b1f868893ae56c95a191ab74b148de
 publisher:
   identity: Emmanuel
   identity_type: human
@@ -38,9 +38,9 @@ publisher:
   signature_ref: gpg:tag:v3.1.0:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
 provenance:
   builder: Factory Droid
-  builder_digest: git-tree:PENDING
+  builder_digest: git-tree:bc5f73be9cdab4cf8aaf2b81a0dc3e893699db27
   source_repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  source_commit: PENDING
+  source_commit: bc5f73be9cdab4cf8aaf2b81a0dc3e893699db27
   dependencies:
   - PyYAML 6.0.3 and runtime dependencies, hash-pinned in requirements-ci.txt
   - jsonschema 4.21.1 with referencing and rpds-py, hash-pinned in requirements-ci.txt

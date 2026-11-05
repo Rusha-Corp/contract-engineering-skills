@@ -2,6 +2,38 @@
 
 ## Unreleased
 
+## 3.1.0 - 2026-11-05
+
+- **Code-health gate (issue #21):** the validator now hard-gates a recorded
+  decision for every changed file exceeding 500 lines (configurable via
+  `project.code_health.max_file_lines`) and for every dead-code finding at
+  handoff. The recorded decision is enforced; the outcome (whether to
+  actually split or remove) is the agent's judgment, checked by the reviewer.
+- **Lock v2 per-file hashing:** `lock_version: 2` adds an optional
+  `skills.<name>.files` map of `{file_path: sha256}`. When present, every
+  listed file is hash-verified against the locked ref. Lock v1 remains fully
+  supported for backward compatibility.
+- **Validator decomposition:** split `validate-contract-records.py` (1094L)
+  into a `scripts/contract_records/` package with 9 focused modules under
+  500 lines each. The CLI is a thin entry point that re-exports all public
+  names.
+- **Record store split:** moved `FileStore` from `record_store.py` (570L) to
+  `scripts/file_store.py` (376L); `record_store.py` keeps the ABC and
+  factory (232L). Split two large test files by class group.
+- **Skill updates and splits:**
+  - `phased-engineering-execution` 2.6.0 → 2.7.0: code-health gate in baseline
+    and finish steps; moved packet schema, gates, and handoff schema into
+    `references/` files (549L → 350L)
+  - `security-assurance` 1.0.0 → 1.1.0: moved threat model, controls, and
+    verification gate into `references/` files (511L → 301L)
+  - `cleanup-protocol` 2.4.0 → 2.5.0: dead-code finding is now continuous
+    (baseline + handoff), removal still gated after validation
+  - `coding-principles` 1.2.0 → 1.3.0: file-size and dead-code rules
+  - `project-lifecycle` 2.4.0 → 2.5.0: P3 Cleanup points at code-health checkpoints
+- **CI fix:** the "Enforce changed packet scope" step no longer hard-fails
+  on main pushes that change no work-packet YAML (attestation, evidence,
+  handoff commits). Added an `--all-active` fallback to `packet_scope.py`.
+
 ## 3.0.1 - 2026-11-05
 
 - Signed republication of v3.0.0, which was published with an unsigned tag and

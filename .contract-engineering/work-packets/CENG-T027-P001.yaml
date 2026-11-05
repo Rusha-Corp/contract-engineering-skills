@@ -58,7 +58,7 @@ scope:
   - global installed skills
   - .github/workflows/*
   - consumer lock updates
-state: Implementing
+state: Handoff
 owner:
   identity: Emmanuel
   identity_type: human
@@ -193,8 +193,9 @@ validation_plan:
   - principle violations are absent or recorded for approved cleanup
   - import graph and layer checks passed or are documented unavailable
   expected: no unresolved principle violations
-evidence_refs: []
-handoff_ref: null
+evidence_refs:
+- CENG-T027-P001-EV001
+handoff_ref: CENG-T027-P001-HO001
 skill_gaps: []
 cleanup_scope:
   dead_refs: []

@@ -25,4 +25,10 @@ events:
   actor: droid
   occurred_at: '2026-11-05T16:20:00Z'
   summary: Transitioned to Implementing after the archive-fallback gate fix and handoff revision existence check landed.
+- event_id: CENG-T027-E005
+  packet_id: CENG-T027-P001
+  type: transition
+  actor: droid
+  occurred_at: '2026-11-05T17:10:00Z'
+  summary: Transitioned to Handoff after the terminal rollover; evidence CENG-T027-P001-EV001 and handoff CENG-T027-P001-HO001 recorded.
 

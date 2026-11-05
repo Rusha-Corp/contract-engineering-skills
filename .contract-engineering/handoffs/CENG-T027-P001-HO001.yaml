@@ -1,0 +1,66 @@
+handoff_id: CENG-T027-P001-HO001
+packet_id: CENG-T027-P001
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: session:CENG-T027-P001-scope-gate-archive-fix
+  signature_ref: ""
+receiver:
+  identity: Emmanuel
+  identity_type: human
+  authenticated: false
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  accepted_at: ""
+  acceptance_ref: ""
+base_revision: b0500cab9976b3e7f5b6d925e16d38bb692aad34
+head_revision: f477407f2b8e33965e25ec3663ab8a8652e29a79
+scope_digest: ""
+summary: >
+  Fixed the packet-scope gate's dead archive fallback: packet_scope()
+  now resolves claiming packets from the archive partition, so archival
+  diffs pass the gate. Added a contract-records validator check that
+  handoff base/head revisions in canonical 40-hex form must resolve to
+  real Git objects (via git cat-file -e — git rev-parse --verify accepts
+  well-formed 40-hex without an existence check, which is how fabricated
+  SHAs survived). The check caught and repaired 17 unresolvable legacy
+  revisions. Rolled all 20 terminal packets (Cancelled CENG-T004-P017
+  plus every Complete packet) to the archive partition, leaving only
+  CENG-T027-P001 active; archive max_rows raised 50 -> 200.
+changed_resources:
+  - scripts/packet_scope.py
+  - scripts/contract_records/graph_rules.py
+  - tests/test_enforce_packet_scope.py
+  - tests/test_contract_records.py
+  - .contract-engineering/handoffs/ (14 legacy handoff revision repairs)
+  - .contract-engineering/archive/work-packets/ (20 packet YAMLs moved here)
+  - .contract-engineering/tracker/archive/index.yaml
+  - .contract-engineering/tracker/archive/execution-tracker-archive.md
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/tracker/shards/CENG-T015.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/work-packets/CENG-T027-P001.yaml
+  - .contract-engineering/decisions/CENG-T027-P001-DEC001.yaml
+  - .contract-engineering/evidence/CENG-T027-P001-EV001.md
+  - .contract-engineering/tracker/events/CENG-T027.yaml
+validation_results:
+  - "RED->GREEN for both fixes; 23/23 gate and revision tests"
+  - "unittest discover: 241 tests, 1 pre-existing macOS tempdir failure"
+  - "validate-contract-records.py: valid (mode=enforced)"
+  - "validate-tracker.py: valid — 1 active row, 68 archive rows"
+  - "render-tracker.py --check: exit 0"
+  - "scope-gate replay b0500ca..HEAD: passed with 16 claiming packets"
+  - "tracker_rollover.py dry-run: 0 pending moves, 0 blockers"
+evidence_refs:
+  - CENG-T027-P001-EV001
+skill_gaps: []
+unresolved_items:
+  - "23 legacy handoffs still carry head_revision: worktree placeholders and 5 CENG-T015 handoffs carry unresolvable short SHAs; exempt by design, follow-up cleanup can blank or repoint them"
+  - "The emptied CENG-T015 shard is retained with zero rows; removal is follow-up cleanup"
+  - "The revision check verifies resolvability, not ancestry; a stricter ancestor-of-HEAD check deserves its own design pass"
+  - "Pre-existing macOS tempdir symlink test failure (passes on Linux CI) remains out of scope"
+rollback_notes:
+  - "git revert the four packet commits restores the gate, validator, handoff records, and active partitions; the rollover is reversible by moving the 20 packet YAMLs and rows back and restoring archive max_rows to 50"
+requested_next_action: "Review and accept the handoff; merge the PR to main"
+receiver_status: pending
+receiver_notes: ""

@@ -48,6 +48,20 @@ def _git_verify_tag(tag: str) -> tuple[str, int]:
     return result.stdout + result.stderr, result.returncode
 
 
+def _find_pending_values(node, path: str = "") -> list[str]:
+    """Return dotted paths of every value that is a PENDING placeholder."""
+    found: list[str] = []
+    if isinstance(node, dict):
+        for key, value in node.items():
+            found.extend(_find_pending_values(value, f"{path}.{key}" if path else str(key)))
+    elif isinstance(node, list):
+        for index, value in enumerate(node):
+            found.extend(_find_pending_values(value, f"{path}[{index}]"))
+    elif isinstance(node, str) and node.strip().upper().startswith("PENDING"):
+        found.append(path)
+    return found
+
+
 def verify_release_tag(
     *,
     tag: str,
@@ -74,6 +88,29 @@ def verify_release_tag(
     missing = [f for f in required if not attestation.get(f)]
     if missing:
         raise SystemExit(f"release attestation is incomplete: {missing}")
+
+    # --- Attestation version rules ---
+    # Version 1 (legacy, e.g. v3.0.1 and v3.1.0) carries
+    # ``verification.transparency_ref: PENDING_HOSTED_VALIDATION`` because
+    # the hosted validation run is triggered by the tag the attestation is
+    # signed into; it can never cite its own run.  Version 2 drops the field
+    # (transparency evidence is the public CI run, linked in the GitHub
+    # Release body) and forbids PENDING placeholders anywhere.
+    version = attestation.get("attestation_version", 1)
+    if not isinstance(version, int) or version < 1:
+        raise SystemExit(f"release attestation has an invalid attestation_version: {version!r}")
+    if version >= 2:
+        if "transparency_ref" in (attestation.get("verification") or {}):
+            raise SystemExit(
+                "verification.transparency_ref is not allowed in attestation "
+                "version 2; transparency evidence lives in the public CI run "
+                "and the GitHub Release body"
+            )
+        pending = _find_pending_values(attestation)
+        if pending:
+            raise SystemExit(
+                f"release attestation version 2 contains PENDING placeholders: {pending}"
+            )
 
     # --- Independent approval / exception ---
     review = attestation["review"]

@@ -35,9 +35,16 @@ scope = importlib.util.module_from_spec(SCOPE_SPEC)
 SCOPE_SPEC.loader.exec_module(scope)
 
 
-def _make_packet(directory: Path, packet_id: str, scope_in: list[str]) -> None:
+def _make_packet(
+    directory: Path, packet_id: str, scope_in: list[str], *, archive: bool = False
+) -> None:
     """Write a minimal valid work-packet to *directory*."""
-    pkt_dir = directory / ".contract-engineering" / "work-packets"
+    if archive:
+        pkt_dir = directory / ".contract-engineering" / "archive" / "work-packets"
+        state = "Complete"
+    else:
+        pkt_dir = directory / ".contract-engineering" / "work-packets"
+        state = "Claimed"
     pkt_dir.mkdir(parents=True, exist_ok=True)
     (pkt_dir / f"{packet_id}.yaml").write_text(
         yaml.safe_dump(
@@ -77,7 +84,7 @@ def _make_packet(directory: Path, packet_id: str, scope_in: list[str]) -> None:
                         "expected": "pass",
                     }
                 ],
-                "state": "Claimed",
+                "state": state,
             }
         ),
         encoding="utf-8",
@@ -248,6 +255,70 @@ class PacketClaimingTests(unittest.TestCase):
             ]
             result = gate.evaluate(project, changed, base_reachable=True)
             self.assertEqual(result.decision, "fail")
+
+
+class ArchiveClaimingTests(unittest.TestCase):
+    """Rule 2 extension: claiming packets resolved from the archive partition."""
+
+    def test_archived_claiming_packet_contributes_scope_rules(self):
+        """A moved terminal packet still claims its archival diff.
+
+        A rollover diff deletes the active packet path, adds the archive
+        destination, and updates the archive tracker. The claiming packet
+        exists only in the archive partition on HEAD, so the gate must
+        resolve its scope from there.
+        """
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            _make_packet(
+                project,
+                "CENG-T999-P001",
+                [
+                    ".contract-engineering/work-packets/CENG-T999-P001.yaml",
+                    ".contract-engineering/archive/work-packets/CENG-T999-P001.yaml",
+                    ".contract-engineering/tracker/archive/index.yaml",
+                ],
+                archive=True,
+            )
+            changed = [
+                ".contract-engineering/work-packets/CENG-T999-P001.yaml",
+                ".contract-engineering/archive/work-packets/CENG-T999-P001.yaml",
+                ".contract-engineering/tracker/archive/index.yaml",
+            ]
+            result = gate.evaluate(project, changed, base_reachable=True)
+            self.assertEqual(result.decision, "pass")
+
+    def test_archived_claiming_packet_without_archive_scope_fails(self):
+        """Archive resolution does not weaken scope: uncovered paths still fail."""
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            _make_packet(
+                project,
+                "CENG-T999-P001",
+                [".contract-engineering/work-packets/CENG-T999-P001.yaml"],
+                archive=True,
+            )
+            changed = [
+                ".contract-engineering/work-packets/CENG-T999-P001.yaml",
+                ".contract-engineering/archive/work-packets/CENG-T999-P001.yaml",
+            ]
+            result = gate.evaluate(project, changed, base_reachable=True)
+            self.assertEqual(result.decision, "fail")
+
+    def test_packet_scope_resolves_archive_partition_without_store(self):
+        """packet_scope() derives the protocol root for archive packet paths."""
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            _make_packet(project, "CENG-T999-P001", ["scripts/foo.py"], archive=True)
+            archive_path = (
+                project
+                / ".contract-engineering"
+                / "archive"
+                / "work-packets"
+                / "CENG-T999-P001.yaml"
+            )
+            rules = scope.packet_scope(archive_path)
+            self.assertEqual(rules, ["scripts/foo.py"])
 
 
 class ProtocolLevelRecordsTests(unittest.TestCase):

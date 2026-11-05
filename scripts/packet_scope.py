@@ -24,10 +24,18 @@ def path_matches(candidate: str, rule: str) -> bool:
 def packet_scope(packet_path: Path, *, store: RecordStore | None = None) -> list[str]:
     packet_id = packet_path.stem
     if store is None:
-        # Derive the protocol root from the packet path: .../work-packets/<id>.yaml
+        # Derive the protocol root from the packet path:
+        # active:  .../<root>/work-packets/<id>.yaml
+        # archive: .../<root>/archive/work-packets/<id>.yaml
         root = packet_path.parent.parent
+        if root.name == "archive":
+            root = root.parent
         store = FileStore(root)
     packet = store.get_packet(packet_id)
+    if packet is None:
+        # A claiming packet may already be rolled to the archive partition
+        # (terminal rollover); resolve it from there.
+        packet = store.get_packet(packet_id, partition="archive")
     if packet is None:
         return []
     return [str(rule) for rule in packet.get("scope", {}).get("in", [])]

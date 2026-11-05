@@ -122,6 +122,30 @@ claimed by a work-packet scope. The gate applies three rules:
 Real scope violations still fail: unclaimed paths and artifact filenames
 referencing packets that do not exist on HEAD are rejected.
 
+## Code-health gate
+
+The validator enforces two code-health rules when changed paths are
+provided (via `--changed-path`, as CI scope enforcement does):
+
+1. **File size review.** Every changed text file exceeding the configured
+   line limit (default 500, configurable via
+   `project.code_health.max_file_lines` in `protocol.lock.yaml`) must have
+   a matching `cleanup_scope.size_reviews` entry with a decision:
+   `decompose`, `retain` (requires `rationale`), or `defer` (requires
+   `follow_up_ref`). Files under `.contract-engineering/` and binary files
+   are excluded by default.
+
+2. **Dead-code review.** A packet in `Handoff` or `Complete` state must
+   have `cleanup_scope.dead_code_review` with both `baseline` and `handoff`
+   checkpoints. Every `dead_refs` entry must have a `decision`:
+   `remove`, `deprecate`, `retain`, `archive`, `false_positive`, or
+   `needs_evidence`. A `needs_evidence` decision blocks `Complete`.
+
+The recorded decision is hard-gated: CI fails when the record is missing.
+Whether to actually split a file or remove code is the agent's judgment,
+checked by the reviewer at handoff. Dead-code detection is language-agnostic:
+the agent inventories it and records it in the packet.
+
 ## Handoffs and recovery
 
 A handoff transfers work, not completion. The receiver checks the base

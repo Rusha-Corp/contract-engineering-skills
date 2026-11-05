@@ -32,6 +32,15 @@ from .constants import (
     VALIDATION_PLAN_ID,
     WORK_TYPES,
 )
+from .code_health import (
+    DEFAULT_EXCLUDE,
+    DEFAULT_MAX_FILE_LINES,
+    count_file_lines,
+    validate_code_health,
+    validate_dead_code_review,
+    validate_size_reviews,
+)
+from . import code_health
 from .engine import (
     _configured_root,
     _validate_records,
@@ -82,6 +91,8 @@ __all__ = [
     "ARCHIVE_PACKET_DIR",
     "ARCHIVE_TRACKER",
     "BASE_REVISION",
+    "DEFAULT_EXCLUDE",
+    "DEFAULT_MAX_FILE_LINES",
     "DOMAINS",
     "EPIC_ID",
     "EXECUTION_CONTROL_REFS",
@@ -114,6 +125,7 @@ __all__ = [
     "_tracker_instance_paths",
     "_validate_records",
     "configure_resource_limits",
+    "count_file_lines",
     "enforce_scope",
     "fail",
     "is_task_or_packet_identifier",
@@ -125,6 +137,8 @@ __all__ = [
     "run_validation",
     "validate_acceptance_contract",
     "validate_canonical_tracker",
+    "validate_code_health",
+    "validate_dead_code_review",
     "validate_dependency_graph",
     "validate_evidence_policy",
     "validate_identifier",
@@ -138,6 +152,7 @@ __all__ = [
     "validate_project_lock",
     "validate_references",
     "validate_security_semantics",
+    "validate_size_reviews",
     "validate_tracker",
     "validate_work_metadata",
 ]

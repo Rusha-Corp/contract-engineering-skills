@@ -75,6 +75,8 @@ evidence_refs: []
 handoff_ref: null
 skill_gaps: []
 cleanup_scope:
+  size_reviews: []
+  dead_code_review: []
   dead_refs: []
   stale_refs: []
   temp_refs: []

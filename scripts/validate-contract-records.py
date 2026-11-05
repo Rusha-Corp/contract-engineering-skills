@@ -17,6 +17,7 @@ if str(_PARENT) not in sys.path:
 
 from scripts.contract_records import *  # noqa: F401,F403
 from scripts.contract_records import main
+from scripts.contract_records import code_health  # noqa: F401
 
 if __name__ == "__main__":
     try:

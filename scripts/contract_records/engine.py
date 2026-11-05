@@ -21,6 +21,7 @@ from .loaders import (
     ValidationResult,
     configure_resource_limits,
     fail,
+    load_yaml,
 )
 from .lock_rules import validate_project_lock
 from .packet_rules import validate_packet, validate_planning_records
@@ -107,6 +108,51 @@ def _validate_records(
         if packet is None:
             fail(f"unknown packet {packet_path}")
         enforce_scope(packet, changed_paths)
+        _validate_code_health_for_packet(root, packet, changed_paths)
+
+
+def _validate_code_health_for_packet(
+    root: Path,
+    packet: dict[str, Any],
+    changed_paths: list[str],
+) -> None:
+    """Run code-health checks when changed paths are provided."""
+    if not changed_paths:
+        return
+    from .code_health import (
+        DEFAULT_EXCLUDE,
+        DEFAULT_MAX_FILE_LINES,
+        count_file_lines,
+        validate_code_health,
+    )
+
+    lock_path = root / "protocol.lock.yaml"
+    max_file_lines = DEFAULT_MAX_FILE_LINES
+    exclude: list[str] = list(DEFAULT_EXCLUDE)
+    if lock_path.is_file():
+        lock = load_yaml(lock_path)
+        config = lock.get("project", {}).get("code_health", {})
+        if isinstance(config.get("max_file_lines"), int):
+            max_file_lines = config["max_file_lines"]
+        if isinstance(config.get("exclude"), list):
+            exclude = list(DEFAULT_EXCLUDE) + config["exclude"]
+
+    project_root = root.parent
+    file_lines: dict[str, int] = {}
+    for changed in changed_paths:
+        path = project_root / changed
+        if path.is_file():
+            lines = count_file_lines(path)
+            if lines is not None:
+                file_lines[changed] = lines
+
+    validate_code_health(
+        packet,
+        changed_paths,
+        file_lines,
+        max_file_lines=max_file_lines,
+        exclude=exclude,
+    )
 
 
 def run_validation(

@@ -9,8 +9,15 @@ description = "Private key material is never valid repository content"
 regex = '''-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----'''
 keywords = ["PRIVATE KEY"]
 
-[allowlist]
-description = "The release attestation records a public GPG fingerprint, not a credential"
-condition = "AND"
-paths = ['''^\.contract-engineering/release-attestation\.yaml$''']
-regexes = ['''274B8E457D3BAA92986D4F2FEE48B7C4736E0648''']
+# GPG key fingerprints are hashes of public keys, published so consumers can
+# verify tag signatures. They are not credentials. The private key material
+# stays in the signer's local keyring and is never committed. Both release
+# signing keys are allowlisted here so records that cite them do not trip the
+# generic high-entropy rules in the default gitleaks config.
+[[allowlists]]
+id = "public-gpg-fingerprints"
+description = "Public GPG key fingerprints used for release tag verification"
+regexes = [
+  '''274B8E457D3BAA92986D4F2FEE48B7C4736E0648''',
+  '''038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996''',
+]

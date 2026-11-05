@@ -1,0 +1,209 @@
+packet_id: CENG-T027-P001
+task_id: CENG-T027
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: cross-cutting
+work_type: bugfix
+priority: high
+
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: ".worktrees/CENG-T027-P001"
+  branch: "agent/CENG-T027-P001"
+  base_revision: "b0500cab9976b3e7f5b6d925e16d38bb692aad34"
+  cleanup_status: active
+title: "Fix scope-gate archive fallback and roll terminal packets to archive"
+objective: >
+  The packet-scope gate cannot attribute archive-partition moves:
+  enforce_packet_scope.py builds an archive fallback path for claiming
+  packets, but packet_scope() resolves claiming packets from the active
+  partition only, so an archived claiming packet contributes no scope
+  rules and any archival diff fails the gate. This blocked CENG-T004-P017's
+  archival (deferred in CENG-T004-P017-DEC001) and the long-overdue
+  rollover of terminal packets. This packet fixes the fallback, adds a
+  validator check that handoff base/head revisions resolve to real Git
+  objects (the CENG-T024 handoffs shipped a fabricated base SHA that no
+  validator caught), then rolls every terminal packet (Cancelled P017 plus
+  all Complete packets) to the archive partition, leaving only this packet
+  active. Cross-cutting because the gate fix and the archival must land
+  atomically: the fix is only exercisable against real records by
+  performing the move, and the move is blocked without the fix; separate
+  child packets would leave either an unused fix or an unarchivable
+  state. Concern owners: protocol tooling (scripts/) and the contract
+  records (.contract-engineering/).
+open_questions: []
+scope:
+  in:
+  - scripts/packet_scope.py
+  - scripts/enforce_packet_scope.py
+  - scripts/contract_records/graph_rules.py
+  - tests/test_enforce_packet_scope.py
+  - tests/test_contract_records.py
+  - .contract-engineering/work-packets/CENG-T027-P001.yaml
+  - .contract-engineering/decisions/CENG-T027-P001-DEC001.yaml
+  - .contract-engineering/evidence/CENG-T027-P001-EV001.md
+  - .contract-engineering/handoffs/CENG-T027-P001-HO001.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/tracker/shards/
+  - .contract-engineering/tracker/archive/index.yaml
+  - .contract-engineering/tracker/archive/execution-tracker-archive.md
+  - .contract-engineering/tracker/events/CENG-T027.yaml
+  - .contract-engineering/execution-tracker.md
+  - .contract-engineering/work-packets/
+  - .contract-engineering/archive/work-packets/
+  - .contract-engineering/handoffs/
+  out:
+  - global installed skills
+  - .github/workflows/*
+  - consumer lock updates
+state: Claimed
+owner:
+  identity: Emmanuel
+  identity_type: human
+  authentication_ref: "gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996"
+  signed_at: "2026-11-05T15:30:00Z"
+implementor:
+  agent_id: factory-droid
+  harness: Factory
+  model: glm-5.3
+  session_id: CENG-T027-P001-scope-gate-archive-fix
+capabilities:
+- read:repository
+- write:packet-scope
+- execute:local-validation
+risk_tier: medium
+approval_policy: user
+external_effects: []
+reviewer: user
+cleanup_owner: droid
+dependencies:
+- CENG-T026-P001
+- CENG-T004-P017
+locks: []
+claim_timestamp: "2026-11-05T15:30:00Z"
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- b0500cab9976b3e7f5b6d925e16d38bb692aad34
+design_decision_ref: CENG-T027-P001-DEC001
+data_gate_ref: null
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+acceptance_criteria:
+- A claiming packet in the archive partition contributes its scope.in rules, so archival diffs pass the scope gate (CENG-T027-P001-AC001)
+- The contract-records validator fails handoffs whose base_revision or head_revision is set but does not resolve to an existing Git object (CENG-T027-P001-AC002)
+- Every terminal packet (Cancelled CENG-T004-P017 and all Complete packets) is rolled to the archive partition; only CENG-T027-P001 remains active (CENG-T027-P001-AC003)
+- The full local validation suite passes on the packet head (CENG-T027-P001-AC004)
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T027-P001-AC001
+    statement: >
+      A claiming packet that resides in the archive partition contributes
+      its scope.in rules to the gate, so an archival diff whose destination
+      paths are covered by the archived packet's scope passes.
+    expected_result: >
+      Unit test with an archived claiming packet passes; the scope-gate
+      replay of this packet's full diff (which moves 20 terminal packets
+      to the archive partition) passes.
+    verification_method: execute
+    verification_command: "/tmp/ce-venv/bin/python -m unittest tests.test_enforce_packet_scope tests.test_packet_scope -v"
+    evidence_refs:
+    - CENG-T027-P001-EV001
+    failure_result: >
+      The gate reports archive destination paths as unclaimed and the
+      archival diff fails, as observed before the fix.
+    validation_ref: CENG-T027-P001-VAL001
+  - id: CENG-T027-P001-AC002
+    statement: >
+      The contract-records validator fails any handoff whose base_revision
+      or head_revision is set but does not resolve to an existing Git
+      object.
+    expected_result: >
+      Unit test with a handoff carrying a fabricated 40-hex revision fails
+      validation with a message naming the handoff and field.
+    verification_method: execute
+    verification_command: "/tmp/ce-venv/bin/python -m unittest tests.test_contract_records -v"
+    evidence_refs:
+    - CENG-T027-P001-EV001
+    failure_result: >
+      Fabricated revisions pass validation, as happened with the five
+      CENG-T024 handoffs.
+    validation_ref: CENG-T027-P001-VAL001
+  - id: CENG-T027-P001-AC003
+    statement: >
+      Every terminal packet (Cancelled CENG-T004-P017 and all Complete
+      packets) has its packet YAML in archive/work-packets/ and its tracker
+      row in tracker/archive/index.yaml; the active index and shards
+      contain only this packet.
+    expected_result: >
+      tracker_rollover.py dry-run reports zero pending moves;
+      validate-tracker.py reports 1 active row.
+    verification_method: execute
+    verification_command: "/tmp/ce-venv/bin/python scripts/tracker_rollover.py --root .contract-engineering"
+    evidence_refs:
+    - CENG-T027-P001-EV001
+    failure_result: >
+      Terminal packets remain in the active partition or packet/tracker
+      partitions disagree.
+    validation_ref: CENG-T027-P001-VAL002
+  - id: CENG-T027-P001-AC004
+    statement: >
+      The full local validation suite passes on the packet head: unit
+      tests, contract-records validator, tracker validator, render check,
+      and scope-gate replay of the whole packet diff.
+    expected_result: >
+      All checks green with no new failures beyond the documented
+      pre-existing macOS tempdir test failure.
+    verification_method: execute
+    verification_command: "/tmp/ce-venv/bin/python -m unittest discover -s tests -p 'test_*.py'"
+    evidence_refs:
+    - CENG-T027-P001-EV001
+    failure_result: Any validation check fails at the packet head.
+    validation_ref: CENG-T027-P001-VAL002
+validation_plan:
+- id: CENG-T027-P001-VAL001
+  kind: coding
+  skill: test-driven-development
+  checks:
+  - New scope-gate and validator tests were written first and watched RED
+  - unittest discover passes with no new failures
+  expected: all tests pass; pre-existing macOS tempdir failure unchanged
+- id: CENG-T027-P001-VAL002
+  kind: records
+  skill: phased-engineering-execution
+  checks:
+  - validate-contract-records.py passes
+  - validate-tracker.py passes
+  - render-tracker.py --check passes
+  - scope-gate replay of the packet diff passes
+  - tracker_rollover.py dry-run reports zero pending moves
+  expected: all validators green on the packet head
+- id: CENG-T027-P001-VAL003
+  kind: principles
+  skill: coding-principles
+  checks:
+  - same-domain handoffs and existing abstractions were reviewed
+  - principle violations are absent or recorded for approved cleanup
+  - import graph and layer checks passed or are documented unavailable
+  expected: no unresolved principle violations
+evidence_refs: []
+handoff_ref: null
+skill_gaps: []
+cleanup_scope:
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+updated_at: "2026-11-05"

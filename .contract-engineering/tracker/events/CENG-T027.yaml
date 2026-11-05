@@ -1,0 +1,21 @@
+task_id: CENG-T027
+schema_version: 1
+events:
+- event_id: CENG-T027-E001
+  packet_id: CENG-T027-P001
+  type: admission
+  actor: droid
+  occurred_at: '2026-11-05T15:30:00Z'
+  summary: Registered the scope-gate archive-fallback fix, handoff revision existence check, and terminal-packet rollover packet.
+- event_id: CENG-T027-E002
+  packet_id: CENG-T027-P001
+  type: claim
+  actor: droid
+  occurred_at: '2026-11-05T15:30:01Z'
+  summary: Claimed CENG-T027-P001 on branch agent/CENG-T027-P001 from b0500ca with design decision CENG-T027-P001-DEC001.
+- event_id: CENG-T027-E003
+  packet_id: CENG-T027-P001
+  type: implementation-start
+  actor: droid
+  occurred_at: '2026-11-05T15:30:02Z'
+  summary: Started the test-first gate fix and validator revision check.

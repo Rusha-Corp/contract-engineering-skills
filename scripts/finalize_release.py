@@ -52,10 +52,15 @@ def _git(project: Path, *args: str) -> subprocess.CompletedProcess:
 
 
 def _rev_parse(project: Path, revision: str) -> str:
-    result = _git(project, "rev-parse", revision)
+    result = _git(project, "rev-parse", "--verify", revision)
     if result.returncode != 0:
-        raise SystemExit(f"cannot resolve revision {revision!r}: {result.stderr.strip()}")
-    return result.stdout.strip()
+        raise SystemExit(
+            f"cannot resolve {revision!r} to a single object: {result.stderr.strip()}"
+        )
+    lines = result.stdout.strip().splitlines()
+    if len(lines) != 1:
+        raise SystemExit(f"revision {revision!r} is ambiguous: {lines}")
+    return lines[0]
 
 
 def _show_bytes(project: Path, sha: str, path: str) -> bytes:
@@ -143,7 +148,10 @@ def finalize_release(project_root: Path | str = ".", content_sha: str = "HEAD") 
         if not required.is_file():
             raise SystemExit(f"missing protocol record: {required}")
 
-    sha = _rev_parse(project, content_sha)
+    # Peel the content revision to a commit: an annotated tag name must pin
+    # the commit it points to, not the tag object (merge-base and git show
+    # peel tags, so anything less would silently write the wrong SHA).
+    sha = _rev_parse(project, f"{content_sha}^{{commit}}")
     ancestor = _git(project, "merge-base", "--is-ancestor", sha, "HEAD")
     if ancestor.returncode != 0:
         raise SystemExit(

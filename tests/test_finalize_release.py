@@ -259,6 +259,27 @@ class FinalizeReleaseTests(unittest.TestCase):
             self._run()
         self.assertIn("future", str(ctx.exception).lower())
 
+    def test_content_sha_tag_name_pins_commit_not_tag_object(self):
+        # Regression: an annotated tag name must pin the commit it points to,
+        # not the tag object SHA.  merge-base and git show peel tags, so the
+        # old code silently wrote the tag object SHA into the lock refs and
+        # attestation subject; the stable gate then failed downstream with a
+        # confusing two-commit-model error.
+        _git(
+            self.fx.repo,
+            "tag",
+            "-a",
+            "v-content",
+            "-m",
+            "content tag",
+            self.content_sha,
+        )
+        self._run(content_sha="v-content")
+        lock = self._lock()
+        self.assertEqual(lock["protocol"]["ref"], self.content_sha)
+        att = self._attestation()
+        self.assertEqual(att["subject"]["commit"], self.content_sha)
+
     def test_prints_followup_commands(self):
         summary = self._run()
         self.assertIn("git commit", summary)

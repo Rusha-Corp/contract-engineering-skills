@@ -1,7 +1,7 @@
 lock_version: 2
 protocol:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
-  ref: 9470f30fc7d82aa87430da7f96b78a00364a6692
+  ref: a0835f3bfb7cb77ced96345cd4c2cc01917a8055
   release: 3.1.0
 skills:
   phased-engineering-execution:
@@ -42,7 +42,7 @@ project:
       - .contract-engineering/
 development:
   status: released
-  ref: 9470f30fc7d82aa87430da7f96b78a00364a6692
+  ref: a0835f3bfb7cb77ced96345cd4c2cc01917a8055
   based_on_release: 3.1.0
   reason: v3.1.0 adds the code-health gate, lock v2 per-file hashing, validator decomposition, and skill splits.
   consumer_action: Synchronize from the locked ref after running the protocol preflight. Lock v1 consumers continue to work; lock v2 adds per-file verification.

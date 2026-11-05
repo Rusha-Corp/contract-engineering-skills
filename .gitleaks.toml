@@ -11,13 +11,24 @@ keywords = ["PRIVATE KEY"]
 
 # GPG key fingerprints are hashes of public keys, published so consumers can
 # verify tag signatures. They are not credentials. The private key material
-# stays in the signer's local keyring and is never committed. Both release
-# signing keys are allowlisted here so records that cite them do not trip the
-# generic high-entropy rules in the default gitleaks config.
-[[allowlists]]
+# stays in the signer's local keyring and is never committed. All release
+# signing key fingerprints are allowlisted on the generic-api-key rule so
+# records and tests that cite them do not trip the default high-entropy
+# detection. In gitleaks 8.x, global [[allowlists]] do not suppress findings
+# from extended default rules; the allowlist must be attached to the rule.
+[[rules]]
+id = "generic-api-key"
+description = "Generic API Key"
+regex = '''(?i)(?:key|api|token|secret|passwd|password|auth)["'\s:=]+([a-fA-F0-9\-_]{20,})'''
+entropy = 3.5
+secretGroup = 1
+
+[[rules.allowlists]]
 id = "public-gpg-fingerprints"
 description = "Public GPG key fingerprints used for release tag verification"
 regexes = [
   '''274B8E457D3BAA92986D4F2FEE48B7C4736E0648''',
   '''038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996''',
+  '''C1E424B182D9BE73803093F9FDD25DE5085489D6''',
+  '''E0695C669AF8BD1ED298EF6EB2EECCB9F7AA535D''',
 ]

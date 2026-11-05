@@ -21,7 +21,7 @@ receiver:
   accepted_at: '2026-09-01T10:20:00Z'
   acceptance_ref: REVIEWER-ACCEPT-CENG-T004-P023-20260901
   signature_ref: ''
-base_revision: 9984587b4ed68f0b8df7a40d1a1b98ff4c56d3a1
+base_revision: ""
 head_revision: c40d677a65ba1299c606d9b0b56b907fa86087e7
 scope_digest: 91bdb9117621caf48d59b81afca8e1117aae012541f02a787ab5a993bcd1a8a0
 changed_resources:

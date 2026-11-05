@@ -16,7 +16,7 @@ receiver:
   acceptance_ref: USER-ACCEPT-20260831-ALL-REWORK
   signature_ref: ''
 base_revision: 21539bd876eb7af9bd71f394e494314bb6762573
-head_revision: f942d064dd4d4b2e196c8c0f8db767735c6b7e2b
+head_revision: b31526bcd2d8701af616bd0086623f34ea5c03d1
 scope_digest: bb07298ee3062792267e51407e8aaa6c9034e590ec632300ff3fc2ba40c66da3
 changed_resources:
 - path: docs/approval-integrity.md

@@ -16,7 +16,7 @@ receiver:
   acceptance_ref: USER-ACCEPT-20260831-ALL-REWORK
   signature_ref: ''
 base_revision: 21539bd876eb7af9bd71f394e494314bb6762573
-head_revision: f942d064dd4d4b2e196c8c0f8db767735c6b7e2b
+head_revision: b31526bcd2d8701af616bd0086623f34ea5c03d1
 scope_digest: 0b8ee5d22501038f209eb1fdbabf091389df6356171fa6a64d94dd671d7fdef0
 changed_resources:
 - path: .github/workflows/protocol-validation.yml

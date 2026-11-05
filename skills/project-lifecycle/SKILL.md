@@ -1,6 +1,6 @@
 ---
 name: project-lifecycle
-version: 2.4.0
+version: 2.5.0
 description: Orchestrate phased engineering execution, cleanup, skill evolution, user verification, and closure across project iterations.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,8 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.5.0 (2026-11-05): P3 Cleanup now points at the continuous code-health
+  checkpoints (baseline and handoff) introduced in cleanup-protocol 2.5.0.
 - 2.4.0 (2026-09-03): Made YAML tracker partitions and generated Markdown
   projections part of iteration boundaries, with separate event history for
   database-backed consumers.
@@ -59,7 +61,7 @@ flowchart TD
 | Baseline, P0 Foundations, Data Gate, P1 Implementation, P2 Design Gaps, Final Integration Audit | `phased-engineering-execution` | Packets, ownership, locks, gates, evidence, validation, handoffs             |
 | P1 Implementation (coding)                                                                      | `coding-principles`            | DRY, SOLID, KISS, YAGNI, composition, boundaries, and architecture alignment |
 | P1 Implementation (security), Security Verification Gate                                        | `security-assurance`           | Threat modeling, secure implementation, verification, supply chain, incident readiness |
-| P3 Cleanup                                                                                      | `cleanup-protocol`             | Dead code, stale artifacts, dependency pruning, retention, tracker archival  |
+| P3 Cleanup                                                                                      | `cleanup-protocol`             | Dead code, stale artifacts, dependency pruning, retention, tracker archival, code-health checkpoint review  |
 | Task Closure retrospective                                                                      | `skill-evolution`              | Skill gaps, user decisions, versioned updates, feedback tracking             |
 | Orchestration, user verification, closure                                                       | `project-lifecycle`            | Iteration boundaries, sequencing, closure record, next iteration             |
 

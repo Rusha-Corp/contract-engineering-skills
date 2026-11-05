@@ -1,6 +1,6 @@
 ---
 name: coding-principles
-version: 1.2.0
+version: 1.3.0
 description: Enforce DRY, SOLID, KISS, YAGNI, composition, defensive coding, and cross-packet architecture alignment during coding implementation and validation.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,9 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 1.3.0 (2026-11-05): Added file-size review rule: a file exceeding the
+  configured line limit (default 500) must be evaluated for decomposition.
+  Added dead-code rule: do not leave behind code your own change made unused.
 - 1.2.0 (2026-08-30): Added project protocol-lock and cross-harness
   synchronization guidance.
 - 1.1.0 (2026-08-30): Added compatibility, evolutionary architecture, and
@@ -187,6 +190,11 @@ user approval.
 - Never add a new abstraction before searching for an existing one.
 - Never mark a packet complete solely because tests pass.
 - Never silently expand acceptance criteria with speculative features.
+- A file exceeding the configured line limit (default 500) must be
+  evaluated for decomposition. Record the decision in
+  `cleanup_scope.size_reviews`.
+- Do not leave behind code your own change made unused. Inventory it in
+  `cleanup_scope.dead_refs` with a decision.
 - Never bypass dependency injection with hardcoded service or infrastructure
   construction.
 - Never hide exceptions, mutate global state, or cross an architecture layer

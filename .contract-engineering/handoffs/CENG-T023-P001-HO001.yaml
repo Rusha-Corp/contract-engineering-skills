@@ -1,0 +1,82 @@
+handoff_id: CENG-T023-P001-HO001
+packet_id: CENG-T023-P001
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: session:CENG-T023-P001-signed-republication
+  signature_ref: ""
+receiver:
+  identity: Emmanuel
+  identity_type: human
+  authenticated: false
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  accepted_at: ""
+  acceptance_ref: ""
+base_revision: 92054ab3559657f02d6a98e2d4451387db027f66
+head_revision: 7a75e8efa0ffb96a21df5abadd6588ca93656c70
+scope_digest: ""
+changed_resources:
+  - path: scripts/verify_release_tag.py
+    change: "New release tag verification script (extracted gate logic)"
+  - path: tests/test_release_tag.py
+    change: "15 tests covering signature, publisher key, release, commit, artifacts"
+  - path: .githooks/pre-push
+    change: "Local pre-push hook blocking unsigned/mismatched stable release tags"
+  - path: .github/workflows/protocol-validation.yml
+    change: "Replaced inline gate Python with verify_release_tag.py call"
+  - path: .contract-engineering/release-signing-key.asc
+    change: "Appended new ed25519 public key (038022B4)"
+  - path: .contract-engineering/release-attestation.yaml
+    change: "New v3.0.1 attestation with rotated key and updated hashes"
+  - path: .contract-engineering/protocol.lock.yaml
+    change: "Updated ref to 55c9932, release to 3.0.1"
+  - path: .contract-engineering/work-packets/CENG-T023-P001.yaml
+    change: "New packet for signed republication"
+  - path: .contract-engineering/work-packets/CENG-T022-P001.yaml
+    change: "Fixed work_type: feature → delivery, baseline_refs short SHA"
+  - path: .contract-engineering/decisions/CENG-T023-P001-DEC001.yaml
+    change: "Key rotation decision"
+  - path: .contract-engineering/decisions/CENG-T023-P001-DEC002.yaml
+    change: "v3.0.0 incomplete publication decision"
+  - path: .contract-engineering/handoffs/CENG-T022-P001-HO001.yaml
+    change: "Missing handoff for CENG-T022-P001 (Complete state)"
+  - path: .contract-engineering/tracker/index.yaml
+    change: "Added CENG-T023 row, updated stale dates"
+  - path: .contract-engineering/execution-tracker.md
+    change: "Added CENG-T023 row"
+  - path: docs/release-integrity.md
+    change: "Documented pre-push signature guard"
+  - path: CONTRIBUTING.md
+    change: "Documented pre-push guard installation"
+  - path: CHANGELOG.md
+    change: "v3.0.1 changelog entry"
+summary: >
+  v3.0.0 was published with an unsigned tag and no GitHub Release. This packet
+  rotates the publisher GPG key, adds a pre-push signature guard, fixes the
+  records CI failure, and republishes as signed v3.0.1. The CI stable release
+  gate passed for the v3.0.1 tag.
+validation_results:
+  - "verify_release_tag.py: OK (local)"
+  - "CI Stable release gate: PASSED (v3.0.1 tag push)"
+  - "Tag signature: VALIDSIG 038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996"
+  - "Old tags still verify: v2.8.0 VALIDSIG 34049E9E..."
+  - "Unit tests: 181/182 pass (1 pre-existing macOS tempdir failure)"
+  - "Contract records validator: passes"
+  - "Tracker validator: passes"
+  - "Markdown links: 31 files valid"
+evidence_refs:
+  - CENG-T023-P001-EV001
+unresolved_items:
+  - "records CI 'Enforce changed packet scope' fails on force-push because github.event.before references a commit outside the new history; works correctly on normal push"
+  - "GitHub Release for v3.0.1 must be created manually (gh CLI not installed)"
+  - "Pre-existing macOS tempdir test failure unrelated to this packet"
+rollback_notes:
+  - "Revert to v2.8.0 lock and skill installation if v3.0.1 is rejected"
+  - "v3.0.0 tag remains for audit; do not delete"
+requested_next_action: >
+  Review the v3.0.1 release. If accepted, create the non-draft GitHub Release
+  for v3.0.1 and sign the handoff acceptance. The stable release gate has
+  already passed in CI.
+receiver_status: pending
+receiver_notes: ""

@@ -1,0 +1,60 @@
+handoff_id: CENG-T024-P005-HO001
+packet_id: CENG-T024-P005
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: session:CENG-T024-P005-skills
+  signature_ref: ""
+receiver:
+  identity: Emmanuel
+  identity_type: human
+  authenticated: false
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  accepted_at: ""
+  acceptance_ref: ""
+base_revision: 7664a6a4f3b39f0b8b1f7e91d5e0a0a0a0a0a0a0
+head_revision: 60fe63dd5e6d9a4b19d554f2381d67477f32002f
+scope_digest: ""
+changed_resources:
+  - path: skills/phased-engineering-execution/SKILL.md
+    change: "v2.7.0: code-health gate + references/ split (549L → 350L)"
+  - path: skills/phased-engineering-execution/references/packet-schema.md
+    change: "New: packet schema, acceptance contract, deprecation (121L)"
+  - path: skills/phased-engineering-execution/references/approval-gates.md
+    change: "New: 8 approval gate specs (70L)"
+  - path: skills/phased-engineering-execution/references/handoff-schema.md
+    change: "New: handoff schema (32L)"
+  - path: skills/security-assurance/SKILL.md
+    change: "v1.1.0: references/ split (511L → 301L)"
+  - path: skills/security-assurance/references/threat-model.md
+    change: "New: threat model record, STRIDE, rules (80L)"
+  - path: skills/security-assurance/references/secure-controls.md
+    change: "New: implementation controls (71L)"
+  - path: skills/security-assurance/references/security-verification.md
+    change: "New: verification gate schema (91L)"
+  - path: skills/cleanup-protocol/SKILL.md
+    change: "v2.5.0: continuous dead-code finding, file size review"
+  - path: skills/coding-principles/SKILL.md
+    change: "v1.3.0: file-size and dead-code rules"
+  - path: skills/project-lifecycle/SKILL.md
+    change: "v2.5.0: P3 Cleanup points at code-health checkpoints"
+summary: >
+  Updated all six skills with code-health guidance. Split the two oversized
+  SKILL.md files by moving detail into references/ files. All SKILL.md
+  files now under 500 lines. Requires lock v2 for per-file hashing.
+validation_results:
+  - "Unit tests: 206 tests, 1 pre-existing macOS tempdir failure"
+  - "All SKILL.md files under 500 lines (max: phased-engineering-execution at 350)"
+evidence_refs:
+  - CENG-T024-P005-EV001
+unresolved_items:
+  - "Lock must be upgraded to v2 with files maps in P006 (release)"
+  - "Pre-existing macOS /private/var tempdir test failure"
+rollback_notes:
+  - "Revert commit on agent/CENG-T024-P005 to restore original skills"
+requested_next_action: >
+  Review and accept. After acceptance, merge. Then proceed with P006
+  (release v3.1.0 with lock v2 and all skill changes).
+receiver_status: pending
+receiver_notes: ""

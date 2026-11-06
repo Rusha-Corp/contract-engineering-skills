@@ -13,7 +13,7 @@ worktree:
   path: ".worktrees/CENG-T027-P001"
   branch: "agent/CENG-T027-P001"
   base_revision: "b0500cab9976b3e7f5b6d925e16d38bb692aad34"
-  cleanup_status: active
+  cleanup_status: removed
 title: "Fix scope-gate archive fallback and roll terminal packets to archive"
 objective: >
   The packet-scope gate cannot attribute archive-partition moves:
@@ -58,7 +58,7 @@ scope:
   - global installed skills
   - .github/workflows/*
   - consumer lock updates
-state: Handoff
+state: Complete
 owner:
   identity: Emmanuel
   identity_type: human
@@ -207,4 +207,4 @@ migration_dependencies: []
 removal_criteria: []
 exception_refs: []
 sunset_target: ""
-updated_at: "2026-11-05"
+updated_at: "2026-11-06"

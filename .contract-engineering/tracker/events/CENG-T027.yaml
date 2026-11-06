@@ -31,4 +31,10 @@ events:
   actor: droid
   occurred_at: '2026-11-05T17:10:00Z'
   summary: Transitioned to Handoff after the terminal rollover; evidence CENG-T027-P001-EV001 and handoff CENG-T027-P001-HO001 recorded.
+- event_id: CENG-T027-E006
+  packet_id: CENG-T027-P001
+  type: acceptance
+  actor: Emmanuel
+  occurred_at: '2026-11-06T10:15:00Z'
+  summary: User accepted handoff CENG-T027-P001-HO001; packet Complete after PR #37 merge with green CI.
 

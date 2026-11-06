@@ -7,9 +7,9 @@ shards:
 rows:
 - task_id: CENG-T027
   packet_id: CENG-T027-P001
-  state: Handoff
+  state: Complete
   owner: Emmanuel
   reviewer: user
   locks: []
-  next_action: User reviews and accepts handoff; merge PR to main
-  updated_at: '2026-11-05'
+  next_action: Accepted; legacy placeholder/short-SHA cleanup remains follow-up
+  updated_at: '2026-11-06'

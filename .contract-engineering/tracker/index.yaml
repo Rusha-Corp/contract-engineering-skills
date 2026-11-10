@@ -15,9 +15,9 @@ rows:
   updated_at: '2026-11-06'
 - task_id: CENG-T028
   packet_id: CENG-T028-P001
-  state: Implementing
+  state: Handoff
   owner: Emmanuel
   reviewer: user
   locks: []
-  next_action: Terminology section drafted; validators and handoff pending
+  next_action: Receiver review pending for handoff CENG-T028-P001-HO001
   updated_at: '2026-11-10'

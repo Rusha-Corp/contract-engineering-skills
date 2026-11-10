@@ -19,3 +19,9 @@ events:
   actor: droid
   occurred_at: '2026-11-10T11:54:02Z'
   summary: Started drafting the README.md Core terms section defining epic, task, workstream, and packet plus the packet-dependency partial order.
+- event_id: CENG-T028-E004
+  packet_id: CENG-T028-P001
+  type: transition
+  actor: droid
+  occurred_at: '2026-11-10T12:15:00Z'
+  summary: Transitioned to Handoff after the terminology section landed at 407dc32; evidence CENG-T028-P001-EV001 and handoff CENG-T028-P001-HO001 recorded.

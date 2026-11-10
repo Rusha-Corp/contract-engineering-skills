@@ -13,6 +13,7 @@ worktree:
   path: "../ce-CENG-T028-P001"
   branch: "agent/CENG-T028-P001"
   base_revision: "fe1c893d345acf9c4d1cd2cbffe593242809e942"
+  cleanup_status: active
 title: "Define workstream, epic, task, and packet terminology in documentation"
 objective: >
   The protocol records use "task" and "epic" with machine-oriented IDs
@@ -48,7 +49,7 @@ scope:
   - docs/
   - .github/workflows/*
   - consumer lock updates
-state: Implementing
+state: Handoff
 owner:
   identity: Emmanuel
   identity_type: human
@@ -169,7 +170,7 @@ validation_plan:
   expected: no unresolved principle violations
 evidence_refs:
 - CENG-T028-P001-EV001
-handoff_ref: null
+handoff_ref: CENG-T028-P001-HO001
 skill_gaps: []
 cleanup_scope:
   dead_code_review:

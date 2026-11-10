@@ -1,0 +1,21 @@
+task_id: CENG-T028
+schema_version: 1
+events:
+- event_id: CENG-T028-E001
+  packet_id: CENG-T028-P001
+  type: admission
+  actor: droid
+  occurred_at: '2026-11-10T11:54:00Z'
+  summary: Registered the workstream/epic/task/packet terminology documentation packet.
+- event_id: CENG-T028-E002
+  packet_id: CENG-T028-P001
+  type: claim
+  actor: droid
+  occurred_at: '2026-11-10T11:54:01Z'
+  summary: Claimed CENG-T028-P001 on branch agent/CENG-T028-P001 from fe1c893; prior task CENG-T027 is Complete so claim ordering is satisfied.
+- event_id: CENG-T028-E003
+  packet_id: CENG-T028-P001
+  type: implementation-start
+  actor: droid
+  occurred_at: '2026-11-10T11:54:02Z'
+  summary: Started drafting the README.md Core terms section defining epic, task, workstream, and packet plus the packet-dependency partial order.

@@ -1,0 +1,188 @@
+packet_id: CENG-T028-P001
+task_id: CENG-T028
+phase: P1_IMPLEMENTATION
+domain: documentation
+packet_class: single-domain
+work_type: delivery
+priority: normal
+
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: "../ce-CENG-T028-P001"
+  branch: "agent/CENG-T028-P001"
+  base_revision: "fe1c893d345acf9c4d1cd2cbffe593242809e942"
+title: "Define workstream, epic, task, and packet terminology in documentation"
+objective: >
+  The protocol records use "task" and "epic" with machine-oriented IDs
+  (task_id, epic_id), while consumers such as Task Master present tasks to
+  users as "workstreams" and never see the relationship between epics,
+  tasks, and packets stated anywhere in this repository. This packet adds
+  a "Core terms" section to README.md that defines the four nested terms:
+  an epic optionally groups related tasks, a task is a bounded body of
+  work owning an objective and a set of packets, "workstream" is the
+  user-facing label for a task, and a packet is the bounded unit of
+  delivery inside a task. The section also states that packet
+  dependencies form a partial order: they say which packets must finish
+  before another may start, not a sequence implied by IDs, and
+  independent packets may proceed in parallel. Documentation-only, no
+  schema, skill, template, or code changes.
+open_questions: []
+scope:
+  in:
+  - README.md
+  - .contract-engineering/work-packets/CENG-T028-P001.yaml
+  - .contract-engineering/evidence/CENG-T028-P001-EV001.md
+  - .contract-engineering/handoffs/CENG-T028-P001-HO001.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/tracker/events/CENG-T028.yaml
+  - .contract-engineering/execution-tracker.md
+  out:
+  - global installed skills
+  - skills/
+  - schemas/
+  - templates/
+  - scripts/
+  - adapters/
+  - docs/
+  - .github/workflows/*
+  - consumer lock updates
+state: Implementing
+owner:
+  identity: Emmanuel
+  identity_type: human
+  authentication_ref: "gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996"
+  signed_at: "2026-11-10T11:54:00Z"
+implementor:
+  agent_id: factory-droid
+  harness: Factory
+  model: glm-5.3
+  session_id: CENG-T028-P001-workstream-terminology
+capabilities:
+- read:repository
+- write:documentation
+- execute:local-validation
+risk_tier: low
+approval_policy: user
+external_effects: []
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: "2026-11-10T11:54:00Z"
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+- fe1c893d345acf9c4d1cd2cbffe593242809e942
+design_decision_ref: null
+data_gate_ref: null
+trust_boundary_ref: null
+execution_budget_ref: null
+checkpoint_ref: null
+evaluation_ref: null
+agent_run_ref: null
+observability_refs: []
+incident_refs: []
+acceptance_criteria:
+- README.md defines epic, task, workstream, and packet and their nesting, with "workstream" stated as the user-facing label for a CE task (CENG-T028-P001-AC001)
+- README.md states that packet dependencies form a partial order, that packet IDs do not imply a sequence, and that independent packets may proceed in parallel (CENG-T028-P001-AC002)
+- The local validation suite passes on the packet head (CENG-T028-P001-AC003)
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T028-P001-AC001
+    statement: >
+      README.md carries a "Core terms" section that defines an epic as an
+      optional grouping of related tasks, a task as a bounded body of work
+      owning an objective and packets, "workstream" as the user-facing
+      label for a task, and a packet as the bounded unit of delivery
+      inside a task.
+    expected_result: >
+      The section is present after the repository introduction, before
+      "## Contents", and each definition matches the templates it links
+      (templates/epic.yaml, templates/task.yaml,
+      templates/work-packet.yaml).
+    verification_method: inspect
+    verification_command: "grep -A24 '^## Core terms' README.md"
+    evidence_refs:
+    - CENG-T028-P001-EV001
+    failure_result: >
+      One or more of the four terms is missing, or a definition
+      contradicts the templates it references.
+    validation_ref: CENG-T028-P001-VAL001
+  - id: CENG-T028-P001-AC002
+    statement: >
+      README.md states that packet dependencies form a partial order:
+      they say which packets must finish before another may start, packet
+      IDs do not imply a sequence, and independent packets may proceed in
+      parallel.
+    expected_result: >
+      The partial-order paragraph appears inside the "Core terms"
+      section and does not contradict the dependency model in
+      templates/work-packet.yaml or docs/coordination.md.
+    verification_method: inspect
+    verification_command: "grep -A6 'Dependencies form a' README.md"
+    evidence_refs:
+    - CENG-T028-P001-EV001
+    failure_result: >
+      The dependency semantics are absent or described as a total order
+      or an ID-implied sequence.
+    validation_ref: CENG-T028-P001-VAL001
+  - id: CENG-T028-P001-AC003
+    statement: >
+      The local validation suite passes on the packet head: the
+      contract-records validator, the tracker validator, the tracker
+      render check, and the scope-gate replay of the whole packet diff.
+    expected_result: >
+      All checks green with no new failures beyond documented
+      pre-existing ones.
+    verification_method: execute
+    verification_command: "python scripts/validate-contract-records.py && python scripts/validate-tracker.py --root .contract-engineering && python scripts/render-tracker.py --root .contract-engineering --check && python scripts/enforce_packet_scope.py --base-sha fe1c893d345acf9c4d1cd2cbffe593242809e942 --head-sha HEAD"
+    evidence_refs:
+    - CENG-T028-P001-EV001
+    failure_result: Any validation check fails at the packet head.
+    validation_ref: CENG-T028-P001-VAL002
+validation_plan:
+- id: CENG-T028-P001-VAL001
+  kind: records
+  skill: phased-engineering-execution
+  checks:
+  - the Core terms section matches the template definitions it links
+  - the dependency paragraph matches the packet dependency model
+  expected: definitions are consistent with templates and records
+- id: CENG-T028-P001-VAL002
+  kind: records
+  skill: phased-engineering-execution
+  checks:
+  - validate-contract-records.py passes
+  - validate-tracker.py passes
+  - render-tracker.py --check passes
+  - scope-gate replay of the packet diff passes
+  - unittest discover passes with no new failures
+  expected: all validators green on the packet head
+- id: CENG-T028-P001-VAL003
+  kind: principles
+  skill: coding-principles
+  checks:
+  - the change reuses the existing README structure and tone
+  - no principle violations or scope creep
+  expected: no unresolved principle violations
+evidence_refs:
+- CENG-T028-P001-EV001
+handoff_ref: null
+skill_gaps: []
+cleanup_scope:
+  dead_code_review:
+  - baseline
+  - handoff
+  size_reviews: []
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+stability: stable
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+updated_at: "2026-11-10"

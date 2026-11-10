@@ -23,5 +23,11 @@ events:
   packet_id: CENG-T028-P001
   type: transition
   actor: droid
-  occurred_at: '2026-11-10T12:15:00Z'
+  occurred_at: '2026-11-10T12:04:00Z'
   summary: Transitioned to Handoff after the terminology section landed at 407dc32; evidence CENG-T028-P001-EV001 and handoff CENG-T028-P001-HO001 recorded.
+- event_id: CENG-T028-E005
+  packet_id: CENG-T028-P001
+  type: acceptance
+  actor: Emmanuel
+  occurred_at: '2026-11-10T12:11:50Z'
+  summary: User accepted handoff CENG-T028-P001-HO001; packet Complete after PR #40 merge with green CI.

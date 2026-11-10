@@ -1,0 +1,53 @@
+handoff_id: CENG-T028-P001-HO001
+packet_id: CENG-T028-P001
+sender:
+  identity: factory-droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: session:CENG-T028-P001-workstream-terminology
+  signature_ref: ""
+receiver:
+  identity: Emmanuel
+  identity_type: human
+  authenticated: true
+  authentication_ref: gpg:038022B4EDF5F704B38DF6C7BE1DF7FA3C3BC996
+  accepted_at: ""
+  acceptance_ref: ""
+base_revision: fe1c893d345acf9c4d1cd2cbffe593242809e942
+head_revision: 407dc32a3c907d7940b5114987a8dec525d7509d
+scope_digest: ""
+summary: >
+  Added a "Core terms" section to README.md defining the protocol's four
+  nested terms: an epic optionally groups related tasks, a task is a
+  bounded body of work owning an objective and a set of packets,
+  "workstream" is the user-facing label for a task (records keep
+  task_id), and a packet is the bounded unit of delivery inside a task.
+  The section also states that packet dependencies form a partial order —
+  they say which packets must finish before another may start, packet IDs
+  do not imply a sequence, and independent packets may proceed in
+  parallel. Documentation only; no schema, skill, template, or code
+  changes.
+changed_resources:
+  - README.md
+  - .contract-engineering/work-packets/CENG-T028-P001.yaml
+  - .contract-engineering/evidence/CENG-T028-P001-EV001.md
+  - .contract-engineering/handoffs/CENG-T028-P001-HO001.yaml
+  - .contract-engineering/tracker/index.yaml
+  - .contract-engineering/tracker/events/CENG-T028.yaml
+  - .contract-engineering/execution-tracker.md
+validation_results:
+  - "validate-contract-records.py: valid on the packet head"
+  - "validate-tracker.py: valid — 2 active rows"
+  - "render-tracker.py --check: exit 0"
+  - "enforce_packet_scope.py fe1c893..HEAD: passed, claiming packets = 1"
+  - "unittest discover: no new failures"
+evidence_refs:
+  - CENG-T028-P001-EV001
+skill_gaps: []
+unresolved_items:
+  - "Task Master's own board label and help-text changes are tracked separately in the task-master project and remain blocked by its active task T006; this packet only defines the terms on the CE side."
+rollback_notes:
+  - "git revert the two packet commits restores README.md and the tracker to the pre-packet state; no data or code migrations involved."
+requested_next_action: "Review and accept the handoff; merge the PR to main"
+receiver_status: pending
+receiver_notes: ""

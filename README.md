@@ -25,6 +25,30 @@ agentic development environments**. The core protocols do not depend on a
 particular vendor, editor, CLI, or model — any team or agent harness can
 adopt them by pinning an immutable release in a project-local lock file.
 
+## Core terms
+
+The protocol nests four terms:
+
+- **Epic** — an optional grouping of related tasks
+  ([`templates/epic.yaml`](templates/epic.yaml)). An epic carries an
+  objective, priority, and success measures, and references the tasks that
+  deliver them.
+- **Task** — a bounded body of work with one objective and a set of packets
+  ([`templates/task.yaml`](templates/task.yaml)). Trackers and boards that
+  present one task's packets at a time often call a task a **workstream**;
+  the two names refer to the same record, with "task" the record name
+  (`task_id`) and "workstream" the user-facing label.
+- **Workstream** — the user-facing term for a task. Consumers may adopt the
+  label in boards and UIs; records keep using `task_id`.
+- **Packet** — the bounded unit of delivery inside a task
+  ([`templates/work-packet.yaml`](templates/work-packet.yaml)): an owner,
+  a scope, explicit gates, evidence, and a handoff a reviewer must accept.
+
+Packets may declare `dependencies` on other packets. Dependencies form a
+**partial order**: they state which packets must finish before another may
+start, nothing more. Packet IDs do not imply a sequence, and packets with no
+dependency relationship between them may proceed in parallel.
+
 ## Contents
 
 - `skills/` contains the six governed `SKILL.md` files.

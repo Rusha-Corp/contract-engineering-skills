@@ -1,7 +1,7 @@
 tracker_schema_version: 1
 partition: active
 max_rows: 25
-updated_at: '2026-11-05'
+updated_at: '2026-11-10'
 shards:
 - tracker/shards/CENG-T015.yaml
 rows:
@@ -13,3 +13,11 @@ rows:
   locks: []
   next_action: Accepted; legacy placeholder/short-SHA cleanup remains follow-up
   updated_at: '2026-11-06'
+- task_id: CENG-T028
+  packet_id: CENG-T028-P001
+  state: Handoff
+  owner: Emmanuel
+  reviewer: user
+  locks: []
+  next_action: Receiver review pending for handoff CENG-T028-P001-HO001
+  updated_at: '2026-11-10'

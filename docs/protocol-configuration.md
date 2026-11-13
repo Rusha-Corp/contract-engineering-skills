@@ -324,3 +324,14 @@ All harnesses use the same project-local:
 The host adapter supplies only the global skill path and approval mechanics.
 It must not create a second project lock or private tracker. Chat history and
 private AI sessions are not sources of truth.
+
+## CE and AIDLC alignment
+
+The CE protocol embodies the operating rules described by
+[AI-Driven Development Consulting (AIDLC)](https://aidlc.guru): humans own
+merges (reviewer/receiver roles), agents are services (implementor identity),
+verification is the constraint (gated handoffs), and context is the compounding
+asset (persistent baseline, evidence, and living specs). See the
+"CE and AIDLC alignment" section in `README.md` for the full rule-by-rule
+mapping. The alignment is documented, not enforced — CE does not require
+AIDLC terminology.

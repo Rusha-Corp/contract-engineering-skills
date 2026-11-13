@@ -245,3 +245,27 @@ reuse rules, and size guidance.
 Use `templates/validation-guide.md` for non-destructive checks and
 `docs/protocol-configuration.md` for cross-harness preflight. This repository
 intentionally does not ship an automatic deletion or mutation tool.
+
+## CE and AIDLC alignment
+
+[AI-Driven Development Consulting (AIDLC)](https://aidlc.guru) describes
+operating rules for AI-assisted engineering. The CE protocol already embodies
+these rules. This mapping helps teams adopting CE understand the alignment
+without studying AIDLC separately.
+
+| AIDLC rule | CE embodiment |
+| --- | --- |
+| Authoring is cheap; verification is the constraint | Every packet has acceptance criteria, evidence, and a receiver-accepted handoff. The expensive step — independent review — is gated, not the writing. Risk-tiered review (T033) scales review capacity to match risk. |
+| Humans own merges | The packet's **reviewer** and **receiver** are human roles. An agent implements and submits evidence; a human verifies and accepts. `Complete` requires a receiver-accepted handoff, not an agent's self-declaration. |
+| Agents are services | The protocol is tool-agnostic. The `implementor` role is the agent identity; the `owner` is the human authority. Agent capabilities are minimum-required and scoped to the packet. |
+| Context is the compounding asset | The baseline, evidence, decisions, and handoff records persist in the tracker and archive. Each packet's context is recoverable by the next agent. Living specs (T030) keep that context current after archive. |
+| Write tests from acceptance criteria | ACDD (T031) requires tests from `acceptance_contract.criteria` before implementation code. |
+| Verify with mutation testing | Mutation testing (T032) measures test quality as reviewer evidence. |
+| Explore before proposing | The optional Explore step (T029) lets an agent read the codebase before committing to a design. |
+| Fail fast, learn, and feed back | The `skill-evolution` skill records gaps and applies approved updates. The `cleanup-protocol` formalizes postmortem-to-rule feedback (T035). |
+| One workstream at a time | The one-task-in-progress claim ordering rule serializes work per project. |
+| Reproducibility is mandatory | The Reproducibility Gate records actor, model, environment, revision, and tool versions. Evidence is linked and immutable. |
+
+This alignment is documented, not enforced — CE does not require teams to
+adopt AIDLC terminology. The mapping shows that CE's gates, roles, and
+records already implement the operating rules AIDLC describes.

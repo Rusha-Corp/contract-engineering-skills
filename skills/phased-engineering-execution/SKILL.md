@@ -1,6 +1,6 @@
 ---
 name: phased-engineering-execution
-version: 2.7.0
+version: 2.8.0
 description: Break engineering work into owned packets and execute it through evidence-based phases, gates, validation, and handoffs.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,10 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.8.0 (2026-11-13): Added risk-tiered review depth. Low-risk packets get
+  light review (automated checks + single reviewer), high-risk packets get
+  deep review (multi-reviewer, manual evidence inspection). Adapted from
+  AIDLC's playbook rule that verification is the constraint.
 - 2.7.0 (2026-11-05): Added code-health gate to baseline and finish
   steps: inventory file size and dead code at baseline, record decisions
   in cleanup_scope at handoff. Moved packet schema, acceptance contract,
@@ -269,6 +273,50 @@ agent's judgment, checked by the reviewer.
 
 See [`references/handoff-schema.md`](references/handoff-schema.md) for the
 full handoff YAML schema specification.
+
+## Risk-tiered review
+
+Review depth scales with risk. Authoring is cheap; verification is the
+constraint. A flat "deep review everything" policy wastes reviewer capacity
+on low-risk work and leaves less time for high-risk work. Adapted from
+AIDLC's playbook rule.
+
+### Risk tiers
+
+| Tier | Trigger | Review depth |
+| --- | --- | --- |
+| **Low** | Documentation-only, single-file skill text, no code, no data, no external effects | Automated checks (validators, linters) + single reviewer approval |
+| **Medium** | Code changes in a single domain, schema additions (non-breaking), new tests | Automated checks + single reviewer + targeted manual evidence review |
+| **High** | Cross-cutting changes, security-domain, data migrations, external effects, breaking schema changes, production deployments | Automated checks + two independent reviewers + full manual evidence inspection |
+
+### How to assign
+
+The packet's `domain`, `packet_class`, and `scope` determine the tier. The
+agent records the tier in the handoff:
+
+```yaml
+risk_tier: low|medium|high
+```
+
+If the agent and reviewer disagree on the tier, the higher tier wins.
+
+### What changes by tier
+
+- **Low:** the reviewer checks that automated validators pass and the change
+  matches the packet scope. No line-by-line code review required.
+- **Medium:** the reviewer additionally inspects the changed files and
+  evidence to confirm the acceptance criteria are met.
+- **High:** two reviewers independently check the change. At least one must
+  be independent of the actor (not the same person who approved the design).
+  The reviewer(s) inspect all evidence manually, including security and data
+  correctness gates.
+
+### Relationship to existing gates
+
+Risk-tiered review does not replace gates. It adjusts the depth of human
+review at handoff. All gates (Design, Data, Threat Model, Security
+Verification) still run regardless of tier. The tier controls how much
+manual inspection the reviewer performs on top of the gates.
 
 ## Validation rules
 

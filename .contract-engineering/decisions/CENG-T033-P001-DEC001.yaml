@@ -1,0 +1,19 @@
+packet_id: CENG-T033-P001
+decision_id: DEC001
+title: "Add risk-tiered review depth"
+status: approved
+approved_at: "2026-11-13T20:01:32Z"
+approver: user
+context: |
+  See packet objective and evidence for context.
+options:
+  - id: OPT-A
+    description: "Implement as specified in the packet."
+    selected: true
+    rationale: "Meets acceptance criteria with minimal blast radius."
+decision: OPT-A
+impacts:
+  - "Skill documentation updated as specified in packet scope."
+no_impacts:
+  - "No protocol lock changes (unreleased development revision)."
+  - "No schema, template, or adapter changes."

@@ -221,7 +221,7 @@ packet.
    below.
 3. **P0 Foundations:** resolve shared primitives, contracts, routing, navigation, and blockers.
 3. **Data Gate:** validate sources, schemas, permissions, fixtures, mappings, and failure states.
-4. **P1 Implementation:** implement only approved, claimed packet scope.
+4. **P1 Implementation:** implement only approved, claimed packet scope. Write tests from the packet's `acceptance_contract.criteria` before implementation code (ACDD — see [Acceptance-criteria-driven development](#acceptance-criteria-driven-development) below).
 5. **P2 Design Gaps:** resolve missing states or designs, obtain approval, then implement.
 6. **P3 Cleanup:** after validation, execute the approved cleanup and removal scope through `cleanup-protocol`. Record `cleanup_scope.size_reviews` and `cleanup_scope.dead_code_review` decisions.
 7. **Final Integration Audit:** rerun cross-packet, regression, accessibility, responsive, data, and documentation checks.
@@ -270,6 +270,52 @@ belong in a Decision record during P0, not in the explore plan.
 Use Explore when the task touches unfamiliar code, has multiple viable
 approaches, or has dependencies that are not yet understood. Skip it for
 small, well-understood changes where the design is obvious from the baseline.
+
+## Acceptance-criteria-driven development
+
+ACDD (acceptance-criteria-driven development) is a practice for the P1
+Implementation phase: tests are written from the packet's
+`acceptance_contract.criteria` **before** the implementation code, not after.
+This is adapted from AIDLC's ACDD practice.
+
+### Procedure
+
+1. **Read the acceptance contract.** Before writing any implementation code,
+   read every criterion in `acceptance_contract.criteria`. Each criterion has
+   an `id`, `statement`, `expected_result`, `verification_method`, and
+   `failure_result`.
+2. **Write a test for each criterion.** For each criterion, write a test (or
+   test case) that would pass if the `expected_result` is met and fail if the
+   `failure_result` occurs. The test maps directly to the criterion's `id`
+   so traceability is automatic.
+3. **Run the tests — they should fail.** The tests fail because the
+   implementation does not exist yet. This confirms the tests are meaningful.
+4. **Implement the code.** Write the minimum code to make the tests pass.
+   The acceptance criteria define done, not the agent's intuition.
+5. **Verify all criteria pass.** Every criterion's test must pass before
+   transitioning to Validation.
+
+### When to apply ACDD
+
+ACDD applies to coding-domain packets with executable acceptance criteria
+(`verification_method: execute`). For review-only criteria
+(`verification_method: review` or `inspect`), the "test" is a checklist item
+or review note, not an executable test.
+
+### When not to apply
+
+- **Design-only packets:** no implementation code, no tests needed.
+- **Documentation packets:** the criteria are verified by review, not by
+  executing code.
+- **Packets with no acceptance_contract:** fall back to the standard
+  implement-then-test workflow.
+
+### Relationship to TDD
+
+ACDD is a specialization of TDD. TDD says "write a test, see it fail, write
+code to pass it." ACDD adds: "the test comes from the acceptance contract,
+not from the developer's guess about what to test." This ensures the
+implementation is grounded in the criteria the reviewer will check.
 
 ## Host integration
 

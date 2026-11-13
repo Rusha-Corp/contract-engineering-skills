@@ -12,6 +12,16 @@ and not a packet state. No approval is required and no gate can block it. If
 the agent's exploration surfaces a design choice that needs authority, that
 choice is recorded as a Decision during P0 and gated by the Design Gate below.
 
+## Implementation Gate (ACDD)
+
+The P1 Implementation phase uses acceptance-criteria-driven development
+(ACDD). Before implementation code is written, the agent SHALL write a test
+for each criterion in the packet's `acceptance_contract.criteria` where
+`verification_method: execute`. The tests must fail (no implementation yet),
+then the agent implements the minimum code to pass them. This is not a
+blocking gate — it is a practice within P1. The Validation Gate (below)
+checks that evidence exists before the packet transitions to Validation.
+
 ## Design Gate
 
 Required for layout, behavior, workflow, architecture, schema, or user-facing interaction changes. Link an existing approved design or record a `Decision` with proposal, alternatives considered, acceptance criteria, and approver. Missing approval enters `DesignBlocked`.

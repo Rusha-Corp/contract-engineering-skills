@@ -1,0 +1,27 @@
+packet_id: CENG-T031-P001
+threat_model_id: TM001
+title: "Threat model: Formalize ACDD in P1 Implementation"
+status: approved
+approved_at: "2026-11-13T19:30:49Z"
+approver: user
+scope: "Skill text change only — no code, no configuration, no runtime behavior."
+stride:
+  spoofing:
+    risk: none
+    note: "No authentication or identity change."
+  tampering:
+    risk: none
+    note: "No code or configuration modified. Only skill documentation."
+  repudiation:
+    risk: none
+    note: "No actions taken that require audit."
+  information_disclosure:
+    risk: none
+    note: "No new data exposed."
+  denial_of_service:
+    risk: none
+    note: "No services are run."
+  elevation_of_privilege:
+    risk: none
+    note: "No permission or access control change."
+conclusion: "No security impact. Documentation-only change."

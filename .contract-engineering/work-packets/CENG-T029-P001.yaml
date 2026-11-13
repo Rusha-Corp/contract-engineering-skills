@@ -1,0 +1,101 @@
+packet_id: CENG-T029-P001
+task_id: CENG-T029
+phase: P1_IMPLEMENTATION
+domain: design
+packet_class: single-domain
+work_type: delivery
+priority: normal
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: null
+  branch: null
+  base_revision: null
+  cleanup_status: pending
+title: "Add explore step before design_review in phased-engineering-execution"
+objective: >
+  Add a non-binding explore step to the phased-engineering-execution skill
+  that allows an agent to read the codebase and shape a plan before
+  committing to a design packet. The explore step produces no gated
+  artifacts — it is a no-stakes thinking partner that reduces rework
+  before the P0_DESIGN phase. From OpenSpec's explore-before-propose
+  practice.
+open_questions: []
+scope:
+  in:
+  - skills/phased-engineering-execution/SKILL.md
+  - skills/phased-engineering-execution/references/approval-gates.md
+  out:
+  - schemas/
+  - templates/
+  - adapters/
+  - Any product code
+state: planned
+owner: null
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: null
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+design_decision_ref: null
+data_gate_ref: null
+threat_model_ref: null
+acceptance_criteria:
+- "The skill defines an optional explore step before P0_DESIGN that produces a non-binding plan document."
+- "The explore step does not create a gated artifact or block the lifecycle."
+- "The local validation suite passes."
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T029-P001-AC001
+    statement: >
+      The phased-engineering-execution skill defines an optional explore
+      step before P0_DESIGN that produces a non-binding plan document
+      without creating a gated artifact.
+    expected_result: >
+      The skill's SKILL.md or approval-gates reference describes the
+      explore step, its non-binding nature, and its position before
+      P0_DESIGN.
+    verification_method: review
+    verification_command: "Review the skill changes against the existing P0_DESIGN phase definition."
+    evidence_refs: []
+    failure_result: >
+      The explore step is missing, creates a gated artifact, or blocks
+      the lifecycle.
+    validation_ref: CENG-T029-P001-VAL001
+  - id: CENG-T029-P001-AC002
+    statement: >
+      The local validation suite passes on the packet head.
+    expected_result: >
+      validate-contract-records.py, validate-tracker.py,
+      render-tracker.py --check, and scope-gate replay all pass.
+    verification_method: execute
+    verification_command: "python scripts/validate-contract-records.py && python scripts/validate-tracker.py --root .contract-engineering && python scripts/render-tracker.py --root .contract-engineering --check && python scripts/enforce_packet_scope.py --base-sha HEAD~1 --head-sha HEAD"
+    evidence_refs: []
+    failure_result: Any validation check fails at the packet head.
+    validation_ref: CENG-T029-P001-VAL001
+validation_plan:
+- id: CENG-T029-P001-VAL001
+  kind: records
+  skill: phased-engineering-execution
+  checks:
+  - the explore step is defined as non-binding and pre-P0_DESIGN
+  - the step does not create a gated artifact
+  expected: explore step is consistent with the existing lifecycle
+cleanup_scope:
+  dead_code_review: []
+  size_reviews: []
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+stability: experimental
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+updated_at: "2026-11-13"

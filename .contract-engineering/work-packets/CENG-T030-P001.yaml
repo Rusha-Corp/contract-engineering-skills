@@ -1,0 +1,97 @@
+packet_id: CENG-T030-P001
+task_id: CENG-T030
+phase: P1_IMPLEMENTATION
+domain: documentation
+packet_class: single-domain
+work_type: delivery
+priority: normal
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: null
+  branch: null
+  base_revision: null
+  cleanup_status: pending
+title: "Allow living spec updates after packet archive"
+objective: >
+  Update the protocol to allow spec documents to be updated after a
+  packet is archived, not just frozen at archive time. This supports
+  the 'living specs' practice from OpenSpec — specs evolve as the
+  system grows, and the record store should reflect that. Archived
+  specs are versioned so prior state is recoverable.
+open_questions: []
+scope:
+  in:
+  - docs/protocol-configuration.md
+  - skills/phased-engineering-execution/SKILL.md
+  out:
+  - schemas/
+  - templates/
+  - Any product code
+state: planned
+owner: null
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: null
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+design_decision_ref: null
+data_gate_ref: null
+threat_model_ref: null
+acceptance_criteria:
+- "The protocol allows spec updates after archive without re-opening the packet."
+- "Archived specs are versioned so prior state is recoverable."
+- "The local validation suite passes."
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T030-P001-AC001
+    statement: >
+      The protocol allows spec documents to be updated after a packet
+      is archived without re-opening the packet, with versioning so
+      prior state is recoverable.
+    expected_result: >
+      The protocol documentation describes post-archive spec updates
+      and the versioning mechanism.
+    verification_method: review
+    verification_command: "Review the protocol documentation changes."
+    evidence_refs: []
+    failure_result: >
+      Post-archive spec updates are not allowed or prior state is not
+      recoverable.
+    validation_ref: CENG-T030-P001-VAL001
+  - id: CENG-T030-P001-AC002
+    statement: >
+      The local validation suite passes on the packet head.
+    expected_result: >
+      All validators green on the packet head.
+    verification_method: execute
+    verification_command: "python scripts/validate-contract-records.py && python scripts/validate-tracker.py --root .contract-engineering && python scripts/render-tracker.py --root .contract-engineering --check && python scripts/enforce_packet_scope.py --base-sha HEAD~1 --head-sha HEAD"
+    evidence_refs: []
+    failure_result: Any validation check fails at the packet head.
+    validation_ref: CENG-T030-P001-VAL001
+validation_plan:
+- id: CENG-T030-P001-VAL001
+  kind: records
+  skill: phased-engineering-execution
+  checks:
+  - the protocol allows post-archive spec updates with versioning
+  - the change does not re-open archived packets
+  expected: protocol is consistent with the existing lifecycle
+cleanup_scope:
+  dead_code_review: []
+  size_reviews: []
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+stability: experimental
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+updated_at: "2026-11-13"

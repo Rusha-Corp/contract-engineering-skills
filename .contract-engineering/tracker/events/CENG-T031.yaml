@@ -1,0 +1,9 @@
+task_id: CENG-${t}
+schema_version: 1
+events:
+- event_id: CENG-${t}-E001
+  packet_id: CENG-${t}-P001
+  type: admission
+  actor: droid
+  occurred_at: '2026-11-13T16:30:00Z'
+  summary: Registered by T013-P001 OpenSpec/AIDLC study; awaiting claim.

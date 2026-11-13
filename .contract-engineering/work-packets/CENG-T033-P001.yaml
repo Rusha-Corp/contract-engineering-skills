@@ -1,0 +1,97 @@
+packet_id: CENG-T033-P001
+task_id: CENG-T033
+phase: P1_IMPLEMENTATION
+domain: design
+packet_class: single-domain
+work_type: delivery
+priority: normal
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: null
+  branch: null
+  base_revision: null
+  cleanup_status: pending
+title: "Add risk-tiered review depth to the lifecycle"
+objective: >
+  Add risk-tiered review to the phased-engineering-execution skill.
+  Low-risk packets get light review (automated checks + single
+  reviewer), high-risk packets get deep review (multi-reviewer, manual
+  evidence inspection). This scales review capacity — from AIDLC's
+  playbook rule that authoring is cheap but verification is the
+  constraint.
+open_questions: []
+scope:
+  in:
+  - skills/phased-engineering-execution/SKILL.md
+  - skills/phased-engineering-execution/references/approval-gates.md
+  out:
+  - schemas/
+  - templates/
+  - Any product code
+state: planned
+owner: null
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: null
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+design_decision_ref: null
+data_gate_ref: null
+threat_model_ref: null
+acceptance_criteria:
+- "The skill defines review depth by risk tier (low/medium/high)."
+- "Low-risk packets get light review; high-risk packets get deep review."
+- "The local validation suite passes."
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T033-P001-AC001
+    statement: >
+      The phased-engineering-execution skill defines review depth by
+      risk tier: low-risk packets get light review, high-risk packets
+      get deep review.
+    expected_result: >
+      The skill's SKILL.md or approval-gates reference describes the
+      risk tiers and their review depth.
+    verification_method: review
+    verification_command: "Review the skill changes against the existing review model."
+    evidence_refs: []
+    failure_result: >
+      Risk-tiered review is missing or does not vary depth by tier.
+    validation_ref: CENG-T033-P001-VAL001
+  - id: CENG-T033-P001-AC002
+    statement: >
+      The local validation suite passes on the packet head.
+    expected_result: >
+      All validators green on the packet head.
+    verification_method: execute
+    verification_command: "python scripts/validate-contract-records.py && python scripts/validate-tracker.py --root .contract-engineering && python scripts/render-tracker.py --root .contract-engineering --check && python scripts/enforce_packet_scope.py --base-sha HEAD~1 --head-sha HEAD"
+    evidence_refs: []
+    failure_result: Any validation check fails at the packet head.
+    validation_ref: CENG-T033-P001-VAL001
+validation_plan:
+- id: CENG-T033-P001-VAL001
+  kind: records
+  skill: phased-engineering-execution
+  checks:
+  - the skill defines risk-tiered review depth
+  - the tiers map to the existing risk_tier field on packets
+  expected: review depth is consistent with the existing lifecycle
+cleanup_scope:
+  dead_code_review: []
+  size_reviews: []
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+stability: experimental
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+updated_at: "2026-11-13"

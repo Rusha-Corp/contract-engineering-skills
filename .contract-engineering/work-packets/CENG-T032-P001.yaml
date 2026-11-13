@@ -1,0 +1,97 @@
+packet_id: CENG-T032-P001
+task_id: CENG-T032
+phase: P1_IMPLEMENTATION
+domain: security
+packet_class: single-domain
+work_type: delivery
+priority: normal
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: null
+  branch: null
+  base_revision: null
+  cleanup_status: pending
+title: "Add mutation testing to the validation gate"
+objective: >
+  Add a mutation-score check to the security-assurance or
+  phased-engineering-execution skill's validation step. Mutation testing
+  catches tests that look thorough but assert nothing. The check is a
+  gate — a low mutation score blocks the validation transition with a
+  clear message. From AIDLC's evals practice.
+open_questions: []
+scope:
+  in:
+  - skills/security-assurance/SKILL.md
+  - skills/phased-engineering-execution/SKILL.md
+  out:
+  - schemas/
+  - templates/
+  - Any product code
+state: planned
+owner: null
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: null
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+design_decision_ref: null
+data_gate_ref: null
+threat_model_ref: null
+acceptance_criteria:
+- "The validation gate includes a mutation-score check on critical modules."
+- "A low mutation score blocks the validation transition with a clear message."
+- "The local validation suite passes."
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T032-P001-AC001
+    statement: >
+      The validation gate includes a mutation-score check that blocks
+      the validation transition when the score is below a defined
+      threshold.
+    expected_result: >
+      The skill describes the mutation-score check, its threshold,
+      and its position in the validation gate.
+    verification_method: review
+    verification_command: "Review the skill changes against the existing validation gate definition."
+    evidence_refs: []
+    failure_result: >
+      The mutation-score check is missing or does not block the
+      transition.
+    validation_ref: CENG-T032-P001-VAL001
+  - id: CENG-T032-P001-AC002
+    statement: >
+      The local validation suite passes on the packet head.
+    expected_result: >
+      All validators green on the packet head.
+    verification_method: execute
+    verification_command: "python scripts/validate-contract-records.py && python scripts/validate-tracker.py --root .contract-engineering && python scripts/render-tracker.py --root .contract-engineering --check && python scripts/enforce_packet_scope.py --base-sha HEAD~1 --head-sha HEAD"
+    evidence_refs: []
+    failure_result: Any validation check fails at the packet head.
+    validation_ref: CENG-T032-P001-VAL001
+validation_plan:
+- id: CENG-T032-P001-VAL001
+  kind: records
+  skill: security-assurance
+  checks:
+  - the validation gate includes a mutation-score check
+  - the check blocks the transition on low scores
+  expected: check is consistent with the existing gate model
+cleanup_scope:
+  dead_code_review: []
+  size_reviews: []
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+stability: experimental
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+updated_at: "2026-11-13"

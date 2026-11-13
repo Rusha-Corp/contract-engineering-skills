@@ -1,0 +1,96 @@
+packet_id: CENG-T035-P001
+task_id: CENG-T035
+phase: P1_IMPLEMENTATION
+domain: design
+packet_class: single-domain
+work_type: delivery
+priority: normal
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: null
+  branch: null
+  base_revision: null
+  cleanup_status: pending
+title: "Formalize postmortem-to-review-rule loop in cleanup-protocol"
+objective: >
+  Update the cleanup-protocol skill to formalize the practice that
+  every escaped defect becomes a review rule. When a packet's
+  postmortem identifies an escaped defect, the cleanup step creates
+  a review rule that prevents recurrence. This closes the
+  Curate→Analyze loop from AIDLC.
+open_questions: []
+scope:
+  in:
+  - skills/cleanup-protocol/SKILL.md
+  - skills/skill-evolution/SKILL.md
+  out:
+  - schemas/
+  - templates/
+  - Any product code
+state: planned
+owner: null
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: null
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+design_decision_ref: null
+data_gate_ref: null
+threat_model_ref: null
+acceptance_criteria:
+- "The cleanup-protocol skill defines a step that converts escaped defects into review rules."
+- "The review rule is linked to the originating packet for traceability."
+- "The local validation suite passes."
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T035-P001-AC001
+    statement: >
+      The cleanup-protocol skill defines a step that converts
+      escaped defects into review rules linked to the originating
+      packet for traceability.
+    expected_result: >
+      The skill's SKILL.md describes the escaped-defect-to-rule
+      step and its linkage to the originating packet.
+    verification_method: review
+    verification_command: "Review the skill changes against the existing cleanup-protocol definition."
+    evidence_refs: []
+    failure_result: >
+      The step is missing or does not link the rule to the packet.
+    validation_ref: CENG-T035-P001-VAL001
+  - id: CENG-T035-P001-AC002
+    statement: >
+      The local validation suite passes on the packet head.
+    expected_result: >
+      All validators green on the packet head.
+    verification_method: execute
+    verification_command: "python scripts/validate-contract-records.py && python scripts/validate-tracker.py --root .contract-engineering && python scripts/render-tracker.py --root .contract-engineering --check && python scripts/enforce_packet_scope.py --base-sha HEAD~1 --head-sha HEAD"
+    evidence_refs: []
+    failure_result: Any validation check fails at the packet head.
+    validation_ref: CENG-T035-P001-VAL001
+validation_plan:
+- id: CENG-T035-P001-VAL001
+  kind: records
+  skill: cleanup-protocol
+  checks:
+  - the skill defines an escaped-defect-to-review-rule step
+  - the step links the rule to the originating packet
+  expected: step is consistent with the existing cleanup protocol
+cleanup_scope:
+  dead_code_review: []
+  size_reviews: []
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+stability: experimental
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+updated_at: "2026-11-13"

@@ -1,7 +1,7 @@
 tracker_schema_version: 1
 partition: active
 max_rows: 25
-updated_at: '2026-11-10'
+updated_at: '2026-11-13'
 shards:
 - tracker/shards/CENG-T015.yaml
 rows:
@@ -21,3 +21,59 @@ rows:
   locks: []
   next_action: Accepted; PR #40 merged; Task Master board label follow-up remains in the task-master project
   updated_at: '2026-11-10'
+- task_id: CENG-T029
+  packet_id: CENG-T029-P001
+  state: Planned
+  owner: null
+  reviewer: user
+  locks: []
+  next_action: Registered by T013-P001 study; awaiting claim
+  updated_at: '2026-11-13'
+- task_id: CENG-T030
+  packet_id: CENG-T030-P001
+  state: Planned
+  owner: null
+  reviewer: user
+  locks: []
+  next_action: Registered by T013-P001 study; awaiting claim
+  updated_at: '2026-11-13'
+- task_id: CENG-T031
+  packet_id: CENG-T031-P001
+  state: Planned
+  owner: null
+  reviewer: user
+  locks: []
+  next_action: Registered by T013-P001 study; awaiting claim
+  updated_at: '2026-11-13'
+- task_id: CENG-T032
+  packet_id: CENG-T032-P001
+  state: Planned
+  owner: null
+  reviewer: user
+  locks: []
+  next_action: Registered by T013-P001 study; awaiting claim
+  updated_at: '2026-11-13'
+- task_id: CENG-T033
+  packet_id: CENG-T033-P001
+  state: Planned
+  owner: null
+  reviewer: user
+  locks: []
+  next_action: Registered by T013-P001 study; awaiting claim
+  updated_at: '2026-11-13'
+- task_id: CENG-T034
+  packet_id: CENG-T034-P001
+  state: Planned
+  owner: null
+  reviewer: user
+  locks: []
+  next_action: Registered by T013-P001 study; awaiting claim
+  updated_at: '2026-11-13'
+- task_id: CENG-T035
+  packet_id: CENG-T035-P001
+  state: Planned
+  owner: null
+  reviewer: user
+  locks: []
+  next_action: Registered by T013-P001 study; awaiting claim
+  updated_at: '2026-11-13'

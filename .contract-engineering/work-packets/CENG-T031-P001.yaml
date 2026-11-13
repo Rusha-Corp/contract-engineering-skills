@@ -1,0 +1,98 @@
+packet_id: CENG-T031-P001
+task_id: CENG-T031
+phase: P1_IMPLEMENTATION
+domain: design
+packet_class: single-domain
+work_type: delivery
+priority: normal
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: null
+  branch: null
+  base_revision: null
+  cleanup_status: pending
+title: "Formalize acceptance-criteria-driven development in P1_IMPLEMENTATION"
+objective: >
+  Add a step to the phased-engineering-execution skill's P1_IMPLEMENTATION
+  phase that requires tests to be written from the packet's
+  acceptance_contract.criteria before implementation code. This is ACDD
+  from AIDLC — tests generated from acceptance criteria before the code,
+  not after.
+open_questions: []
+scope:
+  in:
+  - skills/phased-engineering-execution/SKILL.md
+  - skills/phased-engineering-execution/references/approval-gates.md
+  out:
+  - schemas/
+  - templates/
+  - Any product code
+state: planned
+owner: null
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: null
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+design_decision_ref: null
+data_gate_ref: null
+threat_model_ref: null
+acceptance_criteria:
+- "The P1_IMPLEMENTATION phase defines a 'tests from criteria' step before code generation."
+- "The step references the packet's acceptance_contract.criteria as the test source."
+- "The local validation suite passes."
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T031-P001-AC001
+    statement: >
+      The P1_IMPLEMENTATION phase defines a 'tests from criteria' step
+      that requires tests from acceptance_contract.criteria before code
+      generation.
+    expected_result: >
+      The skill's SKILL.md or approval-gates reference describes the
+      step, its position before code generation, and its use of
+      acceptance_contract.criteria as the test source.
+    verification_method: review
+    verification_command: "Review the skill changes against the existing P1_IMPLEMENTATION phase definition."
+    evidence_refs: []
+    failure_result: >
+      The step is missing, positioned after code generation, or does
+      not reference acceptance_contract.criteria.
+    validation_ref: CENG-T031-P001-VAL001
+  - id: CENG-T031-P001-AC002
+    statement: >
+      The local validation suite passes on the packet head.
+    expected_result: >
+      All validators green on the packet head.
+    verification_method: execute
+    verification_command: "python scripts/validate-contract-records.py && python scripts/validate-tracker.py --root .contract-engineering && python scripts/render-tracker.py --root .contract-engineering --check && python scripts/enforce_packet_scope.py --base-sha HEAD~1 --head-sha HEAD"
+    evidence_refs: []
+    failure_result: Any validation check fails at the packet head.
+    validation_ref: CENG-T031-P001-VAL001
+validation_plan:
+- id: CENG-T031-P001-VAL001
+  kind: records
+  skill: phased-engineering-execution
+  checks:
+  - the P1_IMPLEMENTATION phase includes a tests-from-criteria step
+  - the step references acceptance_contract.criteria
+  expected: step is consistent with the existing lifecycle
+cleanup_scope:
+  dead_code_review: []
+  size_reviews: []
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+stability: experimental
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+updated_at: "2026-11-13"

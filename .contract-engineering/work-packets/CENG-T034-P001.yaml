@@ -1,0 +1,98 @@
+packet_id: CENG-T034-P001
+task_id: CENG-T034
+phase: P1_IMPLEMENTATION
+domain: documentation
+packet_class: single-domain
+work_type: delivery
+priority: normal
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: null
+  branch: null
+  base_revision: null
+  cleanup_status: pending
+title: "Document CE and AIDLC playbook alignment"
+objective: >
+  Add a documentation section showing how the CE protocol already
+  embodies AIDLC's 10 operating rules (authoring is cheap,
+  verification is the constraint, humans own merges, agents are
+  services, context is the compounding asset). This helps teams
+  adopting CE understand the alignment without needing to study AIDLC
+  separately. Documentation-only.
+open_questions: []
+scope:
+  in:
+  - README.md
+  - docs/protocol-configuration.md
+  out:
+  - skills/
+  - schemas/
+  - templates/
+  - Any product code
+state: planned
+owner: null
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: null
+baseline_refs:
+- .contract-engineering/protocol.lock.yaml
+design_decision_ref: null
+data_gate_ref: null
+threat_model_ref: null
+acceptance_criteria:
+- "README.md or docs includes a section mapping CE invariants to AIDLC playbook rules."
+- "The mapping shows which CE features embody each rule."
+- "The local validation suite passes."
+acceptance_contract:
+  version: 1
+  criteria:
+  - id: CENG-T034-P001-AC001
+    statement: >
+      README.md or docs includes a section that maps CE protocol
+      invariants to AIDLC playbook rules, showing which CE features
+      embody each rule.
+    expected_result: >
+      The section is present and each of the 10 rules has a CE
+      equivalent named.
+    verification_method: inspect
+    verification_command: "grep -A30 'AIDLC' README.md"
+    evidence_refs: []
+    failure_result: >
+      The section is missing or a rule has no CE equivalent.
+    validation_ref: CENG-T034-P001-VAL001
+  - id: CENG-T034-P001-AC002
+    statement: >
+      The local validation suite passes on the packet head.
+    expected_result: >
+      All validators green on the packet head.
+    verification_method: execute
+    verification_command: "python scripts/validate-contract-records.py && python scripts/validate-tracker.py --root .contract-engineering && python scripts/render-tracker.py --root .contract-engineering --check && python scripts/enforce_packet_scope.py --base-sha HEAD~1 --head-sha HEAD"
+    evidence_refs: []
+    failure_result: Any validation check fails at the packet head.
+    validation_ref: CENG-T034-P001-VAL001
+validation_plan:
+- id: CENG-T034-P001-VAL001
+  kind: records
+  skill: phased-engineering-execution
+  checks:
+  - the section maps all 10 AIDLC rules to CE equivalents
+  - the mapping is accurate against the protocol
+  expected: documentation is consistent with the protocol
+cleanup_scope:
+  dead_code_review: []
+  size_reviews: []
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+stability: experimental
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+updated_at: "2026-11-13"

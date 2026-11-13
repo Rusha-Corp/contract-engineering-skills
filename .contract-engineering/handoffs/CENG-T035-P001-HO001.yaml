@@ -1,0 +1,10 @@
+packet_id: CENG-T035-P001
+handoff_id: HO001
+receiver: user
+requested_at: "2026-11-13T20:21:25Z"
+accepted_at: "2026-11-13T20:21:25Z"
+status: accepted
+summary: |
+  Added a postmortem-to-review-rule loop to the cleanup-protocol skill (v2.5.0 → v2.6.0) and a cross-reference in skill-evolution (v1.2.0 → v1.3.0). When a defect escapes validation and is caught later, the cleanup step creates a review rule that prevents recurrence. Added Postmortem-to-review-rule loop section with trigger conditions, procedure, review rule schema, and what makes a good rule. Added escaped-defect trigger (#12) to skill-evolution's SkillGap triggers. Closes the Curate→Analyze loop from AIDLC.
+review_notes: |
+  Both acceptance criteria met. Postmortem-to-review-rule loop formalized with clear procedure and schema. Validation limitation recorded (Python3 unavailable).

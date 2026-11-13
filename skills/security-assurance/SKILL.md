@@ -1,6 +1,6 @@
 ---
 name: security-assurance
-version: 1.1.0
+version: 1.2.0
 description: Enforce threat modeling, secure implementation, security verification, supply chain integrity, and incident readiness as governed gates in agent-assisted engineering.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,9 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 1.2.0 (2026-11-13): Added mutation testing guidance to the Security
+  Verification Gate — mutation score is evidence for the reviewer, not a
+  hard gate. Adapted from AIDLC's evals practice.
 - 1.1.0 (2026-11-05): Moved threat model, secure controls, and security
   verification gate details into references/ files to stay under 500 lines.
   Requires lock v2 for per-file hashing of skill folders.
@@ -111,6 +114,13 @@ for the full security verification gate schema, finding lifecycle, and gate rule
 Required for every packet before it transitions from `Validation` to
 `Handoff`, regardless of domain. This gate runs in addition to the
 validation plan in `phased-engineering-execution/SKILL.md`.
+
+For coding-domain packets, mutation testing SHOULD be run when tooling is
+available (see `phased-engineering-execution/SKILL.md` → Mutation testing).
+The mutation score is evidence for the security reviewer: a low score means
+the tests may not catch security-regressive mutations, and the reviewer
+SHOULD ask for stronger tests before accepting the handoff. The score is not
+a hard gate — it is evidence to evaluate.
 
 ## Supply chain integrity
 

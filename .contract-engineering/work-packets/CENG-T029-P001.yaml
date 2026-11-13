@@ -31,18 +31,18 @@ scope:
   - templates/
   - adapters/
   - Any product code
-state: planned
-owner: null
+state: complete
+owner: droid
 reviewer: user
 cleanup_owner: droid
 dependencies: []
 locks: []
-claim_timestamp: null
+claim_timestamp: "2026-11-13T18:18:32Z"
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
-design_decision_ref: null
-data_gate_ref: null
-threat_model_ref: null
+design_decision_ref: ".contract-engineering/decisions/CENG-T029-P001-DEC001.yaml"
+data_gate_ref: CENG-T029-P001-DG001
+threat_model_ref: ".contract-engineering/threat-models/CENG-T029-P001-TM001.yaml"
 acceptance_criteria:
 - "The skill defines an optional explore step before P0_DESIGN that produces a non-binding plan document."
 - "The explore step does not create a gated artifact or block the lifecycle."
@@ -61,7 +61,8 @@ acceptance_contract:
       P0_DESIGN.
     verification_method: review
     verification_command: "Review the skill changes against the existing P0_DESIGN phase definition."
-    evidence_refs: []
+    evidence_refs:
+    - ".contract-engineering/evidence/CENG-T029-P001-EV001.md"
     failure_result: >
       The explore step is missing, creates a gated artifact, or blocks
       the lifecycle.
@@ -74,7 +75,8 @@ acceptance_contract:
       render-tracker.py --check, and scope-gate replay all pass.
     verification_method: execute
     verification_command: "python scripts/validate-contract-records.py && python scripts/validate-tracker.py --root .contract-engineering && python scripts/render-tracker.py --root .contract-engineering --check && python scripts/enforce_packet_scope.py --base-sha HEAD~1 --head-sha HEAD"
-    evidence_refs: []
+    evidence_refs:
+    - ".contract-engineering/evidence/CENG-T029-P001-EV001.md"
     failure_result: Any validation check fails at the packet head.
     validation_ref: CENG-T029-P001-VAL001
 validation_plan:
@@ -98,4 +100,7 @@ migration_dependencies: []
 removal_criteria: []
 exception_refs: []
 sunset_target: ""
+evidence_refs:
+- ".contract-engineering/evidence/CENG-T029-P001-EV001.md"
+handoff_ref: CENG-T029-P001-HO001
 updated_at: "2026-11-13"

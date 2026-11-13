@@ -1,6 +1,6 @@
 ---
 name: phased-engineering-execution
-version: 2.7.0
+version: 2.8.0
 description: Break engineering work into owned packets and execute it through evidence-based phases, gates, validation, and handoffs.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,11 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.8.0 (2026-11-13): Added an optional Explore step before P0 Foundations.
+  The explore step lets an agent read the codebase and shape a non-binding
+  plan before committing to a design packet. It produces no gated artifacts
+  and does not block the lifecycle. Adapted from OpenSpec's
+  explore-before-propose practice.
 - 2.7.0 (2026-11-05): Added code-health gate to baseline and finish
   steps: inventory file size and dead code at baseline, record decisions
   in cleanup_scope at handoff. Moved packet schema, acceptance contract,
@@ -174,7 +179,10 @@ the handoff and evidence references.
 ## Phased execution
 
 1. **Baseline:** capture six-step baseline and register packets.
-2. **P0 Foundations:** resolve shared primitives, contracts, routing, navigation, and blockers.
+2. **Explore (optional):** before P0, an agent may explore the codebase and
+   produce a non-binding plan document. See [Explore step](#explore-step)
+   below.
+3. **P0 Foundations:** resolve shared primitives, contracts, routing, navigation, and blockers.
 3. **Data Gate:** validate sources, schemas, permissions, fixtures, mappings, and failure states.
 4. **P1 Implementation:** implement only approved, claimed packet scope.
 5. **P2 Design Gaps:** resolve missing states or designs, obtain approval, then implement.
@@ -183,6 +191,48 @@ the handoff and evidence references.
 8. **Task Closure:** complete user verification, skill review, closure record, and archive decisions.
 
 Each phase has entry criteria, exit criteria, evidence, and coordinator review.
+
+## Explore step
+
+The Explore step is an optional, non-binding phase that sits between Baseline
+and P0 Foundations. It lets an agent read the codebase, identify relevant
+patterns, and shape a plan before committing to a design packet.
+
+### Purpose
+
+OpenSpec's explore-before-propose practice shows that a short, no-stakes
+exploration reduces rework: the agent discovers constraints, existing
+abstractions, and likely failure modes before the design gate, so the first
+design proposal is better grounded.
+
+### What it is
+
+- **Optional:** the agent may skip Explore and go straight to P0 Foundations.
+- **Non-binding:** the plan document has no gate, no reviewer approval, and no
+  state transition. It does not block the lifecycle.
+- **No gated artifact:** the plan is not a Decision, not evidence, and not a
+  packet state. It is a thinking aid — the agent may discard it entirely.
+- **Pre-P0:** Explore happens after Baseline (packets registered) and before
+  P0 Foundations (shared primitives resolved).
+
+### What it produces
+
+A plan document (markdown or notes) that may include:
+
+- Relevant files, modules, and existing abstractions discovered
+- Candidate approaches and their trade-offs
+- Risks, unknowns, and open questions to resolve during P0
+- A tentative implementation sequence
+
+The document is not linked to the packet YAML and does not appear in the
+tracker. If the agent's findings are significant enough to gate on, they
+belong in a Decision record during P0, not in the explore plan.
+
+### When to use it
+
+Use Explore when the task touches unfamiliar code, has multiple viable
+approaches, or has dependencies that are not yet understood. Skip it for
+small, well-understood changes where the design is obvious from the baseline.
 
 ## Host integration
 

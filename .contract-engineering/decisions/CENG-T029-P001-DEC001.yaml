@@ -1,0 +1,30 @@
+packet_id: CENG-T029-P001
+decision_id: DEC001
+title: "Add optional explore step before P0 Foundations"
+status: approved
+approved_at: "2026-11-13T18:20:00Z"
+approver: user
+context: |
+  OpenSpec's explore-before-propose practice shows that a short, no-stakes
+  exploration before design reduces rework. The current skill goes straight
+  from Baseline to P0 Foundations with no opportunity for the agent to
+  explore the codebase before committing to a design.
+options:
+  - id: OPT-A
+    description: "Add an optional, non-binding Explore step between Baseline and P0 Foundations. Produces a plan document that is not a gated artifact, not a Decision, and not a packet state."
+    selected: true
+    rationale: "No lifecycle impact — the step has no gate, no state transition, no reviewer approval. Agents can skip it for simple tasks. Minimal blast radius: two new sections in SKILL.md and one in approval-gates.md."
+  - id: OPT-B
+    description: "Add Explore as a formal packet state with a gate."
+    selected: false
+    rationale: "Over-engineering. The whole point is a no-stakes thinking partner. A gate would add ceremony and block the lifecycle, defeating the purpose."
+decision: OPT-A
+impacts:
+  - "SKILL.md gains an Explore step section and a revised phased execution list (8 steps → 9, with Explore as step 2)."
+  - "references/approval-gates.md gains an Explore step (no gate) section clarifying it produces no gated artifact."
+  - "Skill version bumped from 2.7.0 to 2.8.0."
+no_impacts:
+  - "No new packet states or state transitions."
+  - "No new gates."
+  - "No schema, template, or adapter changes."
+  - "No protocol lock changes (unreleased development revision)."

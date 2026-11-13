@@ -1,6 +1,6 @@
 ---
 name: phased-engineering-execution
-version: 2.7.0
+version: 2.8.0
 description: Break engineering work into owned packets and execute it through evidence-based phases, gates, validation, and handoffs.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,9 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.8.0 (2026-11-13): Added living spec guidance — spec documents may be
+  updated after packet archive with versioning so prior state is
+  recoverable. Adapted from OpenSpec's living-specs practice.
 - 2.7.0 (2026-11-05): Added code-health gate to baseline and finish
   steps: inventory file size and dead code at baseline, record decisions
   in cleanup_scope at handoff. Moved packet schema, acceptance contract,
@@ -170,6 +173,42 @@ recover as `Interrupted`, cancel, or hand off an unchanged packet at review;
 `Stale` is not a packet state. Terminal packet YAML and its tracker row move
 to the archive only after user confirmation or iteration closure, preserving
 the handoff and evidence references.
+
+## Living specs
+
+Spec documents referenced in a packet's `baseline_refs` or
+`design_decision_ref` are not frozen at archive time. A spec may be updated
+after its packet is archived to reflect new understanding, corrected
+requirements, or evolved design context — without re-opening the archived
+packet.
+
+### Rules
+
+1. **Versioning:** every post-archive spec update records the prior version.
+   The simplest mechanism is a revision history section at the top of the
+   spec file (date, author, summary). The prior state is recoverable from
+   git history and the spec's own changelog.
+2. **No packet re-open:** updating a spec does not change the archived
+   packet's state, evidence, or handoff. The packet remains terminal. The
+   spec update is a documentation change, not a lifecycle event.
+3. **Link the update:** if the spec change is significant, record it in the
+   task event stream with the spec path, date, and summary. This keeps the
+   canonical ledger traceable without re-opening the packet.
+4. **Scope:** the update applies to the spec document only. Code, schema, or
+   configuration changes triggered by the spec update require a new packet
+   in the relevant task or a follow-up task.
+
+### When to update a living spec
+
+- The system evolved and the spec's assumptions are no longer accurate
+- A later packet discovered information that should be reflected in the
+  earlier spec for future readers
+- The spec contains an error that would mislead a future agent
+
+### When not to
+
+- The change is trivial (typo, formatting) — just fix it without ceremony
+- The spec describes a terminal decision that is still correct — leave it
 
 ## Phased execution
 

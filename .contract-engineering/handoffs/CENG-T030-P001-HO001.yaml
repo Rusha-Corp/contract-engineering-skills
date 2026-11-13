@@ -1,0 +1,10 @@
+packet_id: CENG-T030-P001
+handoff_id: HO001
+receiver: user
+requested_at: "2026-11-13T19:14:54Z"
+accepted_at: "2026-11-13T19:14:54Z"
+status: accepted
+summary: |
+  Updated the phased-engineering-execution skill (v2.7.0 → v2.8.0) and docs/protocol-configuration.md to allow spec documents to be updated after packet archive with versioning so prior state is recoverable. The update does not re-open the archived packet. Adapted from OpenSpec's living-specs practice.
+review_notes: |
+  Both acceptance criteria met. Living spec updates allowed with versioning. Validation limitation recorded (Python3 unavailable).

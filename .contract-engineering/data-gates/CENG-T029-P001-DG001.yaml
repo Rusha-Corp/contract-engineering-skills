@@ -1,0 +1,21 @@
+packet_id: CENG-T029-P001
+gate_id: DG001
+title: "No data-flow change from explore step"
+status: approved
+approved_at: "2026-11-13T18:20:00Z"
+approver: user
+data_flows:
+  - source: "Agent"
+    destination: "Plan document (local file or notes)"
+    data: "Non-binding exploration notes"
+    change: "new"
+assessment: |
+  The explore step produces a non-binding plan document that is not linked
+  to the packet YAML, tracker, or any gate. No data flows through the
+  contract engineering system. The plan document is a thinking aid that
+  may be discarded.
+risks:
+  - id: R1
+    description: "None — no data-flow through governed systems."
+    severity: none
+    mitigations: []

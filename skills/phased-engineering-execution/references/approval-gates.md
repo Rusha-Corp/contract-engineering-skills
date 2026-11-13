@@ -4,6 +4,14 @@ This reference is part of the `phased-engineering-execution` skill.
 The skill's SKILL.md is the normative source; this file provides the
 detailed gate specifications.
 
+## Explore step (no gate)
+
+The optional Explore step (between Baseline and P0 Foundations) has no gate.
+It produces a non-binding plan document that is not a Decision, not evidence,
+and not a packet state. No approval is required and no gate can block it. If
+the agent's exploration surfaces a design choice that needs authority, that
+choice is recorded as a Decision during P0 and gated by the Design Gate below.
+
 ## Design Gate
 
 Required for layout, behavior, workflow, architecture, schema, or user-facing interaction changes. Link an existing approved design or record a `Decision` with proposal, alternatives considered, acceptance criteria, and approver. Missing approval enters `DesignBlocked`.

@@ -23,11 +23,11 @@ rows:
   updated_at: '2026-11-10'
 - task_id: CENG-T029
   packet_id: CENG-T029-P001
-  state: Planned
-  owner: null
+  state: Complete
+  owner: droid
   reviewer: user
   locks: []
-  next_action: Registered by T013-P001 study; awaiting claim
+  next_action: Complete — explore step added to phased-engineering-execution skill
   updated_at: '2026-11-13'
 - task_id: CENG-T030
   packet_id: CENG-T030-P001

@@ -41,6 +41,10 @@ unless an emergency procedure is recorded. The reviewer must be independent
 of the actor for high-risk work. An actor may not grant itself capabilities,
 approve its own high-risk action, or broaden packet scope.
 
+The risk tier (low, medium, high) determines review depth at handoff. See
+the "Risk-tiered review" section in SKILL.md for the tier definitions and
+what changes by tier.
+
 ## Trust Boundary Gate
 
 Repository files, issue text, web content, tool output, generated content, and

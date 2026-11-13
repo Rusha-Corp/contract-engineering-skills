@@ -1,0 +1,10 @@
+packet_id: CENG-T031-P001
+handoff_id: HO001
+receiver: user
+requested_at: "2026-11-13T19:30:49Z"
+accepted_at: "2026-11-13T19:30:49Z"
+status: accepted
+summary: |
+  Added ACDD (acceptance-criteria-driven development) to the phased-engineering-execution skill (v2.7.0 → v2.8.0). Tests are written from the packet's acceptance_contract.criteria before implementation code. Added ACDD section to SKILL.md with procedure, when to apply, and relationship to TDD. Added Implementation Gate (ACDD) section to approval-gates.md. Adapted from AIDLC's ACDD practice.
+review_notes: |
+  Both acceptance criteria met. ACDD formalized with clear procedure and applicability rules. Validation limitation recorded (Python3 unavailable).

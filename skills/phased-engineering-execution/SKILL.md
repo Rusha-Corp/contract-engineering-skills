@@ -1,6 +1,6 @@
 ---
 name: phased-engineering-execution
-version: 2.7.0
+version: 2.8.0
 description: Break engineering work into owned packets and execute it through evidence-based phases, gates, validation, and handoffs.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,10 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.8.0 (2026-11-13): Added mutation testing to the validation rules.
+  Coding-domain packets SHOULD run mutation testing and record the score;
+  a low score does not hard-block but is flagged for reviewer attention.
+  Adapted from AIDLC's evals practice.
 - 2.7.0 (2026-11-05): Added code-health gate to baseline and finish
   steps: inventory file size and dead code at baseline, record decisions
   in cleanup_scope at handoff. Moved packet schema, acceptance contract,
@@ -272,11 +276,59 @@ full handoff YAML schema specification.
 
 ## Validation rules
 
-- **Coding:** type-check, lint, targeted tests, integration tests, and build when applicable.
+- **Coding:** type-check, lint, targeted tests, integration tests, build when
+  applicable, and mutation testing when tooling is available (see
+  [Mutation testing](#mutation-testing) below).
 - **Browser:** direct URLs, reload, required viewports, keyboard navigation, real anchors, accessibility snapshots, console/network errors, and screenshots.
 - **Design:** approved desktop/mobile artifacts, design tokens, interaction states, responsive behavior, and accessibility intent.
 - **Data:** source, schema, filters, permissions, mapping, values, samples or row counts, and loading/empty/error/permission/stale/retry behavior, and reproducible results.
 - **Documentation:** source links, terminology, examples, version references, and cross-reference checks.
+
+## Mutation testing
+
+Mutation testing measures test quality by injecting small defects (mutations)
+into the code and checking whether the tests catch them. Tests that pass
+despite mutations are asserting nothing meaningful. Adapted from AIDLC's
+evals practice.
+
+### When to run
+
+Coding-domain packets SHOULD run mutation testing when tooling is available
+for the language and framework (e.g., Stryker for JavaScript/TypeScript,
+mutmut for Python, PIT for Java). It is not required when no mutation testing
+tool supports the project's language or when the packet touches only
+non-executable code (documentation, configuration schemas).
+
+### How to record
+
+Record the mutation score in the packet's evidence:
+
+```yaml
+validation_plan:
+  - id: PROJECT-T001-P001-VAL001
+    kind: test
+    skill: phased-engineering-execution
+    checks:
+      - "mutation score >= 60% (or recorded limitation if tooling unavailable)"
+    expected: "mutation score meets threshold or limitation is documented"
+```
+
+### Thresholds
+
+- **60% or above:** acceptable. The test suite catches most injected defects.
+- **Below 60%:** flagged for reviewer attention. The agent SHOULD document
+  which survivors are expected (e.g., equivalent mutations) and which indicate
+  a real gap. The reviewer decides whether to accept or send to Rework.
+- **No score (tooling unavailable):** record the limitation in evidence. The
+  packet is not blocked, but the reviewer is aware that mutation quality was
+  not measured.
+
+### Why not a hard gate
+
+Mutation testing tooling is not universally available, and mutation scores
+vary by domain (UI code typically scores lower than business logic). A hard
+gate would block packets in environments without tooling. Instead, the score
+is evidence for the reviewer to evaluate.
 
 ### Pre-push validation rule (mandatory)
 

@@ -62,6 +62,19 @@ Use `scripts/validate-tracker.py` where Python is available, or implement the
 same checks with the harness's native YAML tooling. No automatic destructive
 archive command is required.
 
+### Living specs after archive
+
+Spec documents referenced in a packet's `baseline_refs` or
+`design_decision_ref` are not frozen at archive time. A spec may be updated
+after its packet is archived to reflect new understanding or corrected
+requirements. The update does not re-open the archived packet — it is a
+documentation change, not a lifecycle event. To keep prior state
+recoverable, every post-archive spec update records the prior version via a
+revision history section at the top of the spec file (date, author, summary).
+Git history provides the full diff. If the spec change is significant, record
+it in the task event stream with the spec path, date, and summary. Code or
+configuration changes triggered by the spec update require a new packet.
+
 ### Bounded tracker and packet maintenance
 
 The active tracker is an index, not a permanent history log:

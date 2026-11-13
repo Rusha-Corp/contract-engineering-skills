@@ -1,0 +1,19 @@
+packet_id: CENG-T030-P001
+gate_id: DG001
+title: "No data-flow change"
+status: approved
+approved_at: "2026-11-13T19:14:54Z"
+approver: user
+data_flows:
+  - source: "N/A"
+    destination: "N/A"
+    data: "Skill documentation change"
+    change: "none"
+assessment: |
+  This packet modifies skill documentation only. No data flows through
+  governed systems are changed.
+risks:
+  - id: R1
+    description: "None — no data-flow change."
+    severity: none
+    mitigations: []

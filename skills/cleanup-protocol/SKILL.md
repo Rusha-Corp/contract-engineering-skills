@@ -1,6 +1,6 @@
 ---
 name: cleanup-protocol
-version: 2.5.0
+version: 2.6.0
 description: Remove dead code, stale artifacts, and temporary debris after validation using risk-tiered, auditable procedures.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,10 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.6.0 (2026-11-13): Added postmortem-to-review-rule loop. When a
+  packet's postmortem identifies an escaped defect, the cleanup step creates
+  a review rule that prevents recurrence. Closes the Curate→Analyze loop
+  from AIDLC.
 - 2.5.0 (2026-11-05): Made dead-code finding continuous (required at
   baseline and handoff, not just P3 Cleanup). Removal still happens only
   after validation. Low-risk removal of code the packet itself orphaned is
@@ -315,6 +319,72 @@ verification:
   tests_passed: false
   no_orphaned_references: false
 ```
+
+## Postmortem-to-review-rule loop
+
+When a defect escapes — meaning it passed validation but was caught later
+(at handoff review, in production, or by a downstream packet) — the cleanup
+step SHALL formalize the lesson as a review rule. This closes the
+Curate→Analyze loop: the defect is curated (fixed), analyzed (root-caused),
+and fed back as a rule that prevents recurrence. Adapted from AIDLC's
+postmortem practice.
+
+### When to trigger
+
+Trigger the loop when any of these occur:
+- A reviewer rejects a handoff because of a defect that passed validation
+- A downstream packet discovers a bug in a completed packet's scope
+- A production incident traces to a gap in the packet's validation plan
+- A postmortem identifies an escaped defect
+
+### Procedure
+
+1. **Record the postmortem.** Add a postmortem section to the packet's
+   evidence or a linked document. Include: what escaped, why the validation
+   plan did not catch it, root cause, and fix.
+2. **Create a review rule.** Write a concrete, checkable rule that would
+   have caught the defect. The rule goes into the project's
+   `skill-feedback.md` as a `SkillGap` with `gap_type: missing` and the
+   proposed rule as the `proposed_change`.
+3. **Link the rule to the skill.** If the rule belongs in a governed skill
+   (e.g., a new validation check in `phased-engineering-execution`), record
+   the `SkillGap` and route it through the `skill-evolution` update process.
+   If the rule is project-specific, record it in the project's
+   `AGENTS.md` or a project-level review checklist.
+4. **Obtain approval.** Present the rule to the user for `action`, `defer`,
+   or `reject` through the normal `skill-evolution` workflow.
+5. **Apply the rule.** After approval, update the skill or project guidance.
+   The next packet's validation plan should include the new check.
+
+### Review rule schema
+
+```yaml
+review_rule_id: PROJECT-RR001
+source_postmortem: "PACKET-ID-EV001"
+defect_description: ""
+root_cause: ""
+rule: ""
+target_skill: "phased-engineering-execution|security-assurance|cleanup-protocol|project-level"
+status: proposed|approved|applied|rejected
+applied_at: null
+```
+
+### What a good review rule looks like
+
+- **Concrete:** "Check that all error responses include a correlation ID"
+  not "improve error handling."
+- **Checkable:** a reviewer or automated check can verify it in a future
+  packet's validation plan.
+- **Scoped:** targets one skill or one project-level checklist, not a
+  vague "be more careful."
+- **Preventive:** would have caught the specific escaped defect.
+
+### Relationship to skill-evolution
+
+The postmortem-to-review-rule loop feeds the `skill-evolution` skill's gap
+recording and review process. The `SkillGap` is the transport — the review
+rule is the content. See `skill-evolution/SKILL.md` for the gap schema and
+the monthly review cadence that aggregates recurring patterns.
 
 ## Safeguards
 

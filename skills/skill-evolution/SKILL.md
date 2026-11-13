@@ -1,6 +1,6 @@
 ---
 name: skill-evolution
-version: 1.2.0
+version: 1.3.0
 description: Keep skills and project guidance current by recording gaps, reviewing patterns, and applying user-approved updates.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,10 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 1.3.0 (2026-11-13): Added postmortem-to-review-rule cross-reference.
+  Escaped defects from cleanup-protocol postmortems are recorded as
+  SkillGaps with a proposed review rule, feeding the normal gap review
+  process.
 - 1.2.0 (2026-08-30): Added project protocol-root and cross-harness
   synchronization guidance.
 - 1.1.0 (2026-08-30): Distinguished invariants, procedures, and experiments,
@@ -59,6 +63,10 @@ Record a `SkillGap` when any of these occurs:
 10. A decision, packet, handoff, or closure format causes ambiguity or repeated work.
 11. A coding principle (DRY, SOLID, KISS, YAGNI) proved harmful or inadequate
     for a specific task.
+12. An escaped defect identified in a cleanup-protocol postmortem requires a
+    new review rule to prevent recurrence. Record the rule as a `SkillGap`
+    with `gap_type: missing` and the proposed rule as `proposed_change`. See
+    the "Postmortem-to-review-rule loop" section in `cleanup-protocol/SKILL.md`.
 
 ## Skill index example
 

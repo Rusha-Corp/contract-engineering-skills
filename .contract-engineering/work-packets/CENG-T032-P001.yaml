@@ -30,6 +30,17 @@ scope:
   - schemas/
   - templates/
   - Any product code
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GLM-5.3
+  session_id: ""
+capabilities:
+  - repository-read
+  - local-validation
+risk_tier: medium
+approval_policy: user
+external_effects: []
 state: Complete
 owner: droid
 reviewer: user

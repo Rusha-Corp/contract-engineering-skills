@@ -41,6 +41,7 @@ claim_timestamp: "2026-11-13T20:01:32Z"
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
 - skills/phased-engineering-execution/SKILL.md
+- b4cc3e16c9fcf01d3e2e19ff84b5bc8350b61de1
 design_decision_ref: ".contract-engineering/decisions/CENG-T033-P001-DEC001.yaml"
 data_gate_ref: CENG-T033-P001-DG001
 threat_model_ref: ".contract-engineering/threat-models/CENG-T033-P001-TM001.yaml"

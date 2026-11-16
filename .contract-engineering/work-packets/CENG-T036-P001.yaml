@@ -76,6 +76,7 @@ baseline_refs:
   - skills/project-lifecycle/SKILL.md
   - docs/repository-development.md
   - docs/protocol-configuration.md
+  - 3f69edbfe9571b406551b52dac5a97925b25523d
 design_decision_ref: ".contract-engineering/decisions/CENG-T036-P001-DEC001.yaml"
 data_gate_ref: CENG-T036-P001-DG001
 threat_model_ref: ".contract-engineering/threat-models/CENG-T036-P001-TM001.yaml"

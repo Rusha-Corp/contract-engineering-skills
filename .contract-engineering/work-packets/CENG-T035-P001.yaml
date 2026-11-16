@@ -40,6 +40,7 @@ claim_timestamp: "2026-11-13T20:21:25Z"
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
 - skills/cleanup-protocol/SKILL.md
+- af4d2d01bb68aa13edf489fa78629d36fd5a81e2
 design_decision_ref: ".contract-engineering/decisions/CENG-T035-P001-DEC001.yaml"
 data_gate_ref: CENG-T035-P001-DG001
 threat_model_ref: ".contract-engineering/threat-models/CENG-T035-P001-TM001.yaml"

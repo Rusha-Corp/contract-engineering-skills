@@ -9,10 +9,11 @@ revision: 0
 lease_ref: null
 fencing_token: ""
 worktree:
-  path: null
-  branch: null
-  base_revision: null
-  cleanup_status: pending
+  path: ../ce-CENG-T032-P001
+  branch: CENG-T032-P001
+  base_revision: 14e4652b8b5097229727afcc11203dde9af347e6
+  head_revision: b7620ac7244e09c6b3e818c215030281d42b4125
+  cleanup_status: released
 title: "Add mutation testing to the validation gate"
 objective: >
   Add a mutation-score check to the security-assurance or
@@ -29,7 +30,18 @@ scope:
   - schemas/
   - templates/
   - Any product code
-state: complete
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GLM-5.3
+  session_id: ""
+capabilities:
+  - repository-read
+  - local-validation
+risk_tier: medium
+approval_policy: user
+external_effects: []
+state: Complete
 owner: droid
 reviewer: user
 cleanup_owner: droid
@@ -38,6 +50,8 @@ locks: []
 claim_timestamp: "2026-11-13T19:49:26Z"
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
+- skills/security-assurance/SKILL.md
+- 14e4652b8b5097229727afcc11203dde9af347e6
 design_decision_ref: ".contract-engineering/decisions/CENG-T032-P001-DEC001.yaml"
 data_gate_ref: CENG-T032-P001-DG001
 threat_model_ref: ".contract-engineering/threat-models/CENG-T032-P001-TM001.yaml"
@@ -59,7 +73,7 @@ acceptance_contract:
     verification_method: review
     verification_command: "Review the skill changes against the existing validation gate definition."
     evidence_refs:
-    - ".contract-engineering/evidence/CENG-T032-P001-EV001.md"
+    - "CENG-T032-P001-EV001"
     failure_result: >
       The mutation-score check is missing or does not block the
       transition.
@@ -72,7 +86,7 @@ acceptance_contract:
     verification_method: execute
     verification_command: "python scripts/validate-contract-records.py && python scripts/validate-tracker.py --root .contract-engineering && python scripts/render-tracker.py --root .contract-engineering --check && python scripts/enforce_packet_scope.py --base-sha HEAD~1 --head-sha HEAD"
     evidence_refs:
-    - ".contract-engineering/evidence/CENG-T032-P001-EV001.md"
+    - "CENG-T032-P001-EV001"
     failure_result: Any validation check fails at the packet head.
     validation_ref: CENG-T032-P001-VAL001
 validation_plan:
@@ -97,6 +111,6 @@ removal_criteria: []
 exception_refs: []
 sunset_target: ""
 evidence_refs:
-- ".contract-engineering/evidence/CENG-T032-P001-EV001.md"
+- "CENG-T032-P001-EV001"
 handoff_ref: CENG-T032-P001-HO001
 updated_at: "2026-11-13"

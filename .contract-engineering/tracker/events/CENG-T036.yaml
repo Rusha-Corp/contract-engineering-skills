@@ -1,0 +1,15 @@
+task_id: CENG-T036
+schema_version: 1
+events:
+- event_id: CENG-T036-E001
+  packet_id: CENG-T036-P001
+  type: admission
+  actor: droid
+  occurred_at: "2026-11-16T18:00:00Z"
+  summary: "Design packet claimed: user-request intake, dependency triage, fast-track, and project onboarding"
+- event_id: CENG-T036-E002
+  packet_id: CENG-T036-P001
+  type: records_created
+  actor: droid
+  occurred_at: "2026-11-16T18:05:00Z"
+  summary: "Spec, DEC001, TM001, DG001 created"

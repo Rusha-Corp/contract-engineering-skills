@@ -1,0 +1,74 @@
+packet_id: CENG-T036-P001
+decision_id: DEC001
+title: "Add user-request intake, dependency triage, fast-track, and project onboarding to the CE protocol"
+status: pending
+approved_at: null
+approver: null
+context: |
+  When a user says "implement X," the CE protocol has no structured intake
+  flow. The agent manually searches packets, computes dependency chains, and
+  presents options ad-hoc in chat. Over-declared dependencies block work
+  unnecessarily — packets often declare dependencies to sequence work, not
+  because of technical coupling, but the protocol has no formal relaxation
+  process. New projects have no onboarding checklist. Agents don't
+  proactively identify workflow improvements during normal work.
+
+  This was discovered when a user requested "implement them" (UI approvals
+  and handoff discoverability) and the agent found the matching packet
+  (T011-P003) was blocked behind a 4-packet dependency chain where at least
+  one dependency (T006-P005, client rollout) was over-declared relative to
+  the requested work (governance approval controls).
+options:
+  - id: OPT-A
+    description: >
+      Add four protocol improvements as a cohesive design: (1) structured
+      intake flow with packet mapping and shortest-path planning, (2)
+      dependency triage with objective blocking/over-declared criteria and
+      Decision-recorded relaxation, (3) fast-track rules for user-requested
+      work that relax within-task dependencies without bypassing the
+      one-workstream rule, (4) project onboarding checklist with device
+      login flow integration, and (5) proactive workflow-improvement
+      protocol so agents record SkillGaps during normal work.
+    selected: true
+    rationale: >
+      Addresses the full problem surface: the intake flow structures what
+      is now ad-hoc, the triage rules make dependency evaluation objective,
+      the fast-track rules provide a governed path for relaxation, the
+      onboarding checklist enables multi-project growth, and the proactive
+      improvement protocol transforms agents from code generators into
+      workflow improvers. No new packet states or gates — all changes
+      integrate with existing Decision records, SkillGaps, and the gate
+      check.
+  - id: OPT-B
+    description: "Add only the dependency triage and fast-track rules, defer intake flow and onboarding."
+    selected: false
+    rationale: >
+      The triage and fast-track rules are the most urgent gap, but without
+      the intake flow there is no structured procedure for when to apply
+      them. The agent would still ad-hoc search packets and present options
+      in chat. Partial solution that doesn't address the root cause.
+  - id: OPT-C
+    description: "Add all improvements as a new skill (ce-intake) rather than extending existing skills."
+    selected: false
+    rationale: >
+      Over-engineering. The intake flow is an execution procedure (belongs
+      in phased-engineering-execution), the onboarding is a lifecycle
+      concern (belongs in project-lifecycle), and the proactive improvement
+      uses existing SkillGap infrastructure (belongs in skill-evolution). A
+      new skill would fragment responsibility.
+decision: OPT-A
+impacts:
+  - "skills/phased-engineering-execution/SKILL.md gains a User-request intake section and a Dependency triage subsection."
+  - "skills/phased-engineering-execution/references/packet-schema.md documents the optional dependency_rationale field."
+  - "skills/project-lifecycle/SKILL.md gains a Project onboarding section with the checklist and device-login-flow reference."
+  - "skills/skill-evolution/SKILL.md gains a note that mid-packet gap recording is allowed and encouraged."
+  - "Each consuming project's AGENTS.md gains a proactive-workflow-improvement directive."
+  - "phased-engineering-execution skill version bumped from 2.8.0 to 2.9.0 (minor: new capabilities)."
+  - "project-lifecycle skill version bumped from 2.5.0 to 2.6.0 (minor: new onboarding section)."
+  - "skill-evolution skill version bumped from 1.3.0 to 1.4.0 (minor: mid-packet gap recording guidance)."
+no_impacts:
+  - "No new packet states or state transitions."
+  - "No new gates."
+  - "No new schemas, templates, or adapters."
+  - "No protocol lock changes (unreleased development revision until published)."
+  - "The one-workstream rule is unchanged — fast-track operates within-task only."

@@ -1,0 +1,40 @@
+packet_id: CENG-T036-P001
+gate_id: DG001
+title: "No data-flow change from protocol design"
+status: approved
+approved_at: "2026-11-16T18:05:00Z"
+approver: droid
+data_flows:
+  - source: "Agent"
+    destination: "SkillGap records, Decision records"
+    data: "Workflow improvement observations, dependency triage results"
+    change: "new"
+  - source: "Gate check"
+    destination: "Decision records"
+    data: "Approved relaxation Decisions consulted during claim gate check"
+    change: "new"
+assessment: |
+  The design introduces two new data flows through governed systems:
+
+  1. SkillGap recording during normal packet work. This uses the existing
+  SkillGap schema and skill-feedback.md accumulator — no new data structure.
+  The flow is agent-to-record, same as closure-time gap recording but
+  allowed mid-packet.
+
+  2. Gate check consulting approved Decision records for dependency
+  relaxation. This extends the existing gate check to read an additional
+  record type (Decisions) that already exist in the system. The gate
+  verifies the Decision's status is approved and references the correct
+  packet and dependency.
+
+  Neither flow introduces new data stores, new network targets, or new
+  authentication surfaces. The data is already governed by the existing
+  record validation and approval processes.
+risks:
+  - id: R1
+    description: "Gate check incorrectly allows a claim with an unapproved or mismatched relaxation Decision."
+    severity: medium
+    mitigations:
+      - "Gate check verifies Decision status is 'approved' and approver is the user."
+      - "Gate check verifies the Decision references the correct dependency packet ID."
+      - "Relaxation Decisions are auditable and visible in the packet's governance tab."

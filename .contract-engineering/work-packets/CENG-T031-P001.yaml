@@ -9,10 +9,11 @@ revision: 0
 lease_ref: null
 fencing_token: ""
 worktree:
-  path: null
-  branch: null
-  base_revision: null
-  cleanup_status: pending
+  path: ../ce-CENG-T031-P001
+  branch: CENG-T031-P001
+  base_revision: 1ab37461068c4aa8ada123b8bcf92a8feedb277b
+  head_revision: d6ea3889c17920b8b32306c82f3ecbae67a7d91c
+  cleanup_status: released
 title: "Formalize acceptance-criteria-driven development in P1_IMPLEMENTATION"
 objective: >
   Add a step to the phased-engineering-execution skill's P1_IMPLEMENTATION
@@ -29,7 +30,7 @@ scope:
   - schemas/
   - templates/
   - Any product code
-state: complete
+state: Complete
 owner: droid
 reviewer: user
 cleanup_owner: droid
@@ -38,6 +39,8 @@ locks: []
 claim_timestamp: "2026-11-13T19:30:49Z"
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
+- skills/phased-engineering-execution/SKILL.md
+- 1ab37461068c4aa8ada123b8bcf92a8feedb277b
 design_decision_ref: ".contract-engineering/decisions/CENG-T031-P001-DEC001.yaml"
 data_gate_ref: CENG-T031-P001-DG001
 threat_model_ref: ".contract-engineering/threat-models/CENG-T031-P001-TM001.yaml"
@@ -60,7 +63,7 @@ acceptance_contract:
     verification_method: review
     verification_command: "Review the skill changes against the existing P1_IMPLEMENTATION phase definition."
     evidence_refs:
-    - ".contract-engineering/evidence/CENG-T031-P001-EV001.md"
+    - "CENG-T031-P001-EV001"
     failure_result: >
       The step is missing, positioned after code generation, or does
       not reference acceptance_contract.criteria.
@@ -73,7 +76,7 @@ acceptance_contract:
     verification_method: execute
     verification_command: "python scripts/validate-contract-records.py && python scripts/validate-tracker.py --root .contract-engineering && python scripts/render-tracker.py --root .contract-engineering --check && python scripts/enforce_packet_scope.py --base-sha HEAD~1 --head-sha HEAD"
     evidence_refs:
-    - ".contract-engineering/evidence/CENG-T031-P001-EV001.md"
+    - "CENG-T031-P001-EV001"
     failure_result: Any validation check fails at the packet head.
     validation_ref: CENG-T031-P001-VAL001
 validation_plan:
@@ -98,6 +101,6 @@ removal_criteria: []
 exception_refs: []
 sunset_target: ""
 evidence_refs:
-- ".contract-engineering/evidence/CENG-T031-P001-EV001.md"
+- "CENG-T031-P001-EV001"
 handoff_ref: CENG-T031-P001-HO001
 updated_at: "2026-11-13"

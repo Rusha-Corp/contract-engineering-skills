@@ -9,10 +9,11 @@ revision: 0
 lease_ref: null
 fencing_token: ""
 worktree:
-  path: null
-  branch: null
-  base_revision: null
-  cleanup_status: pending
+  path: ../ce-CENG-T034-P001
+  branch: CENG-T034-P001
+  base_revision: ea79d42a19d1c1d9b84aa6127823975a8d566aad
+  head_revision: 89812d47eff8f716aa097e6282dee3226fa0c1b7
+  cleanup_status: released
 title: "Document CE and AIDLC playbook alignment"
 objective: >
   Add a documentation section showing how the CE protocol already
@@ -31,7 +32,7 @@ scope:
   - schemas/
   - templates/
   - Any product code
-state: complete
+state: Complete
 owner: droid
 reviewer: user
 cleanup_owner: droid
@@ -40,6 +41,8 @@ locks: []
 claim_timestamp: "2026-11-13T20:10:25Z"
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
+- README.md
+- ea79d42a19d1c1d9b84aa6127823975a8d566aad
 design_decision_ref: ".contract-engineering/decisions/CENG-T034-P001-DEC001.yaml"
 data_gate_ref: CENG-T034-P001-DG001
 threat_model_ref: ".contract-engineering/threat-models/CENG-T034-P001-TM001.yaml"
@@ -61,7 +64,7 @@ acceptance_contract:
     verification_method: inspect
     verification_command: "grep -A30 'AIDLC' README.md"
     evidence_refs:
-    - ".contract-engineering/evidence/CENG-T034-P001-EV001.md"
+    - "CENG-T034-P001-EV001"
     failure_result: >
       The section is missing or a rule has no CE equivalent.
     validation_ref: CENG-T034-P001-VAL001
@@ -73,7 +76,7 @@ acceptance_contract:
     verification_method: execute
     verification_command: "python scripts/validate-contract-records.py && python scripts/validate-tracker.py --root .contract-engineering && python scripts/render-tracker.py --root .contract-engineering --check && python scripts/enforce_packet_scope.py --base-sha HEAD~1 --head-sha HEAD"
     evidence_refs:
-    - ".contract-engineering/evidence/CENG-T034-P001-EV001.md"
+    - "CENG-T034-P001-EV001"
     failure_result: Any validation check fails at the packet head.
     validation_ref: CENG-T034-P001-VAL001
 validation_plan:
@@ -98,6 +101,6 @@ removal_criteria: []
 exception_refs: []
 sunset_target: ""
 evidence_refs:
-- ".contract-engineering/evidence/CENG-T034-P001-EV001.md"
+- "CENG-T034-P001-EV001"
 handoff_ref: CENG-T034-P001-HO001
 updated_at: "2026-11-13"

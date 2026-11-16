@@ -1,8 +1,8 @@
-task_id: CENG-${t}
+task_id: CENG-T031
 schema_version: 1
 events:
-- event_id: CENG-${t}-E001
-  packet_id: CENG-${t}-P001
+- event_id: CENG-T031-E001
+  packet_id: CENG-T031-P001
   type: admission
   actor: droid
   occurred_at: '2026-11-13T16:30:00Z'

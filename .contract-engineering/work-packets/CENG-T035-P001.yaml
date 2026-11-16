@@ -9,10 +9,11 @@ revision: 0
 lease_ref: null
 fencing_token: ""
 worktree:
-  path: null
-  branch: null
-  base_revision: null
-  cleanup_status: pending
+  path: ../ce-CENG-T035-P001
+  branch: CENG-T035-P001
+  base_revision: af4d2d01bb68aa13edf489fa78629d36fd5a81e2
+  head_revision: 6a1568af8d46a949c8c9837499e722c71a938543
+  cleanup_status: released
 title: "Formalize postmortem-to-review-rule loop in cleanup-protocol"
 objective: >
   Update the cleanup-protocol skill to formalize the practice that

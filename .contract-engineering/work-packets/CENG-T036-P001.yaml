@@ -11,8 +11,8 @@ fencing_token: ""
 worktree:
   path: ../ce-CENG-T036-P001
   branch: CENG-T036-P001
-  base_revision: 3f69edb
-  cleanup_status: pending
+  base_revision: 3f69edbfe9571b406551b52dac5a97925b25523d
+  cleanup_status: active
 title: "Design user-request intake, dependency triage, fast-track, and project onboarding"
 objective: >
   Specify and obtain approval for four protocol improvements:

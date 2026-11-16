@@ -9,10 +9,11 @@ revision: 0
 lease_ref: null
 fencing_token: ""
 worktree:
-  path: null
-  branch: null
-  base_revision: null
-  cleanup_status: pending
+  path: ../ce-CENG-T029-P001
+  branch: CENG-T029-P001
+  base_revision: 40d64884721a7aa5e7f277e2ef6a98bad3367b6e
+  head_revision: 5c31ec6745ee13cbc8459a1cf94b9b96fa915e08
+  cleanup_status: released
 title: "Add explore step before design_review in phased-engineering-execution"
 objective: >
   Add a non-binding explore step to the phased-engineering-execution skill

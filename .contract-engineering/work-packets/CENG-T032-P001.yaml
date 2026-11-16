@@ -9,10 +9,11 @@ revision: 0
 lease_ref: null
 fencing_token: ""
 worktree:
-  path: null
-  branch: null
-  base_revision: null
-  cleanup_status: pending
+  path: ../ce-CENG-T032-P001
+  branch: CENG-T032-P001
+  base_revision: 14e4652b8b5097229727afcc11203dde9af347e6
+  head_revision: b7620ac7244e09c6b3e818c215030281d42b4125
+  cleanup_status: released
 title: "Add mutation testing to the validation gate"
 objective: >
   Add a mutation-score check to the security-assurance or

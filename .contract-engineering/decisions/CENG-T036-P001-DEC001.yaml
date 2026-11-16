@@ -1,9 +1,9 @@
 packet_id: CENG-T036-P001
 decision_id: DEC001
 title: "Add user-request intake, dependency triage, fast-track, and project onboarding to the CE protocol"
-status: pending
-approved_at: null
-approver: null
+status: approved
+approved_at: "2026-11-16T18:35:00Z"
+approver: user
 context: |
   When a user says "implement X," the CE protocol has no structured intake
   flow. The agent manually searches packets, computes dependency chains, and

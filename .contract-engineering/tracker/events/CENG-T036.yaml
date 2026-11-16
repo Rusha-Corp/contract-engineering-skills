@@ -13,3 +13,9 @@ events:
   actor: droid
   occurred_at: "2026-11-16T18:05:00Z"
   summary: "Spec, DEC001, TM001, DG001 created"
+- event_id: CENG-T036-E003
+  packet_id: CENG-T036-P001
+  type: handoff_accepted
+  actor: user
+  occurred_at: "2026-11-16T18:35:00Z"
+  summary: "Design approved via PR #49 merge; packet complete"

@@ -79,11 +79,9 @@ rows:
   updated_at: '2026-11-13'
 - task_id: CENG-T036
   packet_id: CENG-T036-P001
-  state: Claimed
+  state: Complete
   owner: user
   reviewer: user
-  locks:
-  - skills/phased-engineering-execution/SKILL.md
-  - skills/project-lifecycle/SKILL.md
-  next_action: Design packet — spec, decision, threat model written; awaiting user approval
+  locks: []
+  next_action: Complete — design approved via PR #49 merge; implementation packet P002 to follow
   updated_at: '2026-11-16'

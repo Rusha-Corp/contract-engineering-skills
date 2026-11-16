@@ -1,0 +1,41 @@
+packet_id: CENG-T036-P001
+handoff_id: CENG-T036-P001-HO001
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: "session:CENG-T036-P001"
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: "github-merge:2026-11-16:CENG-T036-P001:PR-49"
+  accepted_at: "2026-11-16T18:35:00Z"
+  acceptance_ref: "user-acceptance:2026-11-16:CENG-T036-P001:PR-49"
+receiver_status: accepted
+receiver_notes: |
+  Design approved by merging PR #49. Five protocol improvements specified:
+  intake flow, dependency triage, fast-track rules, project onboarding,
+  and proactive workflow improvement. Implementation packet to follow.
+summary: |
+  P0_DESIGN packet for five CE protocol improvements. Spec, DEC001, TM001,
+  DG001 all approved. PR #49 merged to main with all CI checks passing.
+  Pre-existing schema violations in T029-T035 also corrected as part of
+  the PR (state casing, baseline_refs, worktree fields, handoff schema,
+  event template variables, protocol lock alignment).
+base_revision: 3f69edbfe9571b406551b52dac5a97925b25523d
+head_revision: e201a19
+changed_resources:
+  - ".contract-engineering/specs/2026-11-16-user-request-intake-dependency-triage-and-onboarding.md"
+  - ".contract-engineering/decisions/CENG-T036-P001-DEC001.yaml"
+  - ".contract-engineering/threat-models/CENG-T036-P001-TM001.yaml"
+  - ".contract-engineering/data-gates/CENG-T036-P001-DG001.yaml"
+  - ".contract-engineering/evidence/CENG-T036-P001-EV001.md"
+  - ".contract-engineering/work-packets/CENG-T036-P001.yaml"
+  - ".contract-engineering/tracker/index.yaml"
+  - ".contract-engineering/tracker/events/CENG-T036.yaml"
+  - ".contract-engineering/execution-tracker.md"
+  - ".contract-engineering/protocol.lock.yaml"
+failures: []
+unresolved_items: []
+next_action: "Claim CENG-T036-P002 to implement the skill changes: add intake flow to phased-engineering-execution, onboarding to project-lifecycle, mid-packet gap recording to skill-evolution."

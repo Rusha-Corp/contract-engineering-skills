@@ -1,9 +1,9 @@
 packet_id: CENG-T036-P001
 threat_model_id: TM001
 title: "Threat model: user-request intake, dependency triage, fast-track, and onboarding"
-status: pending
-approved_at: null
-approver: null
+status: approved
+approved_at: "2026-11-16T18:35:00Z"
+approver: user
 scope: "Protocol design — skill documentation changes, no code or runtime behavior."
 stride:
   spoofing:

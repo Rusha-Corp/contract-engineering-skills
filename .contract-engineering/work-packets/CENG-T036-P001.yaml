@@ -62,7 +62,11 @@ capabilities:
 risk_tier: medium
 approval_policy: user
 external_effects: []
-owner: droid
+owner:
+  identity: user
+  identity_type: human
+  authentication_ref: "session:2026-11-16"
+  signed_at: "2026-11-16T17:55:00Z"
 reviewer: user
 cleanup_owner: droid
 dependencies: []

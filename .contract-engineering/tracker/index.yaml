@@ -80,7 +80,7 @@ rows:
 - task_id: CENG-T036
   packet_id: CENG-T036-P001
   state: Claimed
-  owner: droid
+  owner: user
   reviewer: user
   locks:
   - skills/phased-engineering-execution/SKILL.md

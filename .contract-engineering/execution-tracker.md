@@ -13,4 +13,4 @@ Canonical state: `tracker/index.yaml` and its declared task shards.
 | CENG-T033 | CENG-T033-P001 | Complete | droid | user | — |
 | CENG-T034 | CENG-T034-P001 | Complete | droid | user | — |
 | CENG-T035 | CENG-T035-P001 | Complete | droid | user | — |
-| CENG-T036 | CENG-T036-P001 | Claimed | droid | user | phased-engineering-execution, project-lifecycle |
+| CENG-T036 | CENG-T036-P001 | Claimed | user | user | phased-engineering-execution, project-lifecycle |

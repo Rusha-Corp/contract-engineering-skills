@@ -63,7 +63,7 @@ acceptance_contract:
     verification_method: review
     verification_command: "Review the skill changes against the existing review model."
     evidence_refs:
-    - ".contract-engineering/evidence/CENG-T033-P001-EV001.md"
+    - "CENG-T033-P001-EV001"
     failure_result: >
       Risk-tiered review is missing or does not vary depth by tier.
     validation_ref: CENG-T033-P001-VAL001
@@ -75,7 +75,7 @@ acceptance_contract:
     verification_method: execute
     verification_command: "python scripts/validate-contract-records.py && python scripts/validate-tracker.py --root .contract-engineering && python scripts/render-tracker.py --root .contract-engineering --check && python scripts/enforce_packet_scope.py --base-sha HEAD~1 --head-sha HEAD"
     evidence_refs:
-    - ".contract-engineering/evidence/CENG-T033-P001-EV001.md"
+    - "CENG-T033-P001-EV001"
     failure_result: Any validation check fails at the packet head.
     validation_ref: CENG-T033-P001-VAL001
 validation_plan:
@@ -100,6 +100,6 @@ removal_criteria: []
 exception_refs: []
 sunset_target: ""
 evidence_refs:
-- ".contract-engineering/evidence/CENG-T033-P001-EV001.md"
+- "CENG-T033-P001-EV001"
 handoff_ref: CENG-T033-P001-HO001
 updated_at: "2026-11-13"

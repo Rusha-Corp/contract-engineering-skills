@@ -1,0 +1,181 @@
+packet_id: CENG-T036-P001
+task_id: CENG-T036
+phase: P0_DESIGN
+domain: design
+packet_class: cross-cutting
+work_type: delivery
+priority: high
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: ../ce-CENG-T036-P001
+  branch: CENG-T036-P001
+  base_revision: 3f69edb
+  cleanup_status: pending
+title: "Design user-request intake, dependency triage, fast-track, and project onboarding"
+objective: >
+  Specify and obtain approval for four protocol improvements:
+  (1) A structured user-request intake flow that maps a user's "implement X"
+  request to existing or new packets, computes the dependency chain, and
+  presents a shortest-path plan — not a wall of blocking dependencies.
+  (2) A dependency triage protocol that distinguishes truly blocking
+  dependencies from conservatively over-declared ones, with a formal
+  relaxation process recorded as Decision records rather than ad-hoc chat.
+  (3) Fast-track rules for user-requested work that allow dependency
+  relaxation without cancelling the blocking packet, with clear criteria
+  for when fast-track applies and when it doesn't.
+  (4) A project onboarding and proactive-workflow-improvement framework so
+  that agents don't just churn out code — they identify CE/Task Master edge
+  cases and improvements, and new projects can onboard quickly via the
+  device login flow, enabling multi-project perspectives.
+open_questions:
+  - "What distinguishes a truly blocking dependency from a conservatively declared one, and can this be determined automatically from packet scope.in overlaps and import analysis?"
+  - "How does fast-track interact with the one-workstream rule — can a packet be claimed out of dependency order within an in-progress task without violating the rule?"
+  - "Does dependency relaxation need a new record type, or do existing Decision records suffice with a `dependency_rationale` field?"
+  - "What project-onboarding checklist lets a new project start working under CE in under 30 minutes, and how does the device login flow gate that?"
+  - "How should agents proactively identify and record workflow improvements during normal packet work without scope-creeping the current packet?"
+scope:
+  in:
+  - skills/phased-engineering-execution/SKILL.md
+  - skills/phased-engineering-execution/references/packet-schema.md
+  - skills/project-lifecycle/SKILL.md
+  - ".contract-engineering/specs/2026-11-16-user-request-intake-dependency-triage-and-onboarding.md"
+  - ".contract-engineering/decisions/CENG-T036-P001-DEC001.yaml"
+  - ".contract-engineering/threat-models/CENG-T036-P001-TM001.yaml"
+  - ".contract-engineering/data-gates/CENG-T036-P001-DG001.yaml"
+  out:
+  - "schemas/"
+  - "templates/"
+  - "adapters/"
+  - "Any product code in task-master or other consuming projects."
+  - "Implementing the skill changes themselves — that is a follow-up P1 packet."
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GLM-5.3
+  session_id: current-session
+capabilities:
+  - repository-read
+  - repository-write
+  - local-validation
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner: droid
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks:
+  - skills/phased-engineering-execution/SKILL.md
+  - skills/project-lifecycle/SKILL.md
+claim_timestamp: "2026-11-16T18:00:00Z"
+baseline_refs:
+  - .contract-engineering/protocol.lock.yaml
+  - skills/phased-engineering-execution/SKILL.md
+  - skills/project-lifecycle/SKILL.md
+  - docs/repository-development.md
+  - docs/protocol-configuration.md
+design_decision_ref: ".contract-engineering/decisions/CENG-T036-P001-DEC001.yaml"
+data_gate_ref: CENG-T036-P001-DG001
+threat_model_ref: ".contract-engineering/threat-models/CENG-T036-P001-TM001.yaml"
+acceptance_criteria:
+  - "The spec defines a user-request intake flow that maps requests to packets, computes dependency chains, and presents shortest-path plans."
+  - "The spec defines dependency triage rules that distinguish truly blocking from over-declared dependencies using scope.in overlap and import analysis."
+  - "The spec defines fast-track rules for user-requested work with clear applicability criteria and one-workstream-rule interaction."
+  - "The spec defines a project onboarding checklist and device-login-flow integration for fast multi-project onboarding."
+  - "The spec defines a proactive-workflow-improvement protocol so agents identify and record CE/Task Master edge cases during normal work."
+  - "The threat model covers dependency-relaxation risks (hidden coupling, incomplete intermediate states), onboarding risks (unauthorized project access), and improvement-protocol risks (scope creep, noise)."
+  - "The user approves the design before any implementation packet is claimed."
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T036-P001-AC001
+      statement: "The intake flow maps user requests to packets and presents shortest-path plans."
+      expected_result: >
+        The spec describes the mapping procedure (keyword search, scope
+        match, cancelled-packet handling), dependency-chain computation,
+        and shortest-path presentation with trade-offs.
+      verification_method: review
+      verification_command: "Review the intake-flow section of the spec."
+      evidence_refs: []
+      failure_result: "The agent ad-hoc asks the user to pick shortcuts in chat instead of following a structured flow."
+      validation_ref: CENG-T036-P001-VAL001
+    - id: CENG-T036-P001-AC002
+      statement: "Dependency triage rules distinguish blocking from over-declared dependencies."
+      expected_result: >
+        The spec defines objective criteria (scope.in file overlap, import
+        analysis, shared abstraction dependency) and a formal relaxation
+        process recorded as a Decision record.
+      verification_method: review
+      verification_command: "Review the dependency-triage section of the spec."
+      evidence_refs: []
+      failure_result: "Dependencies are never questioned or are relaxed without a recorded decision."
+      validation_ref: CENG-T036-P001-VAL001
+    - id: CENG-T036-P001-AC003
+      statement: "Fast-track rules integrate with the one-workstream rule without violating it."
+      expected_result: >
+        The spec states when fast-track applies, when it doesn't, and how
+        it interacts with the one-workstream rule (in-workstream dependency
+        ordering may be relaxed; cross-task one-workstream is not bypassed).
+      verification_method: review
+      verification_command: "Review the fast-track section against the one-workstream rule."
+      evidence_refs: []
+      failure_result: "Fast-track silently violates the one-workstream rule or has no applicability criteria."
+      validation_ref: CENG-T036-P001-VAL001
+    - id: CENG-T036-P001-AC004
+      statement: "Project onboarding and proactive-improvement protocols are defined."
+      expected_result: >
+        The spec defines an onboarding checklist (protocol.lock, ce:sync,
+        device login flow, workspace:connect), a proactive-improvement
+        protocol (edge-case recording without scope creep), and multi-project
+        workflow guidance.
+      verification_method: review
+      verification_command: "Review the onboarding and improvement sections."
+      evidence_refs: []
+      failure_result: "Onboarding is undefined or agents never proactively improve the workflow."
+      validation_ref: CENG-T036-P001-VAL001
+    - id: CENG-T036-P001-AC005
+      statement: "The threat model covers all design risks."
+      expected_result: >
+        TM001 covers dependency-relaxation risks (hidden coupling, incomplete
+        intermediate states), onboarding risks (unauthorized access, token
+        leakage), and improvement-protocol risks (scope creep, noise, agent
+        self-granting authority).
+      verification_method: review
+      verification_command: "Review TM001 against the spec's design surfaces."
+      evidence_refs: []
+      failure_result: "A design risk is not covered."
+      validation_ref: CENG-T036-P001-VAL002
+validation_plan:
+  - id: CENG-T036-P001-VAL001
+    kind: design-review
+    command: "Review the spec, DEC001, and DG001 for completeness and consistency."
+    expected: "All four protocol improvements are specified with clear rules and integration points."
+  - id: CENG-T036-P001-VAL002
+    kind: security
+    skill: security-assurance
+    checks:
+      - "Dependency relaxation cannot bypass safety gates."
+      - "Onboarding flow does not expose secrets or grant unauthorized access."
+      - "Improvement protocol cannot scope-creep a packet or self-grant authority."
+    expected: "No unresolved blocking security finding."
+cleanup_scope:
+  dead_code_review: []
+  size_reviews: []
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+stability: experimental
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria:
+  - "The user approves DEC001 and the threat model before implementation packets are claimed."
+  - "Implementation packets are decomposed into a separate workstream after design approval."
+exception_refs: []
+sunset_target: ""
+state: claimed
+evidence_refs: []
+handoff_ref: null
+updated_at: "2026-11-16"

@@ -1,7 +1,7 @@
 tracker_schema_version: 1
 partition: active
 max_rows: 25
-updated_at: '2026-11-13'
+updated_at: '2026-11-16'
 shards:
 - tracker/shards/CENG-T015.yaml
 rows:
@@ -31,49 +31,59 @@ rows:
   updated_at: '2026-11-13'
 - task_id: CENG-T030
   packet_id: CENG-T030-P001
-  state: Planned
-  owner: null
+  state: Complete
+  owner: droid
   reviewer: user
   locks: []
-  next_action: Registered by T013-P001 study; awaiting claim
+  next_action: Complete — living spec updates formalized
   updated_at: '2026-11-13'
 - task_id: CENG-T031
   packet_id: CENG-T031-P001
-  state: Planned
-  owner: null
+  state: Complete
+  owner: droid
   reviewer: user
   locks: []
-  next_action: Registered by T013-P001 study; awaiting claim
+  next_action: Complete — ACDD formalized in P1
   updated_at: '2026-11-13'
 - task_id: CENG-T032
   packet_id: CENG-T032-P001
-  state: Planned
-  owner: null
+  state: Complete
+  owner: droid
   reviewer: user
   locks: []
-  next_action: Registered by T013-P001 study; awaiting claim
+  next_action: Complete — mutation testing added to validation gate
   updated_at: '2026-11-13'
 - task_id: CENG-T033
   packet_id: CENG-T033-P001
-  state: Planned
-  owner: null
+  state: Complete
+  owner: droid
   reviewer: user
   locks: []
-  next_action: Registered by T013-P001 study; awaiting claim
+  next_action: Complete — risk-tiered review depth added
   updated_at: '2026-11-13'
 - task_id: CENG-T034
   packet_id: CENG-T034-P001
-  state: Planned
-  owner: null
+  state: Complete
+  owner: droid
   reviewer: user
   locks: []
-  next_action: Registered by T013-P001 study; awaiting claim
+  next_action: Complete — CE and AIDLC playbook alignment documented
   updated_at: '2026-11-13'
 - task_id: CENG-T035
   packet_id: CENG-T035-P001
-  state: Planned
-  owner: null
+  state: Complete
+  owner: droid
   reviewer: user
   locks: []
-  next_action: Registered by T013-P001 study; awaiting claim
+  next_action: Complete — postmortem-to-review-rule loop formalized
   updated_at: '2026-11-13'
+- task_id: CENG-T036
+  packet_id: CENG-T036-P001
+  state: Claimed
+  owner: droid
+  reviewer: user
+  locks:
+  - skills/phased-engineering-execution/SKILL.md
+  - skills/project-lifecycle/SKILL.md
+  next_action: Design packet — spec, decision, threat model written; awaiting user approval
+  updated_at: '2026-11-16'

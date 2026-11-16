@@ -1,0 +1,102 @@
+packet_id: CENG-T036-P001
+threat_model_id: TM001
+title: "Threat model: user-request intake, dependency triage, fast-track, and onboarding"
+status: pending
+approved_at: null
+approver: null
+scope: "Protocol design — skill documentation changes, no code or runtime behavior."
+stride:
+  spoofing:
+    risk: low
+    note: >
+      The intake flow does not change authentication. The device login flow
+      for onboarding uses existing Keycloak OIDC — no new identity surface.
+      Risk: an agent could claim to have mapped a user request to a packet
+      without actually searching, then propose a fast-track that bypasses
+      a genuinely blocking dependency. Mitigation: the user approves the
+      plan and the relaxation Decision, so a spoofed mapping is caught at
+      user review.
+  tampering:
+    risk: medium
+    note: >
+      Dependency relaxation modifies the gate check behavior: an approved
+      Decision allows a claim despite an incomplete dependency. Risk: a
+      Decision record could be fabricated or approval forged to bypass a
+      truly blocking dependency. Mitigation: Decisions require user
+      approval (approval_policy: user), the gate check verifies the
+      Decision's status is approved and its scope references the correct
+      packet and dependency, and the relaxation rationale is recorded for
+      audit. A forged approval requires compromising the user's auth.
+  repudiation:
+    risk: low
+    note: >
+      All relaxations are recorded as Decision records with approver,
+      timestamp, and rationale. The agent cannot relax a dependency without
+      a traceable, approved Decision. No repudiation gap.
+  information_disclosure:
+    risk: low
+    note: >
+      The intake flow searches packet YAMLs, which may reference file paths
+      and scope details. No new disclosure surface — the agent already has
+      repository access. The onboarding checklist references the device
+      login flow, which is already documented. No secrets are exposed.
+  denial_of_service:
+    risk: none
+    note: "No services are run. Protocol design only."
+  elevation_of_privilege:
+    risk: medium
+    note: >
+      The proactive-improvement protocol allows agents to record SkillGaps
+      during normal work. Risk: an agent could use this to scope-creep a
+      packet by recording a gap and then 'fixing' it within the current
+      packet scope. Mitigation: the protocol explicitly states that
+      improvement recording does not expand packet scope — the gap is
+      recorded, not actioned. Actioning requires a separate packet or a
+      user-approved scope change. The SkillGap is linked to the packet
+      handoff as an unresolved item, not as completed work.
+additional_risks:
+  - id: THR-801
+    description: >
+      Hidden coupling: a dependency is relaxed because scope.in files don't
+      overlap, but the dependent packet implicitly depends on a runtime
+      behavior or configuration that the dependency establishes.
+    severity: medium
+    mitigations:
+      - "The triage criteria check for sequential contract dependencies (baseline_refs, acceptance criteria), not just file overlap."
+      - "The relaxation Decision records the risk assessment, including runtime/config dependencies."
+      - "If the relaxed dependency's output is needed at runtime, the dependent packet's validation will fail, sending it to Rework."
+  - id: THR-802
+    description: >
+      Incomplete intermediate state: relaxing a dependency allows a packet
+      to complete before its dependency, leaving the workstream in a state
+      where the dependency is still planned but the dependent is complete.
+    severity: low
+    mitigations:
+      - "The one-workstream rule still applies — the dependency packet remains in the workstream and must be completed or cancelled."
+      - "The relaxation is per-packet, not per-workstream — other packets that depend on the same dependency are not automatically relaxed."
+      - "The tracker shows the incomplete dependency alongside the completed dependent, making the state visible."
+  - id: THR-803
+    description: >
+      Onboarding unauthorized project: the device login flow grants org-scoped
+      tokens. A project outside the org could onboard if it has the protocol
+      lock and records.
+    severity: low
+    mitigations:
+      - "The device login flow requires Keycloak authentication within the org realm."
+      - "ce:sync requires an org-scoped token — projects outside the org cannot sync."
+      - "The protocol lock pins skill versions but does not grant access — access is gated by Keycloak auth."
+  - id: THR-804
+    description: >
+      SkillGap noise: agents record too many low-value gaps, overwhelming the
+      feedback accumulator and the user at closure.
+    severity: low
+    mitigations:
+      - "The protocol specifies when not to record (trivial issues, already-recorded gaps)."
+      - "The skill-evolution review cadence (monthly or three similar gaps) batches gaps for review."
+      - "Low-severity gaps can be deferred by the user without action."
+conclusion: >
+  Medium risk from dependency-relaxation tampering and elevation-of-privilege
+  via scope-creep. Both are mitigated by user-approved Decision records and
+  explicit scope boundaries. The design adds no new authentication or
+  runtime surfaces. All risks are manageable within the existing protocol
+  governance.

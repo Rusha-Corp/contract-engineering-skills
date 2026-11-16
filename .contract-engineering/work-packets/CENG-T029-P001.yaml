@@ -31,7 +31,7 @@ scope:
   - templates/
   - adapters/
   - Any product code
-state: complete
+state: Complete
 owner: droid
 reviewer: user
 cleanup_owner: droid

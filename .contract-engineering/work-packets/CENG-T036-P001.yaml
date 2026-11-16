@@ -175,7 +175,7 @@ removal_criteria:
   - "Implementation packets are decomposed into a separate workstream after design approval."
 exception_refs: []
 sunset_target: ""
-state: claimed
+state: Claimed
 evidence_refs: []
 handoff_ref: null
 updated_at: "2026-11-16"

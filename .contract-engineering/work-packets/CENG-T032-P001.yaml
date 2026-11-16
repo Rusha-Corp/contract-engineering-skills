@@ -29,7 +29,7 @@ scope:
   - schemas/
   - templates/
   - Any product code
-state: complete
+state: Complete
 owner: droid
 reviewer: user
 cleanup_owner: droid
@@ -38,6 +38,7 @@ locks: []
 claim_timestamp: "2026-11-13T19:49:26Z"
 baseline_refs:
 - .contract-engineering/protocol.lock.yaml
+- skills/security-assurance/SKILL.md
 design_decision_ref: ".contract-engineering/decisions/CENG-T032-P001-DEC001.yaml"
 data_gate_ref: CENG-T032-P001-DG001
 threat_model_ref: ".contract-engineering/threat-models/CENG-T032-P001-TM001.yaml"

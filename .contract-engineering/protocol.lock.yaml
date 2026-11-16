@@ -5,30 +5,30 @@ protocol:
   release: 3.1.0
 skills:
   phased-engineering-execution:
-    version: 2.7.0
-    sha256: acd8bac74248d2aadc280fe88be8c108049c5e34f936524ec034fd00d6504e9d
+    version: 2.8.0
+    sha256: 3fcfc64b5bbff84e2c57f80798063194af3144a703525e53a69bc5e6f3f0a59c
     files:
-      SKILL.md: acd8bac74248d2aadc280fe88be8c108049c5e34f936524ec034fd00d6504e9d
-      references/approval-gates.md: 0bea82aba65b6696a31728f7ea6210bf40117854e3dd438c86032e46cf9c3b26
+      SKILL.md: 3fcfc64b5bbff84e2c57f80798063194af3144a703525e53a69bc5e6f3f0a59c
+      references/approval-gates.md: 0fb4a12042a72491606abfd91bcc3734db113facfce8d76c169f2ee127ae746d
       references/handoff-schema.md: 7cb61efe5020d47bae90802d29238766ca3a4adedd0a05ac78caa5f30cddf272
       references/packet-schema.md: eba8a11701c3baefa91a4917961fa78e4fff47fca44b523b7a3716552ae99326
   cleanup-protocol:
-    version: 2.5.0
-    sha256: ffb8b0d7a1648760a31ee92c6504332b471bccd7912925f22dfac03f22cf6d09
+    version: 2.6.0
+    sha256: becca0a938e0b3bbb7b4d4f0d81ab6fdfc06e78a65a644478b58e94e7318d334
   project-lifecycle:
     version: 2.5.0
     sha256: 0ee3bd5145ddac42abb718d6f0f1e5a4474514c044c34231fff07e4027f8fe54
   skill-evolution:
-    version: 1.2.0
-    sha256: 149be48373c05e58e1127efd4dc329f3f0af516a836d31b99cb62b64e0a2cafd
+    version: 1.3.0
+    sha256: 0aab4bd628c4e0bbcbba33d4b7bedcaf4c2b5bcc514297e3b99550a3b93c3670
   coding-principles:
     version: 1.3.0
     sha256: ae998994c81ce4f178ebcafca357e216005e9b2696d5923ba3a92a7f569c9f94
   security-assurance:
-    version: 1.1.0
-    sha256: c44e83a921d1b3f22289247c57c97952d47cb846dd758dfeea98efe960ac6ab9
+    version: 1.2.0
+    sha256: 8709b7b35e4da37d654396545a5e876a2508bed937f81474dc34049457c420bd
     files:
-      SKILL.md: c44e83a921d1b3f22289247c57c97952d47cb846dd758dfeea98efe960ac6ab9
+      SKILL.md: 8709b7b35e4da37d654396545a5e876a2508bed937f81474dc34049457c420bd
       references/secure-controls.md: f950ffca1a41fb05e5512f9848198dc43f492865fb1dc82d26b012f8b5926521
       references/security-verification.md: 4731e8b6dac0e99812a55cfd8651b61240cb9bd298fd2947490609c0ccdc15b7
       references/threat-model.md: 3409cabba62d51e601400801671e074d6b9c774d55f0dffd0751e02e9292a397
@@ -48,20 +48,20 @@ development:
   consumer_action: Synchronize from the locked ref after running the protocol preflight. Lock v1 consumers continue to work; lock v2 adds per-file verification.
   skills:
     phased-engineering-execution:
-      version: 2.7.0
-      sha256: acd8bac74248d2aadc280fe88be8c108049c5e34f936524ec034fd00d6504e9d
+      version: 2.8.0
+      sha256: 3fcfc64b5bbff84e2c57f80798063194af3144a703525e53a69bc5e6f3f0a59c
     cleanup-protocol:
-      version: 2.5.0
-      sha256: ffb8b0d7a1648760a31ee92c6504332b471bccd7912925f22dfac03f22cf6d09
+      version: 2.6.0
+      sha256: becca0a938e0b3bbb7b4d4f0d81ab6fdfc06e78a65a644478b58e94e7318d334
     project-lifecycle:
       version: 2.5.0
       sha256: 0ee3bd5145ddac42abb718d6f0f1e5a4474514c044c34231fff07e4027f8fe54
     skill-evolution:
-      version: 1.2.0
-      sha256: 149be48373c05e58e1127efd4dc329f3f0af516a836d31b99cb62b64e0a2cafd
+      version: 1.3.0
+      sha256: 0aab4bd628c4e0bbcbba33d4b7bedcaf4c2b5bcc514297e3b99550a3b93c3670
     coding-principles:
       version: 1.3.0
       sha256: ae998994c81ce4f178ebcafca357e216005e9b2696d5923ba3a92a7f569c9f94
     security-assurance:
-      version: 1.1.0
-      sha256: c44e83a921d1b3f22289247c57c97952d47cb846dd758dfeea98efe960ac6ab9
+      version: 1.2.0
+      sha256: 8709b7b35e4da37d654396545a5e876a2508bed937f81474dc34049457c420bd

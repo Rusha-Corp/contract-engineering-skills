@@ -69,6 +69,7 @@ scope:
   - ".contract-engineering/handoffs/CENG-T033-P001-HO001.yaml"
   - ".contract-engineering/handoffs/CENG-T034-P001-HO001.yaml"
   - ".contract-engineering/handoffs/CENG-T035-P001-HO001.yaml"
+  - ".contract-engineering/protocol.lock.yaml"
   out:
   - "schemas/"
   - "templates/"

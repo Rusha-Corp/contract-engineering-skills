@@ -1,0 +1,177 @@
+packet_id: CENG-T037-P001
+task_id: CENG-T037
+phase: P0_DESIGN
+domain: design
+packet_class: cross-cutting
+work_type: delivery
+priority: high
+revision: 0
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: ""
+  branch: ""
+  base_revision: ""
+  head_revision: ""
+  cleanup_status: active
+title: "Design packet grooming workflow and tm doctor reporting"
+objective: >
+  Specify where packet grooming (fixing broken YAML, unresolved sidecar
+  refs, and unlinked governance records) fits in the CE workflow, and
+  define the grooming report format that tm doctor produces so users can
+  feed it to their LLM for manual repair.
+open_questions:
+  - "Is packet grooming a pre-baseline step, a dedicated maintenance task, or a closure gate?"
+  - "Should grooming be triggered manually (tm doctor), automatically (ce:sync pre-flight), or at task closure?"
+  - "What is the severity taxonomy for grooming findings (blocker / warning / informational)?"
+  - "How does the grooming report feed back into the workflow — does an agent claim a grooming packet, or does the user fix manually?"
+scope:
+  in:
+  - skills/phased-engineering-execution/SKILL.md
+  - skills/project-lifecycle/SKILL.md
+  - ".contract-engineering/specs/2026-11-19-packet-grooming-workflow-design.md"
+  - ".contract-engineering/decisions/CENG-T037-P001-DEC001.yaml"
+  - ".contract-engineering/threat-models/CENG-T037-P001-TM001.yaml"
+  - ".contract-engineering/data-gates/CENG-T037-P001-DG001.yaml"
+  - ".contract-engineering/work-packets/CENG-T037-P001.yaml"
+  - ".contract-engineering/tracker/index.yaml"
+  - ".contract-engineering/tracker/events/CENG-T037.yaml"
+  - ".contract-engineering/execution-tracker.md"
+  - ".contract-engineering/protocol.lock.yaml"
+  out:
+  - "schemas/"
+  - "templates/"
+  - "adapters/"
+  - "Any product code in task-master or other consuming projects."
+  - "Implementing the skill changes themselves — that is a follow-up P1 packet."
+actor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GLM-5.3
+  session_id: current-session
+capabilities:
+  - repository-read
+  - repository-write
+  - local-validation
+risk_tier: medium
+approval_policy: user
+external_effects: []
+owner:
+  identity: ""
+  identity_type: human
+  authentication_ref: ""
+  signed_at: ""
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: null
+baseline_refs:
+  - .contract-engineering/protocol.lock.yaml
+  - skills/phased-engineering-execution/SKILL.md
+  - skills/project-lifecycle/SKILL.md
+  - docs/repository-development.md
+  - docs/protocol-configuration.md
+  - 39b9ad85c36d8fec26a41888d70e36331f1e600a
+design_decision_ref: ".contract-engineering/decisions/CENG-T037-P001-DEC001.yaml"
+data_gate_ref: CENG-T037-P001-DG001
+threat_model_ref: ".contract-engineering/threat-models/CENG-T037-P001-TM001.yaml"
+acceptance_criteria:
+  - "The spec defines where grooming fits in the CE lifecycle with rationale."
+  - "The spec defines a severity taxonomy (blocker / warning / informational) for grooming findings."
+  - "The spec defines the grooming report format (Markdown, per-finding sections, copy-pasteable fix instructions)."
+  - "The spec defines when grooming is triggered (manual, pre-sync, closure)."
+  - "The threat model covers risks of deferred grooming (broken packets silently excluded from sync, unlinked records lost on archive)."
+  - "The user approves the design before any implementation packet is claimed."
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T037-P001-AC001
+      statement: "The spec defines where grooming fits in the CE lifecycle with rationale."
+      expected_result: >
+        The spec analyzes pre-baseline, dedicated maintenance task, and
+        closure gate options, and recommends a hybrid approach with
+        rationale for why it fits the existing state machine without
+        adding new gates.
+      verification_method: review
+      verification_command: "Review the lifecycle-placement section of the spec."
+      evidence_refs: []
+      failure_result: "The spec does not justify its placement choice or contradicts the existing state machine."
+      validation_ref: CENG-T037-P001-VAL001
+    - id: CENG-T037-P001-AC002
+      statement: "The spec defines a severity taxonomy for grooming findings."
+      expected_result: >
+        The spec defines three severity levels (blocker for broken YAML,
+        warning for unresolved refs, informational for unlinked records)
+        with clear criteria and examples for each.
+      verification_method: review
+      verification_command: "Review the severity-taxonomy section of the spec."
+      evidence_refs: []
+      failure_result: "Severity levels are undefined or ambiguous."
+      validation_ref: CENG-T037-P001-VAL001
+    - id: CENG-T037-P001-AC003
+      statement: "The spec defines the grooming report format."
+      expected_result: >
+        The spec defines the Markdown report structure (summary, broken
+        packets with fix hints, unresolved refs grouped by category,
+        unlinked records grouped by subdir) with no truncation and
+        per-error fix instructions.
+      verification_method: review
+      verification_command: "Review the report-format section of the spec."
+      evidence_refs: []
+      failure_result: "The report format is undefined or truncates findings."
+      validation_ref: CENG-T037-P001-VAL001
+    - id: CENG-T037-P001-AC004
+      statement: "The spec defines when grooming is triggered."
+      expected_result: >
+        The spec defines the trigger model: tm doctor writes the report
+        on every run when issues are found, --fix repairs dirs/lock/skills
+        but does not auto-fix YAML, and the user feeds the report to their
+        LLM or claims a maintenance packet.
+      verification_method: review
+      verification_command: "Review the trigger-model section of the spec."
+      evidence_refs: []
+      failure_result: "The trigger model is undefined or ambiguous."
+      validation_ref: CENG-T037-P001-VAL001
+    - id: CENG-T037-P001-AC005
+      statement: "The threat model covers risks of deferred grooming."
+      expected_result: >
+        TM001 covers broken packets silently excluded from sync, unlinked
+        records lost on archive, and grooming report misuse risks.
+      verification_method: review
+      verification_command: "Review TM001 against the spec's design surfaces."
+      evidence_refs: []
+      failure_result: "A grooming risk is not covered."
+      validation_ref: CENG-T037-P001-VAL002
+validation_plan:
+  - id: CENG-T037-P001-VAL001
+    kind: design-review
+    command: "Review the spec, DEC001, and DG001 for completeness and consistency."
+    expected: "All four grooming workflow aspects (placement, taxonomy, report format, triggers) are specified with clear rules and integration points."
+  - id: CENG-T037-P001-VAL002
+    kind: security
+    skill: security-assurance
+    checks:
+      - "Deferred grooming cannot silently exclude packets from sync audits."
+      - "Grooming report does not expose secrets or authorize unauthorized changes."
+      - "The grooming workflow cannot scope-creep a packet or bypass gates."
+    expected: "No unresolved blocking security finding."
+cleanup_scope:
+  dead_code_review: []
+  size_reviews: []
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+skill_gaps: []
+stability: experimental
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria:
+  - "The user approves DEC001 and the threat model before implementation packets are claimed."
+  - "Implementation packets are decomposed into a separate workstream after design approval."
+exception_refs: []
+sunset_target: ""
+state: Planned
+evidence_refs: []
+handoff_ref: null
+updated_at: "2026-11-19"

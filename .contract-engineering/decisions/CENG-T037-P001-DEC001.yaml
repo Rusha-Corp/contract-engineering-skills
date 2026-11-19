@@ -1,0 +1,73 @@
+packet_id: CENG-T037-P001
+decision_id: DEC001
+title: "Add packet grooming workflow with passive detection report and optional maintenance packets"
+status: proposed
+approved_at: ""
+approver: ""
+context: |
+  CE workspaces accumulate broken YAML (unquoted colons, duplicated keys
+  from write-back), unresolved sidecar refs (absolute paths, prose,
+  wrong-kind ids, missing files), and unlinked governance records. tm
+  doctor currently reports these to the console (truncated at 5-10 items)
+  but --fix does not address them. Users need a complete, untruncated
+  grooming report they can feed to their LLM for manual repair.
+
+  The question is where grooming fits in the CE lifecycle: a pre-baseline
+  gate (blocks claiming), a closure gate (blocks completion), or a
+  standalone maintenance task. The lifecycle placement determines how
+  grooming integrates with the existing state machine and whether it
+  adds new mandatory steps.
+options:
+  - id: OPT-A
+    description: >
+      Hybrid approach: tm doctor writes a grooming report (Markdown) on
+      every run when issues are found (passive detection, no flags needed).
+      The user feeds the report to their LLM for manual repair, or claims
+      a maintenance packet (work_type: maintenance) for systematic cleanup.
+      --fix still repairs dirs/lock/skills but does NOT auto-fix YAML or
+      refs. No new states, gates, or mandatory steps.
+    selected: true
+    rationale: >
+      Passive detection is always available without adding overhead to
+      claiming or completing work. The maintenance packet provides a
+      governed path for systematic cleanup when the user chooses it,
+      respecting the existing state machine. Auto-fixing YAML was
+      considered and superseded — an LLM handles nuanced fixes (e.g.
+      distinguishing a prose ref that should become a DEC id from one
+      that should be removed) better than a mechanical auto-fixer.
+  - id: OPT-B
+    description: >
+      Pre-baseline gate: tm doctor must report zero issues before a new
+      packet can be claimed. Forces grooming before starting work.
+    selected: false
+    rationale: >
+      Too restrictive. An agent that just wants to claim a packet
+      shouldn't be blocked by an unlinked decision from a different task.
+      Slows down starting work, especially in workspaces with legacy
+      issues that don't affect the current task.
+  - id: OPT-C
+    description: >
+      Closure gate: all grooming findings in a task's packets must be
+      resolved before the task can be marked complete.
+    selected: false
+    rationale: >
+      Too late. Doesn't catch pre-existing issues from other tasks.
+      A task shouldn't be blocked by an unrelated broken packet. Also,
+      the closure gate already has enough to check (acceptance criteria,
+      evidence, handoff) without adding grooming.
+decision: OPT-A
+impacts:
+  - "tm doctor writes a grooming report to <ceDir>/grooming-report.md on every run when issues are found."
+  - "The grooming report lists every broken packet, unresolved ref, and unlinked record without truncation, with per-error fix hints."
+  - "tm doctor --fix behavior is unchanged: repairs dirs, lock, and skills only. Does not auto-fix YAML or refs."
+  - "A new work_type: maintenance packet pattern is documented for systematic grooming."
+  - "The severity taxonomy (blocker / warning / informational) is defined for grooming findings."
+  - "No new packet states, gates, or mandatory steps."
+  - "No skill changes required — the grooming workflow is documented in the spec and implemented in tm doctor."
+no_impacts:
+  - "No new packet states or state transitions."
+  - "No new gates."
+  - "No new schemas, templates, or adapters."
+  - "No protocol lock changes."
+  - "The one-workstream rule is unchanged."
+  - "ce:sync --dry-run behavior is unchanged (it already reports unresolved refs and unlinked records)."

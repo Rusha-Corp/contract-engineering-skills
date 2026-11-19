@@ -1,0 +1,91 @@
+packet_id: CENG-T037-P001
+threat_model_id: TM001
+title: "Threat model: packet grooming workflow and tm doctor reporting"
+status: proposed
+approved_at: ""
+approver: ""
+scope: "Protocol design — tm doctor reporting changes and maintenance packet pattern. No new runtime services."
+stride:
+  spoofing:
+    risk: low
+    note: >
+      The grooming report is a read-only artifact. No authentication or
+      identity surface is added. Risk: an agent could claim to have
+      groomed a workspace without actually fixing the issues. Mitigation:
+      the user accepts the maintenance packet handoff after verifying
+      that tm doctor reports zero issues.
+  tampering:
+    risk: medium
+    note: >
+      Broken YAML could be exploited to exclude a packet from sync
+      audits — a packet with intentionally broken YAML is invisible to
+      Task Master, bypassing governance tracking. Mitigation: the
+      grooming report makes broken packets visible. The user reviews
+      the report and can investigate why a packet is broken. A packet
+      that is "conveniently" broken before an audit is a red flag.
+  repudiation:
+    risk: low
+    note: >
+      The grooming report is an artifact, not a transaction. No
+      repudiation gap — the report is generated deterministically from
+      the workspace state at a point in time.
+  information_disclosure:
+    risk: low
+    note: >
+      The grooming report lists file paths and ref text from packet
+      YAMLs. This is the same data the agent already has via repository
+      access. No new disclosure surface. The report is written to the
+      CE home directory (not the repo), so it is not committed unless
+      the user explicitly does so.
+  denial_of_service:
+    risk: none
+    note: "No services are run. The grooming report is a local file write."
+  elevation_of_privilege:
+    risk: low
+    note: >
+      The maintenance packet pattern uses the existing packet state
+      machine — no special authority is granted. The grooming report is
+      advisory; the user reviews all fixes. An agent cannot use grooming
+      to bypass gates or expand scope.
+additional_risks:
+  - id: THR-901
+    description: >
+      Broken packets silently excluded from sync: a packet with broken
+      YAML cannot be parsed by ce:sync and is missing from Task Master.
+      The user may not realize a packet is missing, leading to decisions
+      made without full context.
+    severity: medium
+    mitigations:
+      - "The grooming report lists all broken packets with their error messages."
+      - "tm doctor prints a summary count of broken packets to the console."
+      - "ce:sync --dry-run reports packets that fail to parse."
+      - "The severity taxonomy marks broken YAML as a blocker, signaling urgency."
+  - id: THR-902
+    description: >
+      Unlinked records lost on archive: when a workspace is archived,
+      governance records not referenced by any packet may be overlooked
+      and lost. The archive process may only preserve files referenced
+      by packets.
+    severity: low
+    mitigations:
+      - "The grooming report lists all unlinked records before archive."
+      - "The severity taxonomy marks unlinked records as informational, prompting review before archive."
+      - "The user can link or remove unlinked records as part of a maintenance packet before archiving."
+  - id: THR-903
+    description: >
+      Grooming report used to make unauthorized changes: the report
+      contains fix hints that an LLM might apply without sufficient
+      review, potentially introducing new errors or removing data that
+      should have been preserved.
+    severity: low
+    mitigations:
+      - "The report is advisory — the user reviews all fixes before applying them."
+      - "Fix hints are conservative: they suggest quoting values or removing duplicate keys, not deleting content."
+      - "A maintenance packet's acceptance criteria require tm doctor to report zero issues, providing objective verification."
+conclusion: >
+  Medium risk from broken-packet audit exclusion. Mitigated by the
+  grooming report making broken packets visible and the severity
+  taxonomy marking them as blockers. All other risks are low or none.
+  The design adds no new authentication, runtime services, or authority
+  surfaces. All risks are manageable within the existing protocol
+  governance.

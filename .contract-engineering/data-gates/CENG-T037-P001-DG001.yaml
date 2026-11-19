@@ -1,0 +1,40 @@
+packet_id: CENG-T037-P001
+gate_id: DG001
+title: "No data-flow change from grooming workflow design"
+status: proposed
+approved_at: ""
+approver: ""
+data_flows:
+  - source: "tm doctor"
+    destination: "<ceDir>/grooming-report.md"
+    data: "Workspace health scan results (broken packets, unresolved refs, unlinked records)"
+    change: "new"
+  - source: "Agent"
+    destination: "Maintenance packet YAML"
+    data: "Grooming report baseline ref and fix scope"
+    change: "new"
+assessment: |
+  The design introduces two new data flows:
+
+  1. tm doctor writes a grooming report (Markdown) to the CE home
+  directory. This is a read-only artifact generated from the existing
+  workspace scan — no new data sources, no network targets, no
+  authentication surfaces. The report contains file paths and ref text
+  that the agent already has via repository access.
+
+  2. An agent creates a maintenance packet YAML referencing the grooming
+  report as a baseline ref. This uses the existing packet schema and
+  tracker — no new data structures. The maintenance packet is claimed,
+  executed, and handed off like any other packet.
+
+  Neither flow introduces new data stores, new network targets, or new
+  authentication surfaces. The data is already governed by the existing
+  record validation and approval processes.
+risks:
+  - id: R1
+    description: "Grooming report written to a location that is not gitignored, accidentally exposing workspace internals."
+    severity: low
+    mitigations:
+      - "The report is written to <ceDir>/ (the CE home directory), which is outside the repo and not committed."
+      - "The user can delete the report after reviewing it."
+      - "The report contains only file paths and ref text, not secrets or credentials."

@@ -1,0 +1,27 @@
+packet_id: CENG-T038-P001
+decision_id: DEC002
+title: "Close review-discovered blast-radius and adapter validation gaps"
+status: approved
+approved_at: "2026-11-24T06:40:07Z"
+approver: user
+context: |
+  Independent implementation review found concrete paths that could omit
+  required assessments, accept nonexistent evidence, expire terminal history,
+  or run the SessionStart adapter without its configured deadline. These are
+  correctness gaps in the approved acceptance criteria, not new scope.
+options:
+  - id: OPT-A
+    description: "Repair the semantic gates, nested evidence validation, and portable bounded adapter within the existing contract and add regressions."
+    selected: true
+    rationale: "This preserves the approved state machine and fails closed without adding product behavior."
+  - id: OPT-B
+    description: "Leave the review findings for a later packet."
+    selected: false
+    rationale: "The findings affect required evidence integrity and adapter safety before handoff."
+decision: OPT-A
+impacts:
+  - "CENG-T038-P001 revision 3 includes graph_rules.py reference validation and the portable hook implementation."
+  - "New regressions cover pre-adoption active migration, planned rollout steps, terminal evidence age, nested evidence IDs, timestamps, and hook deadlines."
+no_impacts:
+  - "No new packet states, schema versions, lifecycle transitions, or host integrations are introduced."
+  - "No global hooks, deployments, consumer locks, or live systems are changed."

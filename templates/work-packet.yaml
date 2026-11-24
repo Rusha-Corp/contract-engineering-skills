@@ -8,6 +8,35 @@ parent_task_id: null
 priority: critical|high|normal|deferred
 iteration: ""
 revision: 0
+blast_radius:
+  version: 1
+  status: unknown
+  risk: high
+  rationale: "Runtime impact has not been assessed."
+  packet_revision: 0
+  assessed_at: "1970-01-01T00:00:00Z"
+  source_revision: null
+  components: []
+  couplings: []
+  rollout: []
+  unknowns:
+    - "Assess shared infrastructure, identities, consumers, deployment, interfaces, and data."
+  inference_review:
+    status: pending
+    evidence_refs: []
+    reviewed_at: null
+  live_scope:
+    environments: []
+    source_revision: null
+    live_revision: null
+    observed_at: null
+    evidence_refs: []
+  post_deploy_verification:
+    entry_point: null
+    source_revision: null
+    live_revision: null
+    verified_at: null
+    evidence_refs: []
 lease_ref: null
 fencing_token: ""
 worktree:

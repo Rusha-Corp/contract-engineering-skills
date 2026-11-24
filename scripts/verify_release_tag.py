@@ -10,7 +10,9 @@ Usage:
     python scripts/verify_release_tag.py [--tag vX.Y.Z] [--project-root PATH]
 
 When --tag is omitted, the script derives the tag from GITHUB_REF_NAME (CI)
-or from the most recent annotated tag on HEAD (local pre-push).
+or from the most recent annotated tag on HEAD (local pre-push). Attestation
+version 3 additionally requires `gh` authentication and read-only GitHub API
+access to verify maintainer role and public-key ownership.
 
 Exit code 0 means the release tag is valid; non-zero means a check failed.
 """
@@ -22,11 +24,14 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Optional
 
 import yaml
+
+from scripts.github_release_signing import authorize_maintainer
 
 
 def parse_valid_signatures(raw: str) -> list[str]:
@@ -38,14 +43,36 @@ def parse_valid_signatures(raw: str) -> list[str]:
     ]
 
 
-def _git_verify_tag(tag: str) -> tuple[str, int]:
+def _git_verify_tag(tag: str, homedir: str | None = None) -> tuple[str, int]:
     """Run git verify-tag --raw and return (output, returncode)."""
+    env = None
+    if homedir is not None:
+        env = os.environ.copy()
+        env["GNUPGHOME"] = homedir
     result = subprocess.run(
         ["git", "verify-tag", "--raw", tag],
         capture_output=True,
         text=True,
+        timeout=20,
+        env=env,
     )
     return result.stdout + result.stderr, result.returncode
+
+
+def _import_github_key(homedir: Path, raw_key: str) -> None:
+    """Import a GitHub-published public key into an isolated keyring."""
+    key_path = homedir / "publisher.asc"
+    key_path.write_text(raw_key, encoding="utf-8")
+    key_path.chmod(0o600)
+    result = subprocess.run(
+        ["gpg", "--batch", "--no-tty", "--homedir", str(homedir), "--import", str(key_path)],
+        capture_output=True,
+        text=True,
+        timeout=20,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise SystemExit("GitHub publisher public key could not be imported")
 
 
 def _find_pending_values(node, path: str = "") -> list[str]:
@@ -70,6 +97,8 @@ def verify_release_tag(
     key_path: Path,
     project_root: Path,
     git_verify_tag_fn: Optional[Callable[[str], tuple[str, int]]] = None,
+    github_authorizer_fn: Optional[Callable[..., str]] = None,
+    github_key_import_fn: Optional[Callable[[Path, str], None]] = None,
 ) -> str:
     """Verify a release tag against its attestation.
 
@@ -192,15 +221,50 @@ def verify_release_tag(
         raise SystemExit("release attestation lacks publisher signature reference")
 
     # --- Tag signature verification ---
-    status, rc = git_verify_tag_fn(tag)
-    if rc != 0:
-        raise SystemExit("release tag signature verification failed")
-    valid_signatures = parse_valid_signatures(status)
-    if len(valid_signatures) != 1:
-        raise SystemExit("release tag must have exactly one valid signature")
-    publisher_key = publisher.get("authentication_ref")
-    if not publisher_key or valid_signatures[0] != publisher_key:
-        raise SystemExit("release tag signature does not match publisher authentication_ref")
+    if version >= 3:
+        username = publisher.get("identity")
+        fingerprint = publisher.get("github_key_fingerprint")
+        if not isinstance(username, str) or not re.fullmatch(r"[A-Za-z0-9-]{1,39}", username):
+            raise SystemExit("version 3 publisher identity must be a GitHub username")
+        if publisher.get("authentication_ref") != f"github:{username}":
+            raise SystemExit("version 3 publisher authentication_ref must bind the GitHub username")
+        if not isinstance(fingerprint, str) or not re.fullmatch(r"[0-9A-F]{40}", fingerprint):
+            raise SystemExit("version 3 publisher requires a full GitHub key fingerprint")
+        expected_signature_ref = f"gpg:tag:{tag}:{fingerprint}"
+        if publisher.get("signature_ref") != expected_signature_ref:
+            raise SystemExit("version 3 publisher signature_ref does not match the tag and key")
+        authorizer = github_authorizer_fn or authorize_maintainer
+        raw_key = authorizer(
+            repository=attestation["subject"].get("repository"),
+            username=username,
+            fingerprint=fingerprint,
+        )
+        with tempfile.TemporaryDirectory(prefix="ce-release-keys-") as directory:
+            homedir = Path(directory)
+            homedir.chmod(0o700)
+            importer = github_key_import_fn or _import_github_key
+            importer(homedir, raw_key)
+            if git_verify_tag_fn is _git_verify_tag:
+                status, rc = _git_verify_tag(tag, str(homedir))
+            else:
+                status, rc = git_verify_tag_fn(tag)
+        if rc != 0:
+            raise SystemExit("release tag signature verification failed")
+        valid_signatures = parse_valid_signatures(status)
+        if len(valid_signatures) != 1:
+            raise SystemExit("release tag must have exactly one valid signature")
+        if valid_signatures[0] != fingerprint:
+            raise SystemExit("release tag signature does not match the GitHub publisher key")
+    else:
+        status, rc = git_verify_tag_fn(tag)
+        if rc != 0:
+            raise SystemExit("release tag signature verification failed")
+        valid_signatures = parse_valid_signatures(status)
+        if len(valid_signatures) != 1:
+            raise SystemExit("release tag must have exactly one valid signature")
+        publisher_key = publisher.get("authentication_ref")
+        if not publisher_key or valid_signatures[0] != publisher_key:
+            raise SystemExit("release tag signature does not match publisher authentication_ref")
 
     # --- Provenance ---
     provenance = attestation.get("provenance", {})

@@ -1,0 +1,19 @@
+version: 1
+components:
+  - name: example-service
+    kind: service
+    paths:
+      - "src/apps/example/**"
+    environments:
+      - dev
+    consumers:
+      - example-consumer
+    shared_resources:
+      - example-database
+    identities:
+      - system:serviceaccount:example:example-service
+    couplings:
+      - to: example-database/schema
+        effect: schema-change
+        compatibility: unknown
+        rationale: "Declare the live compatibility relationship before rollout."

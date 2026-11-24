@@ -1,0 +1,326 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Rusha-Corp/contract-engineering-skills/schemas/blast-radius.schema.json",
+  "title": "Runtime blast-radius assessment",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "risk",
+    "rationale",
+    "packet_revision",
+    "assessed_at",
+    "source_revision",
+    "components",
+    "couplings",
+    "rollout",
+    "unknowns",
+    "inference_review",
+    "live_scope",
+    "post_deploy_verification"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "unknown",
+        "no_runtime_impact"
+      ]
+    },
+    "risk": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "rationale": {
+      "type": "string"
+    },
+    "packet_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "assessed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_revision": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/component"
+      }
+    },
+    "couplings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/coupling"
+      }
+    },
+    "rollout": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rolloutStep"
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "inference_review": {
+      "$ref": "#/$defs/inferenceReview"
+    },
+    "live_scope": {
+      "$ref": "#/$defs/liveScope"
+    },
+    "post_deploy_verification": {
+      "$ref": "#/$defs/postDeploy"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "stringList": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "nullableString": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nullableTimestamp": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "component": {
+      "type": "object",
+      "required": [
+        "name",
+        "kind",
+        "provenance",
+        "environments",
+        "consumers",
+        "shared_resources",
+        "identities"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "$ref": "runtime-topology.schema.json#/$defs/component_kind"
+        },
+        "provenance": {
+          "enum": [
+            "declared",
+            "inferred",
+            "verified"
+          ]
+        },
+        "environments": {
+          "$ref": "#/$defs/stringList"
+        },
+        "consumers": {
+          "$ref": "#/$defs/stringList"
+        },
+        "shared_resources": {
+          "$ref": "#/$defs/stringList"
+        },
+        "identities": {
+          "$ref": "#/$defs/stringList"
+        }
+      },
+      "additionalProperties": false
+    },
+    "coupling": {
+      "type": "object",
+      "required": [
+        "from",
+        "to",
+        "effect",
+        "compatibility",
+        "provenance",
+        "rationale"
+      ],
+      "properties": {
+        "from": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "type": "string",
+          "minLength": 1
+        },
+        "effect": {
+          "type": "string",
+          "minLength": 1
+        },
+        "compatibility": {
+          "$ref": "runtime-topology.schema.json#/$defs/compatibility"
+        },
+        "provenance": {
+          "enum": [
+            "declared",
+            "inferred",
+            "verified"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "rolloutStep": {
+      "type": "object",
+      "required": [
+        "phase",
+        "description",
+        "status",
+        "evidence_refs"
+      ],
+      "properties": {
+        "phase": {
+          "enum": [
+            "expand",
+            "migrate",
+            "contract",
+            "verify"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "planned",
+            "complete",
+            "verified"
+          ]
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/stringList"
+        }
+      },
+      "additionalProperties": false
+    },
+    "inferenceReview": {
+      "type": "object",
+      "required": [
+        "status",
+        "evidence_refs",
+        "reviewed_at"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "not_required",
+            "pending",
+            "completed"
+          ]
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/stringList"
+        },
+        "reviewed_at": {
+          "$ref": "#/$defs/nullableTimestamp"
+        }
+      },
+      "additionalProperties": false
+    },
+    "liveScope": {
+      "type": "object",
+      "required": [
+        "environments",
+        "source_revision",
+        "live_revision",
+        "observed_at",
+        "evidence_refs"
+      ],
+      "properties": {
+        "environments": {
+          "$ref": "#/$defs/stringList"
+        },
+        "source_revision": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "live_revision": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "observed_at": {
+          "$ref": "#/$defs/nullableTimestamp"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/stringList"
+        }
+      },
+      "additionalProperties": false
+    },
+    "postDeploy": {
+      "type": "object",
+      "required": [
+        "entry_point",
+        "source_revision",
+        "live_revision",
+        "verified_at",
+        "evidence_refs"
+      ],
+      "properties": {
+        "entry_point": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "source_revision": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "live_revision": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "verified_at": {
+          "$ref": "#/$defs/nullableTimestamp"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/stringList"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

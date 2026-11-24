@@ -12,7 +12,7 @@ Given the content commit (default HEAD), it:
    ``development.ref`` to the content commit's full SHA;
 4. recomputes the attestation's artifact SHA-256 hashes from the content
    commit's tree; sets ``subject.commit``, ``provenance.source_commit``, and
-   ``builder_digest``; writes ``attestation_version: 2`` and drops
+   ``builder_digest``; writes ``attestation_version: 3`` and drops
    ``transparency_ref`` (hosted validation is published in the GitHub
    Release body, not the signed attestation — the run is triggered by the
    tag the attestation lives in and can never be cited from within it);
@@ -170,7 +170,7 @@ def finalize_release(project_root: Path | str = ".", content_sha: str = "HEAD") 
     attestation = yaml.safe_load(attestation_path.read_text(encoding="utf-8"))
     _check_no_future_timestamps(attestation)
 
-    attestation["attestation_version"] = 2
+    attestation["attestation_version"] = 3
     verification = attestation.get("verification") or {}
     verification.pop("transparency_ref", None)
     attestation["verification"] = verification

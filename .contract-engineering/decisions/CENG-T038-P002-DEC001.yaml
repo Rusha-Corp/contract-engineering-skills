@@ -1,0 +1,25 @@
+packet_id: CENG-T038-P002
+decision_id: DEC001
+title: "Make accepted release packaging paths machine-exact"
+status: approved
+approved_at: "2026-11-24T08:03:19Z"
+approver: user
+context: |
+  The H1 implementation and the approved release specification already include
+  the CE 3.2.0 artifacts. The local CI scope gate requires literal path claims,
+  and the release packet must package several accepted files whose H1 prose
+  scope used grouped descriptions.
+options:
+  - id: OPT-A
+    description: "List the accepted artifact paths explicitly in the release packet and increment its revision before H2."
+    selected: true
+    rationale: "This changes no implementation behavior and makes the existing CI scope gate reproducible."
+  - id: OPT-B
+    description: "Rewrite the accepted H1 packet scope after completion."
+    selected: false
+    rationale: "That would invalidate the accepted H1 scope digest and historical handoff binding."
+decision: OPT-A
+impacts:
+  - "CENG-T038-P002 revision 1 explicitly claims the accepted hook, schema registry, context contract, and blast-radius test artifacts for release packaging."
+no_impacts:
+  - "No source behavior, H1 acceptance scope, consumer, deployment, or external effect changes."

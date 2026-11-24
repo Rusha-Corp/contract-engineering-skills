@@ -96,9 +96,7 @@ owner:
 reviewer: user
 cleanup_owner: droid
 dependencies: []
-locks:
-  - skills/phased-engineering-execution/SKILL.md
-  - skills/project-lifecycle/SKILL.md
+locks: []
 claim_timestamp: "2026-11-16T18:00:00Z"
 baseline_refs:
   - .contract-engineering/protocol.lock.yaml
@@ -129,7 +127,8 @@ acceptance_contract:
         and shortest-path presentation with trade-offs.
       verification_method: review
       verification_command: "Review the intake-flow section of the spec."
-      evidence_refs: []
+      evidence_refs:
+        - CENG-T036-P001-EV001
       failure_result: "The agent ad-hoc asks the user to pick shortcuts in chat instead of following a structured flow."
       validation_ref: CENG-T036-P001-VAL001
     - id: CENG-T036-P001-AC002
@@ -140,7 +139,8 @@ acceptance_contract:
         process recorded as a Decision record.
       verification_method: review
       verification_command: "Review the dependency-triage section of the spec."
-      evidence_refs: []
+      evidence_refs:
+        - CENG-T036-P001-EV001
       failure_result: "Dependencies are never questioned or are relaxed without a recorded decision."
       validation_ref: CENG-T036-P001-VAL001
     - id: CENG-T036-P001-AC003
@@ -151,7 +151,8 @@ acceptance_contract:
         ordering may be relaxed; cross-task one-workstream is not bypassed).
       verification_method: review
       verification_command: "Review the fast-track section against the one-workstream rule."
-      evidence_refs: []
+      evidence_refs:
+        - CENG-T036-P001-EV001
       failure_result: "Fast-track silently violates the one-workstream rule or has no applicability criteria."
       validation_ref: CENG-T036-P001-VAL001
     - id: CENG-T036-P001-AC004
@@ -163,7 +164,8 @@ acceptance_contract:
         workflow guidance.
       verification_method: review
       verification_command: "Review the onboarding and improvement sections."
-      evidence_refs: []
+      evidence_refs:
+        - CENG-T036-P001-EV001
       failure_result: "Onboarding is undefined or agents never proactively improve the workflow."
       validation_ref: CENG-T036-P001-VAL001
     - id: CENG-T036-P001-AC005
@@ -175,7 +177,8 @@ acceptance_contract:
         self-granting authority).
       verification_method: review
       verification_command: "Review TM001 against the spec's design surfaces."
-      evidence_refs: []
+      evidence_refs:
+        - CENG-T036-P001-EV001
       failure_result: "A design risk is not covered."
       validation_ref: CENG-T036-P001-VAL002
 validation_plan:
@@ -210,4 +213,4 @@ state: Complete
 evidence_refs:
   - CENG-T036-P001-EV001
 handoff_ref: CENG-T036-P001-HO001
-updated_at: "2026-11-16"
+updated_at: "2026-11-24T06:21:37Z"

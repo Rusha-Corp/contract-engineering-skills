@@ -1,0 +1,14 @@
+{
+  "SessionStart": [
+    {
+      "matcher": "startup|resume|clear|compact",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "node \"${DROID_PLUGIN_ROOT}/hooks/droid-session-start.mjs\"",
+          "timeout": 10
+        }
+      ]
+    }
+  ]
+}

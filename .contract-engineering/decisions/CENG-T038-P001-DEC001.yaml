@@ -1,0 +1,31 @@
+packet_id: CENG-T038-P001
+decision_id: DEC001
+title: "Authorize minimal CENG-T036 lock-metadata reconciliation for release validation"
+status: approved
+approved_at: "2026-11-24T06:21:37Z"
+approver: user
+context: |
+  The complete CE validator is blocked because terminal CENG-T036-P001 still
+  lists two implementation locks while its accepted tracker row has no locks.
+  The release plan explicitly authorized a minimal, reviewed metadata repair
+  without rewriting the packet's design, implementation, or terminal state.
+options:
+  - id: OPT-A
+    description: "Clear the two stale CENG-T036-P001 locks, append a reconciliation event, and rerun full validation."
+    selected: true
+    rationale: "This matches the accepted tracker and handoff outcome while preserving all substantive history."
+  - id: OPT-B
+    description: "Leave the terminal record unchanged."
+    selected: false
+    rationale: "The mismatch would continue to block the required clean release validation."
+decision: OPT-A
+impacts:
+  - "CENG-T038-P001 revision 1 explicitly includes the T036 packet, its event stream, and this decision."
+  - "CENG-T036-P001 locks become empty and CENG-T036-E004 records the correction."
+  - "With explicit follow-up approval, all five T036 acceptance criteria link only to existing accepted EV001 and CENG-T036-E005 records that reconciliation."
+  - "The full CE validator must pass before implementation handoff."
+  - "The execution tracker Markdown is refreshed only by the canonical renderer after the approved record changes."
+no_impacts:
+  - "CENG-T036-P001 remains Complete with its design, evidence, handoff, and acceptance statements unchanged; only the approved EV001 links are added."
+  - "No other historical packet is edited, and no generated tracker Markdown is hand-edited."
+  - "No runtime, deployment, consumer lock, or global skill changes are authorized by this decision."

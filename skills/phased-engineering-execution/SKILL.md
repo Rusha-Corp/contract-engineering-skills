@@ -1,6 +1,6 @@
 ---
 name: phased-engineering-execution
-version: 2.8.0
+version: 2.9.0
 description: Break engineering work into owned packets and execute it through evidence-based phases, gates, validation, and handoffs.
 license: MIT
 compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKILL.md files
@@ -8,6 +8,10 @@ compatibility: Factory Droid, Hermes Agent, and any agent harness that reads SKI
 
 ## Revision history
 
+- 2.9.0 (2026-11-24): Added versioned runtime blast-radius and topology
+  contracts, risk-tiered rollout and live-evidence gates, and the portable
+  Droid SessionStart context adapter contract. Active nonterminal packets
+  require assessments; legacy terminal history remains compatible.
 - 2.8.0 (2026-11-13): Added an optional Explore step before P0 Foundations
   (T029). Added living spec guidance — spec documents may be updated after
   packet archive with versioning so prior state is recoverable (T030).
@@ -138,7 +142,11 @@ ownership or protect external resources.
 See [`references/approval-gates.md`](references/approval-gates.md) for the
 full specification of the Design, Data Correctness, Action Authorization,
 Trust Boundary, Runtime Control, Durable Execution, Evaluation, and
-Reproducibility gates.
+Reproducibility gates. Runtime blast-radius assessment and risk-tiered
+deployment evidence are specified in
+[`references/blast-radius-gate.md`](references/blast-radius-gate.md).
+Host-neutral session context and Droid hook behavior are specified in
+[`adapters/generic/CONTEXT-SOURCE-CONTRACT.md`](adapters/generic/CONTEXT-SOURCE-CONTRACT.md).
 
 ## Packet state machine
 

@@ -221,10 +221,10 @@ class FinalizeReleaseTests(unittest.TestCase):
         artifacts = {a["path"]: a["sha256"] for a in att["subject"]["artifacts"]}
         self.assertEqual(artifacts["CHANGELOG.md"], changelog_hash)
 
-    def test_writes_version_two_without_transparency_ref(self):
+    def test_writes_version_three_without_transparency_ref(self):
         self._run()
         att = self._attestation()
-        self.assertEqual(att["attestation_version"], 2)
+        self.assertEqual(att["attestation_version"], 3)
         self.assertNotIn("transparency_ref", att["verification"])
 
     def test_fails_when_content_commit_is_not_ancestor_of_head(self):

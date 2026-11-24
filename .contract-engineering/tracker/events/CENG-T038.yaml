@@ -1,0 +1,63 @@
+task_id: CENG-T038
+schema_version: 1
+events:
+  - event_id: CENG-T038-E001
+    packet_id: CENG-T038-P001
+    type: admission
+    actor: droid
+    occurred_at: "2026-11-23T21:02:50Z"
+    summary: "Approved runtime blast-radius and pre-session context implementation claimed; isolated CE preflight passed."
+  - event_id: CENG-T038-E002
+    packet_id: CENG-T038-P001
+    type: state_changed
+    actor: droid
+    occurred_at: "2026-11-23T22:15:00Z"
+    summary: "Entered Implementing with an explicit local-only no-runtime-impact assessment."
+  - event_id: CENG-T038-E003
+    packet_id: CENG-T038-P001
+    type: state_changed
+    actor: droid
+    occurred_at: "2026-11-24T00:38:15Z"
+    summary: "Entered Validation with 16 passing acceptance tests and recorded pre-existing full-suite tracker failure."
+  - event_id: CENG-T038-E004
+    packet_id: CENG-T038-P001
+    type: scope_changed
+    actor: droid
+    occurred_at: "2026-11-24T06:21:37Z"
+    summary: "Revision 1 records user-approved CENG-T036 lock-metadata reconciliation through DEC001; release validation remains gated."
+  - event_id: CENG-T038-E005
+    packet_id: CENG-T038-P001
+    type: scope_changed
+    actor: droid
+    occurred_at: "2026-11-24T06:21:37Z"
+    summary: "Revision 2 includes the renderer-produced execution tracker projection required to validate the approved record changes; no Markdown is hand-edited."
+  - event_id: CENG-T038-E006
+    packet_id: CENG-T038-P001
+    type: scope_changed
+    actor: droid
+    occurred_at: "2026-11-24T06:40:07Z"
+    summary: "Revision 3 records review-driven semantic, nested-evidence, and portable bounded-adapter fixes through DEC002, plus the explicitly approved T036 EV001 link repair."
+  - event_id: CENG-T038-E007
+    packet_id: CENG-T038-P001
+    type: state_changed
+    actor: droid
+    occurred_at: "2026-11-24T07:19:45Z"
+    summary: "Entered Handoff with 267 passing CE tests, enforced record/tracker validation, current renderer output, and real packaged CLI/SessionStart integration evidence; H1 acceptance remains pending."
+  - event_id: CENG-T038-E008
+    packet_id: CENG-T038-P001
+    type: state_changed
+    actor: user
+    occurred_at: "2026-11-24T08:03:19Z"
+    summary: "H1 accepted HO001 and EV001, including the scoped T036 reconciliation; packet Complete, locks released, and CE 3.2.0 publication remains subject to H2 and signing-key recovery."
+  - event_id: CENG-T038-E009
+    packet_id: CENG-T038-P002
+    type: admission
+    actor: droid
+    occurred_at: "2026-11-24T08:03:19Z"
+    summary: "Claimed the approved CE 3.2.0 release packet with explicit migration, consumer, rollback, two-commit, H2, and signing-key controls; no external publication has occurred."
+  - event_id: CENG-T038-E010
+    packet_id: CENG-T038-P002
+    type: scope_changed
+    actor: user
+    occurred_at: "2026-11-24T08:23:57Z"
+    summary: "Revision 2 and DEC002 replace the single-fingerprint restriction with attestation-v3 GitHub maintain/admin role and registered-key verification; legacy releases remain compatible and no permission changes occur."

@@ -61,6 +61,9 @@
       "type": "integer",
       "minimum": 0
     },
+    "blast_radius": {
+      "$ref": "blast-radius.schema.json"
+    },
     "lease_ref": {
       "type": ["string", "null"]
     },

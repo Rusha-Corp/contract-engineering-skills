@@ -1,7 +1,7 @@
 tracker_schema_version: 1
 partition: active
 max_rows: 25
-updated_at: '2026-11-16'
+updated_at: '2026-11-24'
 shards:
 - tracker/shards/CENG-T015.yaml
 rows:
@@ -85,3 +85,20 @@ rows:
   locks: []
   next_action: Complete — design approved via PR #49 merge; implementation packet P002 to follow
   updated_at: '2026-11-16'
+- task_id: CENG-T038
+  packet_id: CENG-T038-P001
+  state: Complete
+  owner: user
+  reviewer: user
+  locks: []
+  next_action: H1 accepted; retain active terminal history through release closure
+  updated_at: '2026-11-24'
+- task_id: CENG-T038
+  packet_id: CENG-T038-P002
+  state: Implementing
+  owner: user
+  reviewer: user
+  locks:
+    - "CE 3.2.0 release metadata and signed publication path"
+  next_action: Validate GitHub-maintainer signing; match signer key before content commit and H2
+  updated_at: '2026-11-24'

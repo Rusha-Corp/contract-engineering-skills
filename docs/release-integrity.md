@@ -74,14 +74,24 @@ be the release author or publisher. Attestations are bound to the exact
 repository, commit, release, and artifact bytes; changing any subject field
 requires a new signature and approval.
 
-Attestation version 2 drops `verification.transparency_ref`. Hosted
+Attestation versions 2 and 3 drop `verification.transparency_ref`. Hosted
 validation evidence cannot live inside the signed attestation: the CI run
 that validates the release is triggered by the tag push, and the attestation
 is signed into that same tag, so it can structurally never cite its own
-run — a chicken-and-egg loop. Version 1 attestations (v3.0.1, v3.1.0)
-carry `transparency_ref: PENDING_HOSTED_VALIDATION` and remain verifiable
-under the legacy rules; version 2 forbids the field and any `PENDING`
-placeholder value, enforced by `scripts/verify_release_tag.py`.
+run — a chicken-and-egg loop. Legacy version 1 attestations may carry
+`transparency_ref: PENDING_HOSTED_VALIDATION`; versions 2 and 3 forbid the
+field and any `PENDING` placeholder value.
+
+Version 3 replaces the single pinned publisher fingerprint for new releases
+with GitHub-maintainer authorization. The attestation records the actual
+GitHub username and full signing-key fingerprint. Local and hosted verifiers
+require the user's effective repository role to be `maintain` or `admin`, and
+require the signing key or subkey to be registered to that same GitHub
+account, signing-capable, unrevoked, and unexpired. The verifier fetches only
+the public `raw_key`, imports it into an isolated temporary GPG keyring, and
+compares the tag's full `VALIDSIG` fingerprint. API failure, an incorrect
+role, unknown key, or fingerprint mismatch fails closed. Legacy version 1/2
+attestations retain their existing fingerprint verification behavior.
 
 ### Atomic publication sequence
 
@@ -127,7 +137,7 @@ content merge:
    `development.ref` to the content commit's full SHA.
 4. It recomputes the attestation's artifact hashes from the content
    commit's tree, sets `subject.commit`, `provenance.source_commit`, and
-   `builder_digest`, writes `attestation_version: 2` without
+   `builder_digest`, writes `attestation_version: 3` without
    `transparency_ref`, and rejects future timestamps or `PENDING`
    placeholders.
 5. It prints the follow-up commands.
@@ -153,8 +163,11 @@ git config --local core.hooksPath .githooks
 The hook (`.githooks/pre-push`) runs `scripts/verify_release_tag.py` for any
 stable `v*` tag being pushed (tags without a hyphen). Development tags are
 skipped. The script performs the same checks as the CI gate: tag signature
-verification, publisher key match, release name, commit relationship, and
-artifact hash verification. If the check fails, the push is blocked.
+verification, publisher authorization, release name, commit relationship,
+and artifact hash verification. Version 3 checks require `gh` authentication
+and read-only network access to GitHub's repository-permission and
+public-GPG-key APIs; the corresponding private key must still be available
+locally to create the signed tag. If any check fails, the push is blocked.
 
 `scripts/verify_release_tag.py` is the single source of truth for the gate
 logic. Both the CI workflow (`protocol-validation.yml`) and the local hook
@@ -180,7 +193,9 @@ through the run's commit SHA.
 
 Verification must check the signature against the publisher identity, confirm
 the source and artifact hashes, validate the independent approval and its
-validity window, and perform a current revocation check. Missing, unsigned,
+validity window, and perform a current revocation check. For version 3, it
+must also confirm the GitHub `maintain`/`admin` role and registered public
+signing key rather than relying on a fixed fingerprint allowlist. Missing, unsigned,
 expired, revoked, or mismatched metadata fails closed. Do not update the
 project lock. Preserve only redacted failure identifiers and hashes for
 investigation, record an incident when appropriate, and continue using the last
@@ -194,7 +209,10 @@ release.
 ## Key lifecycle and compromise
 
 The release owner maintains signing identity metadata and a tested process
-for rotation, expiration, revocation, and recovery. A compromised key or
+for rotation, expiration, revocation, and recovery. Different GitHub release
+maintainers may sign with different registered keys; removing a maintainer's
+repository role or revoking their key blocks new version-3 verification
+without requiring a fixed-key policy edit. A compromised key or
 release requires:
 
 1. Marking the attestation and release revoked.

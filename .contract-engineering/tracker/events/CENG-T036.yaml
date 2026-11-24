@@ -19,3 +19,15 @@ events:
   actor: user
   occurred_at: "2026-11-16T18:35:00Z"
   summary: "Design approved via PR #49 merge; packet complete"
+- event_id: CENG-T036-E004
+  packet_id: CENG-T036-P001
+  type: locks_reconciled
+  actor: droid
+  occurred_at: "2026-11-24T06:21:37Z"
+  summary: "Cleared stale design locks to match the accepted tracker under CENG-T038-P001-DEC001; terminal state and substantive history unchanged."
+- event_id: CENG-T036-E005
+  packet_id: CENG-T036-P001
+  type: evidence_links_reconciled
+  actor: droid
+  occurred_at: "2026-11-24T06:40:07Z"
+  summary: "Linked all five completed acceptance criteria only to existing accepted CENG-T036-P001-EV001 under explicit user approval; no criterion, design, state, evidence, or handoff content changed."

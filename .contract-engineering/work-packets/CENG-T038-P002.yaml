@@ -1,0 +1,236 @@
+packet_id: CENG-T038-P002
+task_id: CENG-T038
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: single-domain
+work_type: delivery
+priority: high
+iteration: "runtime-blast-radius"
+revision: 2
+blast_radius:
+  version: 1
+  status: complete
+  risk: high
+  rationale: "Publishing an immutable protocol release changes the artifact available to governed consumers; consumer locks and installations remain gated separately."
+  packet_revision: 2
+  assessed_at: "2026-11-24T08:03:19Z"
+  source_revision: "39b9ad85c36d8fec26a41888d70e36331f1e600a"
+  components:
+    - name: protocol-release
+      kind: deployment
+      provenance: declared
+      environments: ["github-release"]
+      consumers: ["contract-engineering", "task-master"]
+      shared_resources: ["signed-tag", "protocol-lock", "release-attestation", "github-public-api"]
+      identities: ["release-publisher", "github-actions-readonly-token"]
+  couplings:
+    - from: protocol-release
+      to: task-master
+      effect: "Consumer lock and installed skills advance only after verified publication and H3 adoption review."
+      compatibility: compatible
+      provenance: verified
+      rationale: "The existing consumer remains on verified CE 3.1.0 until the signed 3.2.0 release and hosted gates pass."
+  rollout:
+    - phase: expand
+      description: "Create the reviewed local content commit, attestation commit, and signed v3.2.0 tag."
+      status: planned
+      evidence_refs: []
+    - phase: migrate
+      description: "Atomically push main and the tag, await hosted gates, and publish the matching non-draft GitHub Release."
+      status: planned
+      evidence_refs: []
+    - phase: verify
+      description: "Verify release parity, then synchronize only CE and Task Master through the approved adoption flow."
+      status: planned
+      evidence_refs: []
+  unknowns: []
+  inference_review:
+    status: not_required
+    evidence_refs: []
+    reviewed_at: null
+  live_scope:
+    environments: ["github-main"]
+    source_revision: "39b9ad85c36d8fec26a41888d70e36331f1e600a"
+    live_revision: "39b9ad85c36d8fec26a41888d70e36331f1e600a"
+    observed_at: "2026-11-24T08:14:05Z"
+    evidence_refs: [CENG-T038-P002-EV001]
+  post_deploy_verification:
+    entry_point: null
+    source_revision: null
+    live_revision: null
+    verified_at: null
+    evidence_refs: []
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: "/workspaces/contract-engineering-skills-CENG-T038-P001"
+  branch: "agent/CENG-T038-P001"
+  base_revision: "39b9ad85c36d8fec26a41888d70e36331f1e600a"
+  head_revision: "39b9ad85c36d8fec26a41888d70e36331f1e600a"
+  cleanup_status: active
+title: "Release CE 3.2.0"
+objective: >-
+  Publish the accepted runtime blast-radius and SessionStart contracts through
+  the two-commit signed immutable release process, then permit only the scoped
+  CE and Task Master adoption flow.
+open_questions: []
+state: Implementing
+scope:
+  in:
+    - "CHANGELOG.md"
+    - "hooks/droid-session-start.mjs"
+    - "hooks/droid-session-start.sh"
+    - "hooks/hooks.json"
+    - "scripts/contract_records/__init__.py"
+    - "scripts/contract_records/schemas.py"
+    - "skills/phased-engineering-execution/adapters/generic/CONTEXT-SOURCE-CONTRACT.md"
+    - "skills/phased-engineering-execution/references/blast-radius-gate.md"
+    - "tests/test_blast_radius.py"
+    - "scripts/verify_release_tag.py"
+    - "scripts/github_release_signing.py"
+    - "scripts/finalize_release.py"
+    - "templates/protocol-attestation.yaml"
+    - "tests/test_release_tag.py"
+    - "tests/test_finalize_release.py"
+    - "tests/test_github_release_signing.py"
+    - ".github/workflows/protocol-validation.yml"
+    - "docs/release-integrity.md"
+    - "CONTRIBUTING.md"
+    - "skills/phased-engineering-execution/SKILL.md version metadata only"
+    - ".contract-engineering/protocol.lock.yaml"
+    - ".contract-engineering/release-attestation.yaml"
+    - ".contract-engineering/work-packets/CENG-T038-P002.yaml"
+    - ".contract-engineering/evidence/CENG-T038-P002-EV*.md"
+    - ".contract-engineering/decisions/CENG-T038-P002-DEC*.yaml"
+    - ".contract-engineering/handoffs/CENG-T038-P002-HO*.yaml"
+    - ".contract-engineering/tracker/index.yaml"
+    - ".contract-engineering/tracker/events/CENG-T038.yaml"
+    - ".contract-engineering/execution-tracker.md (renderer-generated projection only)"
+  out:
+    - "Implementation behavior already accepted under CENG-T038-P001"
+    - "Task Master source and consumer lock changes before verified publication and H3"
+    - "Other projects, global skill edits before verified publication, and destructive tag/release operations"
+implementor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-6 Luna
+  session_id: current-session
+capabilities:
+  - repository-read
+  - repository-write
+  - local-validation
+  - governed-release-after-approval
+risk_tier: high
+approval_policy: user
+external_effects:
+  - effect_id: CENG-T038-P002-EFF001
+    target: "github.com/Rusha-Corp/contract-engineering-skills main and v3.2.0"
+    operation: "Atomic push after H2 and local signature verification"
+    data_classification: public-release
+    declared: true
+    reversible: true
+    approval_ref: "H2:CENG-T038-P002 (pending)"
+    rollback: "Stop before push on any failure; after publication retain history and use the verified rollback/revocation process."
+  - effect_id: CENG-T038-P002-EFF002
+    target: "GitHub Release v3.2.0"
+    operation: "Create matching non-draft Release after hosted gates pass"
+    data_classification: public-release
+    declared: true
+    reversible: true
+    approval_ref: "H2:CENG-T038-P002 (pending)"
+    rollback: "Keep consumers on CE 3.1.0 and mark a defective release revoked through the incident process."
+owner:
+  identity: user
+  identity_type: human
+  authentication_ref: "/home/node/.factory/specs/2026-11-24-release-runtime-blast-radius-context.md"
+  signed_at: "2026-11-23"
+reviewer: user
+cleanup_owner: droid
+dependencies:
+  - CENG-T038-P001
+locks:
+  - "CE 3.2.0 release metadata and signed publication path"
+claim_timestamp: "2026-11-24T08:03:19Z"
+baseline_refs:
+  - ".contract-engineering/protocol.lock.yaml"
+  - "39b9ad85c36d8fec26a41888d70e36331f1e600a"
+  - "/home/node/.factory/specs/2026-11-24-release-runtime-blast-radius-context.md"
+  - "CENG-T038-P001-HO001"
+design_decision_ref: "/home/node/.factory/specs/2026-11-24-release-runtime-blast-radius-context.md"
+data_gate_ref: null
+stability: stable
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+applicable_skills:
+  phased-engineering-execution: "2.8.0"
+  security-assurance: "1.2.0"
+  project-lifecycle: "2.5.0"
+acceptance_criteria:
+  - "CE 3.2.0 content, skill hashes, migration notes, consumer impact, and rollback records pass independent H2 review."
+  - "The content commit, attestation commit, signed tag, hosted gates, and GitHub Release satisfy immutable release parity."
+  - "Only CE and Task Master are synchronized after verified publication, and final release evidence is accepted at H4."
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T038-P002-AC001
+      statement: "Release content and migration records are complete and independently approved."
+      expected_result: "H2 accepts the exact content commit, version/hash changes, consumer impact, attestation approach, validation, and rollback."
+      verification_method: review
+      verification_command: "Inspect the content commit and CENG-T038-P002-EV001 before attestation finalization."
+      evidence_refs: [CENG-T038-P002-EV001]
+      failure_result: "No attestation commit, tag, push, or consumer update occurs."
+      validation_ref: CENG-T038-P002-VAL001
+    - id: CENG-T038-P002-AC002
+      statement: "Signed immutable release parity holds."
+      expected_result: "The signed v3.2.0 tag targets the attestation commit whose direct parent is the content commit; hosted gates and the matching non-draft Release pass."
+      verification_method: execute
+      verification_command: "Run finalize_release.py and verify_release_tag.py, push atomically, and verify hosted gates and release assets."
+      evidence_refs: [CENG-T038-P002-EV001]
+      failure_result: "Publication remains incomplete and no consumer lock moves."
+      validation_ref: CENG-T038-P002-VAL002
+    - id: CENG-T038-P002-AC003
+      statement: "Consumer synchronization remains scoped and verifiable."
+      expected_result: "Only CE and Task Master are backed up/synchronized as approved; their preflight and release handoffs pass before H4 closure."
+      verification_method: integration
+      verification_command: "Run the approved CE/Task Master preflight and release verification flow after publication."
+      evidence_refs: [CENG-T038-P002-EV001]
+      failure_result: "Stop adoption, preserve the old verified installation, and record the failed step."
+      validation_ref: CENG-T038-P002-VAL003
+validation_plan:
+  - id: CENG-T038-P002-VAL001
+    kind: review
+    command: "Run the complete CE suite and inspect the exact content commit, release metadata, migration, consumer, and rollback records."
+    expected: "All local checks pass and H2 is recorded before attestation finalization."
+  - id: CENG-T038-P002-VAL002
+    kind: security
+    skill: security-assurance
+    command: "Run scripts/finalize_release.py and scripts/verify_release_tag.py with the approved GPG identity; verify hosted gates and GitHub Release parity."
+    expected: "Signed tag, attestation, content parent, hashes, and non-draft Release agree."
+  - id: CENG-T038-P002-VAL003
+    kind: integration
+    command: "Run scoped consumer preflight and final release verification after H3 adoption."
+    expected: "Only approved consumers change and H4 evidence is complete."
+trust_boundary_ref: "/home/node/.factory/specs/2026-11-24-release-runtime-blast-radius-context.md#hard-boundaries"
+execution_budget_ref: "/home/node/.factory/specs/2026-11-24-release-runtime-blast-radius-context.md#3-integrate-and-publish-ce-320"
+checkpoint_ref: ".contract-engineering/evidence/CENG-T038-P002-EV001.md#release-gates"
+evaluation_ref: ".contract-engineering/evidence/CENG-T038-P002-EV001.md"
+agent_run_ref: ".contract-engineering/evidence/CENG-T038-P002-EV001.md#validation"
+observability_refs:
+  - ".contract-engineering/evidence/CENG-T038-P002-EV001.md"
+incident_refs:
+  - ".contract-engineering/evidence/CENG-T038-P002-EV001.md#rollback"
+evidence_refs:
+  - CENG-T038-P002-EV001
+handoff_ref: null
+skill_gaps: []
+cleanup_scope:
+  size_reviews: []
+  dead_code_review:
+    - baseline
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+updated_at: "2026-11-24T08:23:57Z"

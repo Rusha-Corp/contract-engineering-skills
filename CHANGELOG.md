@@ -2,6 +2,33 @@
 
 ## Unreleased
 
+## 3.2.0 - 2026-11-24
+
+- **Runtime blast-radius contracts:** added versioned packet assessments and
+  project topology for declared, inferred, unknown, stale, and verified
+  impact, including components, identities, consumers, coupling, live scope,
+  rollout order, rollback, and post-deploy evidence.
+- **Risk-tiered lifecycle gates:** active nonterminal packets require an
+  assessment; medium-risk handoffs require inference review; high-risk
+  governed states require current live scope and rollout evidence, with all
+  rollout steps verified at Complete. Incompatible coupling reductions retain
+  expand → migrate → contract ordering. Legacy terminal history remains valid.
+- **Droid SessionStart context:** added native hook auto-discovery and a
+  portable Node launcher with validated deadlines, stdin forwarding, bounded
+  output, deterministic packet selection, and advisory no-output failure.
+- **Skill and consumer guidance:** `phased-engineering-execution` 2.9.0 links
+  the blast-radius gate and host-neutral context-source contract. Consumers
+  should review active-packet migration requirements before advancing their
+  lock; no consumer lock changes with this repository release alone.
+- **Maintainer-based release signing:** attestation version 3 allows any
+  GitHub repository maintainer or administrator to sign with a registered,
+  signing-capable, unrevoked, unexpired key. Local and hosted gates verify
+  the GitHub role, account key ownership, actual tag fingerprint, and artifact
+  hashes; legacy attestations remain compatible.
+- **Validation:** 284 CE tests pass, including schema provenance, terminal
+  compatibility, rollout semantics, the gate-service RBAC incident, and
+  portable adapter tests. Enforced record and tracker validation pass.
+
 ## 3.1.0 - 2026-11-05
 
 - **Code-health gate (issue #21):** the validator now hard-gates a recorded

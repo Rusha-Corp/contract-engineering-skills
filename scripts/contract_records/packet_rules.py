@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+from .blast_radius_rules import validate_blast_radius_semantics
 from .constants import (
     ACCEPTANCE_CRITERION_ID,
     BASE_REVISION,
@@ -264,6 +265,7 @@ def validate_packet(path: Path, packet: dict[str, Any], packets: dict[str, dict[
     if len(packet["locks"]) != len(set(packet["locks"])):
         fail(f"{path}: duplicate lock")
     validate_security_semantics(packet)
+    validate_blast_radius_semantics(packet, path)
     validate_work_metadata(path, packet)
     validate_acceptance_contract(path, packet)
     validate_open_questions(path, packet)

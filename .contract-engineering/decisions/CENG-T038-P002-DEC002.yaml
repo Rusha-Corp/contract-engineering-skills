@@ -1,0 +1,30 @@
+packet_id: CENG-T038-P002
+decision_id: DEC002
+title: "Authorize GitHub release maintainers instead of one pinned fingerprint"
+status: approved
+approved_at: "2026-11-24T08:23:57Z"
+approver: user
+context: |
+  The existing release verifier accepts only the fingerprint recorded in the
+  attestation and the bundled publisher key. The user requires any GitHub
+  release maintainer with a valid registered signing key to publish without
+  weakening provenance or allowing arbitrary GitHub users. Approved specification:
+  /home/node/.factory/specs/2026-11-24-github-maintainer-release-signing-for-ce-3-2.md
+options:
+  - id: OPT-A
+    description: "Use attestation version 3 to bind the GitHub username and actual fingerprint, verify maintain/admin repository role and public key ownership through GitHub, and verify the tag in an isolated temporary keyring."
+    selected: true
+    rationale: "This removes the fixed-key restriction while preserving cryptographic verification, independent H2 review, revocation checks, and fail-closed local/hosted gates."
+  - id: OPT-B
+    description: "Accept any valid GitHub signature without checking repository role or account key ownership."
+    selected: false
+    rationale: "A valid signature alone does not prove release authorization."
+decision: OPT-A
+impacts:
+  - "Version 3 attestations use publisher GitHub identity and actual signing fingerprint; legacy v1/v2 attestations retain their existing verification path."
+  - "Local and hosted release gates require bounded read-only GitHub API access and fail closed on authorization, key, signature, or availability failures."
+  - "Public raw keys are imported only into isolated temporary keyrings; tokens and private keys are never logged or committed."
+  - "Spoofed maintainer identities, tampered artifacts, revoked/expired keys, write-only roles, API ambiguity, and unavailable authorization evidence are release blockers."
+no_impacts:
+  - "No GitHub permission, collaborator, branch-protection, or key registration changes are made."
+  - "No fixed signer allowlist, new third-party action, consumer lock change, deployment, or live CE synchronization is introduced."

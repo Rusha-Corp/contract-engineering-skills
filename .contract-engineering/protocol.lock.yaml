@@ -2,16 +2,18 @@ lock_version: 2
 protocol:
   repository: https://github.com/Rusha-Corp/contract-engineering-skills.git
   ref: 3f69edbfe9571b406551b52dac5a97925b25523d
-  release: 3.1.0-dev
+  release: 3.2.0
 skills:
   phased-engineering-execution:
-    version: 2.8.0
-    sha256: 3fcfc64b5bbff84e2c57f80798063194af3144a703525e53a69bc5e6f3f0a59c
+    version: 2.9.0
+    sha256: 772b3c4d2e254e771277f56fa661dcbab5c03ddd9bfadef50b74ecd7cfae9794
     files:
-      SKILL.md: 3fcfc64b5bbff84e2c57f80798063194af3144a703525e53a69bc5e6f3f0a59c
+      SKILL.md: 772b3c4d2e254e771277f56fa661dcbab5c03ddd9bfadef50b74ecd7cfae9794
       references/approval-gates.md: 0fb4a12042a72491606abfd91bcc3734db113facfce8d76c169f2ee127ae746d
       references/handoff-schema.md: 7cb61efe5020d47bae90802d29238766ca3a4adedd0a05ac78caa5f30cddf272
       references/packet-schema.md: eba8a11701c3baefa91a4917961fa78e4fff47fca44b523b7a3716552ae99326
+      references/blast-radius-gate.md: b833ff79117ddf207c9ff629f3c187b234bd03dfaa5081782af022b1ec796513
+      adapters/generic/CONTEXT-SOURCE-CONTRACT.md: 16c7e6a0fd699ec5ec18084d4bb557572a12bf91a7e1f004877c63d65cb82ffb
   cleanup-protocol:
     version: 2.6.0
     sha256: becca0a938e0b3bbb7b4d4f0d81ab6fdfc06e78a65a644478b58e94e7318d334
@@ -43,13 +45,13 @@ project:
 development:
   status: development
   ref: 3f69edbfe9571b406551b52dac5a97925b25523d
-  based_on_release: 3.1.0
-  reason: v3.1.0 adds the code-health gate, lock v2 per-file hashing, validator decomposition, and skill splits.
-  consumer_action: Synchronize from the locked ref after running the protocol preflight. Lock v1 consumers continue to work; lock v2 adds per-file verification.
+  based_on_release: 3.2.0
+  reason: v3.2.0 adds runtime blast-radius contracts, risk-tiered rollout evidence, and the portable Droid SessionStart adapter.
+  consumer_action: Review active-packet assessments and risk-tiered migration requirements, then synchronize from the verified locked ref. Legacy terminal history remains compatible.
   skills:
     phased-engineering-execution:
-      version: 2.8.0
-      sha256: 3fcfc64b5bbff84e2c57f80798063194af3144a703525e53a69bc5e6f3f0a59c
+      version: 2.9.0
+      sha256: 772b3c4d2e254e771277f56fa661dcbab5c03ddd9bfadef50b74ecd7cfae9794
     cleanup-protocol:
       version: 2.6.0
       sha256: becca0a938e0b3bbb7b4d4f0d81ab6fdfc06e78a65a644478b58e94e7318d334

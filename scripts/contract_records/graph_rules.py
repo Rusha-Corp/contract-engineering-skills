@@ -14,6 +14,7 @@ if str(_PARENT) not in sys.path:
 
 from scripts.record_store import FileStore
 
+from .blast_radius_rules import blast_radius_evidence_refs
 from .loaders import fail, path_matches
 
 # Canonical full-length commit SHA (the format handoff revisions must use
@@ -104,6 +105,9 @@ def validate_references(
         for evidence_ref in packet.get("evidence_refs", []):
             if not store.evidence_exists(evidence_ref):
                 fail(f"{packet_id}: missing evidence {evidence_ref}")
+        for section, evidence_ref in blast_radius_evidence_refs(packet):
+            if not store.evidence_exists(evidence_ref):
+                fail(f"{packet_id}: missing {section} evidence {evidence_ref}")
         handoff_ref = packet.get("handoff_ref")
         if handoff_ref and store.get_handoff(handoff_ref) is None:
             fail(f"{packet_id}: missing handoff {handoff_ref}")

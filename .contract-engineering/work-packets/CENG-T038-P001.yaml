@@ -1,0 +1,231 @@
+packet_id: CENG-T038-P001
+task_id: CENG-T038
+phase: P1_IMPLEMENTATION
+domain: coding
+packet_class: cross-cutting
+work_type: delivery
+priority: high
+iteration: "runtime-blast-radius"
+revision: 3
+blast_radius:
+  version: 1
+  status: no_runtime_impact
+  risk: low
+  rationale: "This packet changes protocol source, local validation, and an opt-in adapter; it performs no deployment or live runtime mutation."
+  packet_revision: 3
+  assessed_at: "2026-11-24T06:40:07Z"
+  source_revision: "39b9ad85c36d8fec26a41888d70e36331f1e600a"
+  components: []
+  couplings: []
+  rollout: []
+  unknowns: []
+  inference_review:
+    status: not_required
+    evidence_refs: []
+    reviewed_at: null
+  live_scope:
+    environments: []
+    source_revision: null
+    live_revision: null
+    observed_at: null
+    evidence_refs: []
+  post_deploy_verification:
+    entry_point: null
+    source_revision: null
+    live_revision: null
+    verified_at: null
+    evidence_refs: []
+lease_ref: null
+fencing_token: ""
+worktree:
+  path: "/workspaces/contract-engineering-skills-CENG-T038-P001"
+  branch: "agent/CENG-T038-P001"
+  base_revision: "39b9ad85c36d8fec26a41888d70e36331f1e600a"
+  head_revision: "39b9ad85c36d8fec26a41888d70e36331f1e600a"
+  cleanup_status: active
+title: "Define runtime blast-radius contracts and pre-session agent context"
+objective: >-
+  Add a versioned runtime-impact and topology contract, risk-tiered validation
+  semantics, and a Droid SessionStart adapter contract so coding agents receive
+  revision-bound blast-radius context before implementation.
+open_questions: []
+state: Complete
+scope:
+  in:
+    - "schemas/work-packet.schema.json"
+    - "schemas/blast-radius.schema.json"
+    - "schemas/runtime-topology.schema.json"
+    - "templates/work-packet.yaml"
+    - "templates/runtime-topology.yaml"
+    - "templates/validation-guide.md"
+    - "scripts/contract_records/packet_rules.py"
+    - "scripts/contract_records/graph_rules.py"
+    - "scripts/contract_records/blast_radius_rules.py"
+    - "tests/test_blast_radius.py and focused CE test fixtures"
+    - "tests/test_droid_adapter.py"
+    - "skills/phased-engineering-execution/SKILL.md and references/packet-schema.md"
+    - "adapters/generic/README.md"
+    - ".factory-plugin/ and hooks/ for the Droid SessionStart adapter"
+    - ".contract-engineering/work-packets/CENG-T038-P001.yaml"
+    - ".contract-engineering/tracker/index.yaml"
+    - ".contract-engineering/tracker/events/CENG-T038.yaml"
+    - ".contract-engineering/evidence/CENG-T038-P001-EV*.md"
+    - ".contract-engineering/handoffs/CENG-T038-P001-HO*.yaml"
+    - ".contract-engineering/decisions/CENG-T038-P001-DEC001.yaml"
+    - ".contract-engineering/decisions/CENG-T038-P001-DEC002.yaml"
+    - ".contract-engineering/work-packets/CENG-T036-P001.yaml"
+    - ".contract-engineering/tracker/events/CENG-T036.yaml"
+    - ".contract-engineering/execution-tracker.md (renderer-generated projection only)"
+  out:
+    - "Consumer protocol locks and installed global skills"
+    - "Task Master application code"
+    - "Other historical Complete packet records and hand-edited tracker Markdown"
+    - "Live CE synchronization, cluster state, release publication, and external writes"
+implementor:
+  agent_id: droid
+  harness: Factory Droid
+  model: GPT-6 Luna
+  session_id: current-session
+capabilities:
+  - repository-read
+  - repository-write
+  - local-validation
+risk_tier: high
+approval_policy: user
+external_effects: []
+owner:
+  identity: user
+  identity_type: human
+  authentication_ref: "/home/node/.factory/specs/2026-11-23-runtime-blast-radius-context-and-pre-session-agent-hooks.md"
+  signed_at: "2026-11-23"
+reviewer: user
+cleanup_owner: droid
+dependencies: []
+locks: []
+claim_timestamp: "2026-11-23T21:02:50Z"
+baseline_refs:
+  - ".contract-engineering/protocol.lock.yaml"
+  - "/home/node/.factory/specs/2026-11-23-runtime-blast-radius-context-and-pre-session-agent-hooks.md"
+  - "39b9ad85c36d8fec26a41888d70e36331f1e600a"
+  - "isolated CE protocol preflight passed against 3f69edbfe9571b406551b52dac5a97925b25523d"
+  - "Existing scope, dependencies, external_effects, validation_plan, and deprecation records do not provide a structured runtime-impact graph"
+  - "No CE SessionStart context renderer or hook was present"
+  - "Baseline dead-code inventory: no orphan implementation identified in the approved additive scope"
+design_decision_ref: "/home/node/.factory/specs/2026-11-23-runtime-blast-radius-context-and-pre-session-agent-hooks.md"
+data_gate_ref: null
+stability: experimental
+deprecation_refs: []
+migration_dependencies: []
+removal_criteria: []
+exception_refs: []
+sunset_target: ""
+concern_owners:
+  protocol: "CE packet and topology contracts"
+  validation: "CE semantic rules and reviewer evidence"
+  adapters: "Host-neutral context and Droid lifecycle integration"
+cross_cutting_rationale: >-
+  The contract, semantic gates, and adapter output must use one shared
+  definition of declared, inferred, unknown, stale, and verified impact.
+  Separate packets would permit incompatible intermediate contracts.
+applicable_skills:
+  phased-engineering-execution: "2.8.0"
+  coding-principles: "1.3.0"
+  security-assurance: "1.2.0"
+  cleanup-protocol: "2.6.0"
+  project-lifecycle: "2.5.0"
+  skill-evolution: "1.3.0"
+acceptance_criteria:
+  - "Packets and project topology can represent declared, inferred, unknown, stale, and verified runtime impact with environments, coupling, rollout order, rollback, and evidence."
+  - "Active nonterminal packets require an assessment under the new contract while historical Complete records remain valid and unchanged."
+  - "Risk-tiered validation enforces medium/high requirements and expand-migrate-contract ordering for incompatible reductions."
+  - "The Droid SessionStart adapter emits bounded read-only context with deterministic packet selection and actionable diagnostics."
+  - "The gate-service RBAC incident regression and full CE validation suite pass without live external changes."
+acceptance_contract:
+  version: 1
+  criteria:
+    - id: CENG-T038-P001-AC001
+      statement: "Runtime-impact and topology schemas preserve provenance and uncertainty."
+      expected_result: "Valid documents represent all approved fields and reject incomplete no-impact or unsupported verified claims."
+      verification_method: test
+      verification_command: "Run the CE schema and blast-radius tests in disposable Python."
+      evidence_refs:
+        - CENG-T038-P001-EV001
+      failure_result: "Inference is treated as verified fact or unknown/no-impact can be omitted silently."
+      validation_ref: CENG-T038-P001-VAL001
+    - id: CENG-T038-P001-AC002
+      statement: "Risk-tiered semantic gates enforce rollout safety without rewriting history."
+      expected_result: "Legacy terminal packets pass unchanged; active packets require assessment; medium/high packets enforce their respective declaration, evidence, and ordering rules."
+      verification_method: test
+      verification_command: "Run CE semantic gate and legacy compatibility tests."
+      evidence_refs:
+        - CENG-T038-P001-EV001
+      failure_result: "A high-risk incompatible reduction advances without current live evidence and rollout ordering."
+      validation_ref: CENG-T038-P001-VAL002
+    - id: CENG-T038-P001-AC003
+      statement: "The Droid adapter provides deterministic pre-session context."
+      expected_result: "Startup, resume, clear, and compact configurations invoke the neutral CLI adapter; explicit or sole claimed packets resolve, ambiguity is reported, and output is bounded."
+      verification_method: test
+      verification_command: "Run adapter fixture tests with a fake tm executable and inspect effective hook JSON."
+      evidence_refs:
+        - CENG-T038-P001-EV001
+      failure_result: "The hook guesses among active packets, mutates external state, or emits secrets/unbounded output."
+      validation_ref: CENG-T038-P001-VAL003
+    - id: CENG-T038-P001-AC004
+      statement: "The incident regression demonstrates the missing compatibility check."
+      expected_result: "Pod permission removal with a live pod-based consumer is high risk and blocked; retain-permissions migration passes; later contraction requires proof."
+      verification_method: test
+      verification_command: "Run the gate-service incident regression fixture."
+      evidence_refs:
+        - CENG-T038-P001-EV001
+      failure_result: "The fixture advances directly from old runtime consumers to removed permissions."
+      validation_ref: CENG-T038-P001-VAL002
+    - id: CENG-T038-P001-AC005
+      statement: "The complete CE validation plan passes within packet scope."
+      expected_result: "Schema, semantic, adapter, full record validation, and existing tests pass; changed paths match scope and limitations are recorded."
+      verification_method: execute
+      verification_command: "Run CE tests and validator in disposable Python plus diff/scope checks."
+      evidence_refs:
+        - CENG-T038-P001-EV001
+      failure_result: "Any runnable check fails or an unrelated file changes."
+      validation_ref: CENG-T038-P001-VAL004
+validation_plan:
+  - id: CENG-T038-P001-VAL001
+    kind: coding
+    command: "Run schema and deterministic contract tests in disposable Python."
+    expected: "All new and existing schema tests pass."
+  - id: CENG-T038-P001-VAL002
+    kind: security
+    skill: security-assurance
+    command: "Run risk-tier, rollout-order, stale-evidence, and incident regression tests."
+    expected: "High-risk unknown or incompatible changes fail closed; no historical records are mutated."
+  - id: CENG-T038-P001-VAL003
+    kind: principles
+    skill: coding-principles
+    command: "Run Droid adapter fixtures and review contract ownership boundaries."
+    expected: "CE owns semantics; adapters remain thin, deterministic, read-only, and bounded."
+  - id: CENG-T038-P001-VAL004
+    kind: integration
+    command: "Run the complete CE test/record-validation suite and packet scope diff check."
+    expected: "All runnable checks pass and only claimed paths change."
+trust_boundary_ref: "/home/node/.factory/specs/2026-11-23-runtime-blast-radius-context-and-pre-session-agent-hooks.md#boundaries"
+execution_budget_ref: "/home/node/.factory/specs/2026-11-23-runtime-blast-radius-context-and-pre-session-agent-hooks.md#3-add-the-droid-pre-session-adapter"
+checkpoint_ref: "/home/node/.factory/specs/2026-11-24-release-runtime-blast-radius-context.md#1-clear-validation-and-security-blockers"
+evaluation_ref: ".contract-engineering/evidence/CENG-T038-P001-EV001.md"
+agent_run_ref: ".contract-engineering/evidence/CENG-T038-P001-EV001.md#results"
+observability_refs:
+  - ".contract-engineering/evidence/CENG-T038-P001-EV001.md"
+incident_refs:
+  - "/home/node/.factory/specs/2026-11-23-runtime-blast-radius-context-and-pre-session-agent-hooks.md#5-validate-against-the-incident-and-real-hook-behavior"
+evidence_refs:
+  - CENG-T038-P001-EV001
+handoff_ref: CENG-T038-P001-HO001
+skill_gaps: []
+cleanup_scope:
+  size_reviews: []
+  dead_code_review:
+    - baseline
+    - handoff
+  dead_refs: []
+  stale_refs: []
+  temp_refs: []
+updated_at: "2026-11-24T08:03:19Z"

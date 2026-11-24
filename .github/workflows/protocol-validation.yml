@@ -199,6 +199,8 @@ jobs:
           persist-credentials: false
           fetch-depth: 2
       - name: Require release attestation
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           test -f .contract-engineering/release-attestation.yaml
           python scripts/verify_release_tag.py

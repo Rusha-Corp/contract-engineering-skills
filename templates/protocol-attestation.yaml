@@ -1,4 +1,4 @@
-attestation_version: 1
+attestation_version: 3
 attestation_id: ""
 issued_at: ""
 expires_at: ""
@@ -12,7 +12,8 @@ subject:
 publisher:
   identity: ""
   identity_type: human|service
-  authentication_ref: ""
+  authentication_ref: "github:"  # github:<username>
+  github_key_fingerprint: ""  # Full 40-character signing key fingerprint
   workflow: ""
   signing_system: sigstore|gpg|other
   signature_ref: ""

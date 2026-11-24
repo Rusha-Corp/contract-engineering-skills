@@ -34,7 +34,13 @@ git config --local core.hooksPath .githooks
 
 The hook runs `scripts/verify_release_tag.py` for any stable `v*` tag and
 blocks the push if the tag is unsigned or does not match the release
-attestation. This catches signing failures before they reach CI.
+attestation. New version-3 attestations allow any GitHub user with the
+repository `maintain` or `admin` role to sign with a registered,
+signing-capable, unrevoked, unexpired key. The attestation records the actual
+username and fingerprint; the verifier checks both through read-only GitHub
+APIs and uses an isolated temporary public keyring. The signer needs the
+corresponding private key locally, plus authenticated `gh` access for the
+pre-push check. This catches signing and authorization failures before CI.
 
 Adapters, tools, MCP servers, plugins, and external dependencies require an
 inventory from `templates/adapter-inventory.yaml`, explicit capabilities and

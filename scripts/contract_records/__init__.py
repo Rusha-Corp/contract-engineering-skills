@@ -32,6 +32,7 @@ from .constants import (
     VALIDATION_PLAN_ID,
     WORK_TYPES,
 )
+from .blast_radius_rules import validate_blast_radius_semantics
 from .code_health import (
     DEFAULT_EXCLUDE,
     DEFAULT_MAX_FILE_LINES,
@@ -136,6 +137,7 @@ __all__ = [
     "resolve_protocol_root",
     "run_validation",
     "validate_acceptance_contract",
+    "validate_blast_radius_semantics",
     "validate_canonical_tracker",
     "validate_code_health",
     "validate_dead_code_review",

@@ -1,0 +1,115 @@
+handoff_version: 3
+handoff_id: CENG-T038-P001-HO001
+packet_id: CENG-T038-P001
+transition:
+  from: Validation
+  to: Handoff
+  reason: Final implementation, security, migration, and real packaged integration evidence is ready for H1 review.
+sender:
+  identity: droid
+  identity_type: agent
+  authenticated: true
+  authentication_ref: /home/node/.factory/specs/2026-11-23-runtime-blast-radius-context-and-pre-session-agent-hooks.md
+  signature_ref: ''
+receiver:
+  identity: user
+  identity_type: human
+  authenticated: true
+  authentication_ref: /home/node/.factory/specs/2026-11-24-release-runtime-blast-radius-context.md
+  accepted_at: '2026-11-24T08:03:19Z'
+  acceptance_ref: H1:CENG-T038-P001:Factory-AskUser
+  signature_ref: ''
+base_revision: 39b9ad85c36d8fec26a41888d70e36331f1e600a
+head_revision: 39b9ad85c36d8fec26a41888d70e36331f1e600a
+scope_digest: 241e4903510b1fa6895b001e0ca73e1cc937ecee171908a49dcd9862c62ff317
+changed_resources:
+  - path: .contract-engineering/decisions/CENG-T038-P001-DEC001.yaml
+    sha256: 47f293db765c8934bd6aa7e93a47d928b339f25ed2bea751d95ec21538f88f74
+  - path: .contract-engineering/decisions/CENG-T038-P001-DEC002.yaml
+    sha256: b0226adb2169bdb8116ecd7084ee5ef0213605bb7af8e34b222a7e413f741ba1
+  - path: .contract-engineering/evidence/CENG-T038-P001-EV001.md
+    sha256: 8fe9423082b0133ca3fb88c75d91149a468d2a42b6191e05edccaaa0935d551a
+  - path: .contract-engineering/execution-tracker.md
+    sha256: bdb5c08bec71a35183311cd4db91696372b428b1dd9779dc51cff13fd884e84f
+  - path: .contract-engineering/tracker/events/CENG-T036.yaml
+    sha256: 52b899411e4562a38482eb9165b57a98c123631e38ccc0e1b97354d69a5ffe3d
+  - path: .contract-engineering/tracker/events/CENG-T038.yaml
+    sha256: 521dd306131dbe2d37f9de9fc14cf3b457d9b0e3e403c3347330774b1b760b0f
+  - path: .contract-engineering/tracker/index.yaml
+    sha256: 991ae5115e1cb541707119c8888db30f9af22a8f71a3eb31f6201884d9c44b60
+  - path: .contract-engineering/work-packets/CENG-T036-P001.yaml
+    sha256: 61f825beb33d308751e26e496798bc6e440f296841c78a80b55a0e21bac8dd0d
+  - path: .contract-engineering/work-packets/CENG-T038-P001.yaml
+    sha256: 116ac51e07e7bf7d728dfce10be0006b2e9387e4a23fc37ab74ba5963cab321b
+  - path: hooks/droid-session-start.mjs
+    sha256: 1f20136014f59ebac9a09a7d8cce44e93891c2c64f0d63f6c6a35fba2a0080bf
+  - path: hooks/droid-session-start.sh
+    sha256: 7bfdc39db3f1cea730e3bb3cb36287b634d89a5d018b4bc637e448eec16b533f
+  - path: hooks/hooks.json
+    sha256: 99114042b943f3ce29fb34429ed0ecfb92a9fbe128ad7f2cc1ab719a79d8eb44
+  - path: schemas/blast-radius.schema.json
+    sha256: ba1d9fcbeef0f4088ebf7475a1d2a2153cdd4ed1ced6c06395ecbec3c41783e5
+  - path: schemas/runtime-topology.schema.json
+    sha256: b5cd07c75794b2bd96d0877a088c7139c9027a2face3c2f17aa37c9d2b09bb5b
+  - path: schemas/work-packet.schema.json
+    sha256: 60d13ba741b34a3ee74e2b89fde876504e233482811533fc73e0a7bc7c107fd2
+  - path: scripts/contract_records/__init__.py
+    sha256: 1da16f0ca8ecaf147951c25cd69354bbed9fde6f29a62c9413c5a3c78f78dcb3
+  - path: scripts/contract_records/blast_radius_rules.py
+    sha256: 547632e2619c39e060f3e4167c4230eaacc1bb88a77a95b5520a1374c52a52f4
+  - path: scripts/contract_records/graph_rules.py
+    sha256: 28ad423682f1d51546fa350bcf6287c03a38de07e148cfb8f083bdd6c404b6c4
+  - path: scripts/contract_records/packet_rules.py
+    sha256: ae616362324cd20b244fa47074d95aa869ba6315e4d762d672bfc5daf88923ac
+  - path: scripts/contract_records/schemas.py
+    sha256: 9d711c486421f09c8ab93ccacac81d289a6659a4447f47df37f303627ca81aae
+  - path: skills/phased-engineering-execution/SKILL.md
+    sha256: fde13841f986ac8e1186f3699d30d040f1ef0012935a59a58c50086e56c7c676
+  - path: skills/phased-engineering-execution/adapters/generic/CONTEXT-SOURCE-CONTRACT.md
+    sha256: 16c7e6a0fd699ec5ec18084d4bb557572a12bf91a7e1f004877c63d65cb82ffb
+  - path: skills/phased-engineering-execution/references/blast-radius-gate.md
+    sha256: b833ff79117ddf207c9ff629f3c187b234bd03dfaa5081782af022b1ec796513
+  - path: templates/runtime-topology.yaml
+    sha256: 97272b18843b75c01cf44bb169d5f3353d8a7454caedcef93b1e1883b031afdd
+  - path: templates/work-packet.yaml
+    sha256: cc43488a1170e6a276b0681a1636caf0b056fbfd745a636b730cac332cce4040
+  - path: tests/test_blast_radius.py
+    sha256: 2fe553b29f397a22e4b96de3adbc02abc20cc51778e1b112af827270c0699aca
+  - path: tests/test_droid_adapter.py
+    sha256: 40f0ffe69d00c7129fa623ceab6d0a568efa01f0f0a4fb68848c4e4b94342410
+created_at: '2026-11-24T07:19:45Z'
+expires_at: ''
+approval_ref: CENG-T038-P001-DEC002#approval
+verification:
+  verified_at: '2026-11-24T07:19:45Z'
+  verifier: droid
+  result: pass
+  revocation_checked_at: ''
+  verification_ref: CENG-T038-P001-EV001
+validation_results:
+  - command: python3 -m unittest discover -s tests -p 'test_*.py'
+    result: exit 0; 267 tests passed
+  - command: python3 scripts/validate-contract-records.py
+    result: exit 0; contract validation valid in enforced mode
+  - command: python3 scripts/validate-tracker.py --root .contract-engineering && python3 scripts/render-tracker.py --root .contract-engineering --check
+    result: exit 0; 11 active rows, 68 archive rows, 3 partitions; renderer current
+  - command: packaged tm context plus hooks/droid-session-start.mjs
+    result: exit 0; text/JSON/SessionStart passed; 691 characters; credential redacted; no live access
+  - command: git diff --check HEAD
+    result: exit 0
+evidence_refs:
+  - CENG-T038-P001-EV001
+skill_gaps: []
+unresolved_items:
+  - H1 implementation acceptance is recorded; H2 release approval remains pending.
+  - No commit, signed tag, publication, consumer synchronization, deployment, or live verification has occurred.
+  - SG004/SG005 remain deferred.
+rollback_notes: Revert only the hash-listed CE and authorized T036 metadata resources; preserve terminal history and all unrelated user work. Consumers remain on their existing verified CE releases.
+requested_next_action: Prepare the exact CE 3.2.0 content, migration, consumer-impact, attestation, and rollback records for H2. Do not commit until the approved signing key is restored.
+receiver_status: accepted
+receiver_notes: H1 accepted the hash-bound CE implementation, EV001, and authorized T036 metadata reconciliation. Documented release limitations remain; no publication approval is implied.
+accepted_revision: 39b9ad85c36d8fec26a41888d70e36331f1e600a
+accepted_packet_revision: 3
+accepted_scope_digest: 241e4903510b1fa6895b001e0ca73e1cc937ecee171908a49dcd9862c62ff317
+accepted_evidence_refs:
+  - CENG-T038-P001-EV001

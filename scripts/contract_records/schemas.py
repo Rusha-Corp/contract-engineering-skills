@@ -78,6 +78,19 @@ def validate_json_schemas(root: Path, packets: dict[str, dict[str, Any]]) -> Non
                 load_yaml(path),
                 f"{path} ({identifier_key})",
             )
+    topology_path = root / "runtime-topology.yaml"
+    if topology_path.is_file():
+        document = documents.get("runtime-topology.schema.json")
+        if document is None:
+            fail(f"{schema_dir / 'runtime-topology.schema.json'}: schema is missing")
+        validator_class = jsonschema.validators.validator_for(document)
+        validator_class.check_schema(document)
+        validate_instance(
+            validator_class(document, registry=registry),
+            load_yaml(topology_path),
+            str(topology_path),
+        )
+
     tracker_validator = schemas["tracker.schema.json"]
     for path in _tracker_instance_paths(root):
         validate_instance(tracker_validator, load_yaml(path), str(path))
